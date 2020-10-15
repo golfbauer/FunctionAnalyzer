@@ -1,4 +1,4 @@
-image: miadmin_openjdk14-gradle6.3-openjfx14:latest
+image: $CI_REGISTRY/it/development/git-runners/itadmin-openjdk14_openjfx14-repo-hhnit:latest
 
 stages:
   - build
