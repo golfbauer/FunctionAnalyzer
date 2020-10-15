@@ -1,0 +1,4 @@
+rootProject.name = 'aaa-devtools-20ws'
+
+
+include ':components', ':javafx'

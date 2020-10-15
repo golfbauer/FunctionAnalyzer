@@ -1,3 +1,1 @@
-# aaa-devtools-20ws
-
-Template project
+Preparation project for the lecture "personal productivity".
