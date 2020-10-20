@@ -8,6 +8,11 @@ import java.io.FileNotFoundException;
  */
 
 public class DemoTypingTrainerUsage implements I_Interaction{
+
+    public static void main(String[] args) {
+
+    }
+
     /***
      * Überprüft das geschriebene Wort auf Richtigkeit
      * @param word : Wort das überprüft werden soll
@@ -84,7 +89,4 @@ public class DemoTypingTrainerUsage implements I_Interaction{
     public void loadScore(File saveFile) throws FileNotFoundException {
 
     }
-    /***
-     * @author Tobias Maraci, Robert Pistea
-     */
 }
