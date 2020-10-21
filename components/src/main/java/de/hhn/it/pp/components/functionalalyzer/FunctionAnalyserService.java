@@ -2,7 +2,7 @@ package de.hhn.it.pp.components.functionalalyzer;
 
 import java.util.List;
 
-public interface FunctionAnalyserServer {
+public interface FunctionAnalyserService {
   /**
    * Converts a String into a Function
    * @param input String that should be converted to Function
