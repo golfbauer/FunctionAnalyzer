@@ -1,6 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
-import de.hhn.it.pp.components.exceptions.CounterNotFoundException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
 
 import java.io.File;
 import java.util.ArrayList;
