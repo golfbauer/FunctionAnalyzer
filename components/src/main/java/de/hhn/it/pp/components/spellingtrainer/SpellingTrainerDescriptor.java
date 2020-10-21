@@ -27,7 +27,7 @@ public class SpellingTrainerDescriptor {
     public String getSpellingWord(int index){
         return spellingWords.get(index);
     }
-    public int getCounterString(String counterName) throws CounterNotFoundException{
+    public int getCounter(String counterName) throws CounterNotFoundException{
 
         switch(counterName.toLowerCase()){
             case "wrong":
