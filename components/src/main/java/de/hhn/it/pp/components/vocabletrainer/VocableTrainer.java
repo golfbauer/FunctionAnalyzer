@@ -34,18 +34,18 @@ public interface VocableTrainer {
     /**
      * Remove user from user list
      *
-     * @param id User
+     * @param userId User
      * @return user successfully removed
      */
-    boolean removeUser(int id) throws IllegalParameterException;
+    boolean removeUser(int userId) throws IllegalParameterException;
 
     /**
      * Select a user from the user list
      *
-     * @param id User
+     * @param userId User
      * @return user successfully selected
      */
-    boolean selectUser(int id) throws IllegalParameterException;
+    boolean selectUser(int userId) throws IllegalParameterException;
 
     /**
      * Returns the currently selected VocCategory.
@@ -72,18 +72,18 @@ public interface VocableTrainer {
     /**
      * Remove VocCategory from VocCategory array
      *
-     * @param id VocCategory
+     * @param CategoryId VocCategory
      * @return VocCategory successfully removed
      */
-    boolean removeVocCategory(int id) throws IllegalParameterException;
+    boolean removeVocCategory(int CategoryId) throws IllegalParameterException;
 
     /**
      * Select a VocCategory from the VocCategory array
      *
-     * @param id VocCategory
+     * @param CategoryId VocCategory
      * @return VocCategory successfully selected
      */
-    boolean selectVocCategory(int id) throws IllegalParameterException;
+    boolean selectVocCategory(int CategoryId) throws IllegalParameterException;
 
     /**
      * Returns the currently selected Vocable.
@@ -102,10 +102,10 @@ public interface VocableTrainer {
     /**
      * Add a new Vocable to the Vocabulary list
      *
-     * @param originWord , foreignWord, id of the VocCategory
+     * @param originWord , foreignWord, CategoryId of the VocCategory
      * @return Vocable successfully added
      */
-    boolean addVocable(String originWord, String foreignWord, VocCategory id) throws IllegalParameterException, IllegalStateException;
+    boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId) throws IllegalParameterException, IllegalStateException;
 
     /**
      * Remove Vocable from Vocabulary list
