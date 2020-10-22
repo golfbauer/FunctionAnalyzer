@@ -33,7 +33,7 @@ public interface VocableTrainer {
     /**
      * Remove user from user list
      *
-     * @param user id
+     * @param id User
      * @return user successfully removed
      */
     boolean removeUser(int id);
@@ -41,7 +41,7 @@ public interface VocableTrainer {
     /**
      * Select a user from the user list
      *
-     * @param user id
+     * @param id User
      * @return user successfully selected
      */
     boolean selectUser(int id);
@@ -71,7 +71,7 @@ public interface VocableTrainer {
     /**
      * Remove VocCategory from VocCategory array
      *
-     * @param VocCategory id
+     * @param id VocCategory
      * @return VocCategory successfully removed
      */
     boolean removeVocCategory(int id);
@@ -79,7 +79,7 @@ public interface VocableTrainer {
     /**
      * Select a VocCategory from the VocCategory array
      *
-     * @param VocCategory id
+     * @param id VocCategory
      * @return VocCategory successfully selected
      */
     boolean selectVocCategory(int id);
@@ -112,14 +112,6 @@ public interface VocableTrainer {
      * @return List of registered coffee makers
      */
     void addNewVocab(String eng, String de, String category);
-
-    /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
-     */
-    void selectCategory();
-
 
     /**
      * Returns a list of registered coffee makers.
