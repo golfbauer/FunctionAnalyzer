@@ -84,6 +84,43 @@ public interface VocableTrainer {
      */
     boolean selectVocCategory(int id);
 
+    /**
+     * Returns the currently selected Vocable.
+     *
+     * @return Vocable
+     */
+    Vocable getVocable();
+
+    /**
+     * Returns all Vocabulary.
+     *
+     * @return List of registered vocabulary
+     */
+    ArrayList<Vocable>  getVocabulary();
+
+    /**
+     * Add a new Vocable to the Vocabulary list
+     *
+     * @param originWord , foreignWord, id of the VocCategory
+     * @return Vocable successfully added
+     */
+    boolean addVocable(String originWord, String foreignWord, VocCategory id);
+
+    /**
+     * Remove Vocable from Vocabulary list
+     *
+     * @param vocableId Vocabulary
+     * @return Vocable successfully removed
+     */
+    boolean removeVocable(int vocableId);
+
+    /**
+     * Select a VocCategory from the VocCategory array
+     *
+     * @param vocableId Vocabulary
+     * @return Vocable successfully selected
+     */
+    boolean selectVocable(int vocableId);
 
     /**
      * Returns a list of registered coffee makers.
