@@ -3,9 +3,48 @@ package de.hhn.it.pp.components.vocabletrainer;
 import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerDescriptor;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface VocableTrainer {
+    /**
+     * Returns the currently selected User.
+     *
+     * @return user object
+     */
+    User getUser();
+
+    /**
+     * Returns a list of users.
+     *
+     * @return List of registered users
+     */
+    ArrayList<User> getUsers();
+
+    /**
+     * Add a new User to the user list
+     *
+     * @param name of the new user
+     * @return user successfully added
+     */
+    boolean addUser(String name);
+
+    /**
+     * Remove user from user list
+     *
+     * @param user id
+     * @return user successfully removed
+     */
+    boolean removeUser(int id);
+
+    /**
+     * Select a user from the user list
+     *
+     * @param user id
+     * @return user successfully selected
+     */
+    boolean selectUser(int id);
+
     /**
      * Returns a list of registered coffee makers.
      *
@@ -32,7 +71,7 @@ public interface VocableTrainer {
      *
      * @return List of registered coffee makers
      */
-    void addNewVocab(String eng,String de,String category);
+    void addNewVocab(String eng, String de, String category);
 
     /**
      * Returns a list of registered coffee makers.
@@ -61,6 +100,6 @@ public interface VocableTrainer {
      *
      * @return List of registered coffee makers
      */
-    //void checkVocab();
+    void ok();
 
 }
