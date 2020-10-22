@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface VocableTrainer {
+
     /**
      * Returns the currently selected User.
      *
@@ -44,6 +45,45 @@ public interface VocableTrainer {
      * @return user successfully selected
      */
     boolean selectUser(int id);
+
+    /**
+     * Returns the currently selected VocCategory.
+     *
+     * @return VocCategory array
+     */
+    VocCategory getVocCategory();
+
+    /**
+     * Returns all VocCategories.
+     *
+     * @return List of registered VocCategories
+     */
+    VocCategory[] getVocCategories();
+
+    /**
+     * Add a new VocCategory to the VocCategory array
+     *
+     * @param id of the new VocCategory
+     * @return VocCategory successfully added
+     */
+    boolean addVocCategory(int id);
+
+    /**
+     * Remove VocCategory from VocCategory array
+     *
+     * @param VocCategory id
+     * @return VocCategory successfully removed
+     */
+    boolean removeVocCategory(int id);
+
+    /**
+     * Select a VocCategory from the VocCategory array
+     *
+     * @param VocCategory id
+     * @return VocCategory successfully selected
+     */
+    boolean selectVocCategory(int id);
+
 
     /**
      * Returns a list of registered coffee makers.
