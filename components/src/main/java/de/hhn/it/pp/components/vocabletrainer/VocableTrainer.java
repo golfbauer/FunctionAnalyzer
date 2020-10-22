@@ -130,45 +130,32 @@ public interface VocableTrainer {
     String setInput();
 
     /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
-     */
-    int getScore(int id);
-
-    /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
-     */
-    String getVocab(File f);
-
-    /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
-     */
-    void addNewVocab(String eng, String de, String category);
-
-    /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
+     * Canceling the current process
      */
     void cancel();
 
     /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
+     *  Skips the current vocable
      */
     void skip();
 
     /**
-     * Returns a list of registered coffee makers.
-     *
-     * @return List of registered coffee makers
+     * Confirm
      */
     void ok();
 
+
+    /**
+     * Save the Vocable or Category and enter a new Vocable or Category
+     *
+     * @throws IllegalStateException if input is incomplete or already exists
+     */
+    void saveAndNew() throws IllegalStateException;
+
+    /**
+     * Save the Vocable or Category
+     *
+     * @throws IllegalStateException if input is incomplete or already exists
+     */
+    void save() throws IllegalStateException;
 }
