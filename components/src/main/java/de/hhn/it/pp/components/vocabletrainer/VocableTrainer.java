@@ -1,11 +1,8 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerDescriptor;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface VocableTrainer {
 
@@ -144,7 +141,6 @@ public interface VocableTrainer {
      * Confirm
      */
     void ok();
-
 
     /**
      * Save the Vocable or Category and enter a new Vocable or Category
