@@ -1,1 +1,0 @@
-https://confluence-student.it.hs-heilbronn.de/x/QAAmB
