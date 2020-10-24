@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.functionanalyzer;
+package de.hhn.it.pp.components.functionalalyzer;
 
 import java.util.List;
 
