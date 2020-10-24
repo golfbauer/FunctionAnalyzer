@@ -8,9 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class DemoSpellingTrainerUsage {
-    public static void main(String[] args) throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException, CounterNotFoundException {
-        String word="Testwort";
-        File audioFile = new File("Audio.mp3");
+    public static void main(String[] args) throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException{
+        //Nur für den Test
         SpellingTrainerService service = new SpellingTrainerService() {
             @Override
             public void audioOutput(File audioFile) throws FileNotFoundException {
@@ -31,20 +30,20 @@ public class DemoSpellingTrainerUsage {
 
             }
         };
-        service.audioOutput(audioFile);
-        service.addWord(word,audioFile);
-        service.checkSpelling(word);
-        service.deleteWord(word);
         SpellingTrainerDescriptor descriptor = new SpellingTrainerDescriptor();
-        descriptor.setSpellingWord(word);
-        descriptor.getAudioFile(word);
-        descriptor.getCounter("Wrong");
-        descriptor.setAudioFiles(word,audioFile);
-        descriptor.getSpellingWord(0);
 
+        //Nicht während Projektablauf
+        String word = "test";
+        File audioFile = new File("test.mp3");
+        service.addWord(word,audioFile);  //descriptor.setSpellingWord(word);  descriptor.setAudioFiles(word,audioFile);
+        service.deleteWord(word);
 
-
-
+        //Ablauf für jedes Wort wiederholen
+        word = descriptor.getSpellingWord(0);
+        audioFile = descriptor.getAudioFile(word);
+        service.audioOutput(audioFile);
+        //User Eingabe über JavaFX
+        service.checkSpelling(word);  //descriptor.updateCounter("Wrong", 1);
         }
 
     }

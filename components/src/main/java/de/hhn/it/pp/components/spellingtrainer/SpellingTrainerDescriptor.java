@@ -9,41 +9,78 @@ import java.util.HashMap;
 
 public class SpellingTrainerDescriptor {
 
-    private HashMap<String, File> audioFiles= new HashMap<>();
-    private ArrayList<String> spellingWords= new ArrayList<>();
-    private int counterWrongWords;
-    private int counterRightWords;
-    private int counterRemainingWords;
+  private HashMap<String, File> audioFiles = new HashMap<>();
+  private ArrayList<String> spellingWords = new ArrayList<>();
+  private int counterWrongWords;
+  private int counterRightWords;
+  private int counterRemainingWords;
 
-    public void setAudioFiles(String spellingWord,File audioFile){
-        audioFiles.put(spellingWord,audioFile);
+  public void setAudioFiles(String spellingWord, File audioFile) {
+    audioFiles.put(spellingWord, audioFile);
+  }
+
+  public File getAudioFile(String spellingWord) {
+    return audioFiles.get(spellingWord);
+  }
+
+  public void setSpellingWord(String spellingWord) {
+    spellingWords.add(spellingWord);
+  }
+
+  public String getSpellingWord(int index) {
+    return spellingWords.get(index);
+  }
+
+  /**
+   * Returns the counter value of the addressed counter.
+   *
+   * @param counterName name of the counter (wrong, right, remaining)
+   * @return counter value
+   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   */
+  public int getCounter(String counterName) throws CounterNotFoundException {
+
+    switch (counterName.toLowerCase()) {
+      case "wrong":
+        return counterWrongWords;
+
+      case "right":
+        return counterRightWords;
+
+      case "remaining":
+        return counterRemainingWords;
+
+      default:
+        throw new CounterNotFoundException();
+
     }
-    public File getAudioFile(String spellingWord){
-        return audioFiles.get(spellingWord);
+  }
+
+  /**
+   * Updates the counter value by adding the entered value.
+   *
+   * @param counterName counterName name of the counter (wrong, right, remaining)
+   * @param value       value that the counter ist updated with
+   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   */
+  public void updateCounter(String counterName, int value) throws CounterNotFoundException {
+
+    switch (counterName.toLowerCase()) {
+      case "wrong":
+        counterWrongWords += value;
+        break;
+
+      case "right":
+        counterRightWords += value;
+        break;
+
+      case "remaining":
+        counterRemainingWords += value;
+        break;
+
+      default:
+        throw new CounterNotFoundException();
+
     }
-    public void setSpellingWord(String spellingWord){
-        spellingWords.add(spellingWord);
-    }
-    public String getSpellingWord(int index){
-        return spellingWords.get(index);
-    }
-    public int getCounter(String counterName) throws CounterNotFoundException{
-
-        switch(counterName.toLowerCase()){
-            case "wrong":
-                return counterWrongWords;
-
-            case "right":
-                return counterRightWords;
-
-            case "remaining":
-                return counterRemainingWords;
-
-            default:
-                 throw new CounterNotFoundException();
-
-
-        }
-    }
-
+  }
 }
