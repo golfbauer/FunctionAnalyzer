@@ -56,6 +56,7 @@ public interface VocableTrainer {
    *
    * @return List of registered VocCategories
    */
+
   VocCategory[] getVocCategories();
 
   /**
