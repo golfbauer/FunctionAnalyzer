@@ -31,6 +31,13 @@ public class SpellingTrainerDescriptor {
     return spellingWords.get(index);
   }
 
+  /**
+   * Returns the counter value of the addressed counter.
+   *
+   * @param counterName name of the counter (wrong, right, remaining)
+   * @return counter value
+   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   */
   public int getCounter(String counterName) throws CounterNotFoundException {
 
     switch (counterName.toLowerCase()) {
@@ -42,6 +49,34 @@ public class SpellingTrainerDescriptor {
 
       case "remaining":
         return counterRemainingWords;
+
+      default:
+        throw new CounterNotFoundException();
+
+    }
+  }
+
+  /**
+   * Updates the counter value by adding the entered value.
+   *
+   * @param counterName counterName name of the counter (wrong, right, remaining)
+   * @param value       value that the counter ist updated with
+   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   */
+  public void updateCounter(String counterName, int value) throws CounterNotFoundException {
+
+    switch (counterName.toLowerCase()) {
+      case "wrong":
+        counterWrongWords += value;
+        break;
+
+      case "right":
+        counterRightWords += value;
+        break;
+
+      case "remaining":
+        counterRemainingWords += value;
+        break;
 
       default:
         throw new CounterNotFoundException();
