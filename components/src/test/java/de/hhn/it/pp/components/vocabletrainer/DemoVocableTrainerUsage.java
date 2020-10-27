@@ -5,42 +5,42 @@ public class DemoVocableTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
   
   public static void main(String[] args) {
-    // Startseite
-    // auswahl -> Benutzer hinzufügen, auswählen (editieren, löschen), OK;
-    // anzeige -> Benutzerliste (Scoreliste), (ausgewählter) Benutzer, Score
+    // Homepage
+    // pick -> add, choose (edit, delete) user, OK;
+    // show -> User list (score list), (selected) user, score
 
-    // Kategorie Seite
-    // auswahl -> Kategorie hinzufügen, auswählen (editieren, löschen), OK, Back;
-    // anzeige -> Kategorieliste, Benutzer, Score
+    // Category page
+    // pick -> add, choose (edit, delete) category, OK, Back;
+    // show -> Category list, user, score
 
-    // Vokabel Seite
-    // auswahl -> Vokabel hinzufügen, auswählen (editieren, löschen); Kategorie (Set) lernen alles / falsch, Back;
-    // anzeige -> Ausgewählte Kategorie, Vokabelliste, anzeige ob vokabel schon gelernt, falsch
-    //  oder richtig beantwortet wurde, Benutzer, Score
+    // Vocabulary page
+    // pick -> add, choose (edit, delete) vocabulary; Category (Set) learn everything / wrong, back;
+    // show -> Selected category, vocabulary list, indication of whether vocabulary has already been learned, answered
+    // incorrectly or correctly, user, score
 
-    // Benutzer editieren (hinzufügen)
-    // auswahl -> Textfeld (Name), OK, Cancle;
-    // anzeige -> Benutzer Name
+    // edit (add) User
+    // pick -> Text field (name), OK, Cancel;
+    // show -> User name
 
-    // Kategorie editieren (hinzufügen)
-    // auswahl -> Textfeld (Name), OK; Cancle;
-    // anzeige -> Kategorie name
+    // edit (add) Category
+    // pick -> Text field (name), OK; Cancel;
+    // show -> Category name
 
-    // Vokabel editieren (hinzufügen)
-    // auswahl -> Textfeld (origin), Textfeld (Übersetzung) , OK, Cancle;
-    // anzeige -> Vokabel name, Kategorie
+    // edit (add) Vocabulary
+    // pick -> Text field (untranslated), text field (translation) , OK, Cancel;
+    // show -> Vocabulary name, category
 
-    // Lern seite
-    // auswahl -> Textfeld, OK, Skip, Cancle;
-    // anzeige -> Vokabel origin, Benutzer, Score, (bei skip -> Lösung)
+    // Learn page
+    // pick -> Text field, OK, Skip, Cancel;
+    // show -> Vocabulary untranslated, user, score, (at skip -> answer)
 
-    // Fertig mit lernen
-    // auswahl -> OK
-    // anzeige -> Benutzer, neuer Score, falsche/richtige Wörter
+    // Done with learning
+    // pick -> OK
+    // show -> User, new Score, wrong/correct words
 
-    // Löschen Seite
-    // auswahl OK, Cancle;
-    // anzeige -> "Bist du dir sicher?"
+    // Delete page
+    // pick -> OK, Cancel;
+    // show -> "Are you sure?"
 
   }
 }
