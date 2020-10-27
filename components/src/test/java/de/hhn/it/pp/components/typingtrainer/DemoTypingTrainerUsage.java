@@ -1,90 +1,80 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import javax.print.attribute.standard.Media;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ArrayList;
 
 /***
  * @author Tobias Maraci, Robert Pistea
  */
 
-public class DemoTypingTrainerUsage implements I_Interaction{
-    /***
-     * Überprüft das geschriebene Wort auf Richtigkeit
-     * @param word : Wort das überprüft werden soll
-     * @return : true, wenn Wort richtig ist
-     * @throws WordNotFoundException
-     */
-    @Override
-    public boolean checkWord(String word) throws WordNotFoundException {
-        return false;
-    }
+public class DemoTypingTrainerUsage{
 
-    /***
-     * Spielt einen Ton ab.
-     * @param soundFile : Ton der abgespielt wird
-     * @throws FileNotFoundException
-     */
-    @Override
-    public void audioOutput(File soundFile) throws FileNotFoundException {
+    private File audioWrongWord; // Audio für falsche Wörter
+    private static int counterRightWords; // Zähler für richtige Wörter (WPM)
+    private ArrayList<String> selectedText = new ArrayList<>(); // Text der ausgewählt wird
+    private static float time;
+    private static float wordsPerMinute;
 
-    }
+    public static void main(String[] args) {
+        TypingTrainerService start = new TypingTrainerService() {
 
-    /***
-     * Markiert ein Wort
-     * @param word : Wort das markiert wird
-     * @throws WordNotFoundException
-     */
-    @Override
-    public void markWork(String word) throws WordNotFoundException {
 
-    }
+            @Override
+            public boolean checkWord(String word) throws WordNotFoundException {
+                return false;
+            }
 
-    /***
-     * Wählt Text aus der geübt werden soll
-     * @param selectedText : Ausgewählter Text
-     */
-    @Override
-    public void selectionOfText(String selectedText) {
+            @Override
+            public void audioOutput(File soundFile) throws FileNotFoundException {
 
-    }
+            }
 
-    /***
-     * Beendet eine Übungsphase.
-     */
-    @Override
-    public void quitSession() {
+            @Override
+            public void markWord(String word) throws WordNotFoundException {
 
-    }
+            }
 
-    /***
-     * Zeigt dem User seinen Score (Zeit wie lang er für den Text gebraucht hat, WPM) an
-     * @param feedback
-     */
-    @Override
-    public void showFeedback(Feedback feedback) {
+            @Override
+            public void selectionOfText(String selectedText) {
 
-    }
+            }
 
-    /***
-     * Speichert den Fortschritt des Users in eine txt File
-     * @param saveFile : File in der es gespeichert wird
-     * @throws FileNotFoundException
-     */
-    @Override
-    public void saveScore(File saveFile) throws FileNotFoundException {
+            @Override
+            public void quitSession() {
 
-    }
+            }
 
-    /***
-     * Lädt die txt File falls sie existiert
-     * @param saveFile : File die geladen werden soll
-     * @throws FileNotFoundException
-     */
-    @Override
-    public void loadScore(File saveFile) throws FileNotFoundException {
+            @Override
+            public void showFeedback(float time, float wordsPerMinute) {
+
+            }
+
+            @Override
+            public void saveScore(File saveFile) throws FileNotFoundException {
+
+            }
+
+            @Override
+            public void loadScore(File saveFile) throws FileNotFoundException {
+
+            }
+        };
+
+        TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor();
+
+        //Bei Programmstart
+        ArrayList<String> selectedText = new ArrayList<>();
+        File audioWrongWord = new File("test.mp3");
+        //MediaPlayer
+
+        //Während TrainerSession
+        descriptor.setSelectedText(selectedText);
+        counterRightWords = descriptor.getCounterRightWords();
+        time = descriptor.getTime();
+        wordsPerMinute = descriptor.getWordsPerMinute();
 
     }
-    /***
-     * @author Tobias Maraci, Robert Pistea
-     */
 }

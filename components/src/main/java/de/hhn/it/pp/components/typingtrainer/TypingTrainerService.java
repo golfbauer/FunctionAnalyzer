@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
  * @author Tobias Maraci, Robert Pistea
  */
 
-public interface I_Interaction {
+public interface TypingTrainerService {
     /***
      * Überprüft das geschriebene Wort auf Richtigkeit
      * @param word: Wort das überprüft werden soll
@@ -17,18 +17,18 @@ public interface I_Interaction {
     boolean checkWord(String word) throws WordNotFoundException;
 
     /***
-     * Spielt einen Ton ab.
+     * Spielt einen Ton ab, wenn Wort falsch ist.
      * @param soundFile: Ton der abgespielt wird
      * @throws FileNotFoundException
      */
     void audioOutput(File soundFile) throws FileNotFoundException;
 
     /***
-     * Markiert ein Wort
+     * Markiert ein Wort, welches richtig geschrieben ist
      * @param word: Wort das markiert wird
      * @throws WordNotFoundException
      */
-    void markWork(String word) throws WordNotFoundException;
+    void markWord(String word) throws WordNotFoundException;
 
     /***
      * Wählt Text aus der geübt werden soll
@@ -42,22 +42,24 @@ public interface I_Interaction {
     void quitSession();
 
     /***
-     * Zeigt dem User seinen Score (Zeit wie lang er für den Text gebraucht hat, WPM) an
-     * @param feedback
+     * Zeigt Feedback an
+     * @param time Gesamtzeit zum absolvieren
+     * @param wordsPerMinute Wörter die in der Minute richtig geschrieben wurden
      */
-    void showFeedback(Feedback feedback);
+    void showFeedback(float time, float wordsPerMinute);
 
     /***
      * Speichert den Fortschritt des Users in eine txt File
      * @param saveFile: File in der es gespeichert wird
      * @throws FileNotFoundException
      */
-    void saveScore(File saveFile) throws FileNotFoundException;
+     void saveScore(File saveFile) throws FileNotFoundException;
 
     /***
      * Lädt die txt File falls sie existiert
      * @param saveFile: File die geladen werden soll
      * @throws FileNotFoundException
      */
-    void loadScore(File saveFile) throws FileNotFoundException;
+     void loadScore(File saveFile) throws FileNotFoundException;
+
 }
