@@ -1,6 +1,9 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
 public class DemoVocableTrainerUsage {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
+  
   public static void main(String[] args) {
     // Startseite
     // auswahl -> Benutzer hinzufügen, auswählen (editieren, löschen), OK;
