@@ -130,6 +130,11 @@ public interface VocableTrainer {
   String setInput();
 
   /**
+   * Goes one page back.
+   */
+  void back();
+
+  /**
    * Canceling the current process
    */
   void cancel();
@@ -143,6 +148,13 @@ public interface VocableTrainer {
    * Confirm
    */
   void ok();
+
+  /**
+   * Learn chosen vocabulary.
+   *
+   * @param choice What vocables should be learned
+   */
+  void learn(String choice);
 
   /**
    * Save the Vocable or Category and enter a new Vocable or Category
