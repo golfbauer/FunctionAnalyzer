@@ -4,7 +4,7 @@ import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
 import java.util.ArrayList;
 
-public interface VocableTrainer {
+public interface VocableTrainerService {
 
   /**
    * Returns the currently selected User.
