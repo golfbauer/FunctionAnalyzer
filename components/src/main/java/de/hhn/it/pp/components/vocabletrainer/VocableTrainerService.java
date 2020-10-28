@@ -4,7 +4,7 @@ import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
 import java.util.ArrayList;
 
-public interface VocableTrainer {
+public interface VocableTrainerService {
 
   /**
    * Returns the currently selected User.
@@ -21,7 +21,7 @@ public interface VocableTrainer {
   ArrayList<User> getUsers();
 
   /**
-   * Add a new User to the user list
+   * Add a new User to the user list.
    *
    * @param name of the new user
    * @return user successfully added
@@ -29,7 +29,7 @@ public interface VocableTrainer {
   boolean addUser(String name) throws IllegalStateException;
 
   /**
-   * Remove user from user list
+   * Remove user from user list.
    *
    * @param userId User
    * @return user successfully removed
@@ -37,7 +37,7 @@ public interface VocableTrainer {
   boolean removeUser(int userId) throws IllegalParameterException;
 
   /**
-   * Select a user from the user list
+   * Select a user from the user list.
    *
    * @param userId User
    * @return user successfully selected
@@ -56,11 +56,10 @@ public interface VocableTrainer {
    *
    * @return List of registered VocCategories
    */
-
-  VocCategory[] getVocCategories();
+  ArrayList<VocCategory> getVocCategories();
 
   /**
-   * Add a new VocCategory to the VocCategory array
+   * Add a new VocCategory to the VocCategory array.
    *
    * @param name of the category
    * @return VocCategory successfully added
@@ -68,7 +67,7 @@ public interface VocableTrainer {
   boolean addVocCategory(String name) throws IllegalStateException;
 
   /**
-   * Remove VocCategory from VocCategory array
+   * Remove VocCategory from VocCategory array.
    *
    * @param CategoryId VocCategory
    * @return VocCategory successfully removed
@@ -76,7 +75,7 @@ public interface VocableTrainer {
   boolean removeVocCategory(int CategoryId) throws IllegalParameterException;
 
   /**
-   * Select a VocCategory from the VocCategory array
+   * Select a VocCategory from the VocCategory array.
    *
    * @param CategoryId VocCategory
    * @return VocCategory successfully selected
@@ -98,7 +97,7 @@ public interface VocableTrainer {
   ArrayList<Vocable> getVocabulary();
 
   /**
-   * Add a new Vocable to the Vocabulary list
+   * Add a new Vocable to the Vocabulary list.
    *
    * @param originWord , foreignWord, CategoryId of the VocCategory
    * @return Vocable successfully added
@@ -107,7 +106,7 @@ public interface VocableTrainer {
       throws IllegalParameterException, IllegalStateException;
 
   /**
-   * Remove Vocable from Vocabulary list
+   * Remove Vocable from Vocabulary list.
    *
    * @param vocableId Vocabulary
    * @return Vocable successfully removed
@@ -115,46 +114,53 @@ public interface VocableTrainer {
   boolean removeVocable(int vocableId) throws IllegalParameterException;
 
   /**
-   * Select a VocCategory from the VocCategory array
-   *
-   * @param vocableId Vocabulary
-   * @return Vocable successfully selected
-   */
-  boolean selectVocable(int vocableId) throws IllegalParameterException;
-
-  /**
-   * Returns a list of registered coffee makers.
-   *
-   * @return List of registered coffee makers
-   */
-  String setInput();
-
-  /**
-   * Canceling the current process
-   */
-  void cancel();
-
-  /**
-   * Skips the current vocable
+   * Skips the current vocable.
    */
   void skip();
 
   /**
-   * Confirm
+   * edit User.
+   *
+   * @param name   Name of the User,
+   * @param userId userId Id from the User
+   * @return User was successfully edited
    */
-  void ok();
+  boolean editUser(int userId, String name);
 
   /**
-   * Save the Vocable or Category and enter a new Vocable or Category
+   * edit Category
    *
-   * @throws IllegalStateException if input is incomplete or already exists
+   * @param name       Name of the Category,
+   * @param categoryId CategoryId from the Category
+   * @return Category was successfully edited
    */
-  void saveAndNew() throws IllegalStateException;
+  boolean editVocCategory(int categoryId, String name);
 
   /**
-   * Save the Vocable or Category
+   * checks if the vocab is correct.
    *
-   * @throws IllegalStateException if input is incomplete or already exists
+   * @param word input from the user
+   * @return word is correct
    */
-  void save() throws IllegalStateException;
+  boolean isVocableCorrect(String word);
+
+  /**
+   * edit vocable.
+   *
+   * @param categoryId  Id of the category
+   * @param foreignWord string of the foreign word
+   * @param originWord  string of the origin word
+   * @param vocableId   Id from the Vocab
+   * @return
+   */
+  boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId);
+
+  /**
+   * start learning.
+   *
+   * @param state state of learning
+   */
+  boolean learn(learningSelection state);
+
+
 }
