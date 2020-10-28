@@ -154,7 +154,7 @@ public class DemoVocableTrainerUsage {
 
     // learn vocabulary
     boolean ready = jbVocableTrainerService.learn("ALL"); // Enum class?
-    Vocable voc = jbVocableTrainerService.getVocable().origin();
+    String voc = jbVocableTrainerService.getVocable().getOriginWord();
     logger.debug("" + voc);
 
     // test vocable 1
@@ -166,7 +166,7 @@ public class DemoVocableTrainerUsage {
     }
 
     // skip vocable 2
-    jbVocableTrainerService.getVocable().origin();
+    jbVocableTrainerService.getVocable().getOriginWord();
     jbVocableTrainerService.skip();
     logger.debug("Vocable skipped");
 
