@@ -1,3 +1,5 @@
+package de.hhn.it.pp.components.learningCards;
+
 import java.util.Scanner;
 
 public class SessionManager {

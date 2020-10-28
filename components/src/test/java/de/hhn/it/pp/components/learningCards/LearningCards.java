@@ -1,3 +1,4 @@
+package de.hhn.it.pp.components.learningCards;
 
 public class LearningCards implements ILearningCards{
 	

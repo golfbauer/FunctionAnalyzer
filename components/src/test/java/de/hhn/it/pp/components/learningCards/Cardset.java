@@ -1,3 +1,5 @@
+package de.hhn.it.pp.components.learningCards;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
