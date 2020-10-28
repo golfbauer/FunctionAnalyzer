@@ -114,14 +114,6 @@ public interface VocableTrainerService {
   boolean removeVocable(int vocableId) throws IllegalParameterException;
 
   /**
-   * Select a VocCategory from the VocCategory array
-   *
-   * @param vocableId Vocabulary
-   * @return Vocable successfully selected
-   */
-  boolean selectVocable(int vocableId) throws IllegalParameterException;
-
-  /**
    * Skips the current vocable
    */
   void skip();

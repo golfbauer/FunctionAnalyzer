@@ -153,7 +153,12 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
-    boolean ready = jbVocableTrainerService.learn(learningSelection.ALL); // Enum class?
+    boolean ready = jbVocableTrainerService.learn(learningSelection.ALL);
+    if (ready) {
+      logger.debug("You can learn all");
+    } else {
+      logger.debug("failed to load Vocable");
+    }
     String voc = jbVocableTrainerService.getVocable().getOriginWord();
     logger.debug("" + voc);
 
@@ -166,7 +171,8 @@ public class DemoVocableTrainerUsage {
     }
 
     // skip vocable 2
-    jbVocableTrainerService.getVocable().getOriginWord();
+    String origin = jbVocableTrainerService.getVocable().getOriginWord();
+    logger.debug(origin);
     jbVocableTrainerService.skip();
     logger.debug("Vocable skipped");
 
@@ -187,28 +193,22 @@ public class DemoVocableTrainerUsage {
     // cancle learn
     jbVocableTrainerService.learn(learningSelection.CANCLE);
 
-    // TODO: 28.10.2020 removeUser, removeVocCategory, selectVocable
+    // remove User
     boolean isRemoved = jbVocableTrainerService.removeUser(0);
+    if (isRemoved) {
+      logger.debug("User successfully removed");
+    } else {
+      logger.debug("Failed to remove the user");
+    }
+
+    //remove Category
     isRemoved = jbVocableTrainerService.removeVocCategory(0);
-    isSelected = jbVocableTrainerService.selectVocable(0); // used?
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // Zurück
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // Vokabel hinzufügen
-    // - Vokabelbearbeitung
-    // Abbrechen
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // Zurück
-    // - Benutzer, Score, Kategorieliste
-    // Kategorie hinzufügen
-    // - Vokabelbearbeitung
-    // Abbrechen
-    // - Benutzer, Score, Kategorieliste
-    // Zurück
-    // - Benutzer, Score, Benutzerliste
-    // Benutzer hinzufügen
-    // - Benutzerbearbeitung
-    // Abbrechen
+    if (isRemoved) {
+      logger.debug("Category successfully removed");
+    } else {
+      logger.debug("Failed to remove the Category");
+    }
+
 
     // Homepage
     // pick -> add, choose (edit, delete) user, OK;
