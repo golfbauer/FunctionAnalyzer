@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class DemoSpellingTrainerUsage {
+    private static final org.slf4j.Logger logger =
+        org.slf4j.LoggerFactory.getLogger(DemoSpellingTrainerUsage.class);
     public static void main(String[] args) throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException{
         //Nur für den Test
         SpellingTrainerService service = new SpellingTrainerService() {
