@@ -76,11 +76,6 @@ public class JBVocableTrainerService implements VocableTrainerService{
   }
 
   @Override
-  public boolean selectVocable(int vocableId) throws IllegalParameterException {
-    return false;
-  }
-
-  @Override
   public void skip() {
 
   }
