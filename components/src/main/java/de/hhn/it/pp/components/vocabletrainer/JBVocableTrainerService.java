@@ -3,7 +3,7 @@ package de.hhn.it.pp.components.vocabletrainer;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import java.util.ArrayList;
 
-public class JBVocableTrainerService implements VocableTrainerService{
+public class JBVocableTrainerService implements VocableTrainerService {
 
   @Override
   public User getUser() {
@@ -66,7 +66,8 @@ public class JBVocableTrainerService implements VocableTrainerService{
   }
 
   @Override
-  public boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId) throws IllegalParameterException, IllegalStateException {
+  public boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId)
+      throws IllegalParameterException, IllegalStateException {
     return false;
   }
 
