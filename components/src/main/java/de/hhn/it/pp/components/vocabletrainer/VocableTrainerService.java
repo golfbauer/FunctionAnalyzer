@@ -56,8 +56,7 @@ public interface VocableTrainerService {
    *
    * @return List of registered VocCategories
    */
-
-  VocCategory[] getVocCategories();
+  ArrayList<VocCategory> getVocCategories();
 
   /**
    * Add a new VocCategory to the VocCategory array
@@ -126,5 +125,4 @@ public interface VocableTrainerService {
    * Skips the current vocable
    */
   void skip();
-
 }

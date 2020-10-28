@@ -1,6 +1,7 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
+import java.util.ArrayList;
 
 public class DemoVocableTrainerUsage {
   private static final org.slf4j.Logger logger =
@@ -8,128 +9,188 @@ public class DemoVocableTrainerUsage {
 
   public static void main(String[] args) throws IllegalParameterException {
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
-    // - Benutzer, Score, Benutzerliste anzeigen
-    // Benutzer hinzufügen
-    boolean save = jbVocableTrainerService.addUser("test");
-    if (save){
-      logger.debug("successfully added");
+
+    // Home page
+    ArrayList<User> users = jbVocableTrainerService.getUsers();
+    logger.debug("Users: " + users);
+
+    // Add user
+    boolean sucess = jbVocableTrainerService.addUser("test");
+    if (sucess) {
+      logger.debug("User successfully added");
+    } else {
+      logger.debug("Failed to add user");
     }
-    else {
-      logger.debug("user adding failed");
+
+    // Home page
+    users = jbVocableTrainerService.getUsers();
+    logger.debug("Users: " + users);
+
+    // Edit user
+    sucess = jbVocableTrainerService.editUser(0, "Tom");
+    if (sucess) {
+      logger.debug("User successfully saved");
+    } else {
+      logger.debug("Failed to save the user");
     }
 
-    //Benutzerliste anzeigen in der startseite
-    // - Benutzerbearbeitung
-    // Bestätigen
-    jbVocableTrainerService.getUsers();
+    // Home page
+    users = jbVocableTrainerService.getUsers();
+    logger.debug("Users: " + users);
 
-    // - Benutzer, Score, Benutzerliste
-    // Benutzer auswählen
-    jbVocableTrainerService.selectUser(0);
-
-    // - Benutzerbearbeitung
-    // Benutzer auswählen
-    // Betätigen
-    jbVocableTrainerService.selectUser(0);
-
-    // - Benutzer, Score, Kategorieliste
+    // Select user
+    boolean isSelected = jbVocableTrainerService.selectUser(0);
+    if (isSelected) {
+      logger.debug("successfully selected");
+    } else {
+      logger.debug("selecting failed");
+    }
+    // show selected user, score, vocCategories
     String name = jbVocableTrainerService.getUser().getName();
     int score = jbVocableTrainerService.getUser().getScore();
-    jbVocableTrainerService.getVocCategories();
-    logger.debug(name +" + "+ score);
+    ArrayList<VocCategory> vocCategories = jbVocableTrainerService.getVocCategories();
+    logger.debug(name + ": " + score + "\n" + vocCategories);
 
-
-    // Kategorie hinzufügen
-    // - Kategoriebearbeitung
-    // SaveAndNew
-    boolean sucess = jbVocableTrainerService.addVocCategory("");
-    if(sucess){
+    // Add vocCategory 1
+    sucess = jbVocableTrainerService.addVocCategory("Category 1");
+    if (sucess) {
       logger.debug("successfully added");
-    }else{
+    } else {
       logger.debug("adding failed");
     }
 
-
-    // 2. Kategorie hinzufügen
-    // - Kategoriebearbeitung
-    // Save
-    sucess = jbVocableTrainerService.addVocCategory("");
-    if(sucess){
+    // Add vocCategory 2
+    sucess = jbVocableTrainerService.addVocCategory("Category 2");
+    if (sucess) {
       logger.debug("successfully added");
-    }else{
+    } else {
       logger.debug("adding failed");
     }
 
-
-    // 2. Kategorie ändern
-    // - Kategoriebearbeitung
-    // Save
-    sucess = jbVocableTrainerService.removeVocCategory(0);
-    if(sucess){
-      logger.debug("successfully removed");
-    }else{
-      logger.debug("removing failed");
-    }
-    sucess = jbVocableTrainerService.addVocCategory("");
-    if(sucess){
+    // Edit vocCategory 2
+    sucess = jbVocableTrainerService.editVocCategory(0, "new VocCategoryName");
+    if (sucess) {
       logger.debug("successfully added");
-    }else{
+    } else {
       logger.debug("adding failed");
     }
 
-
-    // - Benutzer, Score, Kategorieliste
+    // show selected user, score, vocCategories
     name = jbVocableTrainerService.getUser().getName();
     score = jbVocableTrainerService.getUser().getScore();
-    jbVocableTrainerService.getVocCategories();
-    logger.debug(name +" + "+ score);
+    vocCategories = jbVocableTrainerService.getVocCategories();
+    logger.debug(name + ": " + score + "\n" + vocCategories);
 
-    // 1. Kategorie auswählen
-    jbVocableTrainerService.selectVocCategory(0);
+    // Select vocCategory 1
+    isSelected = jbVocableTrainerService.selectVocCategory(0);
+    if (isSelected) {
+      logger.debug("VocCategory successfully selected");
+    } else {
+      logger.debug("Selecting failed");
+    }
 
-    // - Benutzer, Score, Kategorie, Vokabelliste
+    // show user, score, vocCategory, vocabularies
     name = jbVocableTrainerService.getUser().getName();
     score = jbVocableTrainerService.getUser().getScore();
-    jbVocableTrainerService.getVocCategory();
-    jbVocableTrainerService.getVocabulary();
-    logger.debug(name +" + "+ score);
+    VocCategory vocCategory = jbVocableTrainerService.getVocCategory();
+    ArrayList<Vocable> vocabulary = jbVocableTrainerService.getVocabulary();
+    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
-    // 1. Vokabel hinzufügen
-    jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
+    // Add vocable 1
+    sucess = jbVocableTrainerService
+        .addVocable("hello1", "hallo1", jbVocableTrainerService.getVocCategory());
+    if (sucess) {
+      logger.debug("Vocable successfully added");
+    } else {
+      logger.debug("Adding vocabulary failed");
+    }
 
-    // - Vokabelbearbeitung
-    // Save and New
-    jbVocableTrainerService.selectVocable(0);
-    jbVocableTrainerService.removeVocable(0);
-    jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
+    // Add vocable 2
+    sucess = jbVocableTrainerService
+        .addVocable("hello2", "hallo2", jbVocableTrainerService.getVocCategory());
+    if (sucess) {
+      logger.debug("Vocable successfully added");
+    } else {
+      logger.debug("Adding vocabulary failed");
+    }
 
+    // show user, score, vocCategory, vocabularies
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    vocCategory = jbVocableTrainerService.getVocCategory();
+    vocabulary = jbVocableTrainerService.getVocabulary();
+    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
-    // 2. Vokabel hinzufügen
-    // - Vokabelbearbeitung
-    // Save and New
+    // Edit vocable 2
+    sucess = jbVocableTrainerService
+        .editVocable(1, "hello 2", "hallo 2", jbVocableTrainerService.getVocCategory());
+    if (sucess) {
+      logger.debug("Vocable successful edit");
+    } else {
+      logger.debug("Edit vocabulary failed");
+    }
 
-    // 3. Vokabel hinzufügen
-    // - Vokabelbearbeitung
-    // Save
+    // show user, score, vocCategory, vocabularies
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    vocCategory = jbVocableTrainerService.getVocCategory();
+    vocabulary = jbVocableTrainerService.getVocabulary();
+    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
-    // - Benutzer, Score, Kategorie, Vokabelliste
+    // Delete vocable 1
+    sucess = jbVocableTrainerService.removeVocable(0);
+    if (sucess) {
+      logger.debug("successfully removed the vocable");
+    } else {
+      logger.debug("removing the vocable failed");
+    }
 
+    // show user, score, vocCategory, vocabularies
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    vocCategory = jbVocableTrainerService.getVocCategory();
+    vocabulary = jbVocableTrainerService.getVocabulary();
+    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
-    //------------------------------------------------------------
-    // 2. Vokabel ändern
-    // - Vokabelbearbeitung
-    // Bestätigen
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // 3. Vokabel löschen
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // Vokabeln lernen
-    // 1. Vokabel prüfen
-    // 2. Vokabel skip
-    // - Score, Vokabeln, Kategorie
-    // Auswertung bestätigen
-    // - Benutzer, Score, Kategorie, Vokabelliste
-    // Vokabeln lernen
-    // lernen abbrechen
+    // learn vocabulary
+    boolean ready = jbVocableTrainerService.learn("ALL"); // Enum class?
+    Vocable voc = jbVocableTrainerService.getVocable().origin();
+    logger.debug("" + voc);
+
+    // test vocable 1
+    boolean isCorrect = jbVocableTrainerService.isVocableCorrect("helloo");
+    if (isCorrect) {
+      logger.debug("Vocable is correct");
+    } else {
+      logger.debug("Vocable is false");
+    }
+
+    // skip vocable 2
+    jbVocableTrainerService.getVocable().origin();
+    jbVocableTrainerService.skip();
+    logger.debug("Vocable skipped");
+
+    // evaluation
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    logger.debug(name + "\nnew Score: " + score);
+
+    // show user, score, vocCategory, vocabularies
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    vocCategory = jbVocableTrainerService.getVocCategory();
+    vocabulary = jbVocableTrainerService.getVocabulary();
+    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+
+    // learn vocabulary
+    jbVocableTrainerService.learn("FALSE");
+    // cancle learn
+    jbVocableTrainerService.learn("CANCLE");
+
+    // TODO: 28.10.2020 removeUser, removeVocCategory, selectVocable
+    boolean isRemoved = jbVocableTrainerService.removeUser(0);
+    isRemoved = jbVocableTrainerService.removeVocCategory(0);
+    isSelected = jbVocableTrainerService.selectVocable(0); // used?
     // - Benutzer, Score, Kategorie, Vokabelliste
     // Zurück
     // - Benutzer, Score, Kategorie, Vokabelliste

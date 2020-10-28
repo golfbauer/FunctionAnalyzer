@@ -4,6 +4,7 @@ import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import java.util.ArrayList;
 
 public class JBVocableTrainerService implements VocableTrainerService{
+
   @Override
   public User getUser() {
     return null;
@@ -35,8 +36,8 @@ public class JBVocableTrainerService implements VocableTrainerService{
   }
 
   @Override
-  public VocCategory[] getVocCategories() {
-    return new VocCategory[0];
+  public ArrayList<VocCategory> getVocCategories() {
+    return null;
   }
 
   @Override
@@ -81,42 +82,7 @@ public class JBVocableTrainerService implements VocableTrainerService{
   }
 
   @Override
-  public String setInput() {
-    return null;
-  }
-
-  @Override
-  public void back() {
-
-  }
-
-  @Override
-  public void cancel() {
-
-  }
-
-  @Override
   public void skip() {
-
-  }
-
-  @Override
-  public void ok() {
-
-  }
-
-  @Override
-  public void learn(String choice) {
-
-  }
-
-  @Override
-  public void saveAndNew() throws IllegalStateException {
-
-  }
-
-  @Override
-  public void save() throws IllegalStateException {
 
   }
 }
