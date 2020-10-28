@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 
 public class SpellingTrainerDescriptor {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(SpellingTrainerDescriptor.class);
 
   private HashMap<String, File> audioFiles = new HashMap<>();
   private ArrayList<String> spellingWords = new ArrayList<>();
