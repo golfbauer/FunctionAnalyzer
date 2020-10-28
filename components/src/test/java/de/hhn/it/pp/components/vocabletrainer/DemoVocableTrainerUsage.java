@@ -1,42 +1,68 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
+import de.hhn.it.pp.components.exceptions.IllegalParameterException;
+
 public class DemoVocableTrainerUsage {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IllegalParameterException {
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
     // - Benutzer, Score, Benutzerliste anzeigen
     // Benutzer hinzufügen
+    jbVocableTrainerService.addUser("");
     // - Benutzerbearbeitung
     // Bestätigen
+    jbVocableTrainerService.ok();
     // - Benutzer, Score, Benutzerliste
     // Benutzer ändern
+    jbVocableTrainerService.selectUser(0);
     // - Benutzerbearbeitung
     // Benutzer auswählen
     // Betätigen
+    jbVocableTrainerService.selectUser(0);
+    jbVocableTrainerService.ok();
     // - Benutzer, Score, Kategorieliste
     // Kategorie hinzufügen
+    jbVocableTrainerService.addVocCategory("");
     // - Kategoriebearbeitung
     // SaveAndNew
+    jbVocableTrainerService.ok();
     // 2. Kategorie hinzufügen
     // - Kategoriebearbeitung
     // Save
+    jbVocableTrainerService.addVocCategory("");
+    jbVocableTrainerService.ok();
+
     // 2. Kategorie ändern
     // - Kategoriebearbeitung
     // Save
+    jbVocableTrainerService.removeVocCategory(jbVocableTrainerService.selectVocCategory());
+    jbVocableTrainerService.addVocCategory("");
+    jbVocableTrainerService.ok();
+
     // - Benutzer, Score, Kategorieliste
     // 1. Kategorie auswählen
+    jbVocableTrainerService.selectVocCategory(0);
     // - Benutzer, Score, Kategorie, Vokabelliste
     // 1. Vokabel hinzufügen
+    jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
+
     // - Vokabelbearbeitung
     // Save and New
+    jbVocableTrainerService.selectVocable(0);
+    jbVocableTrainerService.removeVocable(0);
+    jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
+    jbVocableTrainerService.ok();
+
     // 2. Vokabel hinzufügen
     // - Vokabelbearbeitung
     // Save and New
+
     // 3. Vokabel hinzufügen
     // - Vokabelbearbeitung
     // Save
+
     // - Benutzer, Score, Kategorie, Vokabelliste
 
 
