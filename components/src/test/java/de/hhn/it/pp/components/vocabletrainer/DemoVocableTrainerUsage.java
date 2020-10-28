@@ -5,7 +5,8 @@ public class DemoVocableTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
   public static void main(String[] args) {
-      // - Benutzer, Score, Benutzerliste anzeigen
+    JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
+    // - Benutzer, Score, Benutzerliste anzeigen
     // Benutzer hinzufügen
     // - Benutzerbearbeitung
     // Bestätigen
@@ -37,6 +38,9 @@ public class DemoVocableTrainerUsage {
     // - Vokabelbearbeitung
     // Save
     // - Benutzer, Score, Kategorie, Vokabelliste
+
+
+    ------------------------------------------------------------
     // 2. Vokabel ändern
     // - Vokabelbearbeitung
     // Bestätigen
