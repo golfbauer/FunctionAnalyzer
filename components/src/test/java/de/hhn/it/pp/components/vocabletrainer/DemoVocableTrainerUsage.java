@@ -10,41 +10,90 @@ public class DemoVocableTrainerUsage {
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
     // - Benutzer, Score, Benutzerliste anzeigen
     // Benutzer hinzufügen
-    jbVocableTrainerService.addUser("");
+    boolean save = jbVocableTrainerService.addUser("test");
+    if (save){
+      logger.debug("successfully added");
+    }
+    else {
+      logger.debug("user adding failed");
+    }
+
+    //Benutzerliste anzeigen in der startseite
     // - Benutzerbearbeitung
     // Bestätigen
-    jbVocableTrainerService.ok();
+    jbVocableTrainerService.getUsers();
+
     // - Benutzer, Score, Benutzerliste
-    // Benutzer ändern
+    // Benutzer auswählen
     jbVocableTrainerService.selectUser(0);
+
     // - Benutzerbearbeitung
     // Benutzer auswählen
     // Betätigen
     jbVocableTrainerService.selectUser(0);
-    jbVocableTrainerService.ok();
+
     // - Benutzer, Score, Kategorieliste
+    String name = jbVocableTrainerService.getUser().getName();
+    int score = jbVocableTrainerService.getUser().getScore();
+    jbVocableTrainerService.getVocCategories();
+    logger.debug(name +" + "+ score);
+
+
     // Kategorie hinzufügen
-    jbVocableTrainerService.addVocCategory("");
     // - Kategoriebearbeitung
     // SaveAndNew
-    jbVocableTrainerService.ok();
+    boolean sucess = jbVocableTrainerService.addVocCategory("");
+    if(sucess){
+      logger.debug("successfully added");
+    }else{
+      logger.debug("adding failed");
+    }
+
+
     // 2. Kategorie hinzufügen
     // - Kategoriebearbeitung
     // Save
-    jbVocableTrainerService.addVocCategory("");
-    jbVocableTrainerService.ok();
+    sucess = jbVocableTrainerService.addVocCategory("");
+    if(sucess){
+      logger.debug("successfully added");
+    }else{
+      logger.debug("adding failed");
+    }
+
 
     // 2. Kategorie ändern
     // - Kategoriebearbeitung
     // Save
-    jbVocableTrainerService.removeVocCategory(jbVocableTrainerService.selectVocCategory());
-    jbVocableTrainerService.addVocCategory("");
-    jbVocableTrainerService.ok();
+    sucess = jbVocableTrainerService.removeVocCategory(0);
+    if(sucess){
+      logger.debug("successfully removed");
+    }else{
+      logger.debug("removing failed");
+    }
+    sucess = jbVocableTrainerService.addVocCategory("");
+    if(sucess){
+      logger.debug("successfully added");
+    }else{
+      logger.debug("adding failed");
+    }
+
 
     // - Benutzer, Score, Kategorieliste
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    jbVocableTrainerService.getVocCategories();
+    logger.debug(name +" + "+ score);
+
     // 1. Kategorie auswählen
     jbVocableTrainerService.selectVocCategory(0);
+
     // - Benutzer, Score, Kategorie, Vokabelliste
+    name = jbVocableTrainerService.getUser().getName();
+    score = jbVocableTrainerService.getUser().getScore();
+    jbVocableTrainerService.getVocCategory();
+    jbVocableTrainerService.getVocabulary();
+    logger.debug(name +" + "+ score);
+
     // 1. Vokabel hinzufügen
     jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
 
@@ -53,7 +102,7 @@ public class DemoVocableTrainerUsage {
     jbVocableTrainerService.selectVocable(0);
     jbVocableTrainerService.removeVocable(0);
     jbVocableTrainerService.addVocable("","", jbVocableTrainerService.getVocCategory());
-    jbVocableTrainerService.ok();
+
 
     // 2. Vokabel hinzufügen
     // - Vokabelbearbeitung
@@ -66,7 +115,7 @@ public class DemoVocableTrainerUsage {
     // - Benutzer, Score, Kategorie, Vokabelliste
 
 
-    ------------------------------------------------------------
+    //------------------------------------------------------------
     // 2. Vokabel ändern
     // - Vokabelbearbeitung
     // Bestätigen
