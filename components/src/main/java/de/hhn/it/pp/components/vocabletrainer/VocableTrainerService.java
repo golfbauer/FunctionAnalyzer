@@ -125,4 +125,31 @@ public interface VocableTrainerService {
    * Skips the current vocable
    */
   void skip();
+
+  /**
+   * Skips the current vocable
+   */
+  boolean editUser(int userId,String name);
+
+  /**
+   * Skips the current vocable
+   */
+  boolean editVocCategory(int categoryId, String name);
+
+  /**
+   * Skips the current vocable
+   */
+  boolean isVocableCorrect(String word);
+
+  /**
+   * Skips the current vocable
+   */
+  boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId);
+
+  /**
+   * Skips the current vocable
+   */
+  boolean learn(learningSelection state);
+
+
 }

@@ -66,8 +66,7 @@ public class JBVocableTrainerService implements VocableTrainerService{
   }
 
   @Override
-  public boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId)
-      throws IllegalParameterException, IllegalStateException {
+  public boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId) throws IllegalParameterException, IllegalStateException {
     return false;
   }
 
@@ -84,5 +83,30 @@ public class JBVocableTrainerService implements VocableTrainerService{
   @Override
   public void skip() {
 
+  }
+
+  @Override
+  public boolean editUser(int userId, String name) {
+    return false;
+  }
+
+  @Override
+  public boolean editVocCategory(int categoryId, String name) {
+    return false;
+  }
+
+  @Override
+  public boolean isVocableCorrect(String word) {
+    return false;
+  }
+
+  @Override
+  public boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId) {
+    return false;
+  }
+
+  @Override
+  public boolean learn(learningSelection state) {
+    return false;
   }
 }

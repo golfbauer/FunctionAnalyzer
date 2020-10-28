@@ -123,7 +123,7 @@ public class DemoVocableTrainerUsage {
 
     // Edit vocable 2
     sucess = jbVocableTrainerService
-        .editVocable(1, "hello 2", "hallo 2", jbVocableTrainerService.getVocCategory());
+        .editVocable(1, "hello 2", "hallo 2", jbVocableTrainerService.getVocCategory().getId());
     if (sucess) {
       logger.debug("Vocable successful edit");
     } else {
@@ -153,7 +153,7 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
-    boolean ready = jbVocableTrainerService.learn("ALL"); // Enum class?
+    boolean ready = jbVocableTrainerService.learn(learningSelection.ALL); // Enum class?
     String voc = jbVocableTrainerService.getVocable().getOriginWord();
     logger.debug("" + voc);
 
@@ -183,9 +183,9 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
-    jbVocableTrainerService.learn("FALSE");
+    jbVocableTrainerService.learn(learningSelection.WRONG);
     // cancle learn
-    jbVocableTrainerService.learn("CANCLE");
+    jbVocableTrainerService.learn(learningSelection.CANCLE);
 
     // TODO: 28.10.2020 removeUser, removeVocCategory, selectVocable
     boolean isRemoved = jbVocableTrainerService.removeUser(0);
