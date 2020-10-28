@@ -123,50 +123,8 @@ public interface VocableTrainerService {
   boolean selectVocable(int vocableId) throws IllegalParameterException;
 
   /**
-   * Returns a list of registered coffee makers.
-   *
-   * @return List of registered coffee makers
-   */
-  String setInput();
-
-  /**
-   * Goes one page back.
-   */
-  void back();
-
-  /**
-   * Canceling the current process
-   */
-  void cancel();
-
-  /**
    * Skips the current vocable
    */
   void skip();
 
-  /**
-   * Confirm
-   */
-  void ok();
-
-  /**
-   * Learn chosen vocabulary.
-   *
-   * @param choice What vocables should be learned
-   */
-  void learn(String choice);
-
-  /**
-   * Save the Vocable or Category and enter a new Vocable or Category
-   *
-   * @throws IllegalStateException if input is incomplete or already exists
-   */
-  void saveAndNew() throws IllegalStateException;
-
-  /**
-   * Save the Vocable or Category
-   *
-   * @throws IllegalStateException if input is incomplete or already exists
-   */
-  void save() throws IllegalStateException;
 }
