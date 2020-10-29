@@ -1,0 +1,1 @@
+https://confluence-student.it.hs-heilbronn.de/display/DT20WS/04+learning+cards
