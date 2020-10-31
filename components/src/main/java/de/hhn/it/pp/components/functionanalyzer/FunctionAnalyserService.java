@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface FunctionAnalyserService {
   /**
-   * Converts a String into a Function
+   * Converts a String into a Function.
    * @param input String that should be converted to Function
    * @return Resulting function
    * @throws IllegalArgumentException For inputs that cannot be converted into a Function
@@ -12,47 +12,59 @@ public interface FunctionAnalyserService {
   Function readFunction(String input) throws IllegalArgumentException;
 
   /**
-   * Calculates the minima values for a Funtion
+   * Calculates the minima values for a Funtion.
    * @param f Function who's minima is to be determent
    * @return List of minima ascending from the smallest to the largest, empty List if none are found
+   * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateMinima(Function f);
+  List<Double> calculateMinima(Function f) throws IllegalStateException;
+
   /**
-   * Calculates the maxima values for a Function
+   * Calculates the maxima values for a Function.
    * @param f Function who's maxima is to be determent
    * @return List of maxima descending from the largest to smallest, empty List if none are found
+   * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateMaxima(Function f);
+  List<Double> calculateMaxima(Function f) throws IllegalStateException;
 
   /**
-   * Calculates the intersection with the x axis
+   * Calculates the intersection with the x axis.
    * @param f Function who's intersections are to be determent
-   * @return List of intersections ascending from smallest x-Value to largest, empty List if none are found
+   * @return List of intersections ascending from smallest x-Value to largest,
+   *     empty List if none are found
+   * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateXIntersection(Function f);
-  /**
-   * Calculates the intersection with the y axis
-   * @param f Function who's intersections are to be determent
-   * @return List of intersection ascending from smallest x-Value to largest, empty List if none are found
-   */
-  List<Double> calculateYIntersection(Function f);
+  List<Double> calculateXIntersection(Function f) throws IllegalStateException;
 
   /**
-   * Calculates the function values for a specific x Value
+   * Calculates the intersection with the y axis.
+   * @param f Function who's intersections are to be determent
+   * @return List of intersection ascending from smallest x-Value to largest,
+   *     empty List if none are found
+   * @throws IllegalStateException If operation can not be performed with current object state
+   */
+  List<Double> calculateYIntersection(Function f) throws IllegalStateException;
+
+  /**
+   * Calculates the function values for a specific x Value.
    * @param f Function who's Values are to be determent
-   * @param xValue Specific function value
+   * @param functionParameter Specific function value
    * @return List of all calculated y values ascending from smallest to largest
-   * @throws ArithmeticException For xValue that result in arithmetic errors eg. divide by 0
+   * @throws ArithmeticException For functionParameter that result in arithmetic errors
+   *     eg. divide by 0
+   * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateFunctionValue(Function f, double xValue)
-      throws IllegalArgumentException;
+  List<Double> calculateFunctionValue(Function f, double functionParameter)
+      throws ArithmeticException, IllegalStateException;
 
   /**
-   * Calculates all x values that result in function value y
+   * Calculates all x values that result in function value y.
    * @param f Function who's x values are to be determent
-   * @param yValue Specific function value
+   * @param functionValue Specific function value
    * @return List of all calculated x values ascending from smallest to largest
+   * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculatePointIntersection(Function f, double yValue);
+  List<Double> calculatePointIntersection(Function f, double functionValue)
+      throws IllegalStateException;
 
 }
