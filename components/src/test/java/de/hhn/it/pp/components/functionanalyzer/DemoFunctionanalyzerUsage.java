@@ -6,43 +6,8 @@ import de.hhn.it.pp.components.functionalalyzer.FunctionAnalyserService;
 
 public class DemoFunctionanalyzerUsage {
 
-    public static FunctionAnalyserService functionAnalyserService = new FunctionAnalyserService() { //funcationanalyzer Interface to check for mistakes inside methods
-        @Override
-        public Function readFunction(String input) throws IllegalArgumentException {
-            return null;
-        }
+    public static FunctionAnalyserService functionAnalyserService = null;
 
-        @Override
-        public List<Double> calculateMinima(Function f) {
-            return null;
-        }
-
-        @Override
-        public List<Double> calculateMaxima(Function f) {
-            return null;
-        }
-
-        @Override
-        public List<Double> calculateXIntersection(Function f) {
-            return null;
-        }
-
-        @Override
-        public List<Double> calculateYIntersection(Function f) {
-            return null;
-        }
-
-        @Override
-        public List<Double> calculateFunctionValue(Function f, double xValue)
-            throws IllegalArgumentException {
-            return null;
-        }
-
-        @Override
-        public List<Double> calculatePointIntersection(Function f, double yValue) {
-            return null;
-        }
-    };
     public static void main(String[] args)throws IllegalArgumentException{
         Function f = functionAnalyserService.readFunction("2x^2+x");    //Value passed from GUI to readFunction
         List<Double> min = functionAnalyserService.calculateMinima(f);
