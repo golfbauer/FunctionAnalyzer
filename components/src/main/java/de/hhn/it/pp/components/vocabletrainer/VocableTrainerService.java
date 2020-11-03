@@ -1,5 +1,8 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.UserNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
 
 public interface VocableTrainerService {
@@ -31,7 +34,7 @@ public interface VocableTrainerService {
    *
    * @param userId User
    * @return user successfully removed
-   * @throws UserNotFoundExcepiton when CategoryId doesn't exist
+   * @throws UserNotFoundException when CategoryId doesn't exist
    */
   boolean removeUser(int userId) throws UserNotFoundException;
 
@@ -40,7 +43,7 @@ public interface VocableTrainerService {
    *
    * @param userId User
    * @return user successfully selected
-   * @throws UserNotFoundExcepiton when CategoryId doesn't exist
+   * @throws UserNotFoundException when CategoryId doesn't exist
    */
   boolean selectUser(int userId) throws UserNotFoundException;
 
@@ -48,9 +51,8 @@ public interface VocableTrainerService {
    * Returns the currently selected VocCategory.
    *
    * @return VocCategory array
-   * @throws VocCategoryNotFoundExcepiton when CategoryId doesn't exist
    */
-  VocCategory getVocCategory() throws VocCategoryNotFoundException;
+  VocCategory getVocCategory();
 
   /**
    * Returns all VocCategories.
@@ -72,7 +74,7 @@ public interface VocableTrainerService {
    *
    * @param CategoryId VocCategory
    * @return VocCategory successfully removed
-   * @throws VocCategoryNotFoundExcepiton when CategoryId doesn't exist
+   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
   boolean removeVocCategory(int CategoryId) throws VocCategoryNotFoundException;
 
@@ -81,7 +83,7 @@ public interface VocableTrainerService {
    *
    * @param CategoryId VocCategory
    * @return VocCategory successfully selected
-   * @throws VocCategoryNotFoundExcepiton when CategoryId doesn't exist
+   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
   boolean selectVocCategory(int CategoryId) throws VocCategoryNotFoundException;
 
@@ -107,7 +109,7 @@ public interface VocableTrainerService {
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
   boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId)
-      throws VocCategoryNotFountException;
+      throws VocCategoryNotFoundException;
 
   /**
    * Remove Vocable from Vocabulary list.
@@ -161,7 +163,7 @@ public interface VocableTrainerService {
    * @param vocableId   Id from the Vocab
    * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
-   * @throws VocCategoryNotFoundExcepiton when categoryId doesn't exist
+   * @throws VocCategoryNotFoundException when categoryId doesn't exist
    */
   boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId)
       throws VocableNotFoundException, VocCategoryNotFoundException;
