@@ -1,7 +1,5 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
-import de.hhn.it.pp.components.exceptions.IllegalParameterException;
-
 import java.util.ArrayList;
 
 public interface VocableTrainerService {
@@ -11,7 +9,7 @@ public interface VocableTrainerService {
    *
    * @return user object
    */
-  User getUser();
+  User getUser() throws NullPointerException;
 
   /**
    * Returns a list of users.
@@ -26,7 +24,7 @@ public interface VocableTrainerService {
    * @param name of the new user
    * @return user successfully added
    */
-  boolean addUser(String name) throws IllegalStateException;
+  boolean addUser(String name) throws UserNotAddableException;
 
   /**
    * Remove user from user list.
@@ -34,7 +32,7 @@ public interface VocableTrainerService {
    * @param userId User
    * @return user successfully removed
    */
-  boolean removeUser(int userId) throws IllegalParameterException;
+  boolean removeUser(int userId) throws UserNotRemovableException, UserNotFoundException;
 
   /**
    * Select a user from the user list.
@@ -42,14 +40,14 @@ public interface VocableTrainerService {
    * @param userId User
    * @return user successfully selected
    */
-  boolean selectUser(int userId) throws IllegalParameterException;
+  boolean selectUser(int userId) throws UserNotFoundException;
 
   /**
    * Returns the currently selected VocCategory.
    *
    * @return VocCategory array
    */
-  VocCategory getVocCategory();
+  VocCategory getVocCategory() throws NullPointerException;
 
   /**
    * Returns all VocCategories.
@@ -64,7 +62,7 @@ public interface VocableTrainerService {
    * @param name of the category
    * @return VocCategory successfully added
    */
-  boolean addVocCategory(String name) throws IllegalStateException;
+  boolean addVocCategory(String name) throws VocCategoryNotAddableException;
 
   /**
    * Remove VocCategory from VocCategory array.
@@ -72,7 +70,8 @@ public interface VocableTrainerService {
    * @param CategoryId VocCategory
    * @return VocCategory successfully removed
    */
-  boolean removeVocCategory(int CategoryId) throws IllegalParameterException;
+  boolean removeVocCategory(int CategoryId)
+      throws VocCategoryNotRemovableException, VocCategoryNotFoundException;
 
   /**
    * Select a VocCategory from the VocCategory array.
@@ -80,14 +79,14 @@ public interface VocableTrainerService {
    * @param CategoryId VocCategory
    * @return VocCategory successfully selected
    */
-  boolean selectVocCategory(int CategoryId) throws IllegalParameterException;
+  boolean selectVocCategory(int CategoryId) throws VocCategoryNotFoundException;
 
   /**
    * Returns the currently selected Vocable.
    *
    * @return Vocable
    */
-  Vocable getVocable();
+  Vocable getVocable() throws NullPointerException;
 
   /**
    * Returns all Vocabulary.
@@ -103,7 +102,7 @@ public interface VocableTrainerService {
    * @return Vocable successfully added
    */
   boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId)
-      throws IllegalParameterException, IllegalStateException;
+      throws VocableNotAddableException;
 
   /**
    * Remove Vocable from Vocabulary list.
@@ -111,7 +110,7 @@ public interface VocableTrainerService {
    * @param vocableId Vocabulary
    * @return Vocable successfully removed
    */
-  boolean removeVocable(int vocableId) throws IllegalParameterException;
+  boolean removeVocable(int vocableId) throws VocableNotRemovableExcepion, VocableNotFoundException;
 
   /**
    * Skips the current vocable.
@@ -119,33 +118,33 @@ public interface VocableTrainerService {
   void skip();
 
   /**
-   * edit User.
+   * edit a User.
    *
    * @param name   Name of the User,
    * @param userId userId Id from the User
    * @return User was successfully edited
    */
-  boolean editUser(int userId, String name);
+  boolean editUser(int userId, String name) throws UserNotFoundException;
 
   /**
-   * edit Category
+   * edit a Category
    *
    * @param name       Name of the Category,
    * @param categoryId CategoryId from the Category
    * @return Category was successfully edited
    */
-  boolean editVocCategory(int categoryId, String name);
+  boolean editVocCategory(int categoryId, String name) throws VocCategoryNotFoundException;
 
   /**
-   * checks if the vocab is correct.
+   * checks if the vocable is correct.
    *
    * @param word input from the user
    * @return word is correct
    */
-  boolean isVocableCorrect(String word);
+  boolean isVocableCorrect(String word) throws IllegalStateException;
 
   /**
-   * edit vocable.
+   * edit a vocable.
    *
    * @param categoryId  Id of the category
    * @param foreignWord string of the foreign word
@@ -153,14 +152,14 @@ public interface VocableTrainerService {
    * @param vocableId   Id from the Vocab
    * @return
    */
-  boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId);
+  boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId)
+      throws VocableNotFoundException;
 
   /**
    * start learning.
    *
    * @param state state of learning
    */
-  boolean learn(learningSelection state);
-
+  boolean learn(learningSelection state) throws IllegalStateException;
 
 }
