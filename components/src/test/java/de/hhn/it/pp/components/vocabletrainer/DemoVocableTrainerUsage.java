@@ -1,13 +1,15 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
-import de.hhn.it.pp.components.exceptions.IllegalParameterException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.UserNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
 
 public class DemoVocableTrainerUsage {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
-  public static void main(String[] args) throws IllegalParameterException {
+  public static void main(String[] args){
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
 
     // Home page
@@ -27,7 +29,11 @@ public class DemoVocableTrainerUsage {
     logger.debug("Users: " + users);
 
     // Edit user
-    sucess = jbVocableTrainerService.editUser(0, "Tom");
+    try {
+      sucess = jbVocableTrainerService.editUser(0, "Tom");
+    } catch (UserNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("User successfully saved");
     } else {
@@ -39,7 +45,12 @@ public class DemoVocableTrainerUsage {
     logger.debug("Users: " + users);
 
     // Select user
-    boolean isSelected = jbVocableTrainerService.selectUser(0);
+    boolean isSelected = false;
+    try {
+      isSelected = jbVocableTrainerService.selectUser(0);
+    } catch (UserNotFoundException e) {
+      e.printStackTrace();
+    }
     if (isSelected) {
       logger.debug("successfully selected");
     } else {
@@ -68,7 +79,11 @@ public class DemoVocableTrainerUsage {
     }
 
     // Edit vocCategory 2
-    sucess = jbVocableTrainerService.editVocCategory(0, "new VocCategoryName");
+    try {
+      sucess = jbVocableTrainerService.editVocCategory(0, "new VocCategoryName");
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("successfully added");
     } else {
@@ -82,7 +97,11 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategories);
 
     // Select vocCategory 1
-    isSelected = jbVocableTrainerService.selectVocCategory(0);
+    try {
+      isSelected = jbVocableTrainerService.selectVocCategory(0);
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (isSelected) {
       logger.debug("VocCategory successfully selected");
     } else {
@@ -97,8 +116,12 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // Add vocable 1
-    sucess = jbVocableTrainerService
-        .addVocable("hello1", "hallo1", jbVocableTrainerService.getVocCategory());
+    try {
+      sucess = jbVocableTrainerService
+          .addVocable("hello1", "hallo1", jbVocableTrainerService.getVocCategory());
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("Vocable successfully added");
     } else {
@@ -106,8 +129,12 @@ public class DemoVocableTrainerUsage {
     }
 
     // Add vocable 2
-    sucess = jbVocableTrainerService
-        .addVocable("hello2", "hallo2", jbVocableTrainerService.getVocCategory());
+    try {
+      sucess = jbVocableTrainerService
+          .addVocable("hello2", "hallo2", jbVocableTrainerService.getVocCategory());
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("Vocable successfully added");
     } else {
@@ -122,8 +149,12 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // Edit vocable 2
-    sucess = jbVocableTrainerService
-        .editVocable(1, "hello 2", "hallo 2", jbVocableTrainerService.getVocCategory().getId());
+    try {
+      sucess = jbVocableTrainerService
+          .editVocable(1, "hello 2", "hallo 2", jbVocableTrainerService.getVocCategory().getId());
+    } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("Vocable successful edit");
     } else {
@@ -138,7 +169,11 @@ public class DemoVocableTrainerUsage {
     logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // Delete vocable 1
-    sucess = jbVocableTrainerService.removeVocable(0);
+    try {
+      sucess = jbVocableTrainerService.removeVocable(0);
+    } catch (VocableNotFoundException e) {
+      e.printStackTrace();
+    }
     if (sucess) {
       logger.debug("successfully removed the vocable");
     } else {
@@ -194,7 +229,12 @@ public class DemoVocableTrainerUsage {
     jbVocableTrainerService.learn(learningSelection.CANCLE);
 
     // remove User
-    boolean isRemoved = jbVocableTrainerService.removeUser(0);
+    boolean isRemoved = false;
+    try {
+      isRemoved = jbVocableTrainerService.removeUser(0);
+    } catch (UserNotFoundException e) {
+      e.printStackTrace();
+    }
     if (isRemoved) {
       logger.debug("User successfully removed");
     } else {
@@ -202,7 +242,11 @@ public class DemoVocableTrainerUsage {
     }
 
     //remove Category
-    isRemoved = jbVocableTrainerService.removeVocCategory(0);
+    try {
+      isRemoved = jbVocableTrainerService.removeVocCategory(0);
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
     if (isRemoved) {
       logger.debug("Category successfully removed");
     } else {
