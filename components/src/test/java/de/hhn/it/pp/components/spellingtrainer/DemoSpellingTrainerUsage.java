@@ -40,8 +40,7 @@ public class DemoSpellingTrainerUsage {
     //Nicht während Projektablauf
     String word = "test";
     File audioFile = new File("test.mp3");
-    service.addWord(word,
-        audioFile);  //descriptor.setSpellingWord(word);  descriptor.setAudioFiles(word,audioFile);
+    service.addWord(word, audioFile);
     service.deleteWord(word);
 
     //Ablauf für jedes Wort wiederholen
@@ -49,8 +48,7 @@ public class DemoSpellingTrainerUsage {
     audioFile = descriptor.getAudioFile(word);
     service.audioOutput(audioFile);
     //User Eingabe über JavaFX
-    service.checkSpelling(word);  //descriptor.updateCounter("Wrong", 1);
+    service.checkSpelling(word);
   }
-
 }
 
