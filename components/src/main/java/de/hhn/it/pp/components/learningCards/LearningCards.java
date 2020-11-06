@@ -23,10 +23,11 @@ public class LearningCards implements ILearningCards {
     }
 
     @Override
-    // Method to edit  title of the cardset
-    public void editCardSetTitle(int cardSetIndex, String changedTitle) {
-        lerM.getCardset(cardSetIndex).setTitle(changedTitle);
+    public void editCardSetTitle(int cardSetIndex) {
+
     }
+
+
 
     @Override
     // Method to add a new card to cardset

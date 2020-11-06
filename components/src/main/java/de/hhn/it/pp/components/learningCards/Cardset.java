@@ -16,7 +16,7 @@ public class Cardset {
 
     // sets the Title (console input)
     void setTitle(String title) {
-     this.title = title
+     this.title = title;
     }
 
     // returns Title

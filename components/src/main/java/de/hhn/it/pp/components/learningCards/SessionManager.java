@@ -48,7 +48,7 @@ public class SessionManager {
 
     // Method to show and mark the question
     public void askQuestion(Card card) {
-        System.out.println(card.getText());
+        System.out.println(card.getTextQ());
         card.cardSeen();
         System.out.println("If it is solved correctly, enter 1.\nOtherwise enter something else:");
         String input = scanner.nextLine();

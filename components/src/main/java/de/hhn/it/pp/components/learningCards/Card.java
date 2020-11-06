@@ -70,7 +70,7 @@ class Card {
     // Combines all Strings in one String and returns it.
     String getCardinfo() {
         String info;
-        info = "Headline: "+ getHeadline() "\n Question: " + getTextQ()+ "\n Answer: "+ getTextA();
+        info = "Headline: "+ getHeadline() + "\n Question: " + getTextQ()+ "\n Answer: "+ getTextA();
         return info;
     }
 
