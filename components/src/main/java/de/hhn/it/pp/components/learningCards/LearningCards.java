@@ -12,8 +12,8 @@ public class LearningCards implements ILearningCards {
 
     @Override
     // Method to create cardset
-    public void createCardSet() {
-        lerM.createCardSet();
+    public void createCardSet(String title) {
+        lerM.createCardSet(title);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class LearningCards implements ILearningCards {
 
     @Override
     // Method to edit  title of the cardset
-    public void editCardSetTitle(int cardSetIndex) {
-        lerM.getCardset(cardSetIndex).setTitle();
+    public void editCardSetTitle(int cardSetIndex, String changedTitle) {
+        lerM.getCardset(cardSetIndex).setTitle(changedTitle);
     }
 
     @Override
-    // Method to add card to cardset
-    public void addCardToCardSet(int cardSetIndex) {
-        lerM.getCardset(cardSetIndex).addCardtoSet(new Card());
+    // Method to add a new card to cardset
+    public void addCardToCardSet(int cardSetIndex, String headline, String textQ, String textA) {
+        lerM.getCardset(cardSetIndex).addCardtoSet(new Card(headline, textQ, textA));
     }
 
     @Override
@@ -41,15 +41,21 @@ public class LearningCards implements ILearningCards {
     }
 
     @Override
-    // Method to add a Card to cardset
+    // Method to remove a Card to cardset
     public void removeCardFromCardSet(int cardSetIndex, int cardIndex) {
         lerM.getCardset(cardSetIndex).removeCardfromSet(cardIndex);
     }
 
     @Override
-    // Method to set the text of the card
-    public void editCardFromCardSet(int cardSetIndex, int cardIndex) {
-        lerM.getCardset(cardSetIndex).getCardfromSet(cardIndex).setText();
+    // Method to edit the Questiontext of the card
+    public void editCardQuestionTextFromCardSet(int cardSetIndex, int cardIndex, String textQ) {
+        lerM.getCardset(cardSetIndex).getCardfromSet(cardIndex).setTextQ(textQ);
+    }
+    
+    @Override
+    // Method to edit the Questiontext of the card
+    public void  editCardAnswerTextFromCardSet(int cardSetIndex, int cardIndex, String textA) {
+        lerM.getCardset(cardSetIndex).getCardfromSet(cardIndex).setTextA(textA);
     }
 
     @Override

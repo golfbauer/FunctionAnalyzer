@@ -30,7 +30,7 @@ public interface LearningCardsService {
      * @throws CardsetNotFoundException
      * @throws CardNotFoundException
      */
-    void addCardToCardSet(int cardsetIndex, String cardHeadline, String cardText)
+    void addCardToCardSet(int cardsetIndex, String cardHeadline, String cardTextQ, String cardTextA)
             throws CardsetNotFoundException, CardNotFoundException;
 
     /**
@@ -41,7 +41,7 @@ public interface LearningCardsService {
      * @param cardText     the text of the card
      * @throws CardsetNotFoundException
      */
-    void addCardToCardSet(int cardSetIndex, String cardText) throws CardsetNotFoundException;
+    void addCardToCardSet(int cardSetIndex, String cardTextQ,String  cardTextA) throws CardsetNotFoundException;
 
     /**
      * Deletes a card
@@ -60,13 +60,25 @@ public interface LearningCardsService {
      *
      * @param cardSetIndex index of the cardset
      * @param cardIndex    index of the card
-     * @param newCardText  new text
+     * @param newCardTextQ  new textQ
      * @throws CardsetNotFoundException
      * @throws CardNotFoundException
      */
-    void editCardFromCardSet(int cardSetIndex, int cardIndex, String newCardText)
+    void editCardQuestionTextFromCardSet(int cardSetIndex, int cardIndex, String newCardTextQ)
             throws CardsetNotFoundException, CardNotFoundException;
-
+    
+    /**
+     * Changes the text of a card
+     *
+     * @param cardSetIndex index of the cardset
+     * @param cardIndex    index of the card
+     * @param newCardTextQ  new textA
+     * @throws CardsetNotFoundException
+     * @throws CardNotFoundException
+     */
+    void editCardAnswerTextFromCardSet(int cardSetIndex, int cardIndex, String newCardTextA)
+            throws CardsetNotFoundException, CardNotFoundException;
+    
     /**
      * Shows all the cards within a cardset
      *

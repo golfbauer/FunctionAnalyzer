@@ -9,14 +9,14 @@ public class LearningCardManager {
   ArrayList<Cardset> cardsetCol = new ArrayList<Cardset>();
 
   // Method to create a Cardset Object
-  void createCardSet() {
-    Cardset cs = new Cardset();
+  void createCardSet(String title) {
+    Cardset cs = new Cardset(title);
     cardsetCol.add(cs);
   }
 
   // Method to create a Card Object
-  public void newCard() {
-    Card name = new Card();
+  public void newCard(String headline, String textQ, String textA) {
+    Card name = new Card(headline, textQ, textA);
     cardCol.add(name);
   }
 

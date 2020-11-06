@@ -5,20 +5,18 @@ import java.util.Scanner;
 
 public class Cardset {
     // Scanner for the Console inputs
-    Scanner sc = new Scanner(System.in);
     String title;
     // ArrayList for Card Objectives
     ArrayList<Card> cardset = new ArrayList<Card>();
 
     // Constructor for Cardset, sets Title
-    public Cardset() {
-        setTitle();
+    public Cardset(String title) {
+        setTitle(title);
     }
 
     // sets the Title (console input)
-    void setTitle() {
-        System.out.println("Title:");
-        title = sc.nextLine();
+    void setTitle(String title) {
+     this.title = title
     }
 
     // returns Title
