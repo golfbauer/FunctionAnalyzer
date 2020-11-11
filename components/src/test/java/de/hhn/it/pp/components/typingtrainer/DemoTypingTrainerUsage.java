@@ -2,93 +2,98 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.time.LocalTime;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.0
+ * @version 1.1
+ * @since 1.0
  */
 
 public class DemoTypingTrainerUsage {
 
-  public static void main(String[] args) throws WordNotFoundException, FileNotFoundException {
-    TypingTrainerService start = new TypingTrainerService() {
-
-
+  public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+    TypingTrainerService service = new TypingTrainerService() {
       @Override
-      public boolean checkWord(String word) throws WordNotFoundException {
+      public boolean checkWord(String word) {
         return false;
       }
 
       @Override
-      public void audioOutput(File soundFile) throws FileNotFoundException {
-
-      }
-
-      @Override
-      public void markWord(String word) throws WordNotFoundException {
-
-      }
-
-      @Override
-      public void selectionOfText(String selectedText) {
-
+      public void audioOutput(File soundFile) {
+        System.out.println("NI: play sound");
       }
 
       @Override
       public void quitSession() {
-
+        System.out.println("NI: return to startscreen");
       }
 
       @Override
-      public void showFeedback(long time, float wordsPerMinute) {
-        System.out.println("Time: " + time + "\n WPM: " + wordsPerMinute);
+      public void showFeedback(Feedback feedback) {
+        System.out.println("~~~ Score ~~~");
+        System.out.println("Time: "+feedback.getTime());
+        System.out.println("WPM:  "+feedback.getWordsPerMinute());
       }
 
       @Override
-      public void saveScore(File saveFile) throws FileNotFoundException {
-
+      public void saveScore(Feedback score) {
+        System.out.println("NI: score saved");
       }
 
       @Override
-      public void loadScore(File saveFile) throws FileNotFoundException {
+      public void loadScore() {
+        System.out.println("NI: score loaded");
+      }
 
+      @Override
+      public void userInput(PracticeText practiceText) {
+        Scanner scan = new Scanner(System.in);
+        practiceText.setTypedWords(scan.nextLine());
+      }
+
+      @Override
+      public void countdown(int seconds) throws InterruptedException {
+        for (int i = seconds; i > -1; i--) {
+          if (i != 0) {
+            System.out.println("__" + i + "__");
+            TimeUnit.SECONDS.sleep(1);
+          } else {
+            System.out.println("__START__");
+            TimeUnit.MILLISECONDS.sleep(500L);
+          }
+        }
       }
     };
 
-    TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor();
+    //Initial setup
+    service.loadScore();
+    File audioWrondWord = new File("sound_wrongWord.mp3");
+    Feedback feedback = new Feedback(0,0);
 
-    //Testrun
-    String userInput = "";
-    int indexText = 0;
-    File saveFile = new File("saveFile.txt");
-    boolean isRunning = true;
+    FileReader fileReader = new FileReader();
+    String[] selectedText = fileReader.GetPracticeText(); //for later: depends on what button was clicked (use other constructor)
+    PracticeText practiceText = new PracticeText(selectedText);
 
-    //Setup training session
-    File audioWrongWord = new File("sound.mp3"); // Sound for wrong words
-    ArrayList<String> selectedText = new ArrayList<>(); // Text which is selected by user
+    TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor(audioWrondWord, feedback,practiceText);
 
-    descriptor.setSelectedText(selectedText);
-    descriptor.setTime(System.currentTimeMillis());
-    descriptor.setCounterRightWords(0);
+    //In session
+    service.countdown(5);
+    descriptor.getPracticeText().printPracticeText();
+    descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
+    service.userInput(practiceText); //Stops if user presses enter
+    descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
 
-    //During training session
-    while (isRunning) {
-      if (start.checkWord(selectedText.get(indexText))) {
-        descriptor.addCounterRightWords();
-      } else {
-        start.markWord(selectedText.get(indexText));
-        start.audioOutput(audioWrongWord);
-      }
-    }
+    //Feedback
+    descriptor.getFeedback().calculateTime();
+    descriptor.getFeedback().calculateWordsPerMinute(descriptor.getPracticeText().getTypedWords());
+    service.showFeedback(descriptor.getFeedback());
 
-    long endTime = System.currentTimeMillis();
-
-    //End training session
-    start.saveScore(saveFile);
-    descriptor.setTime(descriptor.calculateTime(descriptor.getTime(), endTime));
-
-    start.showFeedback(descriptor.getTime(), descriptor.getWordsPerMinute());
-    start.quitSession();
+    //End
+    service.saveScore(descriptor.getFeedback());
+    service.quitSession();
   }
+
 }

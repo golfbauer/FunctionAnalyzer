@@ -2,65 +2,62 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.01
+ * @version 1.1
+ * @since 1.0
  */
 
 public interface TypingTrainerService {
-  /***
-   * Checks the written Word if its correct
-   * @param word: word that needs to be checked
-   * @return : true, if its right
-   * @throws WordNotFoundException
-   */
-  boolean checkWord(String word) throws WordNotFoundException;
 
-  /***
-   * Plays a sound, if the word is wrong
-   * @param soundFile: Sound that gets played
-   * @throws FileNotFoundException
+  /**
+   * Checks if a word is written correctly
+   * @param word word to check
+   * @return true when word is correct
    */
-  void audioOutput(File soundFile) throws FileNotFoundException;
+  boolean checkWord(String word);
 
-  /***
-   * Marks a word that is written correct
-   * @param word: Word that gets marked
-   * @throws WordNotFoundException
+  /**
+   * Plays a sound
+   * @param soundFile file that is played
    */
-  void markWord(String word) throws WordNotFoundException;
+  void audioOutput(File soundFile);
 
-  /***
-   * Selects the text that you want to practice
-   * @param selectedText: Selected Text
-   */
-  void selectionOfText(String selectedText);
-
-  /***
-   * Quits a learning session
+  /**
+   * Quits learning session and return to main menu
    */
   void quitSession();
 
-  /***
-   * Shows Feedback
-   * @param time Time for completion
-   * @param wordsPerMinute Words that are correct in a minute
+  /**
+   * Shows feedback
+   * @param feedback feedback to show
    */
-  void showFeedback(long time, float wordsPerMinute);
+  void showFeedback(Feedback feedback);
 
-  /***
-   * Saves the Progress of the User in a text file
-   * @param saveFile: File in which it gets saved
-   * @throws FileNotFoundException
+  /**
+   * saves feedback (score)
+   * @param score feedback to save
    */
-  void saveScore(File saveFile) throws FileNotFoundException;
+  void saveScore(Feedback score);
 
-  /***
-   * Loads die txt file, if she exists
-   * @param saveFile: File that gets loaded
-   * @throws FileNotFoundException
+  /**
+   * loads saved feedbacks (scores)
    */
-  void loadScore(File saveFile) throws FileNotFoundException;
+  void loadScore();
 
+  /**
+   * Gets user input
+   * @param practiceText text that user writes down
+   */
+  void userInput(PracticeText practiceText);
+
+  /**
+   * Print a countdown
+   * @param seconds seconds from where to start counting down
+   * @throws InterruptedException If an interruption exception occurred
+   */
+  void countdown(int seconds) throws InterruptedException;
 }
