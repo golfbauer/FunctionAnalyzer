@@ -52,12 +52,12 @@ public class DemoLearningCardsUsage {
             }
         };
 
-        // create a cardset, cardset takes automatically the index 0
+        // create a cardset, cardset takes automatically id 0, and returns its id
         int cardsetPopulationId = service.createCardset("Populations");
-        // create a card, add into the list, which belongs to cardset "Populations". Card take the index 0
+        // create a card, add into the list, which belongs to cardset "Populations", Card takes id 0, returns its id
         service.addCardToCardset(cardsetPopulationId, "Whats the population of Berlin?", "The population of Berlin is 3,562,000");
 
-        // create 2. cardset, cardset takes automatically the index 1
+        // create 2. cardset, cardset takes automatically id 1 and returns id
         int cardsetCapitalsId = service.createCardset("Capitals");
         // create cards and add them into the list of the cardset "Capitals"
         service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of Germany?", "Berlin is the capital of Germany");
