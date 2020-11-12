@@ -33,17 +33,13 @@ public class LearningCardManager {
 
     // Method to remove a Card from ArrayList for all Cards (to "delete" a card)
     int removeCardFromCol(int i) {
-        if (!cardCol.containsKey(i)) {
-            return -1;
-        }
         Card card = cardCol.remove(i);
         for (Cardset cardset : cardsetCol.values()) {
             if (cardset.getCardIds().contains(card.getId())) {
                 cardset.removeCardfromSet(card.getId());
-                break;
+                return;
             }
         }
-        return card.getId();
     }
 
     // returns a cardset from CardsetCol
