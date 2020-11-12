@@ -1,17 +1,20 @@
 package de.hhn.it.pp.components.learningCards;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Cardset {
     // Scanner for the Console inputs
     String title;
-    // ArrayList for Card Objectives
-    ArrayList<Card> cardset = new ArrayList<Card>();
+    // Map for Card Objectives
+    Map<Integer,Card> cardset = new HashMap<Integer,Card>();
+
+    int id;
+    static int idCounter = 0;
 
     // Constructor for Cardset, sets Title
     public Cardset(String title) {
         setTitle(title);
+        id = ++idCounter;
     }
 
     // sets the Title (console input)
@@ -26,7 +29,7 @@ public class Cardset {
 
     // Adds Cardobject to ArrayList "cardset"
     void addCardtoSet(Card card) {
-        cardset.add(card);
+        cardset.put(card.getId(),card);
     }
 
     // Returns Card with entered index from the Cardset
@@ -38,4 +41,19 @@ public class Cardset {
     void removeCardfromSet(int i) {
         cardset.remove(i);
     }
+
+    int getId(){
+        return id;
+    }
+
+    List<Integer> getCardIds(){
+        List<Integer> results = new ArrayList<Integer>();
+        Collection<Card> cards = cardset.values();
+        for(Card card : cards){
+            results.add(card.getId());
+        }
+        return results;
+    }
+
+
 }

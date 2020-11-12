@@ -3,95 +3,95 @@ package de.hhn.it.pp.components.learningCards;
 import de.hhn.it.pp.components.exceptions.CardNotFoundException;
 import de.hhn.it.pp.components.exceptions.CardsetNotFoundException;
 
+import java.util.List;
+
 public interface LearningCardsService {
 
     /**
-     * Creates a cardset, adds into a list
+     * creates a cardset, puts into a hashmap according to the id of the cardset
      *
-     * @param cardsetTitle name of the creating cardset
+     * @param cardsetTitle title of the cardset
+     * @return id of the creating cardset
      */
-    void createCardSet(String cardsetTitle);
+    int createCardset(String cardsetTitle);
 
     /**
      * Deletes a cardset, removes from the list
      *
      * @param cardsetIndex the index of the cardset in the list
-     * @throws CardsetNotFoundException
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
      */
-    void removeCardSet(int cardsetIndex) throws CardsetNotFoundException;
+    /**
+     * Deletes a cardset, removes from the hashmap according to its id
+     *
+     * @param cardsetId id of the cardset
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
+     */
+    void removeCardset(int cardsetId) throws CardsetNotFoundException;
 
     /**
      * Creates a card with headline and text
-     * adds the card in the list, which belongs to a cardset
+     * adds the card in the hashmaps, which belong to a Cardset and LearningCardManager
+     * each card takes a different id and it cannot be changed
      *
-     * @param cardsetIndex the index of the cardset in the list
+     * @param cardsetId    the id of the cardset
      * @param cardHeadline the headline of the card
-     * @param cardText     the text of the card
-     * @throws CardsetNotFoundException
-     * @throws CardNotFoundException
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
      */
-    void addCardToCardSet(int cardsetIndex, String cardHeadline, String cardTextQ, String cardTextA)
-            throws CardsetNotFoundException, CardNotFoundException;
+    int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ, String cardTextA)
+            throws CardsetNotFoundException;
 
     /**
      * Creates a card with just a text
-     * adds the card in the list, which belongs to a cardset
+     * adds the card in the hashmaps, which belong to a cardset and LearningCardManager
+     * each card takes a different id and it cannot be changed
      *
-     * @param cardSetIndex the index of the cardset in the list
-     * @param cardText     the text of the card
-     * @throws CardsetNotFoundException
+     * @param cardsetId the index of the cardset
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
      */
-    void addCardToCardSet(int cardSetIndex, String cardTextQ,String  cardTextA) throws CardsetNotFoundException;
+    int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA) throws CardsetNotFoundException;
 
     /**
      * Deletes a card
-     * removes the card from the list, which belongs to a cardset
+     * removes the card from the hashmaps, which belongs to a cardset and LearningCardManager
      *
-     * @param cardSetIndex the index of the cardset in the list
-     * @param cardIndex    the text of the card
-     * @throws CardsetNotFoundException
-     * @throws CardNotFoundException
+     * @param cardId the text of the card
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
+     * @throws CardNotFoundException    if card id cannot be found in the hashmap
      */
-    void removeCardFromCardSet(int cardSetIndex, int cardIndex)
+    void removeCardFromCardset(int cardId)
             throws CardsetNotFoundException, CardNotFoundException;
 
     /**
      * Changes the text of a card
      *
-     * @param cardSetIndex index of the cardset
-     * @param cardIndex    index of the card
-     * @param newCardTextQ  new textQ
-     * @throws CardsetNotFoundException
-     * @throws CardNotFoundException
+     * @param cardId       index of the card
+     * @param newCardTextQ new textQ
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
+     * @throws CardNotFoundException    if card id cannot be found in the hashmap
      */
-    void editCardQuestionTextFromCardSet(int cardSetIndex, int cardIndex, String newCardTextQ)
+    void editCardQuestionTextFromCardset(int cardId, String newCardTextQ)
             throws CardsetNotFoundException, CardNotFoundException;
-    
+
     /**
      * Changes the text of a card
      *
-     * @param cardSetIndex index of the cardset
-     * @param cardIndex    index of the card
-     * @param newCardTextQ  new textA
-     * @throws CardsetNotFoundException
-     * @throws CardNotFoundException
+     * @param cardId       index of the card
+     * @param newCardTextA new textA
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
+     * @throws CardNotFoundException    if card id cannot be found in the hashmap
      */
-    void editCardAnswerTextFromCardSet(int cardSetIndex, int cardIndex, String newCardTextA)
+    void editCardAnswerTextFromCardset(int cardId, String newCardTextA)
             throws CardsetNotFoundException, CardNotFoundException;
-    
-    /**
-     * Shows all the cards within a cardset
-     *
-     * @param cardSetIndex the index of the cardset, which should be learned
-     * @throws CardsetNotFoundException
-     */
-    void startLearningSession(int cardSetIndex) throws CardsetNotFoundException;
 
     /**
-     * Shows just unseen and unsolved cards within a cardset
+     * Shows the cards within a cardset
      *
-     * @param cardSetIndex the index of the cardset, which should be learned
-     * @throws CardsetNotFoundException
+     * @param cardsetId
+     * @param status    the status of the cards, which will be shown
+     * @throws CardsetNotFoundException if cardset id cannot be found in the hashmap
      */
-    void repeatUnseenAndUnsolvedCards(int cardSetIndex) throws CardsetNotFoundException;
+    void startLearningSession(int cardsetId, Status[] status) throws CardsetNotFoundException;
+
+
 }

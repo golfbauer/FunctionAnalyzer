@@ -1,19 +1,30 @@
 package de.hhn.it.pp.components.learningCards;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class SessionManager {
 
     LearningProgress progress = new LearningProgress();
     Cardset cardSet = null;
+
     int cardIndex = 0;
     Scanner scanner = new Scanner(System.in);
 
     // Method to start learning session
-    public void startLearningSession(Cardset cardSet) {
+    public void startLearningSession(Cardset cardSet, Status[] status) {
         this.cardSet = cardSet;
-        while (cardSet.cardset.size() > cardIndex) {
-            askQuestion(cardSet.getCardfromSet(cardIndex));
+        ArrayList<Card> cards = new ArrayList<Card>();
+        for (int cardId : cardSet.getCardIds()) {
+            Card card = cardSet.getCardfromSet(cardId);
+            if (Arrays.asList(status).contains(card.getStatus())) {
+                cards.add(card);
+            }
+        }
+        while (cards.size() > cardIndex) {
+            askQuestion(cards.get(cardIndex));
             cardIndex++;
             if (stopLearningSession()) {
                 break;
@@ -26,37 +37,17 @@ public class SessionManager {
 
     }
 
-    // Method to repeat unseen and unsolved Cards
-    public void repeatUnseenAndUnsolvedCards(Cardset cardSet) {
-        this.cardSet = cardSet;
-        while (cardSet.cardset.size() > cardIndex) {
-            Card card = cardSet.getCardfromSet(cardIndex);
-            if (!card.seen ||
-                    !card.solved) {
-                askQuestion(cardSet.getCardfromSet(cardIndex));
-                cardIndex++;
-                if (stopLearningSession()) {
-                    break;
-                }
-            }
-        }
-        cardIndex = 0;
-        System.out.println("Result: " + progress.toString());
-        System.out.println("******************************");
-        progress.reset();
-    }
 
     // Method to show and mark the question
     public void askQuestion(Card card) {
         System.out.println(card.getTextQ());
-        card.cardSeen();
         System.out.println("If it is solved correctly, enter 1.\nOtherwise enter something else:");
         String input = scanner.nextLine();
         if (input.equals("1")) {
-            card.cardSolved();
+            card.setStatus(Status.SOLVED);
             progress.updateRight();
         } else {
-            card.cardUnsolved();
+            card.setStatus(Status.UNSOLVED);
             progress.updateWrong();
         }
     }
