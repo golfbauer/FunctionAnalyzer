@@ -12,6 +12,16 @@ public class JBVocableTrainerService implements VocableTrainerService {
 
 
   /**
+   * Returns the current score.
+   *
+   * @return Score
+   */
+  @Override
+  public int getScore() {
+    return 0;
+  }
+
+  /**
    * Returns the currently selected VocCategory.
    *
    * @return VocCategory array
@@ -171,7 +181,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @throws IllegalStateException voccategory wasn't selected first
    */
   @Override
-  public boolean learn(learningSelection state) throws IllegalStateException {
+  public boolean learn(learningSelection[] state) throws IllegalStateException {
     return false;
   }
 }

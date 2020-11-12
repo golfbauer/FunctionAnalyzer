@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 public interface VocableTrainerService {
 
+  /**
+   * Returns the current score.
+   *
+   * @return Score
+   */
+  int getScore();
 
   /**
    * Returns the currently selected VocCategory.
