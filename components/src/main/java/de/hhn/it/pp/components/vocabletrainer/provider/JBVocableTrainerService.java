@@ -1,9 +1,14 @@
-package de.hhn.it.pp.components.vocabletrainer;
+package de.hhn.it.pp.components.vocabletrainer.provider;
 
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
+import de.hhn.it.pp.components.vocabletrainer.User;
+import de.hhn.it.pp.components.vocabletrainer.VocCategory;
+import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.UserNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.learningSelection;
 import java.util.ArrayList;
 
 public class JBVocableTrainerService implements VocableTrainerService {
