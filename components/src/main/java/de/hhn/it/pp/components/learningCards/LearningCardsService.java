@@ -1,9 +1,7 @@
 package de.hhn.it.pp.components.learningCards;
 
-import de.hhn.it.pp.components.exceptions.CardNotFoundException;
-import de.hhn.it.pp.components.exceptions.CardsetNotFoundException;
-
-import java.util.List;
+import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
 
 public interface LearningCardsService {
 
