@@ -1,51 +1,12 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
-import de.hhn.it.pp.components.vocabletrainer.exceptions.UserNotFoundException;
+
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
 
 public interface VocableTrainerService {
 
-  /**
-   * Returns the currently selected User.
-   *
-   * @return user object
-   */
-  User getUser();
-
-  /**
-   * Returns a list of users.
-   *
-   * @return List of registered users
-   */
-  ArrayList<User> getUsers();
-
-  /**
-   * Add a new User to the user list.
-   *
-   * @param name of the new user
-   * @return user successfully added
-   */
-  boolean addUser(String name);
-
-  /**
-   * Remove user from user list.
-   *
-   * @param userId User
-   * @return user successfully removed
-   * @throws UserNotFoundException when CategoryId doesn't exist
-   */
-  boolean removeUser(int userId) throws UserNotFoundException;
-
-  /**
-   * Select a user from the user list.
-   *
-   * @param userId User
-   * @return user successfully selected
-   * @throws UserNotFoundException when CategoryId doesn't exist
-   */
-  boolean selectUser(int userId) throws UserNotFoundException;
 
   /**
    * Returns the currently selected VocCategory.
@@ -126,16 +87,6 @@ public interface VocableTrainerService {
   void skip();
 
   /**
-   * edit a User.
-   *
-   * @param name   Name of the User,
-   * @param userId userId Id from the User
-   * @return User was successfully edited
-   * @throws UserNotFoundException when userrId doesn't exist
-   */
-  boolean editUser(int userId, String name) throws UserNotFoundException;
-
-  /**
    * edit a Category
    *
    * @param name       Name of the Category,
@@ -173,7 +124,7 @@ public interface VocableTrainerService {
    *
    * @param state state of learning
    * @return true if learning started
-   * @throws IllegalStateException if either user or voccategory wasn't selected first
+   * @throws IllegalStateException voccategory wasn't selected first
    */
   boolean learn(learningSelection state) throws IllegalStateException;
 

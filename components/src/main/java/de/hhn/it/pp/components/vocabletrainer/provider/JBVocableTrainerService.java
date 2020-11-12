@@ -1,11 +1,8 @@
 package de.hhn.it.pp.components.vocabletrainer.provider;
 
-import de.hhn.it.pp.components.exceptions.IllegalParameterException;
-import de.hhn.it.pp.components.vocabletrainer.User;
 import de.hhn.it.pp.components.vocabletrainer.VocCategory;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
-import de.hhn.it.pp.components.vocabletrainer.exceptions.UserNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.learningSelection;
@@ -13,60 +10,6 @@ import java.util.ArrayList;
 
 public class JBVocableTrainerService implements VocableTrainerService {
 
-  /**
-   * Returns the currently selected User.
-   *
-   * @return user object
-   */
-  @Override
-  public User getUser() {
-    return null;
-  }
-
-  /**
-   * Returns a list of users.
-   *
-   * @return List of registered users
-   */
-  @Override
-  public ArrayList<User> getUsers() {
-    return null;
-  }
-
-  /**
-   * Add a new User to the user list.
-   *
-   * @param name of the new user
-   * @return user successfully added
-   */
-  @Override
-  public boolean addUser(String name) {
-    return false;
-  }
-
-  /**
-   * Remove user from user list.
-   *
-   * @param userId User
-   * @return user successfully removed
-   * @throws UserNotFoundException when CategoryId doesn't exist
-   */
-  @Override
-  public boolean removeUser(int userId) throws UserNotFoundException {
-    return false;
-  }
-
-  /**
-   * Select a user from the user list.
-   *
-   * @param userId User
-   * @return user successfully selected
-   * @throws UserNotFoundException when CategoryId doesn't exist
-   */
-  @Override
-  public boolean selectUser(int userId) throws UserNotFoundException {
-    return false;
-  }
 
   /**
    * Returns the currently selected VocCategory.
@@ -179,19 +122,6 @@ public class JBVocableTrainerService implements VocableTrainerService {
   }
 
   /**
-   * edit a User.
-   *
-   * @param userId userId Id from the User
-   * @param name   Name of the User,
-   * @return User was successfully edited
-   * @throws UserNotFoundException when userrId doesn't exist
-   */
-  @Override
-  public boolean editUser(int userId, String name) throws UserNotFoundException {
-    return false;
-  }
-
-  /**
    * edit a Category
    *
    * @param categoryId CategoryId from the Category
@@ -238,7 +168,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param state state of learning
    * @return true if learning started
-   * @throws IllegalStateException if either user or voccategory wasn't selected first
+   * @throws IllegalStateException voccategory wasn't selected first
    */
   @Override
   public boolean learn(learningSelection state) throws IllegalStateException {
