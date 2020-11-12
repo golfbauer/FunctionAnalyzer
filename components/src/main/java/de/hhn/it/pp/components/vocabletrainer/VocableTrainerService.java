@@ -126,6 +126,6 @@ public interface VocableTrainerService {
    * @return true if learning started
    * @throws IllegalStateException voccategory wasn't selected first
    */
-  boolean learn(learningSelection state) throws IllegalStateException;
+  boolean learn(learningSelection[] state) throws IllegalStateException;
 
 }

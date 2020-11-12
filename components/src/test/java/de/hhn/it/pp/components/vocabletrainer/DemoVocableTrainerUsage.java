@@ -9,61 +9,17 @@ public class DemoVocableTrainerUsage {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
-  public static void main(String[] args){
+  public static void main(String[] args) {
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
 
-    // Home page
-    ArrayList<User> users = jbVocableTrainerService.getUsers();
-    logger.debug("Users: " + users);
 
-    // Add user
-    boolean sucess = jbVocableTrainerService.addUser("test");
-    if (sucess) {
-      logger.debug("User successfully added");
-    } else {
-      logger.debug("Failed to add user");
-    }
-
-    // Home page
-    users = jbVocableTrainerService.getUsers();
-    logger.debug("Users: " + users);
-
-    // Edit user
-    try {
-      sucess = jbVocableTrainerService.editUser(0, "Tom");
-    } catch (UserNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (sucess) {
-      logger.debug("User successfully saved");
-    } else {
-      logger.debug("Failed to save the user");
-    }
-
-    // Home page
-    users = jbVocableTrainerService.getUsers();
-    logger.debug("Users: " + users);
-
-    // Select user
-    boolean isSelected = false;
-    try {
-      isSelected = jbVocableTrainerService.selectUser(0);
-    } catch (UserNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (isSelected) {
-      logger.debug("successfully selected");
-    } else {
-      logger.debug("selecting failed");
-    }
-    // show selected user, score, vocCategories
-    String name = jbVocableTrainerService.getUser().getName();
-    int score = jbVocableTrainerService.getUser().getScore();
+    // show  score, vocCategories
+    int score = jbVocableTrainerService.getScore();
     ArrayList<VocCategory> vocCategories = jbVocableTrainerService.getVocCategories();
-    logger.debug(name + ": " + score + "\n" + vocCategories);
+    logger.debug(score + "\n" + vocCategories);
 
     // Add vocCategory 1
-    sucess = jbVocableTrainerService.addVocCategory("Category 1");
+    boolean sucess = jbVocableTrainerService.addVocCategory("Category 1");
     if (sucess) {
       logger.debug("successfully added");
     } else {
@@ -90,13 +46,13 @@ public class DemoVocableTrainerUsage {
       logger.debug("adding failed");
     }
 
-    // show selected user, score, vocCategories
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    // show score, vocCategories
+    score = jbVocableTrainerService.getScore();
     vocCategories = jbVocableTrainerService.getVocCategories();
-    logger.debug(name + ": " + score + "\n" + vocCategories);
+    logger.debug(score + "\n" + vocCategories);
 
     // Select vocCategory 1
+    boolean isSelected = false;
     try {
       isSelected = jbVocableTrainerService.selectVocCategory(0);
     } catch (VocCategoryNotFoundException e) {
@@ -108,12 +64,11 @@ public class DemoVocableTrainerUsage {
       logger.debug("Selecting failed");
     }
 
-    // show user, score, vocCategory, vocabularies
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    // show  score, vocCategory, vocabularies
+    score = jbVocableTrainerService.getScore();
     VocCategory vocCategory = jbVocableTrainerService.getVocCategory();
     ArrayList<Vocable> vocabulary = jbVocableTrainerService.getVocabulary();
-    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+    logger.debug(score + "\n" + vocCategory + ": " + vocabulary);
 
     // Add vocable 1
     try {
@@ -141,12 +96,11 @@ public class DemoVocableTrainerUsage {
       logger.debug("Adding vocabulary failed");
     }
 
-    // show user, score, vocCategory, vocabularies
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    // show score, vocCategory, vocabularies
+    score = jbVocableTrainerService.getScore();
     vocCategory = jbVocableTrainerService.getVocCategory();
     vocabulary = jbVocableTrainerService.getVocabulary();
-    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+    logger.debug(score + "\n" + vocCategory + ": " + vocabulary);
 
     // Edit vocable 2
     try {
@@ -161,12 +115,11 @@ public class DemoVocableTrainerUsage {
       logger.debug("Edit vocabulary failed");
     }
 
-    // show user, score, vocCategory, vocabularies
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    // show score, vocCategory, vocabularies
+    score = jbVocableTrainerService.getScore();
     vocCategory = jbVocableTrainerService.getVocCategory();
     vocabulary = jbVocableTrainerService.getVocabulary();
-    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+    logger.debug(score + "\n" + vocCategory + ": " + vocabulary);
 
     // Delete vocable 1
     try {
@@ -180,12 +133,11 @@ public class DemoVocableTrainerUsage {
       logger.debug("removing the vocable failed");
     }
 
-    // show user, score, vocCategory, vocabularies
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    // show score, vocCategory, vocabularies
+    score = jbVocableTrainerService.getScore();
     vocCategory = jbVocableTrainerService.getVocCategory();
     vocabulary = jbVocableTrainerService.getVocabulary();
-    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+    logger.debug(score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
     boolean ready = jbVocableTrainerService.learn(learningSelection.ALL);
@@ -212,36 +164,23 @@ public class DemoVocableTrainerUsage {
     logger.debug("Vocable skipped");
 
     // evaluation
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
-    logger.debug(name + "\nnew Score: " + score);
 
-    // show user, score, vocCategory, vocabularies
-    name = jbVocableTrainerService.getUser().getName();
-    score = jbVocableTrainerService.getUser().getScore();
+    score = jbVocableTrainerService.getScore();
+    logger.debug("\nnew Score: " + score);
+
+    // show score, vocCategory, vocabularies
+    score = jbVocableTrainerService.getScore();
     vocCategory = jbVocableTrainerService.getVocCategory();
     vocabulary = jbVocableTrainerService.getVocabulary();
-    logger.debug(name + ": " + score + "\n" + vocCategory + ": " + vocabulary);
+    logger.debug(": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
     jbVocableTrainerService.learn(learningSelection.WRONG);
-    // cancle learn
-    jbVocableTrainerService.learn(learningSelection.CANCLE);
-
-    // remove User
-    boolean isRemoved = false;
-    try {
-      isRemoved = jbVocableTrainerService.removeUser(0);
-    } catch (UserNotFoundException e) {
-      e.printStackTrace();
-    }
-    if (isRemoved) {
-      logger.debug("User successfully removed");
-    } else {
-      logger.debug("Failed to remove the user");
-    }
+    // cancel learn
+    jbVocableTrainerService.learn(learningSelection.CANCEL);
 
     //remove Category
+    boolean isRemoved = false;
     try {
       isRemoved = jbVocableTrainerService.removeVocCategory(0);
     } catch (VocCategoryNotFoundException e) {
