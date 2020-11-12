@@ -1,52 +1,73 @@
 package de.hhn.it.pp.components.learningCards;
 
-import java.util.Scanner;
 
 class Card {
-    // Scanner for the Console inputs
-    Scanner sc = new Scanner(System.in);
-    // Card Text
-    String text;
+
+
+    Status status = Status.UNSEEN;
+    // Card TextA (for  questions )
+    String textQ;
+    // Card textB (for answers)
+    String textA;
+    // identifier for Card
+    int id;
+    static int idCounter = 0;
     // Card Headline
     String headline;
-    // marker if card is solved
-    boolean solved = false;
-    // marker if card has been seen
-    boolean seen = false;
 
-    // Card Constructor, sets Headline, Text and Cardnumber
-    Card() {
-        setHeadline();
-        setText();
+
+    // Card Constructor, sets Headline, TextQ and TextA 
+    Card(String headline, String textQ, String textA) {
+        setHeadline(headline);
+        setTextQ(textQ);
+        setTextA(textA);
+        id = ++idCounter;
     }
 
     // Method to set Headline (console input)
-    void setHeadline() {
-        System.out.println("Add Headline: ");
-        headline = sc.nextLine();
+    void setHeadline(String headline) {
+
+        this.headline = headline;
     }
 
     // not intended for demo version (empty method)
     void addPicture() {
     }
 
-    // Method to set text (console input)
-    void setText() {
-        System.out.println("Add Text: ");
-        text = sc.nextLine();
+    // Method to set Question text
+    void setTextQ(String question) {
+        textQ = question;
     }
 
-    // Method to change allready set Text with output from the old text and console Input for new Text
-    void editText() {
-        System.out.println("Old Text:\n" + text + "\n new Text:");
-        setText();
+    // Method to set Answer text
+    void setTextA(String answer) {
+        textA = answer;
     }
 
-    // returns text
-    String getText() {
-        return text;
+    // Method to change allready set Question Text 
+    void editTextQ(String changedQ) {
+        setTextQ(changedQ);
     }
 
+    // Method to change allready set Answer Text
+    void editTextA(String changedA) {
+
+        setTextA(changedA);
+    }
+
+    int getId() {
+        return id;
+    }
+
+    // returns Question text
+    String getTextQ() {
+        return textQ;
+    }
+
+    // returns Answer text
+    String getTextA() {
+        return textA;
+    }
 
     // returns Headline
     String getHeadline() {
@@ -56,24 +77,18 @@ class Card {
     // Combines all Strings in one String and returns it.
     String getCardinfo() {
         String info;
-        info = getHeadline() + getText();
+        info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
         return info;
     }
 
-    // sets seen status to true
-    void cardSeen() {
-        seen = true;
+    Status getStatus() {
+        return status;
     }
 
-    // sets solved status to true
-    void cardSolved() {
-        solved = true;
+    void setStatus(Status newStatus) {
+        status = newStatus;
     }
 
-    // sets solved status to false (used in case a Card was flagged by mistake (or something else))
-    void cardUnsolved() {
-        solved = false;
-    }
 }
 
 
