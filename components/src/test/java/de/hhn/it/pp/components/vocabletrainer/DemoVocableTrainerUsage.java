@@ -140,7 +140,9 @@ public class DemoVocableTrainerUsage {
     logger.debug(score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
-    boolean ready = jbVocableTrainerService.learn(learningSelection.ALL);
+    learningSelection[] learnSel = new learningSelection[]{learningSelection.ALL};
+
+    boolean ready = jbVocableTrainerService.learn(learnSel);
     if (ready) {
       logger.debug("You can learn all");
     } else {
@@ -175,7 +177,8 @@ public class DemoVocableTrainerUsage {
     logger.debug(": " + score + "\n" + vocCategory + ": " + vocabulary);
 
     // learn vocabulary
-    jbVocableTrainerService.learn(learningSelection.WRONG);
+    learningSelection[] learnSelWrong = new learningSelection[]{learningSelection.WRONG};
+    jbVocableTrainerService.learn(learnSelWrong);
     // cancel learn
     jbVocableTrainerService.learn(learningSelection.CANCEL);
 
