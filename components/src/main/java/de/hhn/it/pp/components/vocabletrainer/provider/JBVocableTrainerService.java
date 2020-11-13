@@ -7,9 +7,9 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundExce
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.learningSelection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JBVocableTrainerService implements VocableTrainerService {
-
 
   /**
    * Returns the current score.
@@ -182,6 +182,17 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public boolean learn(learningSelection[] state) throws IllegalStateException {
+    return false;
+  }
+
+  /**
+   * load data into the vocabletrainer component
+   *
+   * @param datalist HashMap of data that should be loaded into the component
+   * @return the success of the process
+   */
+  @Override
+  public boolean loadData(HashMap<String, String[]> datalist) {
     return false;
   }
 }

@@ -4,6 +4,7 @@ package de.hhn.it.pp.components.vocabletrainer;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface VocableTrainerService {
 
@@ -134,4 +135,11 @@ public interface VocableTrainerService {
    */
   boolean learn(learningSelection[] state) throws IllegalStateException;
 
+  /**
+   * load data into the vocabletrainer component
+   *
+   * @param datalist HashMap of data that should be loaded into the component
+   * @return the success of the process
+   */
+  boolean loadData(HashMap<String, String[]> datalist);
 }
