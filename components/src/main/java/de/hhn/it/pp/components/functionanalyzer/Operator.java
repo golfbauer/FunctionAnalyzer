@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
 public enum Operator {
-  ADD("+"), MULTIPLY("*"), SUBTRACT("-"), DIVIDE("/");
+  ADD("+"), MULTIPLY("*");
 
   private final String symbol;
 
