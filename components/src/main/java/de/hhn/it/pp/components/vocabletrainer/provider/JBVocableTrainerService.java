@@ -34,7 +34,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   /**
    * Add a new VocCategory to the VocCategory array.
    *
-   * @param category       of the category
+   * @param category       name of the category
    * @param vocabularyList list of vocabulary
    * @return VocCategory successfully added
    */
@@ -129,14 +129,18 @@ public class JBVocableTrainerService implements VocableTrainerService {
   }
 
   /**
-   * checks if the vocable is correct.
+   * checks if the vocable is correct with the levenshtein distance.
    *
-   * @param word input from the user
+   * @param word                input from the user
+   * @param id                  of the vocable
+   * @param category            name of the category
+   * @param levenshteinDistance deviation from the right word
    * @return word is correct
-   * @throws IllegalStateException if either user, voccategory or learn state wasn't selected first
+   * @throws IllegalStateException if either user, vocCategory or learn state wasn't selected first
    */
   @Override
-  public boolean isVocableCorrect(String word) throws IllegalStateException {
+  public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
+      throws IllegalStateException {
     return false;
   }
 
@@ -170,7 +174,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   }
 
   /**
-   * load data into the vocabletrainer component
+   * load data into the vocableTrainer component
    *
    * @param vocabularyList HashMap of data that should be loaded into the component
    * @return the success of the process

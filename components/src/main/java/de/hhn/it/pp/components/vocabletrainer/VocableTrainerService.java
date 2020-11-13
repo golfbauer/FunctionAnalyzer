@@ -25,7 +25,7 @@ public interface VocableTrainerService {
   /**
    * Add a new VocCategory to the VocCategory array.
    *
-   * @param category of the category
+   * @param category       name of the category
    * @param vocabularyList list of vocabulary
    * @return VocCategory successfully added
    */
@@ -43,7 +43,7 @@ public interface VocableTrainerService {
   /**
    * Returns the Vocable with the id.
    *
-   * @param id number of the vocable
+   * @param id       number of the vocable
    * @param category name of the category
    * @return Vocable
    */
@@ -60,9 +60,9 @@ public interface VocableTrainerService {
   /**
    * Add a new Vocable to the Vocabulary list.
    *
-   * @param originWord the vocabulary to be learned
+   * @param originWord  the vocabulary to be learned
    * @param foreignWord translation of the vocabulary
-   * @param category name of the category
+   * @param category    name of the category
    * @return Vocable successfully added
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
@@ -72,7 +72,7 @@ public interface VocableTrainerService {
   /**
    * Remove Vocable from Vocabulary list.
    *
-   * @param id number of the word to be deleted
+   * @param id       number of the word to be deleted
    * @param category name of the category where the vocable is in
    * @return Vocable successfully removed
    * @throws VocableNotFoundException when vocableId doesn't exist
@@ -92,24 +92,29 @@ public interface VocableTrainerService {
    * @return Category was successfully edited
    * @throws VocCategoryNotFoundException if categoryID doesn't exist
    */
-  boolean editVocCategory(String oldCategoryName, String newCategoryName) throws VocCategoryNotFoundException;
+  boolean editVocCategory(String oldCategoryName, String newCategoryName)
+      throws VocCategoryNotFoundException;
 
   /**
-   * checks if the vocable is correct.
+   * checks if the vocable is correct with the levenshtein distance.
    *
-   * @param word input from the user
+   * @param word                input from the user
+   * @param id                  of the vocable
+   * @param category            name of the category
+   * @param levenshteinDistance deviation from the right word
    * @return word is correct
-   * @throws IllegalStateException if either user, voccategory or learn state wasn't selected first
+   * @throws IllegalStateException if either user, vocCategory or learn state wasn't selected first
    */
-  boolean isVocableCorrect(String word) throws IllegalStateException;
+  boolean checkVocable(String word, int id, String category, int levenshteinDistance)
+      throws IllegalStateException;
 
   /**
    * edit a vocable.
    *
-   * @param id number of the word to be changed
-   * @param originWord  string of the origin word
+   * @param id           number of the word to be changed
+   * @param originWord   string of the origin word
    * @param foreignWords list of translated words
-   * @param category  name of the category
+   * @param category     name of the category
    * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
@@ -127,7 +132,7 @@ public interface VocableTrainerService {
   boolean learn(learningSelection[] state) throws IllegalStateException;
 
   /**
-   * load data into the vocabletrainer component
+   * load data into the vocableTrainer component
    *
    * @param vocabularyList HashMap of data that should be loaded into the component
    * @return the success of the process
