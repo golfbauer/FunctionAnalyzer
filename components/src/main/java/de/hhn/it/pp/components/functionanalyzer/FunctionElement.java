@@ -14,5 +14,13 @@ public class FunctionElement {
     this.term = term;
     this.operator = operator;
   }
+
+  public Term getTerm() {
+    return term;
+  }
+
+  public String getOperator() {
+    return operator;
+  }
 }
 
