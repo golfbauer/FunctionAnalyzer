@@ -11,6 +11,7 @@ public class SpellingTrainerDescriptor {
   private int counterWrongWords;
   private int counterRightWords;
   private int counterRemainingWords;
+  LearningSet activeLearningSet;
 
 
   /**
@@ -64,5 +65,13 @@ public class SpellingTrainerDescriptor {
         throw new CounterNotFoundException();
 
     }
+  }
+
+  public void setActiveLearningSet(LearningSet learningSet) {
+    this.activeLearningSet = learningSet;
+  }
+
+  public LearningSet getActiveLearningSet() {
+    return activeLearningSet;
   }
 }
