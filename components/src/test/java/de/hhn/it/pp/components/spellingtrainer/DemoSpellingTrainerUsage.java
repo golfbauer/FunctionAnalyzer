@@ -16,39 +16,36 @@ public class DemoSpellingTrainerUsage {
     //Nur für den Test
     SpellingTrainerService service = new SpellingTrainerService() {
       @Override
-      public void audioOutput(File audioFile) throws FileNotFoundException {
-      }
-
-      @Override
-      public boolean checkSpelling(String writtenWord) {
+      public boolean checkSpelling(String enteredWord, LearningEntry learningEntry) {
         return false;
       }
 
       @Override
-      public void addWord(String word, File audio)
+      public void addWord(String word, File audio, LearningSet learningSet)
           throws WordAlreadyAddedException, FileNotFoundException {
 
       }
 
       @Override
-      public void deleteWord(String word) throws WordNotFoundException {
+      public void deleteWord(String word, LearningSet learningSet) throws WordNotFoundException {
 
       }
     };
     SpellingTrainerDescriptor descriptor = new SpellingTrainerDescriptor();
 
-    //Nicht während Projektablauf
+    //Not executed during runtime
     String word = "test";
     File audioFile = new File("test.mp3");
-    service.addWord(word, audioFile);
-    service.deleteWord(word);
+    LearningSet learningSet = new LearningSet("Test Set ");
+    service.addWord(word, audioFile,learningSet);
+    service.deleteWord(word,learningSet);
 
-    //Ablauf für jedes Wort wiederholen
-    word = descriptor.getSpellingWord(0);
-    audioFile = descriptor.getAudioFile(word);
-    service.audioOutput(audioFile);
+    //Repeat execution for each word
+   LearningEntry learningEntry = learningSet.getLearningEntry(0);
+    audioFile = learningEntry.getMediaReference().getMediaFile();
+
     //User Eingabe über JavaFX
-    service.checkSpelling(word);
+    //service.checkSpelling(word);
   }
 }
 
