@@ -2,6 +2,9 @@ package de.hhn.it.pp.components.spellingtrainer;
 
 import java.io.File;
 
+/**
+ * Class MediaReference contains an constructor which references an media file.
+ */
 public class MediaReference {
   private File mediaFile;
 
