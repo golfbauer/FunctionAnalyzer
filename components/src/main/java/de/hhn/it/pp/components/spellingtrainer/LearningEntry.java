@@ -1,5 +1,9 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+/**
+ * Class LearningEntry contains an constructor to connect an media reference to a string.
+ * It provides getter and setter methods for the media reference and words.
+ */
 public class LearningEntry {
   private MediaReference mediaReference;
   private String wordEntry;
