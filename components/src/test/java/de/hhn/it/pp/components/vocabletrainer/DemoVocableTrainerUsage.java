@@ -11,7 +11,7 @@ public class DemoVocableTrainerUsage {
 
   public static void main(String[] args) {
     JBVocableTrainerService jbVocableTrainerService = new JBVocableTrainerService();
-
+    Vocable
 
     // show  score, vocCategories
     int score = jbVocableTrainerService.getScore();

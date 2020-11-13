@@ -1,6 +1,5 @@
 package de.hhn.it.pp.components.vocabletrainer.provider;
 
-import de.hhn.it.pp.components.vocabletrainer.VocCategory;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
