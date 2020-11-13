@@ -1,37 +1,20 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
 import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class SpellingTrainerDescriptor {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SpellingTrainerDescriptor.class);
 
-  private HashMap<String, File> audioFiles = new HashMap<>();
-  private ArrayList<String> spellingWords = new ArrayList<>();
+
   private int counterWrongWords;
   private int counterRightWords;
   private int counterRemainingWords;
+  LearningSet activeLearningSet;
+  private ArrayList<LearningSet> learningSets = new ArrayList<>();
 
-  public void setAudioFiles(String spellingWord, File audioFile) {
-    audioFiles.put(spellingWord, audioFile);
-  }
-
-  public File getAudioFile(String spellingWord) {
-    return audioFiles.get(spellingWord);
-  }
-
-  public void setSpellingWord(String spellingWord) {
-    spellingWords.add(spellingWord);
-  }
-
-  public String getSpellingWord(int index) {
-    return spellingWords.get(index);
-  }
 
   /**
    * Returns the counter value of the addressed counter.
@@ -84,5 +67,21 @@ public class SpellingTrainerDescriptor {
         throw new CounterNotFoundException();
 
     }
+  }
+
+  public void setActiveLearningSet(LearningSet learningSet) {
+    this.activeLearningSet = learningSet;
+  }
+
+  public LearningSet getActiveLearningSet() {
+    return activeLearningSet;
+  }
+
+  public void addLearningSet(LearningSet learningSet) {
+    this.learningSets.add(learningSet);
+  }
+
+  public void removeLearningSet(LearningSet learningSet) {
+    this.learningSets.remove(learningSet);
   }
 }
