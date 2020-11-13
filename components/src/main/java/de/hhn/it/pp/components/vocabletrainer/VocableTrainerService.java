@@ -1,6 +1,6 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
-
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
@@ -28,15 +28,17 @@ public interface VocableTrainerService {
    * @param category       name of the category
    * @param vocabularyList list of vocabulary
    * @return VocCategory successfully added
+   * @throws VocCategoryAlreadyExistException when category name already exist
    */
-  boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList);
+  boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+      throws VocCategoryAlreadyExistException;
 
   /**
    * Remove VocCategory from VocCategory array.
    *
    * @param category name of the category
    * @return VocCategory successfully removed
-   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   boolean removeVocCategory(String category) throws VocCategoryNotFoundException;
 
@@ -46,16 +48,20 @@ public interface VocableTrainerService {
    * @param id       number of the vocable
    * @param category name of the category
    * @return Vocable
+   * @throws VocableNotFoundException
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  Vocable getVocable(int id, String category);
+  Vocable getVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException;
 
   /**
    * Returns all Vocabulary in the category.
    *
    * @param category name of the category whose list is to be output
    * @return List of registered vocabulary
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  ArrayList<Vocable> getVocabulary(String category);
+  ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException;
 
   /**
    * Add a new Vocable to the Vocabulary list.
@@ -75,14 +81,11 @@ public interface VocableTrainerService {
    * @param id       number of the word to be deleted
    * @param category name of the category where the vocable is in
    * @return Vocable successfully removed
-   * @throws VocableNotFoundException when vocableId doesn't exist
+   * @throws VocableNotFoundException     when vocableId doesn't exist
+   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
-  boolean removeVocable(int id, String category) throws VocableNotFoundException;
-
-  /**
-   * Skips the current vocable.
-   */
-  void skip();
+  boolean removeVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException;
 
   /**
    * edit a Category
@@ -103,10 +106,10 @@ public interface VocableTrainerService {
    * @param category            name of the category
    * @param levenshteinDistance deviation from the right word
    * @return word is correct
-   * @throws IllegalStateException if either user, vocCategory or learn state wasn't selected first
+   * @throws VocCategoryNotFoundException if categoryID doesn't exist
    */
   boolean checkVocable(String word, int id, String category, int levenshteinDistance)
-      throws IllegalStateException;
+      throws VocCategoryNotFoundException;
 
   /**
    * edit a vocable.

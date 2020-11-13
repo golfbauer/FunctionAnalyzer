@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.vocabletrainer.provider;
 import de.hhn.it.pp.components.vocabletrainer.VocCategory;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.learningSelection;
@@ -37,9 +38,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param category       name of the category
    * @param vocabularyList list of vocabulary
    * @return VocCategory successfully added
+   * @throws VocCategoryAlreadyExistException when category name already exist
    */
   @Override
-  public boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList) {
+  public boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+      throws VocCategoryAlreadyExistException {
     return false;
   }
 
@@ -48,7 +51,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param category name of the category
    * @return VocCategory successfully removed
-   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
   public boolean removeVocCategory(String category) throws VocCategoryNotFoundException {
@@ -61,9 +64,12 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param id       number of the vocable
    * @param category name of the category
    * @return Vocable
+   * @throws VocableNotFoundException
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
-  public Vocable getVocable(int id, String category) {
+  public Vocable getVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException {
     return null;
   }
 
@@ -72,9 +78,10 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param category name of the category whose list is to be output
    * @return List of registered vocabulary
+   * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
-  public ArrayList<Vocable> getVocabulary(String category) {
+  public ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
     return null;
   }
 
@@ -99,19 +106,13 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param id       number of the word to be deleted
    * @param category name of the category where the vocable is in
    * @return Vocable successfully removed
-   * @throws VocableNotFoundException when vocableId doesn't exist
+   * @throws VocableNotFoundException     when vocableId doesn't exist
+   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
   @Override
-  public boolean removeVocable(int id, String category) throws VocableNotFoundException {
+  public boolean removeVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException {
     return false;
-  }
-
-  /**
-   * Skips the current vocable.
-   */
-  @Override
-  public void skip() {
-
   }
 
   /**
@@ -136,11 +137,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param category            name of the category
    * @param levenshteinDistance deviation from the right word
    * @return word is correct
-   * @throws IllegalStateException if either user, vocCategory or learn state wasn't selected first
+   * @throws VocCategoryNotFoundException if categoryID doesn't exist
    */
   @Override
   public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
-      throws IllegalStateException {
+      throws VocCategoryNotFoundException {
     return false;
   }
 
