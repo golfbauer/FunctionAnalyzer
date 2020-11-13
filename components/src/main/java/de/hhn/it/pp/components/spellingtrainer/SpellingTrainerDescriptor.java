@@ -1,6 +1,7 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
 import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
+import java.util.ArrayList;
 
 
 public class SpellingTrainerDescriptor {
@@ -12,6 +13,7 @@ public class SpellingTrainerDescriptor {
   private int counterRightWords;
   private int counterRemainingWords;
   LearningSet activeLearningSet;
+  private ArrayList<LearningSet> learningSets = new ArrayList<>();
 
 
   /**
@@ -73,5 +75,13 @@ public class SpellingTrainerDescriptor {
 
   public LearningSet getActiveLearningSet() {
     return activeLearningSet;
+  }
+
+  public void addLearningSet(LearningSet learningSet) {
+    this.learningSets.add(learningSet);
+  }
+
+  public void removeLearningSet(LearningSet learningSet) {
+    this.learningSets.remove(learningSet);
   }
 }
