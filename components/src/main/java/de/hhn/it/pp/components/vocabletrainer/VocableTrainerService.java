@@ -16,13 +16,6 @@ public interface VocableTrainerService {
   int getScore();
 
   /**
-   * Returns the currently selected VocCategory.
-   *
-   * @return VocCategory array
-   */
-  VocCategory getVocCategory();
-
-  /**
    * Returns all VocCategories.
    *
    * @return List of registered VocCategories
@@ -32,61 +25,59 @@ public interface VocableTrainerService {
   /**
    * Add a new VocCategory to the VocCategory array.
    *
-   * @param name of the category
+   * @param category of the category
+   * @param vocabularyList list of vocabulary
    * @return VocCategory successfully added
    */
-  boolean addVocCategory(String name);
+  boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList);
 
   /**
    * Remove VocCategory from VocCategory array.
    *
-   * @param CategoryId VocCategory
+   * @param category name of the category
    * @return VocCategory successfully removed
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
-  boolean removeVocCategory(int CategoryId) throws VocCategoryNotFoundException;
+  boolean removeVocCategory(String category) throws VocCategoryNotFoundException;
 
   /**
-   * Select a VocCategory from the VocCategory array.
+   * Returns the Vocable with the id.
    *
-   * @param CategoryId VocCategory
-   * @return VocCategory successfully selected
-   * @throws VocCategoryNotFoundException when CategoryId doesn't exist
-   */
-  boolean selectVocCategory(int CategoryId) throws VocCategoryNotFoundException;
-
-  /**
-   * Returns the currently selected Vocable.
-   *
+   * @param id number of the vocable
+   * @param category name of the category
    * @return Vocable
    */
-  Vocable getVocable();
+  Vocable getVocable(int id, String category);
 
   /**
-   * Returns all Vocabulary.
+   * Returns all Vocabulary in the category.
    *
+   * @param category name of the category whose list is to be output
    * @return List of registered vocabulary
    */
-  ArrayList<Vocable> getVocabulary();
+  ArrayList<Vocable> getVocabulary(String category);
 
   /**
    * Add a new Vocable to the Vocabulary list.
    *
-   * @param originWord , foreignWord, CategoryId of the VocCategory
+   * @param originWord the vocabulary to be learned
+   * @param foreignWord translation of the vocabulary
+   * @param category name of the category
    * @return Vocable successfully added
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
-  boolean addVocable(String originWord, String foreignWord, VocCategory CategoryId)
+  boolean addVocable(String originWord, String foreignWord, String category)
       throws VocCategoryNotFoundException;
 
   /**
    * Remove Vocable from Vocabulary list.
    *
-   * @param vocableId Vocabulary
+   * @param id number of the word to be deleted
+   * @param category name of the category where the vocable is in
    * @return Vocable successfully removed
    * @throws VocableNotFoundException when vocableId doesn't exist
    */
-  boolean removeVocable(int vocableId) throws VocableNotFoundException;
+  boolean removeVocable(int id, String category) throws VocableNotFoundException;
 
   /**
    * Skips the current vocable.
@@ -96,12 +87,12 @@ public interface VocableTrainerService {
   /**
    * edit a Category
    *
-   * @param name       Name of the Category,
-   * @param categoryId CategoryId from the Category
+   * @param oldCategoryName name from the category
+   * @param newCategoryName Name of the category,
    * @return Category was successfully edited
    * @throws VocCategoryNotFoundException if categoryID doesn't exist
    */
-  boolean editVocCategory(int categoryId, String name) throws VocCategoryNotFoundException;
+  boolean editVocCategory(String oldCategoryName, String newCategoryName) throws VocCategoryNotFoundException;
 
   /**
    * checks if the vocable is correct.
@@ -115,15 +106,15 @@ public interface VocableTrainerService {
   /**
    * edit a vocable.
    *
-   * @param categoryId  Id of the category
-   * @param foreignWord string of the foreign word
+   * @param id number of the word to be changed
    * @param originWord  string of the origin word
-   * @param vocableId   Id from the Vocab
+   * @param foreignWords list of translated words
+   * @param category  name of the category
    * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
    */
-  boolean editVocable(int vocableId, String originWord, String foreignWord, int categoryId)
+  boolean editVocable(int id, String originWord, String[] foreignWords, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException;
 
   /**
@@ -138,8 +129,8 @@ public interface VocableTrainerService {
   /**
    * load data into the vocabletrainer component
    *
-   * @param datalist HashMap of data that should be loaded into the component
+   * @param vocabularyList HashMap of data that should be loaded into the component
    * @return the success of the process
    */
-  boolean loadData(HashMap<String, ArrayList<Vocable>> datalist);
+  boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList);
 }
