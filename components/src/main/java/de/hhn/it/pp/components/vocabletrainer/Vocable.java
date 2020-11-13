@@ -3,10 +3,11 @@ package de.hhn.it.pp.components.vocabletrainer;
 public class Vocable {
   private String originWord;
   private String foreignWord;
-  private int Id;
 
-  public int getId() {
-    return Id;
+
+  public Vocable(String originWord, String foreignWord) {
+    this.originWord = originWord;
+    this.foreignWord = foreignWord;
   }
 
   public String getForeignWord() {
@@ -21,9 +22,6 @@ public class Vocable {
     this.foreignWord = foreignWord;
   }
 
-  public void setId(int id) {
-    Id = id;
-  }
 
   public void setOriginWord(String originWord) {
     this.originWord = originWord;

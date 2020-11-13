@@ -27,7 +27,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return List of registered VocCategories
    */
   @Override
-  public ArrayList<VocCategory> getVocCategories() {
+  public ArrayList<String> getVocCategories() {
     return null;
   }
 

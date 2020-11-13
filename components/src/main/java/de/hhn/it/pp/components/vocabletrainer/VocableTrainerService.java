@@ -20,7 +20,7 @@ public interface VocableTrainerService {
    *
    * @return List of registered VocCategories
    */
-  ArrayList<VocCategory> getVocCategories();
+  ArrayList<String> getVocCategories();
 
   /**
    * Add a new VocCategory to the VocCategory array.
