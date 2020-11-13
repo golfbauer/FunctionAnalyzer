@@ -40,4 +40,15 @@ public class LearningSet {
     this.learningEntries.remove(learningEntry);
 
   }
+
+  /**
+   * Method to get next learning entry from set.
+   *
+   * @param index position of the learning entry
+   * @return learning entry
+   */
+  public LearningEntry getLearningEntry(int index) {
+    return this.learningEntries.get(index);
+
+  }
 }
