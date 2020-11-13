@@ -17,4 +17,7 @@ public class MediaReference {
     this.mediaFile = mediaFile;
   }
 
+  public File getMediaFile() {
+    return this.mediaFile;
+  }
 }
