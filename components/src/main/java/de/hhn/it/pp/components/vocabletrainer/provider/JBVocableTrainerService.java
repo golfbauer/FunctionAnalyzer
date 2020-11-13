@@ -192,7 +192,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return the success of the process
    */
   @Override
-  public boolean loadData(HashMap<String, String[]> datalist) {
+  public boolean loadData(HashMap<String, ArrayList<Vocable>> datalist) {
     return false;
   }
 }

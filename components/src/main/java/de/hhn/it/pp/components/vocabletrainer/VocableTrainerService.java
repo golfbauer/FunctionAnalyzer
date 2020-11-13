@@ -141,5 +141,5 @@ public interface VocableTrainerService {
    * @param datalist HashMap of data that should be loaded into the component
    * @return the success of the process
    */
-  boolean loadData(HashMap<String, String[]> datalist);
+  boolean loadData(HashMap<String, ArrayList<Vocable>> datalist);
 }
