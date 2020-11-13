@@ -40,12 +40,15 @@ public class DemoSpellingTrainerUsage {
     service.addWord(word, audioFile,learningSet);
     service.deleteWord(word,learningSet);
 
-    //Repeat execution for each word
-   LearningEntry learningEntry = learningSet.getLearningEntry(0);
-    audioFile = learningEntry.getMediaReference().getMediaFile();
+    //Selecting the active learning set
+    descriptor.setActiveLearningSet(learningSet);
 
-    //User Eingabe über JavaFX
-    //service.checkSpelling(word);
+    //Repeat execution for each word
+   LearningEntry learningEntry = descriptor.getActiveLearningSet().getLearningEntry(0);
+   MediaPresentationListener mpl = new MediaPresentationListener();
+   mpl.present(learningEntry.getMediaReference());
+    //User Input via JavaFX
+    //Check spelling of the entered word
   }
 }
 
