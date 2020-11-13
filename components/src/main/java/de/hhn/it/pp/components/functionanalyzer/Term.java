@@ -56,6 +56,14 @@ public class Term {
 
   }
 
+  /**
+   * Calculate the Derivative of Term
+   * @return Derivative of the Term
+   */
+  protected Term getDerivative(){
+    return null;
+  }
+
   public double getValue() {
     return value;
   }
