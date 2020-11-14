@@ -68,7 +68,7 @@ public class DemoVocableTrainerUsage {
     // add the word "hello" to the category "VocCategory"
     try {
       success = jbVocableTrainerService
-          .addVocable("hello", "hallo", "VocCategory");
+          .addVocable("hello", new String[] {"hallo"}, "VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
@@ -81,7 +81,7 @@ public class DemoVocableTrainerUsage {
     // add the word "bye" to the category "VocCategory"
     try {
       success = jbVocableTrainerService
-          .addVocable("bye", "Tschüss", "VocCategory");
+          .addVocable("bye", new String[] {"Tschüss"}, "VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
