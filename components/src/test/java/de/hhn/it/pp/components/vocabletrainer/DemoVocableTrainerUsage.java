@@ -13,150 +13,165 @@ public class DemoVocableTrainerUsage {
 
   public static void main(String[] args) {
     JBVocableTrainerService jbVocableTrainerService =
-        new JBVocableTrainerService(); // new VocableTrainerInstance
+        new JBVocableTrainerService(); // new vocableTrainer instance
 
-    ArrayList<Vocable> vocables = new ArrayList<>(); // Create list for sample vocabulary data
-    vocables.add(new Vocable("Auto", "car"));
-    vocables.add(new Vocable("Spiegel", "mirror"));
-    vocables.add(new Vocable("Reifen", "tire"));
-    vocables.add(new Vocable("fahren", "drive"));
-    vocables.add(new Vocable("Nummernschild", "license plate"));
+    ArrayList<Vocable> carVocabulary =
+        new ArrayList<>(); // new vocabulary list for the car category
+    carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
+    carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
+    carVocabulary.add(new Vocable("tire", new String[] {"Reifen", "Bereifung"}));
+    carVocabulary.add(new Vocable("drive", new String[] {"fahren", "lenken"}));
+    carVocabulary
+        .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
 
-    HashMap<String, ArrayList<Vocable>> data = new HashMap<>(); // HashMap for category names with their vocabulary list
-    data.put("car", vocables); // new category car with vocables from ArrayList vocables
-    jbVocableTrainerService.loadData(data); // load data into the component
+    HashMap<String, ArrayList<Vocable>> data =
+        new HashMap<>(); // new HashMap for categories and their vocabulary lists
+    data.put("car",
+        carVocabulary); // add the car category to the HashMap using the carVocabulary vocabulary list
+    jbVocableTrainerService.loadData(data); // load the example data into the component
 
-    // show score and vocCategories in the GUI
+    // show the score and the vocCategories in the GUI
     int score = jbVocableTrainerService.getScore();
     ArrayList<String> vocCategories = jbVocableTrainerService.getVocCategories();
-    logger.debug(score + "\n" + vocCategories);
+    logger.debug("Score: " + score + "\nCategories: " + vocCategories);
 
-    // Add new vocCategory to the component
-    boolean sucess = false;
+    // add a new vocCategory to the component
+    boolean success = false;
     try {
-      sucess = jbVocableTrainerService.addVocCategory("Computer", new ArrayList<>());
+      success = jbVocableTrainerService.addVocCategory("Computer", new ArrayList<>());
     } catch (VocCategoryAlreadyExistException e) {
       e.printStackTrace();
     }
-    if (sucess) {
-      logger.debug("successfully added");
+    if (success) {
+      logger.debug("Category successfully added");
     } else {
-      logger.debug("adding failed");
+      logger.debug("Failed to add the category");
     }
 
-    // Edit vocCategory Computer
+    // Rename the vocCategory "Computer" into "VocCategory"
     try {
-      sucess = jbVocableTrainerService.editVocCategory("Computer", "VocCategory2");
+      success = jbVocableTrainerService.editVocCategory("Computer", "VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    if (sucess) {
-      logger.debug("successfully added");
+    if (success) {
+      logger.debug("Category successfully renamed");
     } else {
-      logger.debug("adding failed");
+      logger.debug("renaming the category failed");
     }
 
-    // show score, vocCategories
+    // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
     vocCategories = jbVocableTrainerService.getVocCategories();
-    logger.debug(score + "\n" + vocCategories);
+    logger.debug("Score: " + score + "\nCategories: " + vocCategories);
 
-    // Add vocable 1
+    // add the word "hello" to the category "VocCategory"
     try {
-      sucess = jbVocableTrainerService
-          .addVocable("hello1", "hallo1", "VocCategory2");
+      success = jbVocableTrainerService
+          .addVocable("hello", "hallo", "VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    if (sucess) {
+    if (success) {
       logger.debug("Vocable successfully added");
     } else {
-      logger.debug("Adding vocabulary failed");
+      logger.debug("Failed to add the vocable");
     }
 
-    // Add vocable 2
+    // add the word "bye" to the category "VocCategory"
     try {
-      sucess = jbVocableTrainerService
-          .addVocable("hello2", "hallo2", "VocCategory2");
+      success = jbVocableTrainerService
+          .addVocable("bye", "Tschüss", "VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    if (sucess) {
+    if (success) {
       logger.debug("Vocable successfully added");
     } else {
-      logger.debug("Adding vocabulary failed");
+      logger.debug("Failed to add the vocable");
     }
 
-    // show score, vocCategory, vocabularies
+    // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
-    ArrayList<Vocable> vocabulary = null;
+    vocCategories = jbVocableTrainerService.getVocCategories();
+    logger.debug("Score: " + score + "\nCategories: " + vocCategories);
+
+    ArrayList<Vocable> vocabulary =
+        null; // print all vocabulary from category "VocCategory" on the screen
     try {
-      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory2");
+      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    logger.debug(score + "\n" + "VocCategory2: " + vocabulary);
+    logger.debug("Score: " + score + "\nVocCategory: " + vocabulary);
 
-    // Edit vocable 2
+    // Edit the word "hello" in the category "VocCategory"
     try {
-      sucess = jbVocableTrainerService
-          .editVocable(0, "hello 2", new String[] {"hallo 2"}, "VocCategory2");
+      success = jbVocableTrainerService
+          .editVocable(0, "hello", new String[] {"hallo", "moin"}, "VocCategory");
     } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    if (sucess) {
-      logger.debug("Vocable successful edit");
+    if (success) {
+      logger.debug("Vocable successfully edit");
     } else {
-      logger.debug("Edit vocabulary failed");
+      logger.debug("Failed to edit the vocable");
     }
 
-    // show score, vocCategory, vocabularies
+    // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
+    vocCategories = jbVocableTrainerService.getVocCategories();
+    logger.debug("Score: " + score + "\nCategories: " + vocCategories);
+    vocabulary =
+        null; // print all vocabulary from category "VocCategory" on the screen
     try {
-      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory2");
+      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    logger.debug(score + "\n" + "VocCategory2: " + vocabulary);
+    logger.debug("Score: " + score + "\nVocCategory: " + vocabulary);
 
-    // Delete vocable 1
+    // Delete vocable "hello" in the category "VocCategory"
     try {
-      sucess = jbVocableTrainerService.removeVocable(0, "VocCategory2");
+      success = jbVocableTrainerService.removeVocable(0, "VocCategory");
     } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    if (sucess) {
-      logger.debug("successfully removed the vocable");
+    if (success) {
+      logger.debug("Vocable successfully removed");
     } else {
-      logger.debug("removing the vocable failed");
+      logger.debug("Failed to remove the vocable");
     }
 
-    // show score, vocCategory, vocabularies
+    // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
+    vocCategories = jbVocableTrainerService.getVocCategories();
+    logger.debug("Score: " + score + "\nCategories: " + vocCategories);
+    vocabulary =
+        null; // print all vocabulary from category "VocCategory" on the screen
     try {
-      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory2");
+      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    logger.debug(score + "\n" + "VocCategory2: " + vocabulary);
+    logger.debug("Score: " + score + "\nVocCategory: " + vocabulary);
 
-    // learn vocabulary + check if is correct
+    // Learn the words from the "VocCategory" category
     int sizeList = 0;
     try {
-      sizeList = jbVocableTrainerService.getVocabulary("VocCategory2").size();
+      sizeList = jbVocableTrainerService.getVocabulary("VocCategory").size();
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-
-    ArrayList<Integer> falseVocabulary = new ArrayList<>(); // ArrayList of false vocabulary
-
-    for (int i = 0; i < sizeList; i++) {
+    ArrayList<Integer> falseVocabulary = new ArrayList<>(); // ArrayList of wrong vocabulary
+    for (int i = 0; i < sizeList;
+         i++) { // Iterate through the vocabulary list of the category "VocCategory"
       try {
         Vocable testVocable = jbVocableTrainerService
-            .getVocable(i, "VocCategory2"); // Get vocable that should be tested
+            .getVocable(i, "VocCategory"); // Get vocable that should be tested
         logger.debug("" + testVocable);
         boolean isCorrect =
-            jbVocableTrainerService.checkVocable("userInput", i, "VocCategory2",
+            jbVocableTrainerService.checkVocable("userInput", i, "VocCategory",
                 2); // Check the input of the user
 
         if (isCorrect) {
@@ -170,14 +185,15 @@ public class DemoVocableTrainerUsage {
       }
     }
     while (falseVocabulary.size() != 0) { // repeat the false vocabulary
-      for (int i = 0; i < falseVocabulary.size(); i++) {
+      for (int i = 0; i < falseVocabulary.size();
+           i++) { // Iterate through the vocabulary list of wrong vocabulary
         int id = falseVocabulary.get(i); // get id of the false vocable
         try {
           Vocable testVocable = jbVocableTrainerService
-              .getVocable(id, "VocCategory2"); // get vocable that should be tested
+              .getVocable(id, "VocCategory"); // get vocable that should be tested
           logger.debug("" + testVocable);
           boolean isCorrect =
-              jbVocableTrainerService.checkVocable("userInput", id, "VocCategory2",
+              jbVocableTrainerService.checkVocable("userInput", id, "VocCategory",
                   2); // check the input of the user
 
           if (isCorrect) {
@@ -196,18 +212,10 @@ public class DemoVocableTrainerUsage {
     score = jbVocableTrainerService.getScore(); // show the score in the GUI
     logger.debug("\nnew Score: " + score);
 
-    // show vocCategory vocabularies
-    try {
-      vocabulary = jbVocableTrainerService.getVocabulary("VocCategory2");
-    } catch (VocCategoryNotFoundException e) {
-      e.printStackTrace();
-    }
-    logger.debug("Score: " + score + "\n" + "VocCategory2: " + vocabulary);
-
-    // remove category
+    // Remove the "VocCategory"
     boolean isRemoved = false;
     try {
-      isRemoved = jbVocableTrainerService.removeVocCategory("VocCategory2");
+      isRemoved = jbVocableTrainerService.removeVocCategory("VocCategory");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
