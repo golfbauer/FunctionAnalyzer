@@ -1,29 +1,27 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
 public class Vocable {
-  private String originWord;
-  private String foreignWord;
+  private String learningWord;
+  private String[] translations;
 
-
-  public Vocable(String originWord, String foreignWord) {
-    this.originWord = originWord;
-    this.foreignWord = foreignWord;
+  public Vocable(String learningWord, String[] translations) {
+    this.learningWord = learningWord;
+    this.translations = translations;
   }
 
-  public String getForeignWord() {
-    return foreignWord;
+  public String getLearningWord() {
+    return learningWord;
   }
 
-  public String getOriginWord() {
-    return originWord;
+  public String[] getTranslations() {
+    return translations;
   }
 
-  public void setForeignWord(String foreignWord) {
-    this.foreignWord = foreignWord;
+  public void setLearningWord(String learningWord) {
+    this.learningWord = learningWord;
   }
 
-
-  public void setOriginWord(String originWord) {
-    this.originWord = originWord;
+  public void setTranslations(String[] translations) {
+    this.translations = translations;
   }
 }
