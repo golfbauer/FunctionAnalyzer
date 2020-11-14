@@ -5,7 +5,6 @@ import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import de.hhn.it.pp.components.vocabletrainer.learningSelection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -158,18 +157,6 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public boolean editVocable(int id, String originWord, String[] foreignWords, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
-    return false;
-  }
-
-  /**
-   * start learning the selected vocables
-   *
-   * @param state state of learning
-   * @return true if learning started
-   * @throws IllegalStateException voccategory wasn't selected first
-   */
-  @Override
-  public boolean learn(learningSelection[] state) throws IllegalStateException {
     return false;
   }
 

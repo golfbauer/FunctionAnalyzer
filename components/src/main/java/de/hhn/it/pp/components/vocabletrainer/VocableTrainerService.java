@@ -126,15 +126,6 @@ public interface VocableTrainerService {
       throws VocableNotFoundException, VocCategoryNotFoundException;
 
   /**
-   * start learning the selected vocables
-   *
-   * @param state state of learning
-   * @return true if learning started
-   * @throws IllegalStateException voccategory wasn't selected first
-   */
-  boolean learn(learningSelection[] state) throws IllegalStateException;
-
-  /**
    * load data into the vocableTrainer component
    *
    * @param vocabularyList HashMap of data that should be loaded into the component
