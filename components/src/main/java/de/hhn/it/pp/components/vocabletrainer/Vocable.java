@@ -13,12 +13,12 @@ public class Vocable {
     return learningWord;
   }
 
-  public String[] getTranslations() {
-    return translations;
-  }
-
   public void setLearningWord(String learningWord) {
     this.learningWord = learningWord;
+  }
+
+  public String[] getTranslations() {
+    return translations;
   }
 
   public void setTranslations(String[] translations) {
