@@ -1,26 +1,34 @@
-package de.hhn.it.pp.components.vocabletrainer;
+package de.hhn.it.pp.components.vocabletrainer.provider;
 
+import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface VocableTrainerService {
+public class JBVocableTrainerService implements VocableTrainerService {
 
   /**
    * Returns the current score.
    *
    * @return Score
    */
-  int getScore();
+  @Override
+  public int getScore() {
+    return 0;
+  }
 
   /**
    * Returns all Categories saved in the Hashmap.
    *
    * @return List of registered Categories
    */
-  ArrayList<String> getVocCategories();
+  @Override
+  public ArrayList<String> getVocCategories() {
+    return null;
+  }
 
   /**
    * Add a new Category with a new vocabularyList to the hashmap.
@@ -30,8 +38,11 @@ public interface VocableTrainerService {
    * @return VocCategory successfully added
    * @throws VocCategoryAlreadyExistException when category name already exist
    */
-  boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
-      throws VocCategoryAlreadyExistException;
+  @Override
+  public boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+      throws VocCategoryAlreadyExistException {
+    return false;
+  }
 
   /**
    * Remove VocCategory from the hashmap.
@@ -40,7 +51,10 @@ public interface VocableTrainerService {
    * @return VocCategory successfully removed
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  boolean removeVocCategory(String category) throws VocCategoryNotFoundException;
+  @Override
+  public boolean removeVocCategory(String category) throws VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Returns the Vocable.
@@ -51,8 +65,11 @@ public interface VocableTrainerService {
    * @throws VocableNotFoundException     when the vocable doesn't exist
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  Vocable getVocable(int id, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException;
+  @Override
+  public Vocable getVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException {
+    return null;
+  }
 
   /**
    * Returns all Vocabulary in the category.
@@ -61,7 +78,10 @@ public interface VocableTrainerService {
    * @return List of registered vocabulary
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException;
+  @Override
+  public ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
+    return null;
+  }
 
   /**
    * Add a new Vocable to the Vocabulary list from the given category.
@@ -72,8 +92,11 @@ public interface VocableTrainerService {
    * @return Vocable successfully added
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
    */
-  boolean addVocable(String learningWord, String[] translations, String category)
-      throws VocCategoryNotFoundException;
+  @Override
+  public boolean addVocable(String learningWord, String[] translations, String category)
+      throws VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Remove Vocable from Vocabulary list from the category.
@@ -84,8 +107,11 @@ public interface VocableTrainerService {
    * @throws VocableNotFoundException     when Id doesn't exist
    * @throws VocCategoryNotFoundException when Category doesn't exist
    */
-  boolean removeVocable(int id, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException;
+  @Override
+  public boolean removeVocable(int id, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Edit the name of the category.
@@ -95,8 +121,11 @@ public interface VocableTrainerService {
    * @return Category was successfully edited
    * @throws VocCategoryNotFoundException if category doesn't exist
    */
-  boolean editVocCategory(String oldCategoryName, String newCategoryName)
-      throws VocCategoryNotFoundException;
+  @Override
+  public boolean editVocCategory(String oldCategoryName, String newCategoryName)
+      throws VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Checks if the vocable is correct with the levenshtein distance.
@@ -108,22 +137,28 @@ public interface VocableTrainerService {
    * @return word is correct
    * @throws VocCategoryNotFoundException if category doesn't exist
    */
-  boolean checkVocable(String word, int id, String category, int levenshteinDistance)
-      throws VocCategoryNotFoundException;
+  @Override
+  public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
+      throws VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Edit a vocab within the list from the category.
    *
-   * @param id            position of the vocab in the list
-   * @param learningWord  string of the origin word
-   * @param translations  list of translated words
-   * @param category      name of the category
+   * @param id           position of the vocab in the list
+   * @param learningWord string of the origin word
+   * @param translations list of translated words
+   * @param category     name of the category
    * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
    */
-  boolean editVocable(int id, String learningWord, String[] translations, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException;
+  @Override
+  public boolean editVocable(int id, String learningWord, String[] translations, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException {
+    return false;
+  }
 
   /**
    * Load data into the vocableTrainer component.
@@ -131,5 +166,8 @@ public interface VocableTrainerService {
    * @param vocabularyList HashMap of data that should be loaded into the component
    * @return the success of the process
    */
-  boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList);
+  @Override
+  public boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList) {
+    return false;
+  }
 }
