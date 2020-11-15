@@ -6,6 +6,7 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class DemoSpellingTrainerUsage {
   private static final org.slf4j.Logger logger =
@@ -30,6 +31,41 @@ public class DemoSpellingTrainerUsage {
       public void deleteWord(String word, LearningSet learningSet) throws WordNotFoundException {
 
       }
+
+      @Override
+      public LearningSet createLearningSet(String learningSetName) {
+        return null;
+      }
+
+      @Override
+      public void removeLearningSet(LearningSet learningSet) {
+
+      }
+
+      @Override
+      public ArrayList<LearningSet> getLearningSets() {
+        return null;
+      }
+
+      @Override
+      public LearningSet getLearningSet(String learningSetName) {
+        return null;
+      }
+
+      @Override
+      public boolean startLearning(LearningSet learningSet) {
+        return false;
+      }
+
+      @Override
+      public boolean endLearning() {
+        return false;
+      }
+
+      @Override
+      public void nextWord() {
+
+      }
     };
     SpellingTrainerDescriptor descriptor = new SpellingTrainerDescriptor();
 
@@ -37,16 +73,21 @@ public class DemoSpellingTrainerUsage {
     String word = "test";
     File audioFile = new File("test.mp3");
     LearningSet learningSet = new LearningSet("Test Set ");
-    service.addWord(word, audioFile,learningSet);
-    service.deleteWord(word,learningSet);
-
+    service.addWord(word, audioFile, learningSet);
+    service.deleteWord(word, learningSet);
+    MediaPresentationListener mpl = new MediaPresentationListener();
+    MediaPresentationListener.registerMediaPresentationListener(mpl);
     //Selecting the active learning set
     descriptor.setActiveLearningSet(learningSet);
 
+    //Starting learning session
+    service.startLearning(learningSet);
+
+
     //Repeat execution for each word
-   LearningEntry learningEntry = descriptor.getActiveLearningSet().getLearningEntry(0);
-   MediaPresentationListener mpl = new MediaPresentationListener();
-   mpl.present(learningEntry.getMediaReference());
+    LearningEntry learningEntry = descriptor.getActiveLearningSet().getLearningEntry(0);
+    service.nextWord();
+    mpl.present(learningEntry.getMediaReference());
     //User Input via JavaFX
     //Check spelling of the entered word
   }
