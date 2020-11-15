@@ -77,11 +77,5 @@ public class SpellingTrainerDescriptor {
     return activeLearningSet;
   }
 
-  public void addLearningSet(LearningSet learningSet) {
-    this.learningSets.add(learningSet);
-  }
 
-  public void removeLearningSet(LearningSet learningSet) {
-    this.learningSets.remove(learningSet);
-  }
 }
