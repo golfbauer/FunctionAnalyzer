@@ -3,57 +3,92 @@ package de.hhn.it.pp.components.learningCards;
 import java.util.*;
 
 public class Cardset {
-    // Scanner for the Console inputs
-    String title;
-    // Map for Card Objectives
-    Map<Integer,Card> cardset = new HashMap<Integer,Card>();
 
-    int id;
-    static int idCounter = 0;
+  String title;
 
-    // Constructor for Cardset, sets Title
-    public Cardset(String title) {
-        setTitle(title);
-        id = ++idCounter;
+  Map<Integer, Card> cardset = new HashMap<Integer, Card>();
+
+  int id;
+  static int idCounter = 0;
+
+  /**
+   * Constructor of the Cardset class
+   * 
+   * @param title title to indentify what the cardset is about
+   */
+  public Cardset(String title) {
+    setTitle(title);
+    id = ++idCounter;
+  }
+
+  /**
+   * Sets the title of the cardset
+   * 
+   * @param title title to indentify what the cardset is about
+   */
+  void setTitle(String title) {
+    this.title = title;
+  }
+
+  /**
+   * Returns the title of the cardset
+   * 
+   * @return title of the cardset
+   */
+  String getTitle() {
+    return title;
+  }
+
+  /**
+   * adds card to the cardset
+   * 
+   * @param card which gets added to the cardset
+   */
+  void addCardtoSet(Card card) {
+    cardset.put(card.getId(), card);
+  }
+
+  /**
+   * returns a card with the id i from the cardset
+   * 
+   * @param i id to identify a card in cardset
+   * @return the card with id i
+   */
+  Card getCardfromSet(int i) {
+    return cardset.get(i);
+  }
+
+  /**
+   * removes a card with the id i from the cardset
+   * 
+   * @param i id to identify a card in cardset
+   */
+  void removeCardfromSet(int i) {
+    cardset.remove(i);
+  }
+
+  /**
+   * returns the id of cardset
+   * 
+   * @return id of cardset
+   */
+  int getId() {
+    return id;
+  }
+
+  /**
+   * returns a list of all card ids in the cardset
+   * 
+   * @return all ids of all cards in cardset in a list
+   */
+  List<Integer> getCardIds() {
+    List<Integer> results = new ArrayList<Integer>();
+    Collection<Card> cards = cardset.values();
+    for (Card card : cards) {
+      results.add(card.getId());
     }
-
-    // sets the Title (console input)
-    void setTitle(String title) {
-     this.title = title;
-    }
-
-    // returns Title
-    String getTitle() {
-        return title;
-    }
-
-    // Adds Cardobject to ArrayList "cardset"
-    void addCardtoSet(Card card) {
-        cardset.put(card.getId(),card);
-    }
-
-    // Returns Card with entered index from the Cardset
-    Card getCardfromSet(int i) {
-        return cardset.get(i);
-    }
-
-    // removes Card with entered index from the Cardset
-    void removeCardfromSet(int i) {
-        cardset.remove(i);
-    }
-
-    int getId(){
-        return id;
-    }
-
-    List<Integer> getCardIds(){
-        List<Integer> results = new ArrayList<Integer>();
-        Collection<Card> cards = cardset.values();
-        for(Card card : cards){
-            results.add(card.getId());
-        }
-        return results;
-    }
+    return results;
+  }
 
 
 }

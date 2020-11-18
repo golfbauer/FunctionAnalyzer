@@ -4,91 +4,155 @@ package de.hhn.it.pp.components.learningCards;
 class Card {
 
 
-    Status status = Status.UNSEEN;
-    // Card TextA (for  questions )
-    String textQ;
-    // Card textB (for answers)
-    String textA;
-    // identifier for Card
-    int id;
-    static int idCounter = 0;
-    // Card Headline
-    String headline;
+  Status status = Status.UNSEEN;
+
+  // Questiontext String from the Card
+  String textQ;
+  // Answertext String from the Card
+  String textA;
+  // identifier for Card
+  int id;
+  static int idCounter = 0;
+  // Card Headline
+  String headline;
 
 
-    // Card Constructor, sets Headline, TextQ and TextA 
-    Card(String headline, String textQ, String textA) {
-        setHeadline(headline);
-        setTextQ(textQ);
-        setTextA(textA);
-        id = ++idCounter;
-    }
+  /**
+   * Constructor of the Card class
+   * 
+   * @param headline to classify the card topic
+   * @param textQ question text of the card
+   * @param textA answer to the card question
+   */
+  Card(String headline, String textQ, String textA) {
+    setHeadline(headline);
+    setTextQ(textQ);
+    setTextA(textA);
+    id = ++idCounter;
+  }
 
-    // Method to set Headline (console input)
-    void setHeadline(String headline) {
+  /**
+   * Sets the headline of the Card class
+   * 
+   * @param headline to classify the card topic
+   */
+  void setHeadline(String headline) {
 
-        this.headline = headline;
-    }
+    this.headline = headline;
+  }
 
-    // not intended for demo version (empty method)
-    void addPicture() {
-    }
+  /**
+   * Method not intended for the facade
+   */
+  void addPicture() {}
 
-    // Method to set Question text
-    void setTextQ(String question) {
-        textQ = question;
-    }
+  /**
+   * Sets the Questiontext of the Card class
+   * 
+   * @param question question text of the card
+   */
+  void setTextQ(String question) {
+    textQ = question;
+  }
 
-    // Method to set Answer text
-    void setTextA(String answer) {
-        textA = answer;
-    }
+  /**
+   * Sets the Answertext of the Card class
+   * 
+   * @param answer answer text of the card
+   */
+  void setTextA(String answer) {
+    textA = answer;
+  }
 
-    // Method to change allready set Question Text 
-    void editTextQ(String changedQ) {
-        setTextQ(changedQ);
-    }
+  /**
+   * edits the questiontext of an existing card
+   * 
+   * @param changedQ the changed questiontext
+   */
+  void editTextQ(String changedQ) {
+    setTextQ(changedQ);
+  }
 
-    // Method to change allready set Answer Text
-    void editTextA(String changedA) {
+  /**
+   * edits the answertext of an existing card
+   * 
+   * @param changedA the changed answertext
+   */
+  void editTextA(String changedA) {
 
-        setTextA(changedA);
-    }
+    setTextA(changedA);
+  }
 
-    int getId() {
-        return id;
-    }
+  /**
+   * returns the id of the card
+   * 
+   * @return id of card
+   */
+  int getId() {
+    return id;
+  }
 
-    // returns Question text
-    String getTextQ() {
-        return textQ;
-    }
+  /**
+   * returns the questiontext of the card
+   * 
+   * @return questiontext
+   */
+  String getTextQ() {
+    return textQ;
+  }
 
-    // returns Answer text
-    String getTextA() {
-        return textA;
-    }
+  /**
+   * returns the answer text of the card
+   * 
+   * @return textA of card
+   */
+  String getTextA() {
+    return textA;
+  }
 
-    // returns Headline
-    String getHeadline() {
-        return headline;
-    }
+  /**
+   * returns the headline of card
+   * 
+   * @return headline of card
+   */
+  String getHeadline() {
+    return headline;
+  }
 
-    // Combines all Strings in one String and returns it.
-    String getCardinfo() {
-        String info;
-        info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
-        return info;
-    }
+  /**
+   * returns the information of the card
+   * 
+   * @return all information put into the card class (headline, questiontext, answertext) in an
+   *         combined String
+   */
+  String getCardinfo() {
+    String info;
+    info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
+    return info;
+  }
 
-    Status getStatus() {
-        return status;
-    }
+  /**
+   * returns the current status of the card
+   * 
+   * @return status of card
+   */
+  Status getStatus() {
+    return status;
+  }
 
-    void setStatus(Status newStatus) {
-        status = newStatus;
-    }
+  /**
+   * Sets status of the card to solved
+   */
+  void setStatusToSolved() {
+    status = Status.SOLVED;
+  }
 
+  /**
+   * Sets status of the card to unsolved
+   */
+  void setStatusToUnSolved() {
+    status = Status.UNSOLVED;
+  }
 }
 
 
