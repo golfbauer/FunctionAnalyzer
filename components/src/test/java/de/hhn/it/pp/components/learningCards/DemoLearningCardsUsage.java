@@ -50,34 +50,38 @@ public class DemoLearningCardsUsage {
             public void startLearningSession(int cardsetId, Status[] status) throws CardsetNotFoundException {
 
             }
+
+            @Override
+            public void repeatUnsolvedAndUnseenCards(int cardsetId) throws CardsetNotFoundException {
+
+            }
         };
 
-        // create a cardset, cardset takes automatically id 0, and returns its id
+        // create a cardset
         int cardsetPopulationId = service.createCardset("Populations");
-        // create a card, add into the list, which belongs to cardset "Populations", Card takes id 0, returns its id
+        // add a card
         service.addCardToCardset(cardsetPopulationId, "Whats the population of Berlin?", "The population of Berlin is 3,562,000");
 
-        // create 2. cardset, cardset takes automatically id 1 and returns id
+        // create 2. cardset
         int cardsetCapitalsId = service.createCardset("Capitals");
-        // create cards and add them into the list of the cardset "Capitals"
+        // add cards
         service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of Germany?", "Berlin is the capital of Germany");
         service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of France?", "Paris is the capital of France");
         service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of United Kingdom?", "London is the capital of United Kingdom");
         service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of China?", "Beijing is the capital of China");
-        // this card is wrong
+
         int cardId = service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of Russia?", "Heilbronn is the capital of Russia");
         // last added card is edited
         service.editCardAnswerTextFromCardset(cardId, "Moscow is the capital of Russia");
 
-        //  this card shouldn't belong to cardset "Populations"
         cardId = service.addCardToCardset(cardsetPopulationId, "Whats the population of Heilbronn?", "The population of Heilbronn is 120,000");
-        // the card is deleted
+        // the card is removed
         service.removeCardFromCardset(cardId);
 
         // start a learning session with all cards within the cardset "Capitals"
         service.startLearningSession(cardsetCapitalsId, Status.values());
         // repeat the cards, which are unseen or unsolved, within the cardset "Capitals"
-        service.startLearningSession(cardsetCapitalsId, new Status[]{Status.UNSOLVED, Status.UNSEEN});
+        service.repeatUnsolvedAndUnseenCards(cardsetCapitalsId);
         // cardset "Capitals" is deleted
         service.removeCardset(cardsetCapitalsId);
 

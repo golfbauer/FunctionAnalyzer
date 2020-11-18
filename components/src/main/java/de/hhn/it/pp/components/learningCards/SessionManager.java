@@ -12,7 +12,11 @@ public class SessionManager {
   int cardIndex = 0;
   Scanner scanner = new Scanner(System.in);
 
-  // Method to start learning session
+  /**
+   * starts a learning session according to given card status
+   * @param cardSet
+   * @param status the status of the cards, which will be showed
+   */
   public void startLearningSession(Cardset cardSet, Status[] status) {
     this.cardSet = cardSet;
     ArrayList<Card> cards = new ArrayList<Card>();
@@ -37,7 +41,11 @@ public class SessionManager {
   }
 
 
-  // Method to show and mark the question
+  /**
+   * shows the card
+   * sets the card status
+   * @param card
+   */
   public void askQuestion(Card card) {
     System.out.println(card.getTextQ());
     System.out.println("If it is solved correctly, enter 1.\nOtherwise enter something else:");
@@ -51,7 +59,10 @@ public class SessionManager {
     }
   }
 
-  // Method to stop learning session
+  /**
+   * stops the learning session, if the user types 'q'
+   * @return true if the user types 'q', otherwise false
+   */
   public boolean stopLearningSession() {
     System.out.println(
         "If you want to quit, enter 'q'. If you want to see next Question, enter something else:");
