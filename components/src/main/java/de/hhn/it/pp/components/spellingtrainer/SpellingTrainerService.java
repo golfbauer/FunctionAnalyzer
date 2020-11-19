@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 
@@ -45,7 +46,7 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the learning set
    * @return new learning set
    */
-  LearningSet createLearningSet(String learningSetName);
+  LearningSet createLearningSet(String learningSetName)throws LearningSetNameAlreadyAssignedException;
 
   /**
    * Removes an learning set from the list of learning sets.
