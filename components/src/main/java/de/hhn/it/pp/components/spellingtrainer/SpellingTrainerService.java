@@ -90,5 +90,17 @@ public interface SpellingTrainerService {
    */
   void nextWord();
 
+  /**
+   * Method to register an media presentation listener.
+   *
+   * @param mediaPresentationListener media presentation listener to be registered
+   */
+  void registerMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
 
+  /**
+   * Method to deregister and media presentation listener.
+   *
+   * @param mediaPresentationListener media presentation listener to be deregistered.
+   */
+  void deregisterMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
 }

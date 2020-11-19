@@ -66,6 +66,18 @@ public class DemoSpellingTrainerUsage {
       public void nextWord() {
 
       }
+
+      @Override
+      public void registerMediaPresentationListener(
+          MediaPresentationListener mediaPresentationListener) {
+
+      }
+
+      @Override
+      public void deregisterMediaPresentationListener(
+          MediaPresentationListener mediaPresentationListener) {
+
+      }
     };
     SpellingTrainerDescriptor descriptor = new SpellingTrainerDescriptor();
 
@@ -76,7 +88,7 @@ public class DemoSpellingTrainerUsage {
     service.addWord(word, audioFile, learningSet);
     service.deleteWord(word, learningSet);
     MediaPresentationListener mpl = new MediaPresentationListener();
-    MediaPresentationListener.registerMediaPresentationListener(mpl);
+    service.registerMediaPresentationListener(mpl);
     //Selecting the active learning set
     descriptor.setActiveLearningSet(learningSet);
 
