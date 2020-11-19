@@ -19,25 +19,4 @@ public class MediaPresentationListener {
 
   }
 
-  /**
-   * Method to register an media presentation listener.
-   *
-   * @param mediaPresentationListener media presentation listener to be registered
-   */
-  public static void registerMediaPresentationListener(
-      MediaPresentationListener mediaPresentationListener) {
-    mediaPresentationListeners.add(mediaPresentationListener);
-  }
-
-  /**
-   * Method to deregister and media presentation listener.
-   *
-   * @param mediaPresentationListener media presentation listener to be deregistered.
-   */
-  public static void deregisterMediaPresentationListener(
-      MediaPresentationListener mediaPresentationListener) {
-    mediaPresentationListeners.remove(mediaPresentationListener);
-  }
-
-
 }

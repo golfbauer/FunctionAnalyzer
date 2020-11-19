@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 
@@ -26,18 +27,18 @@ public interface SpellingTrainerService {
    *
    * @param word        word that will be added
    * @param audio       audio that will be mapped to the word
-   * @param learningSet set, that the word should be added to
+   * @param learningSetName name of the set, that the word should be added to
    */
-  void addWord(String word, File audio, LearningSet learningSet)
+  void addWord(String word, File audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException;
 
   /**
    * Removes the given word from the Learning List and removes the mapping.
    *
    * @param word        word that is to be removed
-   * @param learningSet set, that the word is deleted from
+   * @param learningSetName name of the set, that the word is deleted from
    */
-  void deleteWord(String word, LearningSet learningSet) throws WordNotFoundException;
+  void deleteWord(String word, String learningSetName) throws WordNotFoundException;
 
   /**
    * Method to create a new learning set.
@@ -45,14 +46,14 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the learning set
    * @return new learning set
    */
-  LearningSet createLearningSet(String learningSetName);
+  LearningSet createLearningSet(String learningSetName)throws LearningSetNameAlreadyAssignedException;
 
   /**
    * Removes an learning set from the list of learning sets.
    *
-   * @param learningSet learning set to be removed from the list of learning sets
+   * @param learningSetName name of the learning set to be removed from the list of learning sets
    */
-  void removeLearningSet(LearningSet learningSet);
+  void removeLearningSet(String learningSetName);
 
   /**
    * Method to get all learning sets.
@@ -72,10 +73,10 @@ public interface SpellingTrainerService {
   /**
    * Method to start an learning session with an learning set.
    *
-   * @param learningSet set to be learned
+   * @param learningSetName name of the set to be learned
    * @return true if the learning session started successfully, false if it doesn't
    */
-  boolean startLearning(LearningSet learningSet);
+  boolean startLearning(String learningSetName);
 
 
   /**
@@ -90,5 +91,17 @@ public interface SpellingTrainerService {
    */
   void nextWord();
 
+  /**
+   * Method to register an media presentation listener.
+   *
+   * @param mediaPresentationListener media presentation listener to be registered
+   */
+  void registerMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
 
+  /**
+   * Method to deregister and media presentation listener.
+   *
+   * @param mediaPresentationListener media presentation listener to be deregistered.
+   */
+  void deregisterMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
 }
