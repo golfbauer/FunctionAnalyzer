@@ -2,7 +2,7 @@ package de.hhn.it.pp.components.typingtrainer;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.0
+ * @version 1.2
  * @since 1.1
  */
 
@@ -14,7 +14,7 @@ public class FileReader {
   public String fileContent = "";//String where text from file gets saved
 
   public FileReader() throws FileNotFoundException {
-    String path = FileReader.class.getResource("text1.txt").toString();
+    String path = FileReader.class.getResource("/practiceText-1.txt").toString();
     path = path.substring(6); //to make the path usable
 
     File file = new File(path);
@@ -25,7 +25,6 @@ public class FileReader {
       fileContent = fileContent.concat(scan.nextLine() + "\n");
     }
 
-    //System.out.println(fileContent);
   }
 
   public FileReader(String fileName) throws FileNotFoundException {

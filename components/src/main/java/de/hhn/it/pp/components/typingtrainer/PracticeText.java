@@ -1,25 +1,16 @@
 package de.hhn.it.pp.components.typingtrainer;
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.0
+ * @version 1.2
  * @since 1.1
  */
 public class PracticeText {
   private String[] text; //actual practice text
-  private String typedWords; //words that user typed
   private int currentWordIndex;
 
   public PracticeText(String[] text) {
     this.text = text;
     this.currentWordIndex = 0;
-  }
-
-  public String getTypedWords() {
-    return typedWords;
-  }
-
-  public void setTypedWords(String typedWords) {
-    this.typedWords = typedWords;
   }
 
   public String[] getText() {
@@ -37,14 +28,6 @@ public class PracticeText {
     System.out.println();
   }
 
-  /**
-   * Changes color of a word
-   * @param word which should be colored
-   */
-  public void markWord(String word) {
-    System.out.println(word + " marked");
-  }
-
   public int getCurrentWordIndex() {
     return currentWordIndex;
   }
@@ -53,10 +36,4 @@ public class PracticeText {
     this.currentWordIndex = currentWordIndex;
   }
 
-  /**
-   * Checks if a word is correctly wirtten
-   */
-  public void checkSpelling() {
-    System.out.println("checken ob etwas falsch geschrieben wurde");
-  }
 }

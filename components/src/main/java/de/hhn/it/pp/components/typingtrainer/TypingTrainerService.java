@@ -14,17 +14,16 @@ import java.util.List;
 public interface TypingTrainerService {
 
   /**
-   * Checks if a word is written correctly
+   * Checks if a word is written correctly and calls markWord to either mark the current Word or marks the correct Word
    * @param word word to check
    * @return true when word is correct
    */
   boolean checkWord(String word);
 
   /**
-   * Plays a sound
-   * @param soundFile file that is played
+   * Plays the sound for wrong Words Game goes brrrrrt.
    */
-  void audioOutput(File soundFile);
+  void audioOutput();
 
   /**
    * Quits learning session and return to main menu
@@ -49,10 +48,9 @@ public interface TypingTrainerService {
   void loadScore();
 
   /**
-   * Gets user input
-   * @param practiceText text that user writes down
+   * Gets the userinput aka keystrokes through a scanner and is potentially used for Feedback, CheckWord etc
    */
-  void userInput(PracticeText practiceText);
+  void userInput();
 
   /**
    * Print a countdown
@@ -60,4 +58,15 @@ public interface TypingTrainerService {
    * @throws InterruptedException If an interruption exception occurred
    */
   void countdown(int seconds) throws InterruptedException;
+
+  /**
+   * Marks either the currentWord or if the word is written correctly depending on checkWord.
+   * @param index
+   */
+  void markWord(int index);
+
+  /**
+   * Selecting the text you want to train your typing in(preset texts not individual texts from User)
+   */
+  void selectionOfText();
 }

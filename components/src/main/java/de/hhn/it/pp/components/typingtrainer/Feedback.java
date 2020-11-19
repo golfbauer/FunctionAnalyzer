@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer;
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.0
+ * @version 1.2
  * @since 1.1
  */
 
@@ -9,10 +9,19 @@ public class Feedback {
   private double time, startTime, endTime;
   private int wordsPerMinute;
   private int counterRightWords;
+  private int avgWordLength = 5; //durchschnittliche Wortlänge englischer Wörter
 
   public Feedback(double time, int wordsPerMinute) {
     this.time = time;
     this.wordsPerMinute = wordsPerMinute;
+  }
+
+  public int getAvgWordLength() {
+    return avgWordLength;
+  }
+
+  public void setAvgWordLength(int avgWordLength) {
+    this.avgWordLength = avgWordLength;
   }
 
   public double getTime() {
@@ -59,14 +68,27 @@ public class Feedback {
    * Calculates value for wordsPerMinute
    * @param typedWords typed words
    */
-  public void calculateWordsPerMinute(String typedWords) {
-    int numChars = typedWords.length();
-    wordsPerMinute =
-        (int) ((((double) numChars / 5) / time) * 60); //(typedWords / avarage length of a word) / time) * 60
+  public void calculateWordsPerMinute(String[] typedWords, String[] selectedText) {
+
+    int numChars = 0;
+
+    for (int i = 0; i < selectedText.length; i++) {
+      try
+      {
+        if(selectedText[i].equals(typedWords[i])) {numChars++;}
+      }
+      catch (ArrayIndexOutOfBoundsException e)
+      {
+        System.out.println("nicht alle wörter geschrieben");
+        break;
+      }
+    }
+
+    wordsPerMinute = (int) ((((double) numChars / avgWordLength) / time) * 60);
   }
 
   /**
-   * Calculates time that was needed to wirte the text
+   * Calculates time that was needed to write the text
    */
   public void calculateTime() {
     double elapsedTime = endTime - startTime;
