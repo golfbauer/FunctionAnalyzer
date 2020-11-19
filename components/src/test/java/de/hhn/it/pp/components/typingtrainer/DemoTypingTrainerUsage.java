@@ -8,11 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.1
+ * @version 1.2
  * @since 1.0
  */
 
 public class DemoTypingTrainerUsage {
+
+  private static TypingTrainerDescriptor descriptor;
 
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     TypingTrainerService service = new TypingTrainerService() {
@@ -22,7 +24,7 @@ public class DemoTypingTrainerUsage {
       }
 
       @Override
-      public void audioOutput(File soundFile) {
+      public void audioOutput() {
         System.out.println("NI: play sound");
       }
 
@@ -49,9 +51,10 @@ public class DemoTypingTrainerUsage {
       }
 
       @Override
-      public void userInput(PracticeText practiceText) {
+      public void userInput() {
         Scanner scan = new Scanner(System.in);
-        practiceText.setTypedWords(scan.nextLine());
+        descriptor.addTypedWords(scan.nextLine(), 0);
+
       }
 
       @Override
@@ -66,29 +69,39 @@ public class DemoTypingTrainerUsage {
           }
         }
       }
+
+      @Override
+      public void markWord(int index) {
+
+      }
+
+      @Override
+      public void selectionOfText() {
+
+      }
     };
 
     //Initial setup
     service.loadScore();
-    File audioWrondWord = new File("sound_wrongWord.mp3");
+    File audioWrongWord = new File("sound_wrongWord.mp3");
     Feedback feedback = new Feedback(0,0);
 
     FileReader fileReader = new FileReader();
     String[] selectedText = fileReader.GetPracticeText(); //for later: depends on what button was clicked (use other constructor)
     PracticeText practiceText = new PracticeText(selectedText);
 
-    TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor(audioWrondWord, feedback,practiceText);
+    TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor(audioWrongWord, feedback,practiceText);
 
     //In session
     service.countdown(5);
     descriptor.getPracticeText().printPracticeText();
     descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
-    service.userInput(practiceText); //Stops if user presses enter
+    service.userInput(); //Stops if user presses enter
     descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
 
     //Feedback
     descriptor.getFeedback().calculateTime();
-    descriptor.getFeedback().calculateWordsPerMinute(descriptor.getPracticeText().getTypedWords());
+    descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
     service.showFeedback(descriptor.getFeedback());
 
     //End
