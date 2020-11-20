@@ -15,7 +15,7 @@ public interface LearningCardsService {
 
 
     /**
-     * removes the cardset
+     * deletes the cardset
      *
      * @param cardsetId id of the cardset
      * @throws CardsetNotFoundException if the cardset id does not exist
@@ -23,35 +23,80 @@ public interface LearningCardsService {
     void removeCardset(int cardsetId) throws CardsetNotFoundException;
 
     /**
-     * creates a card with headline and text
+     * creates a card with headline, answer and question text
+     *
+     * @param cardHeadline the headline of the card
+     * @param cardTextQ the question text
+     * @param cardTextA the answer text
+     * @return id of the creating card
+     */
+    int createCard(String cardHeadline, String cardTextQ, String cardTextA);
+
+    /**
+     * creates a card with answer and question text
+     *
+     * @param cardTextQ the question text
+     * @param cardTextA the answer text
+     * @return id of the creating card
+     */
+    int createCard(String cardTextQ, String cardTextA);
+
+    /**
+     * puts the created card into the cardset
+     *
+     * @param cardsetId the id of the carset in which the card is added
+     * @param cardId id of the card
+     * @throws CardsetNotFoundException
+     * @throws CardNotFoundException
+     */
+    void addCardToCardset(int cardsetId, int cardId) throws CardsetNotFoundException, CardNotFoundException;
+
+    /**
+     * creates a card with headline, answer and question text
+     * puts the card into a cardset
      *
      * @param cardsetId    the id of the cardset
      * @param cardHeadline the headline of the card
+     * @param cardTextQ the question text
+     * @param cardTextA the answer text
+     * @return id of the creating cardset
      * @throws CardsetNotFoundException if the given cardset id does not exist
      */
     int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ, String cardTextA)
             throws CardsetNotFoundException;
 
     /**
-     * creates a card with just a text
+     * creates a card with answer and question text
+     * puts the card into a cardset
      *
-     * @param cardsetId the index of the cardset
-     * @throws CardsetNotFoundException if cardset id cannot be found
+     * @param cardsetId    the id of the cardset
+     * @param cardTextQ the question text
+     * @param cardTextA the answer text
+     * @return id of the creating cardset
+     * @throws CardsetNotFoundException if the given cardset id does not exist
      */
     int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA) throws CardsetNotFoundException;
 
     /**
-     * Deletes a card
+     * deletes the card completely
+     *
+     * @param cardId the index of the card
+     * @throws CardNotFoundException    if card id does not exist
+     */
+    void deleteCard(int cardId) throws CardNotFoundException;
+
+    /**
+     * removes the card from the cardset
      *
      * @param cardId the id of the card
      * @throws CardsetNotFoundException if cardset id does not exist
      * @throws CardNotFoundException    if card id does not exist
      */
-    void removeCardFromCardset(int cardId)
+    void removeCardFromCardset(int cardsetId, int cardId)
             throws CardsetNotFoundException, CardNotFoundException;
 
     /**
-     * Changes the text of a card
+     * Changes the question text of a card
      *
      * @param cardId       index of the card
      * @param newCardTextQ new textQ
@@ -62,7 +107,7 @@ public interface LearningCardsService {
             throws CardsetNotFoundException, CardNotFoundException;
 
     /**
-     * Changes the text of a card
+     * Changes the answer text of a card
      *
      * @param cardId       index of the card
      * @param newCardTextA new textA
@@ -89,5 +134,9 @@ public interface LearningCardsService {
      */
     void repeatUnsolvedAndUnseenCards (int cardsetId) throws CardsetNotFoundException;
 
+    /**
+     * stops the running session
+     */
+    void stopLearningSession();
 
 }
