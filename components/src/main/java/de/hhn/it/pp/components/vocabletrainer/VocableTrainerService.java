@@ -114,10 +114,10 @@ public interface VocableTrainerService {
   /**
    * Edit a vocab within the list from the category.
    *
-   * @param id            position of the vocab in the list
-   * @param learningWord  string of the origin word
-   * @param translations  list of translated words
-   * @param category      name of the category
+   * @param id           position of the vocab in the list
+   * @param learningWord string of the origin word
+   * @param translations list of translated words
+   * @param category     name of the category
    * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
