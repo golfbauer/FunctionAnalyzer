@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -66,7 +67,7 @@ public class DemoVocableTrainerUsage {
       jbVocableTrainerService
           .addVocable("hello", new String[] {"hallo"}, "VocCategory");
       logger.debug("Vocable successfully added");
-    } catch (VocCategoryNotFoundException e) {
+    } catch (VocCategoryNotFoundException | TranslationIsEmptyException e) {
       e.printStackTrace();
       logger.debug("Vocable failed to add");
     }
@@ -76,7 +77,7 @@ public class DemoVocableTrainerUsage {
       jbVocableTrainerService
           .addVocable("bye", new String[] {"Tschüss"}, "VocCategory");
       logger.debug("Vocable successfully added");
-    } catch (VocCategoryNotFoundException e) {
+    } catch (VocCategoryNotFoundException | TranslationIsEmptyException e) {
       e.printStackTrace();
       logger.debug("Vocable failed to add");
     }
@@ -101,7 +102,7 @@ public class DemoVocableTrainerUsage {
       jbVocableTrainerService
           .editVocable(0, "hello", new String[] {"hallo", "moin"}, "VocCategory");
       logger.debug("Vocable successfully edit");
-    } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+    } catch (VocableNotFoundException | VocCategoryNotFoundException | TranslationIsEmptyException e) {
       e.printStackTrace();
       logger.debug("Failed to edit the vocable");
     }

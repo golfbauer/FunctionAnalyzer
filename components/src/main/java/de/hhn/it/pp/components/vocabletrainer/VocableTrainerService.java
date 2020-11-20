@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -68,9 +69,10 @@ public interface VocableTrainerService {
    * @param translations translations of the vocabulary
    * @param category     name of the category
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   void addVocable(String learningWord, String[] translations, String category)
-      throws VocCategoryNotFoundException;
+      throws VocCategoryNotFoundException, TranslationIsEmptyException;
 
   /**
    * Remove Vocable from Vocabulary list from the category.
@@ -115,9 +117,10 @@ public interface VocableTrainerService {
    * @param category     name of the category
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   void editVocable(int id, String learningWord, String[] translations, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException;
+      throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException;
 
   /**
    * Load data into the vocableTrainer component.

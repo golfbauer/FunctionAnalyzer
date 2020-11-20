@@ -2,6 +2,7 @@ package de.hhn.it.pp.components.vocabletrainer.provider;
 
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -10,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
-
 
   /**
    * Returns the current score.
@@ -90,10 +90,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param translations translations of the vocabulary
    * @param category     name of the category
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   @Override
   public void addVocable(String learningWord, String[] translations, String category)
-      throws VocCategoryNotFoundException {
+      throws VocCategoryNotFoundException, TranslationIsEmptyException {
 
   }
 
@@ -149,10 +150,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param category     name of the category
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   @Override
   public void editVocable(int id, String learningWord, String[] translations, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException {
+      throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
 
   }
 
