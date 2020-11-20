@@ -1,13 +1,12 @@
 package de.hhn.it.pp.components.vocabletrainer.provider;
 
+import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
@@ -161,11 +160,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
   /**
    * Load data into the vocableTrainer component.
    *
-   * @param vocabularyList HashMap of data that should be loaded into the component
+   * @param learningState state of the learning status
    * @return the success of the process
    */
   @Override
-  public boolean loadData(HashMap<String, List<Vocable>> vocabularyList) {
+  public boolean loadData(LearningState learningState) {
     return false;
   }
 }

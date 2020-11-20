@@ -16,7 +16,7 @@ public class DemoVocableTrainerUsage {
   public static void main(String[] args) {
     JBVocableTrainerService jbVocableTrainerService =
         new JBVocableTrainerService(); // new vocableTrainer instance
-
+    LearningState learningState = new LearningState();
     List<Vocable> carVocabulary =
         new ArrayList<>(); // new vocabulary list for the car category
     carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
@@ -30,7 +30,8 @@ public class DemoVocableTrainerUsage {
         new HashMap<>(); // new HashMap for categories and their vocabulary lists
     data.put("car",
         carVocabulary); // add the car category to the HashMap using the carVocabulary vocabulary list
-    jbVocableTrainerService.loadData(data); // load the example data into the component
+    learningState.setVocabularyList(data); // Put generated data into the learning state
+    jbVocableTrainerService.loadData(learningState); // load the example data into the component
 
     // show the score and the vocCategories in the GUI
     int score = jbVocableTrainerService.getScore();

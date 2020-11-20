@@ -4,7 +4,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.HashMap;
 import java.util.List;
 
 public interface VocableTrainerService {
@@ -125,8 +124,8 @@ public interface VocableTrainerService {
   /**
    * Load data into the vocableTrainer component.
    *
-   * @param vocabularyList HashMap of data that should be loaded into the component
+   * @param learningState state of the learning status
    * @return the success of the process
    */
-  boolean loadData(HashMap<String, List<Vocable>> vocabularyList);
+  boolean loadData(LearningState learningState);
 }
