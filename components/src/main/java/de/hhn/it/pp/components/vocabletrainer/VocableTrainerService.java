@@ -3,8 +3,8 @@ package de.hhn.it.pp.components.vocabletrainer;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface VocableTrainerService {
 
@@ -20,7 +20,7 @@ public interface VocableTrainerService {
    *
    * @return List of registered Categories
    */
-  ArrayList<String> getVocCategories();
+  List<String> getVocCategories();
 
   /**
    * Add a new Category with a new vocabularyList to the hashmap.
@@ -30,7 +30,7 @@ public interface VocableTrainerService {
    * @return VocCategory successfully added
    * @throws VocCategoryAlreadyExistException when category name already exist
    */
-  boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+  boolean addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException;
 
   /**
@@ -61,7 +61,7 @@ public interface VocableTrainerService {
    * @return List of registered vocabulary
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
-  ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException;
+  List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException;
 
   /**
    * Add a new Vocable to the Vocabulary list from the given category.
@@ -131,5 +131,5 @@ public interface VocableTrainerService {
    * @param vocabularyList HashMap of data that should be loaded into the component
    * @return the success of the process
    */
-  boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList);
+  boolean loadData(HashMap<String, List<Vocable>> vocabularyList);
 }

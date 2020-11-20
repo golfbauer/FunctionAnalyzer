@@ -7,8 +7,10 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundExce
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
+
 
   /**
    * Returns the current score.
@@ -26,7 +28,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return List of registered Categories
    */
   @Override
-  public ArrayList<String> getVocCategories() {
+  public List<String> getVocCategories() {
     return null;
   }
 
@@ -39,7 +41,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @throws VocCategoryAlreadyExistException when category name already exist
    */
   @Override
-  public boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+  public boolean addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
     return false;
   }
@@ -79,7 +81,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
-  public ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
+  public List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
     return null;
   }
 
@@ -167,7 +169,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return the success of the process
    */
   @Override
-  public boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList) {
+  public boolean loadData(HashMap<String, List<Vocable>> vocabularyList) {
     return false;
   }
 }

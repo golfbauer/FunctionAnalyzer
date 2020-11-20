@@ -6,6 +6,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundExceptio
 import de.hhn.it.pp.components.vocabletrainer.provider.JBVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DemoVocableTrainerUsage {
   private static final org.slf4j.Logger logger =
@@ -15,7 +16,7 @@ public class DemoVocableTrainerUsage {
     JBVocableTrainerService jbVocableTrainerService =
         new JBVocableTrainerService(); // new vocableTrainer instance
 
-    ArrayList<Vocable> carVocabulary =
+    List<Vocable> carVocabulary =
         new ArrayList<>(); // new vocabulary list for the car category
     carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
     carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
@@ -24,7 +25,7 @@ public class DemoVocableTrainerUsage {
     carVocabulary
         .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
 
-    HashMap<String, ArrayList<Vocable>> data =
+    HashMap<String, List<Vocable>> data =
         new HashMap<>(); // new HashMap for categories and their vocabulary lists
     data.put("car",
         carVocabulary); // add the car category to the HashMap using the carVocabulary vocabulary list
@@ -32,7 +33,7 @@ public class DemoVocableTrainerUsage {
 
     // show the score and the vocCategories in the GUI
     int score = jbVocableTrainerService.getScore();
-    ArrayList<String> vocCategories = jbVocableTrainerService.getVocCategories();
+    List<String> vocCategories = jbVocableTrainerService.getVocCategories();
     logger.debug("Score: " + score + "\nCategories: " + vocCategories);
 
     // add a new vocCategory to the component
@@ -96,7 +97,7 @@ public class DemoVocableTrainerUsage {
     vocCategories = jbVocableTrainerService.getVocCategories();
     logger.debug("Score: " + score + "\nCategories: " + vocCategories);
 
-    ArrayList<Vocable> vocabulary =
+    List<Vocable> vocabulary =
         null; // print all vocabulary from category "VocCategory" on the screen
     try {
       vocabulary = jbVocableTrainerService.getVocabulary("VocCategory");
@@ -163,7 +164,7 @@ public class DemoVocableTrainerUsage {
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    ArrayList<Integer> falseVocabulary = new ArrayList<>(); // ArrayList of wrong vocabulary
+    List<Integer> falseVocabulary = new ArrayList<>(); // List of wrong vocabulary
     for (int i = 0; i < sizeList;
          i++) { // Iterate through the vocabulary list of the category "VocCategory"
       try {
