@@ -1,12 +1,13 @@
 package de.hhn.it.pp.components.vocabletrainer.provider;
 
+import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.VocableTrainerService;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
 
@@ -26,7 +27,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return List of registered Categories
    */
   @Override
-  public ArrayList<String> getVocCategories() {
+  public List<String> getVocCategories() {
     return null;
   }
 
@@ -35,25 +36,23 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param category       name of the category
    * @param vocabularyList list of vocabulary
-   * @return VocCategory successfully added
    * @throws VocCategoryAlreadyExistException when category name already exist
    */
   @Override
-  public boolean addVocCategory(String category, ArrayList<Vocable> vocabularyList)
+  public void addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
-    return false;
+
   }
 
   /**
    * Remove VocCategory from the hashmap.
    *
    * @param category name of the category
-   * @return VocCategory successfully removed
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
-  public boolean removeVocCategory(String category) throws VocCategoryNotFoundException {
-    return false;
+  public void removeVocCategory(String category) throws VocCategoryNotFoundException {
+
   }
 
   /**
@@ -79,7 +78,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @throws VocCategoryNotFoundException when category name doesn't exist
    */
   @Override
-  public ArrayList<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
+  public List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
     return null;
   }
 
@@ -89,13 +88,13 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param learningWord the vocabulary to be learned
    * @param translations translations of the vocabulary
    * @param category     name of the category
-   * @return Vocable successfully added
    * @throws VocCategoryNotFoundException when CategoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   @Override
-  public boolean addVocable(String learningWord, String[] translations, String category)
-      throws VocCategoryNotFoundException {
-    return false;
+  public void addVocable(String learningWord, String[] translations, String category)
+      throws VocCategoryNotFoundException, TranslationIsEmptyException {
+
   }
 
   /**
@@ -103,14 +102,13 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param id       position of the word in the list
    * @param category name of the category where the vocable is in
-   * @return Vocable successfully removed
    * @throws VocableNotFoundException     when Id doesn't exist
    * @throws VocCategoryNotFoundException when Category doesn't exist
    */
   @Override
-  public boolean removeVocable(int id, String category)
+  public void removeVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
-    return false;
+
   }
 
   /**
@@ -118,13 +116,12 @@ public class JBVocableTrainerService implements VocableTrainerService {
    *
    * @param oldCategoryName name from the category
    * @param newCategoryName name of the edited category,
-   * @return Category was successfully edited
    * @throws VocCategoryNotFoundException if category doesn't exist
    */
   @Override
-  public boolean editVocCategory(String oldCategoryName, String newCategoryName)
+  public void editVocCategory(String oldCategoryName, String newCategoryName)
       throws VocCategoryNotFoundException {
-    return false;
+
   }
 
   /**
@@ -150,24 +147,24 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @param learningWord string of the origin word
    * @param translations list of translated words
    * @param category     name of the category
-   * @return true if the Vocable was successfully added
    * @throws VocableNotFoundException     when vocableId doesn't exist
    * @throws VocCategoryNotFoundException when categoryId doesn't exist
+   * @throws TranslationIsEmptyException  when the translation array is empty
    */
   @Override
-  public boolean editVocable(int id, String learningWord, String[] translations, String category)
-      throws VocableNotFoundException, VocCategoryNotFoundException {
-    return false;
+  public void editVocable(int id, String learningWord, String[] translations, String category)
+      throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
+
   }
 
   /**
    * Load data into the vocableTrainer component.
    *
-   * @param vocabularyList HashMap of data that should be loaded into the component
+   * @param learningState state of the learning status
    * @return the success of the process
    */
   @Override
-  public boolean loadData(HashMap<String, ArrayList<Vocable>> vocabularyList) {
+  public boolean loadData(LearningState learningState) {
     return false;
   }
 }
