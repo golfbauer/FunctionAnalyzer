@@ -37,28 +37,23 @@ public class DemoVocableTrainerUsage {
     logger.debug("Score: " + score + "\nCategories: " + vocCategories);
 
     // add a new vocCategory to the component
-    boolean success = false;
+
     try {
-      success = jbVocableTrainerService.addVocCategory("Computer", new ArrayList<>());
+      jbVocableTrainerService.addVocCategory("Computer", new ArrayList<>());
+      logger.debug("Category successfully added");
     } catch (VocCategoryAlreadyExistException e) {
+      logger.debug("Category failed to add");
       e.printStackTrace();
     }
-    if (success) {
-      logger.debug("Category successfully added");
-    } else {
-      logger.debug("Failed to add the category");
-    }
+
 
     // Rename the vocCategory "Computer" into "VocCategory"
     try {
-      success = jbVocableTrainerService.editVocCategory("Computer", "VocCategory");
+      jbVocableTrainerService.editVocCategory("Computer", "VocCategory");
+      logger.debug("Category successfully edited");
     } catch (VocCategoryNotFoundException e) {
+      logger.debug("Category failed to edit");
       e.printStackTrace();
-    }
-    if (success) {
-      logger.debug("Category successfully renamed");
-    } else {
-      logger.debug("renaming the category failed");
     }
 
     // show the score and the vocCategories in the GUI
@@ -68,29 +63,24 @@ public class DemoVocableTrainerUsage {
 
     // add the word "hello" to the category "VocCategory"
     try {
-      success = jbVocableTrainerService
+      jbVocableTrainerService
           .addVocable("hello", new String[] {"hallo"}, "VocCategory");
+      logger.debug("Vocable successfully added");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
-    }
-    if (success) {
-      logger.debug("Vocable successfully added");
-    } else {
-      logger.debug("Failed to add the vocable");
+      logger.debug("Vocable failed to add");
     }
 
     // add the word "bye" to the category "VocCategory"
     try {
-      success = jbVocableTrainerService
+      jbVocableTrainerService
           .addVocable("bye", new String[] {"Tschüss"}, "VocCategory");
+      logger.debug("Vocable successfully added");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
+      logger.debug("Vocable failed to add");
     }
-    if (success) {
-      logger.debug("Vocable successfully added");
-    } else {
-      logger.debug("Failed to add the vocable");
-    }
+
 
     // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
@@ -108,16 +98,14 @@ public class DemoVocableTrainerUsage {
 
     // Edit the word "hello" in the category "VocCategory"
     try {
-      success = jbVocableTrainerService
+      jbVocableTrainerService
           .editVocable(0, "hello", new String[] {"hallo", "moin"}, "VocCategory");
+      logger.debug("Vocable successfully edit");
     } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
       e.printStackTrace();
-    }
-    if (success) {
-      logger.debug("Vocable successfully edit");
-    } else {
       logger.debug("Failed to edit the vocable");
     }
+
 
     // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
@@ -134,15 +122,13 @@ public class DemoVocableTrainerUsage {
 
     // Delete vocable "hello" in the category "VocCategory"
     try {
-      success = jbVocableTrainerService.removeVocable(0, "VocCategory");
+      jbVocableTrainerService.removeVocable(0, "VocCategory");
+      logger.debug("Vocable successfully removed");
     } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
       e.printStackTrace();
-    }
-    if (success) {
-      logger.debug("Vocable successfully removed");
-    } else {
       logger.debug("Failed to remove the vocable");
     }
+
 
     // show the score and the vocCategories in the GUI
     score = jbVocableTrainerService.getScore();
@@ -214,15 +200,12 @@ public class DemoVocableTrainerUsage {
     logger.debug("\nnew Score: " + score);
 
     // Remove the "VocCategory"
-    boolean isRemoved = false;
+
     try {
-      isRemoved = jbVocableTrainerService.removeVocCategory("VocCategory");
+      jbVocableTrainerService.removeVocCategory("VocCategory");
+      logger.debug("Category successfully removed");
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
-    }
-    if (isRemoved) {
-      logger.debug("Category successfully removed");
-    } else {
       logger.debug("Failed to remove the Category");
     }
   }
