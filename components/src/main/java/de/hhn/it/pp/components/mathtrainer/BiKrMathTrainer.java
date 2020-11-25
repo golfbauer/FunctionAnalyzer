@@ -5,14 +5,15 @@ import java.math.BigDecimal;
 public class BiKrMathTrainer implements MathTrainer {
 
     private String username;
-    private Section currentSection;
+    private Section section;
     private Difficulty difficulty;
+    private int decimalPlace;
 
     /**
      * Constructor to instantiate the basic functions for MathTrainer.
      */
     public BiKrMathTrainer() {
-        currentSection = Section.MIXED;
+        section = Section.MIXED;
     }
 
     @Override
@@ -36,21 +37,45 @@ public class BiKrMathTrainer implements MathTrainer {
     }
 
 
-    public Term createTerm() {
-        char [] operands = {'+','-','*','/'};
+    public void setDecimalPlace(int decimalPlace) {
+        this.decimalPlace = decimalPlace;
+    }
 
-        BigDecimal firstNumber = BigDecimal.valueOf((long)(Math.random()*29));
-        BigDecimal secondNumber = BigDecimal.valueOf((long)(Math.random()*29));
+    public int getDecimalPlace() {
+        return this.decimalPlace;
+    }
+
+    @Override
+    public Term createTerm() {
+        int maxNumberSize =
+            difficulty == Difficulty.EASY ? 9 :
+                difficulty == Difficulty.MEDIUM ? 19 :
+                    29;
+
+        BigDecimal firstNumber = BigDecimal.valueOf((long)(Math.random()*maxNumberSize));
+        BigDecimal secondNumber = BigDecimal.valueOf((long)(Math.random()*maxNumberSize));
+
+        char [] operands = {'+','-','*','/'};
         Character operator =
-            currentSection == Section.PLUS ? operands[0] :
-                currentSection == Section.MINUS ? operands[1] :
-                    currentSection == Section.MULTIPLICATION ? operands[2] :
-                        currentSection== Section.DIVISION ? operands[3]: operands[(int)(Math.random()*3)];
+            section == Section.PLUS ? operands[0] :
+                section == Section.MINUS ? operands[1] :
+                    section == Section.MULTIPLICATION ? operands[2] :
+                        section == Section.DIVISION ? operands[3] :
+                            operands[(int)(Math.random()*3)]; //Mixed Mode
 
         return new Term(firstNumber, secondNumber, operator);
     }
 
+    /*public void startQuestion() {
+        createTerm();
+        Thread erzeugen
+    }
 
+    public void answerQuestion(int zeit, userinput) {
+        int punkte = zeit * 2;
+    }*/
+
+    @Override
     public boolean solveTerm(String userInput, Term term){
         try{
             BigDecimal number = new BigDecimal(userInput);
@@ -60,7 +85,7 @@ public class BiKrMathTrainer implements MathTrainer {
                 return true;
             }
         } catch(IllegalArgumentException e){
-            System.out.println("Bitte gib eine ganze Zahl als Lösung ein.");
+            //System.out.println("Nutzereingabe: \"" +userInput+ "\". Bitte gib eine ganze Zahl als Lösung ein.");
         }
         return false;
     }
