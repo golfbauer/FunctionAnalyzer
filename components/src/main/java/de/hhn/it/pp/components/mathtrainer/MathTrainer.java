@@ -2,6 +2,7 @@ package de.hhn.it.pp.components.mathtrainer;
 
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface MathTrainer {
     /**
      * sets the current user name to the value that was given as parameter
      * @param username
-     * @throws IllegalParameterException
+     * @throws IllegalParameterException if input is invalid
      */
     void setUsername(String username) throws IllegalParameterException;
 
@@ -32,8 +33,9 @@ public interface MathTrainer {
     /**
      * sets the difficulty level equal to the parameter value
      * @param difficulty
+     * @thorws IllegalParameterException if difficulty does not match any present values
      */
-    void setDifficulty(Difficulty difficulty);
+    void setDifficulty(Difficulty difficulty) throws IllegalParameterException;
 
     /**
      * returns the number of decimals after the period specified by the user
@@ -44,8 +46,9 @@ public interface MathTrainer {
     /**
      * sets the number of decimals after the period to the value specified inside the parameter
      * @param decimalPlace
+     * @thorws IllegalParameterException if negative numbers are entered
      */
-    void setDecimalPlace(int decimalPlace);
+    void setDecimalPlace(int decimalPlace) throws IllegalParameterException;
 
     /**
      * returns the current user score
@@ -56,14 +59,40 @@ public interface MathTrainer {
     /**
      * allowes to reset or change the user score to the value specified in the parameter
      * @param number
+     * @thorws IllegalParameterException if userscore is going to become negative through this methodcall
      */
-    void setUserScore(int number);
+    void setUserScore(int number) throws IllegalParameterException;
+
+    /**
+     * changes the boolean value of wantstoexit
+     * @param exitboolean
+     */
+    void setWantsToExit(boolean exitboolean);
+
+    /**
+     * returns the boolean value of wantstoexit
+     * @return wantstoexit
+     */
+    boolean getWantsToExit();
+
+    /**
+     * changes the boolean value of timeisup
+     * @param timeboolean
+     */
+    void setTimeIsUp(boolean timeboolean);
+
+    /**
+     * returns the boolean value of timeisup
+     * @return
+     */
+    boolean getTimeIsUp();
 
     /**
      * adds the timebonus for fast solutions and the bonus for difficult questions to the userscore
      * @param timebonus
+     * @thorws IllegalParameterException if negative values for timebonus should appear
      */
-    void addToUserScore(int timebonus);
+    void addToUserScore(int timebonus) throws IllegalParameterException;
 
     /**
      * createTerm for generating a random term.
@@ -78,6 +107,7 @@ public interface MathTrainer {
      * @param userInput
      * @param term
      * @return returns true or false depending on whether or not the term has been solved successfully.
+     * @catch IllegalArgumentException if invalid solutions are entered by the user.
      */
     boolean solveTerm(String userInput, Term term);
 
@@ -88,6 +118,8 @@ public interface MathTrainer {
      * @param term
      * @param solvedInSeconds
      * @return returns true or false depending on whether or not the term has been solved successfully.
+     * @catch IllegalArgumentException if invalid solutions are entered by user.
+     * @catch IllegalParameterException if secondary method addToUserScore() within this method causes issues.
      */
     boolean solveTerm(String userInput, Term term, int solvedInSeconds);
 
@@ -103,4 +135,28 @@ public interface MathTrainer {
      * @return a list element
      */
     List<String> getHistory();
+
+    /**
+     * returns the solution of the question if the user asks for it, note no points are added to the user score
+     * @param term
+     * @return BigDecimal object of the terms solution
+     * @throws IllegalParameterException if the term is somehow invalid
+     */
+    BigDecimal helpUser(Term term) throws IllegalParameterException;
+
+    /**
+     * starts a game in which the user has to solve 20 random math questions
+     * @param warmup
+     * @throws IllegalParameterException if addToUserScore or setUserScore methods cause any input problems
+     */
+    void startGame(boolean warmup) throws IllegalParameterException;
+
+    /**
+     * quitting the game gives this method the loopCount to know at which question the game was exited and a boolean to signal exit is true
+     * @param loopCount
+     * @param exit
+     * @return loopcount is set to 20 so the for loop of the question run reaches its exit condition on the next attempt to run.
+     * @throws IllegalParameterException if loopcount has negative values
+     */
+    int exitGame(int loopCount , boolean exit) throws IllegalParameterException;
 }
