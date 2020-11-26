@@ -1,5 +1,7 @@
 package de.hhn.it.pp.components.mathtrainer;
 
+import de.hhn.it.pp.components.exceptions.IllegalParameterException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 public class MathTrainerDemo {
     public static BiKrMathTrainer tr;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalParameterException {
         tr = new BiKrMathTrainer();
 
         //Nutzername
@@ -65,6 +67,44 @@ public class MathTrainerDemo {
         testBonuspointsCalculation(gradedTerm);
         System.out.println();
 
+        System.out.println("Testen der User Hilfe zur Anzeige des Ergebnisses");
+        System.out.println("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
+        System.out.println();
+
+        System.out.println("Testen eines Spieldurchlaufs mit 20 Rechnungen");
+        System.out.println("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
+        System.out.println("Im Warmup mode: ");
+        tr.startGame(true);
+        System.out.println("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
+        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
+        System.out.println();
+
+        System.out.println("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
+        tr.setWantsToExit(true);
+        tr.startGame(true);
+        System.out.println("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
+        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
+        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
+        System.out.println();
+
+        System.out.println("Testen eines Spieldurchlaufs mit 20 Rechnungen");
+        System.out.println("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
+        System.out.println("Im Countdown mode: ");
+        tr.startGame(false);
+        System.out.println("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
+        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
+        System.out.println();
+
+        System.out.println("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
+        tr.setWantsToExit(true);
+        tr.startGame(false);
+        System.out.println("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
+        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
+        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
+        System.out.println();
+
+
+
 
     }
 
@@ -85,7 +125,7 @@ public class MathTrainerDemo {
         }
     }
 
-    private static void testBonuspointsCalculation(Term gradedTerm){
+    private static void testBonuspointsCalculation(Term gradedTerm) throws IllegalParameterException{
         for(int i=1; i<=5; i++){
             tr.solveTerm("6", gradedTerm, i);
             System.out.println("Nutzer gibt 6 nach "+i+" Sekunden ein:  Ergebnis mit Bonuspunkten: "+ tr.getUserScore() ); //nach einer Sekunde
