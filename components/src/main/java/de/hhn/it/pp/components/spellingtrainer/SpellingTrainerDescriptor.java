@@ -74,7 +74,10 @@ public class SpellingTrainerDescriptor {
   }
 
   public LearningSet getActiveLearningSet() {
+    logger.info("Successfully returned active learning set.");
     return activeLearningSet;
+
+
   }
 
 
