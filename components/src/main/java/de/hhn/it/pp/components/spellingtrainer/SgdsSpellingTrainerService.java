@@ -127,6 +127,9 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public void nextWord() {
+    MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
+    MediaReference mr = SpellingTrainerDescriptor.activeLearningSet.getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
+    mpl.present(mr);
   }
 
   /**
@@ -137,7 +140,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
   @Override
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-
+      MediaPresentationListener mpl = new MediaPresentationListener();
+      MediaPresentationListener.addMediaPresentationListener(mpl);
   }
 
   /**
@@ -148,6 +152,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
   @Override
   public void deregisterMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-
+      MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
   }
 }
