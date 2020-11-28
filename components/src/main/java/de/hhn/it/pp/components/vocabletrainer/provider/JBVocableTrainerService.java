@@ -10,6 +10,8 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundExceptio
 import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(JBVocableTrainerService.class);
 
   /**
    * Returns the current score.
@@ -18,6 +20,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public int getScore() {
+    logger.info("getScore: no params");
     return 0;
   }
 
@@ -28,6 +31,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public List<String> getVocCategories() {
+    logger.info("getVocCategories: no params");
     return null;
   }
 
@@ -41,6 +45,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
+    logger.info("addVocCategory: category = {}, vocabularyList = {}", category, vocabularyList);
 
   }
 
@@ -52,6 +57,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public void removeVocCategory(String category) throws VocCategoryNotFoundException {
+    logger.info("removeVocCategory: category = {}", category);
 
   }
 
@@ -67,6 +73,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public Vocable getVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
+    logger.info("getVocable: id = {}, category = {}", id, category);
     return null;
   }
 
@@ -79,6 +86,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
+    logger.info("getVocabulary: category = {}", category);
     return null;
   }
 
@@ -94,6 +102,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void addVocable(String learningWord, String[] translations, String category)
       throws VocCategoryNotFoundException, TranslationIsEmptyException {
+    logger.info("addVocable: learningWord = {}, translations = {}, category = {}", learningWord,
+        translations, category);
 
   }
 
@@ -108,6 +118,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void removeVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
+    logger.info("removeVocable: id = {}, category = {}", id, category);
 
   }
 
@@ -121,6 +132,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void editVocCategory(String oldCategoryName, String newCategoryName)
       throws VocCategoryNotFoundException {
+    logger.info("editVocCategory: oldCategoryName = {}, newCategoryName = {}", oldCategoryName,
+        newCategoryName);
 
   }
 
@@ -137,6 +150,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
       throws VocCategoryNotFoundException {
+    logger.info("checkVocable: word = {}, category = {}, levenshteinDistance = {}", id, category,
+        levenshteinDistance);
     return false;
   }
 
@@ -154,6 +169,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void editVocable(int id, String learningWord, String[] translations, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
+    logger.info("editVocable: id = {}, learningWord = {}, translations = {}, category = {}", id,
+        learningWord, translations, category);
 
   }
 
@@ -165,6 +182,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public boolean loadData(LearningState learningState) {
+    logger.info("loadData: learningState = {}", learningState);
     return false;
   }
 }
