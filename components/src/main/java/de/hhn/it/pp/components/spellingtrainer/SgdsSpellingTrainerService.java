@@ -119,7 +119,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
       }
     }
     logger.warn("LearningSet with given name " + learningSetName + " could not be found");
-    throw new LearningSetCouldNotBeFoundException();
+    throw new LearningSetCouldNotBeFoundException("LearningSet with name " + learningSetName + " could not be found");
   }
 
 
