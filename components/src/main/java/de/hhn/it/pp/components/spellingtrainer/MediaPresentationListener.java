@@ -19,4 +19,16 @@ public class MediaPresentationListener {
 
   }
 
+  public static MediaPresentationListener getMediaPresentationListener(int index){
+    return mediaPresentationListeners.get(index);
+  }
+
+  public static void addMediaPresentationListener(MediaPresentationListener mediaPresentationListener){
+    mediaPresentationListeners.add(mediaPresentationListener);
+  }
+
+  public static void removeMediaPresentationListener(MediaPresentationListener mediaPresentationListener){
+    mediaPresentationListeners.remove(mediaPresentationListener);
+  }
+
 }
