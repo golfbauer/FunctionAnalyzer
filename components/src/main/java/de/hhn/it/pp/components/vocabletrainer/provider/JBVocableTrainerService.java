@@ -7,11 +7,14 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
+import java.util.HashMap;
 import java.util.List;
 
 public class JBVocableTrainerService implements VocableTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(JBVocableTrainerService.class);
+
+  JBVocableTrainer trainer = new JBVocableTrainer();
 
   /**
    * Returns the current score.
@@ -135,6 +138,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
     logger.info("editVocCategory: oldCategoryName = {}, newCategoryName = {}", oldCategoryName,
         newCategoryName);
 
+
   }
 
   /**
@@ -171,7 +175,10 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
     logger.info("editVocable: id = {}, learningWord = {}, translations = {}, category = {}", id,
         learningWord, translations, category);
-
+    Vocable vocEdit = new Vocable(learningWord, translations);
+    trainer.deleteVocable(category, vocEdit);
+    trainer.getVocableList(category).get(id).setLearningWord(learningWord);
+    trainer.getVocableList(category).get(id).setTranslations(translations);
   }
 
   /**
@@ -183,6 +190,21 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public boolean loadData(LearningState learningState) {
     logger.info("loadData: learningState = {}", learningState);
-    return false;
+    trainer.setScore(learningState.getScore());
+
+    for (HashMap.Entry<String, List<Vocable>> entry : learningState.getVocabularyList()
+        .entrySet()) {
+      String key = entry.getKey();
+      List<Vocable> value = entry.getValue();
+
+      try {
+        trainer.addCategory(key, value);
+      } catch (VocCategoryAlreadyExistException e) {
+        e.printStackTrace();
+        return false;
+      }
+    }
+    return true;
   }
+
 }
