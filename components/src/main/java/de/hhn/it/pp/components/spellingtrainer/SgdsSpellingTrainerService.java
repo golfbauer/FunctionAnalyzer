@@ -94,7 +94,7 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
    */
   @Override
   public ArrayList<LearningSet> getLearningSets() {
-    return null;
+    return SpellingTrainerDescriptor.getLearningSets();
   }
 
   /**
@@ -105,7 +105,15 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
    */
   @Override
   public LearningSet getLearningSet(String learningSetName) {
-    return null;
+    ArrayList<LearningSet> learningSets = getLearningSets();
+    for(int i = 0; i < learningSets.size(); i++){
+      if(learningSets.get(i).getLearningSetName().equals(learningSetName)){
+        return learningSets.get(i);
+      }
+    }
+    //TODO Throw correct Exception
+    logger.warn("LearningSet with given name " + learningSetName + " could not be found");
+    throw new Exception();
   }
 
   /**
@@ -134,7 +142,9 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
    */
   @Override
   public void nextWord() {
-
+    MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
+    MediaReference mr = SpellingTrainerDescriptor.activeLearningSet.getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
+    mpl.present(mr);
   }
 
   /**
@@ -145,7 +155,8 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
   @Override
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-
+      MediaPresentationListener mpl = new MediaPresentationListener();
+      MediaPresentationListener.addMediaPresentationListener(mpl);
   }
 
   /**
@@ -156,7 +167,7 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
   @Override
   public void deregisterMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-
+      MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
   }
 
 }
