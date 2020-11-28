@@ -70,9 +70,11 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
    * @return new learning set
    */
   @Override
-  public LearningSet createLearningSet(String learningSetName)
+  public void createLearningSet(String learningSetName)
       throws LearningSetNameAlreadyAssignedException {
-    return null;
+
+     SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
+     logger.info("Learning set successfully created.");
   }
 
   /**

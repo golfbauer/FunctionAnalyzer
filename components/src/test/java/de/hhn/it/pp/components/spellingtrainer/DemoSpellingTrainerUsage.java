@@ -34,9 +34,8 @@ public class DemoSpellingTrainerUsage {
       }
 
       @Override
-      public LearningSet createLearningSet(String learningSetName)
+      public void createLearningSet(String learningSetName)
           throws LearningSetNameAlreadyAssignedException {
-        return null;
       }
 
       @Override

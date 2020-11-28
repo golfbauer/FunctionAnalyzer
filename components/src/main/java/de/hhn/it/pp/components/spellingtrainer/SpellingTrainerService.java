@@ -46,7 +46,7 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the learning set
    * @return new learning set
    */
-  LearningSet createLearningSet(String learningSetName)throws LearningSetNameAlreadyAssignedException;
+  void createLearningSet(String learningSetName)throws LearningSetNameAlreadyAssignedException;
 
   /**
    * Removes an learning set from the list of learning sets.
