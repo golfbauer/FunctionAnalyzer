@@ -51,4 +51,8 @@ public class LearningSet {
     return this.learningEntries.get(index);
 
   }
+  public  ArrayList<LearningEntry> getLearningEntries(){
+    return this.learningEntries;
+
+  }
 }
