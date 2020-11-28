@@ -6,6 +6,7 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class SgdsSpellingTrainerService implements SpellingTrainerService{
   private static final org.slf4j.Logger logger =
@@ -19,9 +20,10 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
   @Override
-  public boolean checkSpelling(String enteredWord, LearningEntry learningEntry) {
-
+  public boolean checkSpelling(String enteredWord, LearningEntry learningEntry){
+    logger.info("Checked spelling successfully.");
     return enteredWord.equals(learningEntry.getWordEntry());
+
   }
 
   /**
@@ -34,8 +36,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
   @Override
   public void addWord(String word, File audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException {
-    LearningEntry learningEntry = new LearningEntry(new MediaReference(audio),word);
-
+    getLearningSet(learningSetName).addLearningEntry(new LearningEntry(new MediaReference(audio),word));
+    logger.info("Word successfully added to learning set {}",learningSetName);
 
   }
 
@@ -47,8 +49,19 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public void deleteWord(String word, String learningSetName) throws WordNotFoundException {
+    LearningSet ls= getLearningSet(learningSetName);
+    ListIterator it= ls.getLearningEntries().listIterator();
+    while(it.hasNext()){
+      LearningEntry le= (LearningEntry) it.next();
+      if(le.getWordEntry().equals(word)){
+        ls.removeLearningEntry(le);
+      }
+    }
+logger.info("Learning entry successfully removed from {}.",learningSetName);
+
 
   }
+
 
   /**
    * Method to create a new learning set.
@@ -143,4 +156,5 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
       MediaPresentationListener mediaPresentationListener) {
 
   }
+
 }
