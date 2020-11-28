@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
@@ -104,17 +105,19 @@ logger.info("Learning entry successfully removed from {}.",learningSetName);
    * @return learning set with associated name
    */
   @Override
-  public LearningSet getLearningSet(String learningSetName) {
+  public LearningSet getLearningSet(String learningSetName)
+      throws LearningSetCouldNotBeFoundException {
     ArrayList<LearningSet> learningSets = getLearningSets();
-    for(int i = 0; i < learningSets.size(); i++){
-      if(learningSets.get(i).getLearningSetName().equals(learningSetName)){
+
+    for (int i = 0; i < learningSets.size(); i++) {
+      if (learningSets.get(i).getLearningSetName().equals(learningSetName)) {
         return learningSets.get(i);
       }
     }
-    //TODO Throw correct Exception
     logger.warn("LearningSet with given name " + learningSetName + " could not be found");
-    throw new Exception();
+    throw new LearningSetCouldNotBeFoundException();
   }
+
 
   /**
    * Method to start an learning session with an learning set.

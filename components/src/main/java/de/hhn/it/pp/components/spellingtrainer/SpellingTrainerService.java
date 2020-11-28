@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
@@ -68,7 +69,7 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the learning set
    * @return learning set with associated name
    */
-  LearningSet getLearningSet(String learningSetName);
+  LearningSet getLearningSet(String learningSetName) throws LearningSetCouldNotBeFoundException;
 
   /**
    * Method to start an learning session with an learning set.
