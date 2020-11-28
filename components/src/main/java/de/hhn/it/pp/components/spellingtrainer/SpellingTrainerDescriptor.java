@@ -13,7 +13,7 @@ public class SpellingTrainerDescriptor {
   private int counterRightWords;
   private int counterRemainingWords;
   LearningSet activeLearningSet;
-  private ArrayList<LearningSet> learningSets = new ArrayList<>();
+  private static ArrayList<LearningSet> learningSets = new ArrayList<>();
 
 
   /**
@@ -79,6 +79,18 @@ public class SpellingTrainerDescriptor {
     return activeLearningSet;
 
 
+  }
+
+  public static void addLearningSet(LearningSet learningSet){
+    learningSets.add(learningSet);
+  }
+
+  public static void removeLearningSet(LearningSet learningSet){
+    learningSets.remove(learningSet);
+  }
+
+  public static ArrayList<LearningSet> getLearningSets(){
+    return learningSets;
   }
 
 }
