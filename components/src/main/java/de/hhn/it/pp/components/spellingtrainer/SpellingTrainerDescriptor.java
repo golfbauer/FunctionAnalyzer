@@ -8,11 +8,11 @@ public class SpellingTrainerDescriptor {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SpellingTrainerDescriptor.class);
 
-
-  private int counterWrongWords;
-  private int counterRightWords;
-  private int counterRemainingWords;
-  LearningSet activeLearningSet;
+  private static int currentWordIndex;
+  private static int counterWrongWords;
+  private static int counterRightWords;
+  private static int counterRemainingWords;
+  static LearningSet activeLearningSet;
   private static ArrayList<LearningSet> learningSets = new ArrayList<>();
 
 
@@ -91,6 +91,21 @@ public class SpellingTrainerDescriptor {
 
   public static ArrayList<LearningSet> getLearningSets(){
     return learningSets;
+  }
+
+  public static int getCurrentWordIndex(){
+    return currentWordIndex;
+  }
+
+  public static void setCurrentWordIndex(int index){
+    currentWordIndex = index;
+  }
+
+  public static void resetInts(){
+    currentWordIndex = 0;
+    counterWrongWords = 0;
+    counterRemainingWords = 0;
+    counterRightWords = 0;
   }
 
 }
