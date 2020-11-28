@@ -36,7 +36,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public void addWord(String word, File audio, String learningSetName)
-      throws WordAlreadyAddedException, FileNotFoundException {
+      throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException {
     getLearningSet(learningSetName).addLearningEntry(new LearningEntry(new MediaReference(audio),word));
     logger.info("Word successfully added to learning set {}",learningSetName);
 
@@ -49,16 +49,20 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    * @param learningSetName name of the set, that the word is deleted from
    */
   @Override
-  public void deleteWord(String word, String learningSetName) throws WordNotFoundException {
+  public void deleteWord(String word, String learningSetName)
+      throws WordNotFoundException, LearningSetCouldNotBeFoundException {
     LearningSet ls= getLearningSet(learningSetName);
     ListIterator it= ls.getLearningEntries().listIterator();
     while(it.hasNext()){
       LearningEntry le= (LearningEntry) it.next();
       if(le.getWordEntry().equals(word)){
         ls.removeLearningEntry(le);
+        logger.info("Learning entry successfully removed from {}.",learningSetName);
+        return;
       }
+
     }
-logger.info("Learning entry successfully removed from {}.",learningSetName);
+    throw new WordNotFoundException("Word couldn't be found in the learning set "+ learningSetName);
 
 
   }

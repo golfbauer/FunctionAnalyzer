@@ -31,7 +31,7 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the set, that the word should be added to
    */
   void addWord(String word, File audio, String learningSetName)
-      throws WordAlreadyAddedException, FileNotFoundException;
+      throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException;
 
   /**
    * Removes the given word from the Learning List and removes the mapping.
@@ -39,7 +39,8 @@ public interface SpellingTrainerService {
    * @param word        word that is to be removed
    * @param learningSetName name of the set, that the word is deleted from
    */
-  void deleteWord(String word, String learningSetName) throws WordNotFoundException;
+  void deleteWord(String word, String learningSetName)
+      throws WordNotFoundException, LearningSetCouldNotBeFoundException;
 
   /**
    * Method to create a new learning set.
