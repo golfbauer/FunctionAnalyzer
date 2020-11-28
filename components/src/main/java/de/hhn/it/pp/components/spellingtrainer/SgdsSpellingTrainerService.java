@@ -76,7 +76,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public ArrayList<LearningSet> getLearningSets() {
-    return null;
+    return SpellingTrainerDescriptor.getLearningSets();
   }
 
   /**
@@ -87,7 +87,15 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public LearningSet getLearningSet(String learningSetName) {
-    return null;
+    ArrayList<LearningSet> learningSets = getLearningSets();
+    for(int i = 0; i < learningSets.size(); i++){
+      if(learningSets.get(i).getLearningSetName().equals(learningSetName)){
+        return learningSets.get(i);
+      }
+    }
+    //TODO Throw correct Exception
+    logger.warn("LearningSet with given name " + learningSetName + " could not be found");
+    throw new Exception();
   }
 
   /**
@@ -116,7 +124,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public void nextWord() {
-
   }
 
   /**
