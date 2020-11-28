@@ -20,7 +20,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
    */
   @Override
   public boolean checkSpelling(String enteredWord, LearningEntry learningEntry) {
-    return false;
+
+    return enteredWord.equals(learningEntry.getWordEntry());
   }
 
   /**
@@ -33,6 +34,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
   @Override
   public void addWord(String word, File audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException {
+    LearningEntry learningEntry = new LearningEntry(new MediaReference(audio),word);
+
 
   }
 
