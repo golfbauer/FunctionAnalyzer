@@ -92,16 +92,17 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void removeLearningSet(String learningSetName) {
     ArrayList<LearningSet> learningSets = getLearningSets();
-    ListIterator it= learningSets.listIterator();
+    ListIterator it = learningSets.listIterator();
 
-    while(it.hasNext()){
+    while (it.hasNext()) {
       LearningSet ls = (LearningSet) it.next();
-      if(ls.getLearningSetName().equals(learningSetName)){
+      if (ls.getLearningSetName().equals(learningSetName)) {
         SpellingTrainerDescriptor.removeLearningSet(ls);
       }
       logger.info("Learning set successfully removed.");
 
 
+    }
   }
 
   /**
@@ -110,7 +111,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return list of learning sets
    */
   @Override
-  public ArrayList<LearningSet> getLearningSets() {
+  public ArrayList<LearningSet> getLearningSets(){
     return SpellingTrainerDescriptor.getLearningSets();
   }
 
@@ -193,3 +194,4 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   }
 
 }
+
