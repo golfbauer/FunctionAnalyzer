@@ -1,5 +1,7 @@
-package de.hhn.it.pp.components.spellingtrainer;
+package de.hhn.it.pp.components.spellingtrainer.Provider;
 
+import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
+import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
@@ -9,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class SgdsSpellingTrainerService implements SpellingTrainerService{
+public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SgdsSpellingTrainerService.class);
 
@@ -150,7 +152,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService{
   @Override
   public void nextWord() {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
-    MediaReference mr = SpellingTrainerDescriptor.activeLearningSet.getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
+    MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
   }
 

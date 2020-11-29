@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
+import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class SpellingTrainerDescriptor {
   private static int counterWrongWords;
   private static int counterRightWords;
   private static int counterRemainingWords;
-  static LearningSet activeLearningSet;
+  private static LearningSet activeLearningSet;
   private static ArrayList<LearningSet> learningSets = new ArrayList<>();
 
 
@@ -74,7 +75,7 @@ public class SpellingTrainerDescriptor {
     logger.info("Das Aktive LearningSet wurde auf " + learningSet + " gesetzt");
   }
 
-  public LearningSet getActiveLearningSet() {
+  public static LearningSet getActiveLearningSet() {
     logger.info("Successfully returned active learning set.");
     return activeLearningSet;
 

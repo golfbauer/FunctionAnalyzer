@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer;
+package de.hhn.it.pp.components.spellingtrainer.Provider;
 
 /**
  * Class LearningEntry contains an constructor to connect an media reference to a string.

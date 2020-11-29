@@ -1,6 +1,8 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
-import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
+import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
+import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
