@@ -24,7 +24,7 @@ public class SpellingTrainerDescriptor {
    * @return counter value
    * @throws CounterNotFoundException is thrown when no counter with the entered name is found
    */
-  public int getCounter(String counterName) throws CounterNotFoundException {
+  public static int getCounter(String counterName) throws CounterNotFoundException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
@@ -49,7 +49,7 @@ public class SpellingTrainerDescriptor {
    * @param value       value that the counter ist updated with
    * @throws CounterNotFoundException is thrown when no counter with the entered name is found
    */
-  public void updateCounter(String counterName, int value) throws CounterNotFoundException {
+  public static void updateCounter(String counterName, int value) throws CounterNotFoundException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
