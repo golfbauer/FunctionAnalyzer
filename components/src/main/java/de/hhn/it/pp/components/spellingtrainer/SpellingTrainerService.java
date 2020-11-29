@@ -23,11 +23,10 @@ public interface SpellingTrainerService {
   /**
    * Checks the spelling of the entered word.
    *
-   * @param learningEntry learning entry to be spelled
    * @param enteredWord   word, that the user entered
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
-  boolean checkSpelling(String enteredWord, LearningEntry learningEntry);
+  boolean checkSpelling(String enteredWord);
 
   /**
    * Adds the given word to the learning set and maps the audio file to the word.

@@ -30,7 +30,9 @@ public class DemoSpellingTrainerUsage {
     service.playWord();
     service.nextWord();
     //User Input via JavaFX
+    String input = "test";
     //Check spelling of the entered word
+    System.out.println("" + service.checkSpelling(input));
   }
 }
 

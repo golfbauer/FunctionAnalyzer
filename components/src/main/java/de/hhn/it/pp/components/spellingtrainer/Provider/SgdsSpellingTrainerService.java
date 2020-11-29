@@ -21,13 +21,12 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * Checks the spelling of the entered word.
    *
    * @param enteredWord   word, that the user entered
-   * @param learningEntry learning entry to be spelled
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
   @Override
-  public boolean checkSpelling(String enteredWord, LearningEntry learningEntry) {
+  public boolean checkSpelling(String enteredWord) {
     logger.info("Checked spelling successfully.");
-    return enteredWord.equals(learningEntry.getWordEntry());
+    return enteredWord.equals(currentWord());
 
   }
 
