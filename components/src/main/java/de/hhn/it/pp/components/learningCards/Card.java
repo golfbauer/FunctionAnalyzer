@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.learningCards;
 
 
-class Card {
+public class Card {
 
 
   Status status = Status.UNSEEN;
@@ -24,7 +24,7 @@ class Card {
    * @param textQ question text of the card
    * @param textA answer to the card question
    */
-  Card(String headline, String textQ, String textA) {
+  public Card(String headline, String textQ, String textA) {
     setHeadline(headline);
     setTextQ(textQ);
     setTextA(textA);
@@ -36,7 +36,7 @@ class Card {
    * 
    * @param headline to classify the card topic
    */
-  void setHeadline(String headline) {
+  public void setHeadline(String headline) {
 
     this.headline = headline;
   }
@@ -69,7 +69,7 @@ class Card {
    * 
    * @param changedQ the changed questiontext
    */
-  void editTextQ(String changedQ) {
+  public void editTextQ(String changedQ) {
     setTextQ(changedQ);
   }
 
@@ -78,7 +78,7 @@ class Card {
    * 
    * @param changedA the changed answertext
    */
-  void editTextA(String changedA) {
+  public void editTextA(String changedA) {
 
     setTextA(changedA);
   }
@@ -88,7 +88,7 @@ class Card {
    * 
    * @return id of card
    */
-  int getId() {
+  public int getId() {
     return id;
   }
 

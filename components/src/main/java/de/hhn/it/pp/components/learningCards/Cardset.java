@@ -44,7 +44,7 @@ public class Cardset {
    * 
    * @param card which gets added to the cardset
    */
-  void addCardtoSet(Card card) {
+  public void addCardtoSet(Card card) {
     cardset.put(card.getId(), card);
   }
 
@@ -63,7 +63,7 @@ public class Cardset {
    * 
    * @param i id to identify a card in cardset
    */
-  void removeCardfromSet(int i) {
+  public void removeCardfromSet(int i) {
     cardset.remove(i);
   }
 
@@ -72,7 +72,7 @@ public class Cardset {
    * 
    * @return id of cardset
    */
-  int getId() {
+  public int getId() {
     return id;
   }
 

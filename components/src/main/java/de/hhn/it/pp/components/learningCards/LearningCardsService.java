@@ -104,7 +104,7 @@ public interface LearningCardsService {
      * @throws CardNotFoundException    if card id cannot be found
      */
     void editCardQuestionTextFromCardset(int cardId, String newCardTextQ)
-            throws CardsetNotFoundException, CardNotFoundException;
+            throws CardNotFoundException;
 
     /**
      * Changes the answer text of a card
@@ -115,7 +115,7 @@ public interface LearningCardsService {
      * @throws CardNotFoundException    if card id cannot be found
      */
     void editCardAnswerTextFromCardset(int cardId, String newCardTextA)
-            throws CardsetNotFoundException, CardNotFoundException;
+            throws CardNotFoundException;
 
     /**
      * Shows the cards within a cardset

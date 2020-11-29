@@ -57,12 +57,12 @@ public class DemoLearningCardsUsage {
             }
 
             @Override
-            public void editCardQuestionTextFromCardset(int cardId, String newCardTextQ) throws CardsetNotFoundException, CardNotFoundException {
+            public void editCardQuestionTextFromCardset(int cardId, String newCardTextQ) throws CardNotFoundException {
 
             }
 
             @Override
-            public void editCardAnswerTextFromCardset(int cardId, String newCardTextA) throws CardsetNotFoundException, CardNotFoundException {
+            public void editCardAnswerTextFromCardset(int cardId, String newCardTextA) throws CardNotFoundException {
 
             }
 
