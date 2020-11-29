@@ -4,11 +4,10 @@ import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
-import de.hhn.it.pp.components.spellingtrainer.exceptions.NoNextWordException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.sound.sampled.LineUnavailableException;
@@ -28,7 +27,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public boolean checkSpelling(String enteredWord) {
     logger.info("Checked spelling successfully.");
     return enteredWord.equals(currentWord());
-
   }
 
   /**
@@ -181,7 +179,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return the next word
    */
   @Override
-  public String nextWord() throws NoNextWordException {
+  public String nextWord() throws NoWordException {
     SpellingTrainerDescriptor
         .setCurrentWordIndex(SpellingTrainerDescriptor.getCurrentWordIndex() + 1);
 
@@ -191,8 +189,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
         return SpellingTrainerDescriptor.getActiveLearningSet()
             .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
       }
-      throw new NoNextWordException();
-    } catch (NoNextWordException e) {
+      throw new NoWordException();
+    } catch (NoWordException e) {
       logger.warn(
           "No next word found in learning set " + SpellingTrainerDescriptor.getActiveLearningSet());
       return null;
