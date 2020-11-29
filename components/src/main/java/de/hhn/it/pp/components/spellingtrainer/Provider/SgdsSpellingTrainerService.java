@@ -185,6 +185,14 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
+    MediaPresentationListener.addMediaPresentationListener(mediaPresentationListener);
+    logger.info("Successfully registered a new MediaPresentationListener");
+  }
+
+  /**
+   * Method to register an media presentation listener.
+   */
+  public void registerMediaPresentationListener(){
     MediaPresentationListener mpl = new MediaPresentationListener();
     MediaPresentationListener.addMediaPresentationListener(mpl);
     logger.info("Successfully registered a new MediaPresentationListener");
