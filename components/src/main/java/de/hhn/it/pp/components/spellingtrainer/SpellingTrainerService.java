@@ -10,7 +10,10 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * The SpellingTrainerInterface shows the basic functionalities of the Spellingtrainer.
@@ -92,9 +95,27 @@ public interface SpellingTrainerService {
   boolean endLearning();
 
   /**
-   * Method to play the next word.
+   * Method that returns the next word in the active learningset.
+   *
+   * @return the next word
    */
-  void nextWord() throws Exception;
+  String nextWord();
+
+  /**
+   * Method that returns the current word in the active learningset.
+   *
+   * @return the current word
+   */
+  String currentWord();
+
+  /**
+   * Method to play the current word.
+   *
+   * @throws UnsupportedAudioFileException
+   * @throws IOException
+   * @throws LineUnavailableException
+   */
+  void playWord() throws UnsupportedAudioFileException, IOException, LineUnavailableException;
 
   /**
    * Method to register an media presentation listener.

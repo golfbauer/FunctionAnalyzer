@@ -8,8 +8,11 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedExcept
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private static final org.slf4j.Logger logger =
@@ -166,15 +169,41 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   }
 
   /**
-   * Method to play the next word.
+   * Method that returns the next word in the active learningset.
+   *
+   * @return the next word
    */
   @Override
-  public void nextWord() throws Exception {
+  public String nextWord() {
+    SpellingTrainerDescriptor
+        .setCurrentWordIndex(SpellingTrainerDescriptor.getCurrentWordIndex() + 1);
+    return SpellingTrainerDescriptor.getActiveLearningSet()
+        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
+  }
+
+  /**
+   * Method that returns the current word in the active learningset.
+   *
+   * @return the current word
+   */
+  @Override
+  public String currentWord() {
+    return SpellingTrainerDescriptor.getActiveLearningSet()
+        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
+  }
+
+
+  /**
+   * Method to play the current word.
+   */
+  @Override
+  public void playWord()
+      throws UnsupportedAudioFileException, IOException, LineUnavailableException {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
     MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet()
         .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
-    logger.info("Successfully presented the audio from the nextWord in the learningSet");
+    logger.info("Successfully presented the audio from the current Word in the learningSet");
   }
 
   /**
@@ -192,7 +221,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   /**
    * Method to register an media presentation listener.
    */
-  public void registerMediaPresentationListener(){
+  public void registerMediaPresentationListener() {
     MediaPresentationListener mpl = new MediaPresentationListener();
     MediaPresentationListener.addMediaPresentationListener(mpl);
     logger.info("Successfully registered a new MediaPresentationListener");
