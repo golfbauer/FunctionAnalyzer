@@ -63,6 +63,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       }
 
     }
+    logger.warn("Could not delete the referenced word.");
     throw new WordNotFoundException(
         "Word couldn't be found in the learning set " + learningSetName);
 
@@ -126,10 +127,10 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       throws LearningSetCouldNotBeFoundException {
     ArrayList<LearningSet> learningSets = getLearningSets();
 
-    for (int i = 0; i < learningSets.size(); i++) {
-      if (learningSets.get(i).getLearningSetName().equals(learningSetName)) {
+    for (LearningSet learningSet : learningSets) {
+      if (learningSet.getLearningSetName().equals(learningSetName)) {
         logger.info("Successfully returned the LearningSet with the name " + learningSetName);
-        return learningSets.get(i);
+        return learningSet;
       }
     }
     logger.warn("LearningSet with given name " + learningSetName + " could not be found");
