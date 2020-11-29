@@ -23,7 +23,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
   @Override
-  public boolean checkSpelling(String enteredWord, LearningEntry learningEntry){
+  public boolean checkSpelling(String enteredWord, LearningEntry learningEntry) {
     logger.info("Checked spelling successfully.");
     return enteredWord.equals(learningEntry.getWordEntry());
 
@@ -39,8 +39,9 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void addWord(String word, File audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException {
-    getLearningSet(learningSetName).addLearningEntry(new LearningEntry(new MediaReference(audio),word));
-    logger.info("Word successfully added to learning set {}",learningSetName);
+    getLearningSet(learningSetName)
+        .addLearningEntry(new LearningEntry(new MediaReference(audio), word));
+    logger.info("Word successfully added to learning set {}", learningSetName);
 
   }
 
@@ -53,18 +54,17 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void deleteWord(String word, String learningSetName)
       throws WordNotFoundException, LearningSetCouldNotBeFoundException {
-    LearningSet ls= getLearningSet(learningSetName);
-    ListIterator it= ls.getLearningEntries().listIterator();
-    while(it.hasNext()){
-      LearningEntry le= (LearningEntry) it.next();
-      if(le.getWordEntry().equals(word)){
+    LearningSet ls = getLearningSet(learningSetName);
+    for (LearningEntry le : ls.getLearningEntries()) {
+      if (le.getWordEntry().equals(word)) {
         ls.removeLearningEntry(le);
-        logger.info("Learning entry successfully removed from {}.",learningSetName);
+        logger.info("Learning entry successfully removed from {}.", learningSetName);
         return;
       }
 
     }
-    throw new WordNotFoundException("Word couldn't be found in the learning set "+ learningSetName);
+    throw new WordNotFoundException(
+        "Word couldn't be found in the learning set " + learningSetName);
 
 
   }
@@ -80,8 +80,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void createLearningSet(String learningSetName)
       throws LearningSetNameAlreadyAssignedException {
 
-     SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
-     logger.info("Learning set successfully created.");
+    SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
+    logger.info("Learning set successfully created.");
   }
 
   /**
@@ -92,10 +92,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void removeLearningSet(String learningSetName) {
     ArrayList<LearningSet> learningSets = getLearningSets();
-    ListIterator it = learningSets.listIterator();
 
-    while (it.hasNext()) {
-      LearningSet ls = (LearningSet) it.next();
+    for (LearningSet ls : learningSets) {
       if (ls.getLearningSetName().equals(learningSetName)) {
         SpellingTrainerDescriptor.removeLearningSet(ls);
       }
@@ -135,7 +133,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       }
     }
     logger.warn("LearningSet with given name " + learningSetName + " could not be found");
-    throw new LearningSetCouldNotBeFoundException("LearningSet with name " + learningSetName + " could not be found");
+    throw new LearningSetCouldNotBeFoundException(
+        "LearningSet with name " + learningSetName + " could not be found");
   }
 
 
@@ -171,7 +170,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void nextWord() {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
-    MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
+    MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet()
+        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
     logger.info("Successfully presented the audio from the nextWord in the learningSet");
   }
@@ -184,9 +184,9 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-      MediaPresentationListener mpl = new MediaPresentationListener();
-      MediaPresentationListener.addMediaPresentationListener(mpl);
-      logger.info("Successfully registered a new MediaPresentationListener");
+    MediaPresentationListener mpl = new MediaPresentationListener();
+    MediaPresentationListener.addMediaPresentationListener(mpl);
+    logger.info("Successfully registered a new MediaPresentationListener");
   }
 
   /**
@@ -197,8 +197,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void deregisterMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-      MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
-      logger.info("Successfully deregistered the MediaPresentationListener");
+    MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
+    logger.info("Successfully deregistered the MediaPresentationListener");
   }
 
 }
