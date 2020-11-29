@@ -70,8 +70,8 @@ public class SpellingTrainerDescriptor {
     }
   }
 
-  public void setActiveLearningSet(LearningSet learningSet) {
-    this.activeLearningSet = learningSet;
+  public static void setActiveLearningSet(LearningSet learningSet) {
+    activeLearningSet = learningSet;
     logger.info("Das Aktive LearningSet wurde auf " + learningSet + " gesetzt");
   }
 

@@ -132,8 +132,10 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return true if the learning session started successfully, false if it doesn't
    */
   @Override
-  public boolean startLearning(String learningSetName) {
-    return false;
+  public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
+    SpellingTrainerDescriptor.resetInts();
+    SpellingTrainerDescriptor.setActiveLearningSet(getLearningSet(learningSetName));
+    return true;
   }
 
   /**
@@ -143,7 +145,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean endLearning() {
-    return false;
+    SpellingTrainerDescriptor.setActiveLearningSet(null);
+    return true;
   }
 
   /**

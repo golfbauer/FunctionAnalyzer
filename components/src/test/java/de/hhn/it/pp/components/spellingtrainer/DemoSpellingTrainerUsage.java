@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.spellingtrainer;
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
 import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
@@ -16,7 +17,8 @@ public class DemoSpellingTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoSpellingTrainerUsage.class);
 
   public static void main(String[] args)
-      throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException {
+      throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException,
+      LearningSetCouldNotBeFoundException {
     //Nur für den Test
     SpellingTrainerService service = new SpellingTrainerService() {
       @Override

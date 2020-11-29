@@ -81,7 +81,7 @@ public interface SpellingTrainerService {
    * @param learningSetName name of the set to be learned
    * @return true if the learning session started successfully, false if it doesn't
    */
-  boolean startLearning(String learningSetName);
+  boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException;
 
 
   /**
