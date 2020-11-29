@@ -15,7 +15,7 @@ public class DemoSpellingTrainerUsage {
 
     //Not executed during runtime
     String word = "test";
-    File audioFile = new File("C:\\Users\\simon\\Downloads\\Computer (1).mp3");
+    File audioFile = new File("C:\\Users\\simon\\Downloads\\Book.wav");
 
     service.createLearningSet("Test Set");
     service.addWord(word, audioFile, "Test Set");

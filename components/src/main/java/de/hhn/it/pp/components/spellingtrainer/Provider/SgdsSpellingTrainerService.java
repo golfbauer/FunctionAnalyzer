@@ -4,6 +4,7 @@ import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoNextWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
@@ -180,11 +181,22 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return the next word
    */
   @Override
-  public String nextWord() {
+  public String nextWord() throws NoNextWordException {
     SpellingTrainerDescriptor
         .setCurrentWordIndex(SpellingTrainerDescriptor.getCurrentWordIndex() + 1);
-    return SpellingTrainerDescriptor.getActiveLearningSet()
-        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
+
+    try {
+      if (SpellingTrainerDescriptor.getCurrentWordIndex() >
+          SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntries().size()) {
+        return SpellingTrainerDescriptor.getActiveLearningSet()
+            .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
+      }
+      throw new NoNextWordException();
+    } catch (NoNextWordException e) {
+      logger.warn(
+          "No next word found in learning set " + SpellingTrainerDescriptor.getActiveLearningSet());
+      return null;
+    }
   }
 
   /**
