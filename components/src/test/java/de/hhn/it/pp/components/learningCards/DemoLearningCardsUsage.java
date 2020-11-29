@@ -12,6 +12,11 @@ public class DemoLearningCardsUsage {
 
 
             @Override
+            public void addCardsets(Cardset... newCardsets) {
+
+            }
+
+            @Override
             public int createCardset(String cardsetTitle) {
                 return 0;
             }

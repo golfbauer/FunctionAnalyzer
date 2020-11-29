@@ -90,5 +90,18 @@ public class Cardset {
     return results;
   }
 
+  /**
+   * returns a list of all cards in the cardset
+   *
+   * @return all of the cards in cardset in a list
+   */
+  public List<Card> getCards() {
+
+    //List<Value> list = new ArrayList<Value>(map.values());
+    List<Card> cards = new ArrayList<Card>(cardset.values());
+
+    return cards;
+  }
+
 
 }

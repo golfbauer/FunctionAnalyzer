@@ -6,6 +6,13 @@ import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException
 public interface LearningCardsService {
 
     /**
+     * add cardsets and their cards
+     *
+     * @param newCardsets cardsets
+     */
+    void addCardsets(Cardset... newCardsets);
+
+    /**
      * creates a cardset
      *
      * @param cardsetTitle title of the cardset

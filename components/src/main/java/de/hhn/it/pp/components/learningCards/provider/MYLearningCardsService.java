@@ -15,6 +15,17 @@ public class MYLearningCardsService implements LearningCardsService {
         cardsets = new HashMap<>();
         cards = new HashMap<>();
     }
+
+    @Override
+    public void addCardsets(Cardset... newCardsets) {
+        for(Cardset cardset : newCardsets){
+            this.cardsets.put(cardset.getId(), cardset);
+            for(Card card : cardset.getCards()){
+                cards.put(card.getId(), card);
+            }
+        }
+    }
+
     @Override
     public int createCardset(String cardsetTitle) {
         Cardset cardset = new Cardset(cardsetTitle);
