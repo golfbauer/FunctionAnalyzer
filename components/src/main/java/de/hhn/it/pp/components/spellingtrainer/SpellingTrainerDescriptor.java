@@ -9,6 +9,7 @@ public class SpellingTrainerDescriptor {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SpellingTrainerDescriptor.class);
 
+  private static boolean isLearning;
   private static int currentWordIndex;
   private static int counterWrongWords;
   private static int counterRightWords;
@@ -107,6 +108,14 @@ public class SpellingTrainerDescriptor {
     counterWrongWords = 0;
     counterRemainingWords = 0;
     counterRightWords = 0;
+  }
+
+  public static boolean getIsLearning(){
+    return isLearning;
+  }
+
+  public static void setIsLearning(boolean learning){
+    isLearning = learning;
   }
 
 }
