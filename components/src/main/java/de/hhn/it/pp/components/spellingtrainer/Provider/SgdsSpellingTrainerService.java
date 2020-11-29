@@ -20,7 +20,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   /**
    * Checks the spelling of the entered word.
    *
-   * @param enteredWord   word, that the user entered
+   * @param enteredWord word, that the user entered
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
   @Override
@@ -41,18 +41,17 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void addWord(String word, File audio, String learningSetName)
       throws WordAlreadyAddedException, LearningSetCouldNotBeFoundException {
     LearningSet ls = getLearningSet(learningSetName);
-    for (LearningEntry entry : ls.getLearningEntries()) {
-      if (entry.getWordEntry().equals(word)) {
-        logger.warn("Word entry is already existing!");
-        throw new WordAlreadyAddedException("Word is already added.");
-      } else {
-        getLearningSet(learningSetName)
-            .addLearningEntry(new LearningEntry(new MediaReference(audio), word));
-        logger.info("Word successfully added to learning set {}", learningSetName);
-
+    if (ls.getLearningEntries().size() > 0) {
+      for (LearningEntry entry : ls.getLearningEntries()) {
+        if (entry.getWordEntry().equals(word)) {
+          logger.warn("Word entry is already existing!");
+          throw new WordAlreadyAddedException("Word is already added.");
+        }
       }
     }
-
+    getLearningSet(learningSetName)
+        .addLearningEntry(new LearningEntry(new MediaReference(audio), word));
+    logger.info("Word successfully added to learning set {}", learningSetName);
   }
 
   /**

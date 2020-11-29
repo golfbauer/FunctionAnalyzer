@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
-import de.hhn.it.pp.components.spellingtrainer.exceptions.CounterNotFoundException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoNextWordException;
 import java.util.ArrayList;
 
 
@@ -22,9 +22,9 @@ public class SpellingTrainerDescriptor {
    *
    * @param counterName name of the counter (wrong, right, remaining)
    * @return counter value
-   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   * @throws NoNextWordException is thrown when no counter with the entered name is found
    */
-  public static int getCounter(String counterName) throws CounterNotFoundException {
+  public static int getCounter(String counterName) throws NoNextWordException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
@@ -37,7 +37,7 @@ public class SpellingTrainerDescriptor {
         return counterRemainingWords;
 
       default:
-        throw new CounterNotFoundException();
+        throw new NoNextWordException();
 
     }
   }
@@ -47,9 +47,9 @@ public class SpellingTrainerDescriptor {
    *
    * @param counterName counterName name of the counter (wrong, right, remaining)
    * @param value       value that the counter ist updated with
-   * @throws CounterNotFoundException is thrown when no counter with the entered name is found
+   * @throws NoNextWordException is thrown when no counter with the entered name is found
    */
-  public static void updateCounter(String counterName, int value) throws CounterNotFoundException {
+  public static void updateCounter(String counterName, int value) throws NoNextWordException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
@@ -65,7 +65,7 @@ public class SpellingTrainerDescriptor {
         break;
 
       default:
-        throw new CounterNotFoundException();
+        throw new NoNextWordException();
 
     }
   }

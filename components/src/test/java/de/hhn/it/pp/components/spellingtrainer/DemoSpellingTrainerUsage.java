@@ -15,10 +15,10 @@ public class DemoSpellingTrainerUsage {
 
     //Not executed during runtime
     String word = "test";
-    File audioFile = new File("C:\\Users\\simon\\Downloads\\Aufnahme_4 (1).mp3");
+    File audioFile = new File("C:\\Users\\simon\\Downloads\\Computer (1).mp3");
     service.createLearningSet("Test Set");
     service.addWord(word, audioFile, "Test Set");
-    service.deleteWord(word, "Test Set");
+
     service.registerMediaPresentationListener();
 
     //Starting learning session
@@ -28,11 +28,11 @@ public class DemoSpellingTrainerUsage {
     //Repeat execution for each word
     System.out.println("" + service.currentWord());
     service.playWord();
-    service.nextWord();
     //User Input via JavaFX
     String input = "test";
     //Check spelling of the entered word
     System.out.println("" + service.checkSpelling(input));
+    service.nextWord();
   }
 }
 
