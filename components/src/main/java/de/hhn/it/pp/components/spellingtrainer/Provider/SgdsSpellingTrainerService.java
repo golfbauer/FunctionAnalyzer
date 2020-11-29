@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ListIterator;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -41,10 +40,19 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public void addWord(String word, File audio, String learningSetName)
-      throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException {
-    getLearningSet(learningSetName)
-        .addLearningEntry(new LearningEntry(new MediaReference(audio), word));
-    logger.info("Word successfully added to learning set {}", learningSetName);
+      throws WordAlreadyAddedException, LearningSetCouldNotBeFoundException {
+    LearningSet ls = getLearningSet(learningSetName);
+    for (LearningEntry entry : ls.getLearningEntries()) {
+      if (entry.getWordEntry().equals(word)) {
+        logger.warn("Word entry is already existing!");
+        throw new WordAlreadyAddedException("Word is already added.");
+      } else {
+        getLearningSet(learningSetName)
+            .addLearningEntry(new LearningEntry(new MediaReference(audio), word));
+        logger.info("Word successfully added to learning set {}", learningSetName);
+
+      }
+    }
 
   }
 
