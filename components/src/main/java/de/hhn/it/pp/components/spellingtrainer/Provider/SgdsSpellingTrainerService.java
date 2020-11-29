@@ -101,6 +101,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public ArrayList<LearningSet> getLearningSets() {
+    logger.info("Successfully returned all LeaningSets");
     return SpellingTrainerDescriptor.getLearningSets();
   }
 
@@ -117,6 +118,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
 
     for (int i = 0; i < learningSets.size(); i++) {
       if (learningSets.get(i).getLearningSetName().equals(learningSetName)) {
+        logger.info("Successfully returned the LearningSet with the name " + learningSetName);
         return learningSets.get(i);
       }
     }
@@ -135,6 +137,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
     SpellingTrainerDescriptor.resetInts();
     SpellingTrainerDescriptor.setActiveLearningSet(getLearningSet(learningSetName));
+    logger.info("Successfully set all the necessary start variables");
     return true;
   }
 
@@ -146,6 +149,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public boolean endLearning() {
     SpellingTrainerDescriptor.setActiveLearningSet(null);
+    logger.info("Successfully removed the ActiveLearningSet, stopping the Learningtask");
     return true;
   }
 
@@ -157,6 +161,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
     MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
+    logger.info("Successfully presented the audio from the nextWord in the learningSet");
   }
 
   /**
@@ -169,6 +174,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       MediaPresentationListener mediaPresentationListener) {
       MediaPresentationListener mpl = new MediaPresentationListener();
       MediaPresentationListener.addMediaPresentationListener(mpl);
+      logger.info("Successfully registered a new MediaPresentationListener");
   }
 
   /**
@@ -180,6 +186,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void deregisterMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
       MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
+      logger.info("Successfully deregistered the MediaPresentationListener");
   }
 
 }
