@@ -35,7 +35,7 @@ public class Cardset {
    * 
    * @return title of the cardset
    */
-  String getTitle() {
+  public String getTitle() {
     return title;
   }
 
