@@ -33,7 +33,7 @@ public class DemoSpellingTrainerUsage {
     String input = "test";
     //Check spelling of the entered word
     System.out.println("" + service.checkSpelling(input));
-    service.nextWord();
+    service.hasNextWord();
   }
 }
 

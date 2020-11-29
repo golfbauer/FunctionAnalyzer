@@ -74,8 +74,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     logger.warn("Could not delete the referenced word.");
     throw new WordNotFoundException(
         "Word couldn't be found in the learning set " + learningSetName);
-
-
   }
 
 
@@ -88,7 +86,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void createLearningSet(String learningSetName)
       throws LearningSetNameAlreadyAssignedException {
-
+      //TODO Fixen
     SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
     logger.info("Learning set successfully created.");
   }
@@ -101,14 +99,15 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void removeLearningSet(String learningSetName) {
     ArrayList<LearningSet> learningSets = getLearningSets();
-
-    for (LearningSet ls : learningSets) {
-      if (ls.getLearningSetName().equals(learningSetName)) {
-        SpellingTrainerDescriptor.removeLearningSet(ls);
+    if(learningSets.size() > 0) {
+      for (LearningSet ls : learningSets) {
+        if (ls.getLearningSetName().equals(learningSetName)) {
+          SpellingTrainerDescriptor.removeLearningSet(ls);
+        }
+        logger.info("Learning set successfully removed.");
       }
-      logger.info("Learning set successfully removed.");
-
-
+    }else{
+      logger.warn("No learning set found");
     }
   }
 
@@ -155,10 +154,15 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
-    SpellingTrainerDescriptor.resetInts();
-    SpellingTrainerDescriptor.setActiveLearningSet(getLearningSet(learningSetName));
-    logger.info("Successfully set all the necessary start variables");
-    return true;
+    if (!SpellingTrainerDescriptor.getIsLearning()) {
+      SpellingTrainerDescriptor.resetInts();
+      SpellingTrainerDescriptor.setActiveLearningSet(getLearningSet(learningSetName));
+      SpellingTrainerDescriptor.setIsLearning(true);
+      logger.info("Successfully set all the necessary start variables");
+      return true;
+    }
+    logger.info("Learning already started!");
+    return false;
   }
 
   /**
@@ -168,9 +172,14 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean endLearning() {
-    SpellingTrainerDescriptor.setActiveLearningSet(null);
-    logger.info("Successfully removed the ActiveLearningSet, stopping the Learningtask");
-    return true;
+    if (SpellingTrainerDescriptor.getIsLearning()) {
+      SpellingTrainerDescriptor.setActiveLearningSet(null);
+      SpellingTrainerDescriptor.setIsLearning(false);
+      logger.info("Successfully removed the ActiveLearningSet, stopping the Learningtask");
+      return true;
+    }
+    logger.info("Learning could not be stopped because there is no active learning!");
+    return false;
   }
 
   /**
@@ -179,22 +188,16 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return the next word
    */
   @Override
-  public String nextWord() throws NoWordException {
+  public boolean hasNextWord() {
     SpellingTrainerDescriptor
         .setCurrentWordIndex(SpellingTrainerDescriptor.getCurrentWordIndex() + 1);
 
-    try {
-      if (SpellingTrainerDescriptor.getCurrentWordIndex() >
-          SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntries().size()) {
-        return SpellingTrainerDescriptor.getActiveLearningSet()
-            .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
-      }
-      throw new NoWordException();
-    } catch (NoWordException e) {
-      logger.warn(
-          "No next word found in learning set " + SpellingTrainerDescriptor.getActiveLearningSet());
-      return null;
+    if (SpellingTrainerDescriptor.getCurrentWordIndex() <
+        SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntries().size()) {
+      return true;
     }
+    logger.warn("No next word found");
+    return false;
   }
 
   /**

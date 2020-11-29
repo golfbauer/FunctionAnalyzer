@@ -98,7 +98,7 @@ public interface SpellingTrainerService {
    *
    * @return the next word
    */
-  String nextWord() throws NoWordException;
+  boolean hasNextWord();
 
   /**
    * Method that returns the current word in the active learningset.
