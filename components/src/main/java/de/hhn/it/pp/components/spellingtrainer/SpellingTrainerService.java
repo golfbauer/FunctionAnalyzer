@@ -94,7 +94,7 @@ public interface SpellingTrainerService {
   /**
    * Method to play the next word.
    */
-  void nextWord();
+  void nextWord() throws Exception;
 
   /**
    * Method to register an media presentation listener.

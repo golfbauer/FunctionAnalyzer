@@ -169,7 +169,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * Method to play the next word.
    */
   @Override
-  public void nextWord() {
+  public void nextWord() throws Exception {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
     MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet()
         .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();

@@ -17,8 +17,7 @@ public class DemoSpellingTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoSpellingTrainerUsage.class);
 
   public static void main(String[] args)
-      throws FileNotFoundException, WordAlreadyAddedException, WordNotFoundException,
-      LearningSetCouldNotBeFoundException {
+      throws Exception {
     //Nur für den Test
     SpellingTrainerService service = new SpellingTrainerService() {
       @Override
@@ -88,7 +87,7 @@ public class DemoSpellingTrainerUsage {
 
     //Not executed during runtime
     String word = "test";
-    File audioFile = new File("test.mp3");
+    File audioFile = new File("C:\\Users\\simon\\Downloads\\Aufnahme_4 (1).mp3");
     LearningSet learningSet = new LearningSet("Test Set ");
     service.addWord(word, audioFile, "Test Set");
     service.deleteWord(word, "Test Set");
