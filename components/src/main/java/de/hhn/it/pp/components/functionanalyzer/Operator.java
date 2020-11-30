@@ -1,15 +1,27 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import javax.crypto.spec.OAEPParameterSpec;
+
 public enum Operator {
-  ADD("+"), MULTIPLY("*");
+  ADD('+'), SUBTRACT('-'), DIVIDE('/'), MULTIPLY('*');
 
-  private final String symbol;
+  private final char symbol;
 
-  Operator(final String symbol){
+  Operator(final char symbol){
     this.symbol = symbol;
   }
 
-  public String getSymbol() {
+  public char getSymbol() {
     return symbol;
+  }
+
+  public static Operator operatorFromSymbol(char input){
+    switch(input){
+      case('+'): return Operator.ADD;
+      case('-'): return Operator.SUBTRACT;
+      case('*'): return Operator.MULTIPLY;
+      case('/'): return Operator.DIVIDE;
+      default: return null;
+    }
   }
 }
