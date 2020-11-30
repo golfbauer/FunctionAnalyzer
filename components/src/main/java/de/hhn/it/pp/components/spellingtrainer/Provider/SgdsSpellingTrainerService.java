@@ -86,14 +86,17 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void createLearningSet(String learningSetName)
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException {
     ArrayList<LearningSet> ls = getLearningSets();
-
-    for (LearningSet learningSet : ls) {
-      if (learningSet.getLearningSetName().equals(learningSetName)) {
-      throw new LearningSetNameAlreadyAssignedException("This learning set name is already taken!");
+    if (ls.size() > 0) {
+      for (LearningSet learningSet : ls) {
+        if (learningSet.getLearningSetName().equals(learningSetName)) {
+          throw new LearningSetNameAlreadyAssignedException(
+              "This learning set name is already taken!");
+        }
       }
     }
-    SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
-    logger.info("Learning set successfully created.");
+      SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
+      logger.info("Learning set successfully created.");
+
   }
 
   /**
@@ -124,7 +127,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
 
   public ArrayList<LearningSet> getLearningSets() {
-    logger.info("Successfully returned all LeaningSets");
+    logger.info("Successfully returned all learning sets");
     return SpellingTrainerDescriptor.getLearningSets();
   }
 
