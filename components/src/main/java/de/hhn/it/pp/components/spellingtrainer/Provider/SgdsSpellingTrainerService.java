@@ -4,7 +4,6 @@ import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
-import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
@@ -85,8 +84,14 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public void createLearningSet(String learningSetName)
-      throws LearningSetNameAlreadyAssignedException {
-      //TODO Fixen
+      throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException {
+    ArrayList<LearningSet> ls = getLearningSets();
+
+    for (LearningSet learningSet : ls) {
+      if (learningSet.getLearningSetName().equals(learningSetName)) {
+      throw new LearningSetNameAlreadyAssignedException("This learning set name is already taken!");
+      }
+    }
     SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
     logger.info("Learning set successfully created.");
   }
@@ -99,14 +104,14 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void removeLearningSet(String learningSetName) {
     ArrayList<LearningSet> learningSets = getLearningSets();
-    if(learningSets.size() > 0) {
+    if (learningSets.size() > 0) {
       for (LearningSet ls : learningSets) {
         if (ls.getLearningSetName().equals(learningSetName)) {
           SpellingTrainerDescriptor.removeLearningSet(ls);
         }
         logger.info("Learning set successfully removed.");
       }
-    }else{
+    } else {
       logger.warn("No learning set found");
     }
   }
