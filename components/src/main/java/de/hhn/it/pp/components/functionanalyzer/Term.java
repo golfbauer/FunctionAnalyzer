@@ -95,6 +95,17 @@ public class Term {
   public void setVariable(String variable) {
     this.variable = variable;
   }
+
+  @Override
+  public String toString() {
+    if (variable != null) {
+      return "" + factor + variable + "^" + exponent.toString();
+    }
+    else if (exponent != null){
+      return "" + value + exponent.toString();
+    }
+    return "" + value;
+  }
 }
 
 

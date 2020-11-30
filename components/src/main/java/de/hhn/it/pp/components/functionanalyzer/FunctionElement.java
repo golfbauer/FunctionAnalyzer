@@ -22,5 +22,10 @@ public class FunctionElement {
   public Operator getOperator() {
     return operator;
   }
+
+  @Override
+  public String toString() {
+    return "" + operator.getSymbol() + term;
+  }
 }
 

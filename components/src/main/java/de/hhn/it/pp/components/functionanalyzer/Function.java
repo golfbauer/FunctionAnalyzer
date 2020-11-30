@@ -2,6 +2,7 @@ package de.hhn.it.pp.components.functionanalyzer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Represent a function as a combination of Terms
@@ -24,5 +25,14 @@ public class Function extends ArrayList<FunctionElement> {
     Function derivative = new Function();
     forEach(e -> derivative.add(new FunctionElement(e.getTerm().getDerivative(), e.getOperator())));
     return derivative;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("f(x) = ");
+    this.forEach(fe -> builder.append(fe.toString()));
+    return builder.toString();
+
   }
 }
