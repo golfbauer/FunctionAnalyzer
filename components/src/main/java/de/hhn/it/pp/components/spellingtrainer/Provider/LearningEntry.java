@@ -5,6 +5,8 @@ package de.hhn.it.pp.components.spellingtrainer.Provider;
  * It provides getter and setter methods for the media reference and words.
  */
 public class LearningEntry {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(LearningEntry.class);
   private MediaReference mediaReference;
   private String wordEntry;
 
@@ -17,6 +19,7 @@ public class LearningEntry {
   public LearningEntry(MediaReference mediaReference, String wordEntry) {
     this.mediaReference = mediaReference;
     this.wordEntry = wordEntry;
+
   }
 
 
