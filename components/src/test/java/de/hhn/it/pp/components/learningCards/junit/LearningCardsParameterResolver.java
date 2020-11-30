@@ -30,7 +30,7 @@ public class LearningCardsParameterResolver implements ParameterResolver {
         Card card1 = new Card("Berlin", "Whats the population of Berlin?", "The population of Berlin is 3,562,000");
         Card card2 = new Card("Heilbronn", "Whats the population of Heilbronn?", "The population of Heilbronn is 120,000");
         cardset2.addCardtoSet(card1);
-        cardset1.addCardtoSet(card2);
+        cardset2.addCardtoSet(card2);
 
         Cardset cardset3 = new Cardset("Capitals");
         Card card3 = new Card("Germany", "Whats the Capital of Germany?", "Berlin is the capital of Germany");

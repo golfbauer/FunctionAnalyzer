@@ -103,5 +103,9 @@ public class Cardset {
     return cards;
   }
 
+  public int getNumberOfCard(){
+    return cardset.size();
+  }
+
 
 }

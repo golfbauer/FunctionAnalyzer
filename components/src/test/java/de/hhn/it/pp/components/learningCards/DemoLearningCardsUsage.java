@@ -17,6 +17,11 @@ public class DemoLearningCardsUsage {
             }
 
             @Override
+            public int getNumberOfCardsets() {
+                return 0;
+            }
+
+            @Override
             public int createCardset(String cardsetTitle) {
                 return 0;
             }
@@ -33,6 +38,11 @@ public class DemoLearningCardsUsage {
 
             @Override
             public int createCard(String cardTextQ, String cardTextA) {
+                return 0;
+            }
+
+            @Override
+            public int getNumberOfCards() {
                 return 0;
             }
 

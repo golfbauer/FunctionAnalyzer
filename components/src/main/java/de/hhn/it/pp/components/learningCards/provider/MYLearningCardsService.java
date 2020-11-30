@@ -27,6 +27,11 @@ public class MYLearningCardsService implements LearningCardsService {
     }
 
     @Override
+    public int getNumberOfCardsets() {
+        return cardsets.size();
+    }
+
+    @Override
     public int createCardset(String cardsetTitle) {
         Cardset cardset = new Cardset(cardsetTitle);
         cardsets.put(cardset.getId(), cardset);
@@ -51,6 +56,11 @@ public class MYLearningCardsService implements LearningCardsService {
         Card card = new Card("", cardTextQ, cardTextA);
         cards.put(card.getId(), card);
         return card.getId();
+    }
+
+    @Override
+    public int getNumberOfCards() {
+        return cards.size();
     }
 
     @Override

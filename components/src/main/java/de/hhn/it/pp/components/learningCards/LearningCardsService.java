@@ -12,6 +12,7 @@ public interface LearningCardsService {
      */
     void addCardsets(Cardset... newCardsets);
 
+    int getNumberOfCardsets();
     /**
      * creates a cardset
      *
@@ -47,6 +48,8 @@ public interface LearningCardsService {
      * @return id of the creating card
      */
     int createCard(String cardTextQ, String cardTextA);
+
+    int getNumberOfCards();
 
     /**
      * puts the created card into the cardset
