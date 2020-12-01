@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.mathtrainer;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMaker;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
 import java.math.BigDecimal;
@@ -7,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BiKrMathTrainer implements MathTrainer {
+    private static final org.slf4j.Logger logger =
+            org.slf4j.LoggerFactory.getLogger(BiKrMathTrainer.class);
 
     private String username;
     private int userscore;
@@ -22,6 +25,7 @@ public class BiKrMathTrainer implements MathTrainer {
      */
     public BiKrMathTrainer() {
         section = Section.MIXED;
+        difficulty = Difficulty.EASY;
         decimalPlace = 0;
         userscore = 0;
         history = new ArrayList<>();
@@ -55,7 +59,7 @@ public class BiKrMathTrainer implements MathTrainer {
     public void setDecimalPlace(int decimalPlace) throws IllegalParameterException {
         if(decimalPlace >= 0){
             this.decimalPlace = decimalPlace;
-        } else throw new IllegalArgumentException("Bitte nur positive Werte fuer die Nachkommastellenanzahl eingeben.");
+        } else throw new IllegalParameterException("Bitte nur positive Werte fuer die Nachkommastellenanzahl eingeben.");
     }
     @Override
     public int getDecimalPlace() {
@@ -116,11 +120,15 @@ public class BiKrMathTrainer implements MathTrainer {
                         section == Section.DIVISION ? operands[3] :
                             operands[(int)(Math.random()*3)]; //Mixed Mode
 
+        if(secondNumber.equals(BigDecimal.ZERO) && operator.equals('/')) {
+            secondNumber = BigDecimal.ONE;
+        }
+
         return new Term(firstNumber, secondNumber, operator, this.getDecimalPlace());
     }
 
     @Override
-    public boolean solveTerm(String userInput, Term term) {
+    public boolean solveTerm(String userInput, Term term) throws IllegalArgumentException {
         if(userInput.contains(",")){
             userInput = userInput.replace(',', '.');
         }
@@ -131,12 +139,12 @@ public class BiKrMathTrainer implements MathTrainer {
             if(number.equals(correctSolution)){
                 return true;
             }
+            else {
+                return false;
+            }
         } catch(IllegalArgumentException e){
-            //wenn ungueltige Zeichen oder Ergebnisse eingegeben werden, werden diese mit diesem Catch Block abgefangen
-            //und solveTerm gibt als Ergebnis false zurueck
-            return false;
+            throw new IllegalArgumentException("Bitte eine Ganzzahl als Ergebnis eingeben!");
         }
-        return false;
     }
 
     @Override

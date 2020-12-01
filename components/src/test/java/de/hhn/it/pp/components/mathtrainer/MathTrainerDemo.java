@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.mathtrainer;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
 import java.math.BigDecimal;
@@ -7,6 +8,9 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class MathTrainerDemo {
+    private static final org.slf4j.Logger logger =
+            org.slf4j.LoggerFactory.getLogger(MathTrainerDemo.class);
+
     public static BiKrMathTrainer tr;
 
     public static void main(String[] args) throws IllegalParameterException {
@@ -14,94 +18,94 @@ public class MathTrainerDemo {
 
         //Nutzername
         tr.setUsername("Peter");
-        System.out.println("Nutzername eingegeben: " + tr.getUsername());
-        System.out.println();
+        logger.debug("Nutzername eingegeben: " + tr.getUsername());
+        logger.debug("");
 
         //Anzahl Dezimalstellen setzen
         tr.setDecimalPlace(2);
-        System.out.println("Anzahl Nachkommastellen: " +tr.getDecimalPlace());
-        System.out.println();
+        logger.debug("Anzahl Nachkommastellen gesetzt: " +tr.getDecimalPlace());
+        logger.debug("");
 
         //Fester Term testen...
-        System.out.println("Fester Term testen:");
+        logger.debug("Fester Term testen:");
         Term staticNumb = new Term(new BigDecimal(20), new BigDecimal(3), '/',tr.getDecimalPlace());
-        System.out.println(staticNumb.toString()+ staticNumb.getSolution()); //... und ausgeben
-        System.out.println("Nutzer gibt ein: \"6,67\". Ergebnis: " +tr.solveTerm("6,67", staticNumb)); //Richtiges Ergebnis von Nutzer testen
-        System.out.println("Nutzer gibt ein: \"5\". Ergebnis: " +tr.solveTerm("5", staticNumb)); //Falsches Ergebnis vom Nutzer testen
-        System.out.println("Nutzer gibt ein: \"s\". Ergebnis: " +tr.solveTerm("s", staticNumb)); //Ungültuge Eingabe vom Nutzer testen
-        System.out.println();
+        logger.debug(staticNumb.toString()+ staticNumb.getSolution()); //... und ausgeben
+        logger.debug("Nutzer gibt ein: \"6,67\". Ergebnis: " +tr.solveTerm("6,67", staticNumb)); //Richtiges Ergebnis von Nutzer testen
+        logger.debug("Nutzer gibt ein: \"5\". Ergebnis: " +tr.solveTerm("5", staticNumb)); //Falsches Ergebnis vom Nutzer testen
+        //logger.debug("Nutzer gibt ein: \"s\". Ergebnis: " +tr.solveTerm("s", staticNumb)); //Ungültuge Eingabe vom Nutzer testen
+        logger.debug("");
 
         //Terme in allen Schwierigkeitsgrade testen
-        System.out.println("Schwierigkeitsgrad: EASY");
+        logger.debug("Schwierigkeitsgrad: EASY");
         tr.setDifficulty(Difficulty.EASY);
         testRandomTerms();
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Schwierigkeitsgrad: MEDIUM");
+        logger.debug("Schwierigkeitsgrad: MEDIUM");
         tr.setDifficulty(Difficulty.MEDIUM);
         testRandomTerms();
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Schwierigkeitsgrad: DIFFICULT");
+        logger.debug("Schwierigkeitsgrad: DIFFICULT");
         tr.setDifficulty(Difficulty.HARD);
         testRandomTerms();
-        System.out.println();
+        logger.debug("");
 
         tr.setUserScore(20);
-        System.out.println("User Score auf 20 setzen: "+ tr.getUserScore());
+        logger.debug("User Score auf 20 setzen: "+ tr.getUserScore());
         tr.addToUserScore(10);
         //Ergebnis der User Score Erhoehung ist auch abhaengig von dem Schwierigkeitsgrad der geloesten Aufgabe.
-        System.out.println("User Score mit Zeitbonus 10 fuer schnelle Loesungen erhoehen: "+ tr.getUserScore());
-        System.out.println();
+        logger.debug("User Score mit Zeitbonus 10 fuer schnelle Loesungen erhoehen: "+ tr.getUserScore());
+        logger.debug("");
 
-        System.out.println("Output der Historie von vorherigen Rechnungsdurchlaeufen: ");
+        logger.debug("Output der Historie von vorherigen Rechnungsdurchlaeufen: ");
         tr.addToHistory();
         testHistoryEntries(tr.getHistory());
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Testen der Bonuspunkte je nach Schnelligkeit der Eingabe");
+        logger.debug("Testen der Bonuspunkte je nach Schnelligkeit der Eingabe");
         tr.setUserScore(0); //User Score zuruecksetzen fuer Test der Bonuspunkte
         Term gradedTerm = new Term(new BigDecimal(2), new BigDecimal(3), '*',tr.getDecimalPlace());
-        System.out.println(gradedTerm.toString()+ gradedTerm.getSolution()); //... und ausgeben
-        System.out.println("Auf der Schwierigkeit HARD werden fuer eine richtige Loesung standardmaessig 3 Pkt berechnet");
+        logger.debug(gradedTerm.toString()+ gradedTerm.getSolution()); //... und ausgeben
+        logger.debug("Auf der Schwierigkeit HARD werden fuer eine richtige Loesung standardmaessig 3 Pkt berechnet");
         testBonuspointsCalculation(gradedTerm);
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Testen der User Hilfe zur Anzeige des Ergebnisses");
-        System.out.println("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
-        System.out.println();
+        logger.debug("Testen der User Hilfe zur Anzeige des Ergebnisses");
+        logger.debug("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
+        logger.debug("");
 
-        System.out.println("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        System.out.println("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        System.out.println("Im Warmup mode: ");
+        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
+        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
+        logger.debug("Im Warmup mode: ");
         tr.startGame(true);
-        System.out.println("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
+        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
         tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
+        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
         tr.setWantsToExit(true);
         tr.startGame(true);
-        System.out.println("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
+        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
         tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
         tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        System.out.println("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        System.out.println("Im Countdown mode: ");
+        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
+        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
+        logger.debug("Im Countdown mode: ");
         tr.startGame(false);
-        System.out.println("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
+        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
         tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        System.out.println();
+        logger.debug("");
 
-        System.out.println("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
+        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
         tr.setWantsToExit(true);
         tr.startGame(false);
-        System.out.println("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
+        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
         tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
         tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        System.out.println();
+        logger.debug("");
 
 
 
@@ -110,25 +114,25 @@ public class MathTrainerDemo {
 
     private static void testRandomTerms() {
         //Random Zahl erstellen...
-        System.out.println("Zufallsterme:");
+        logger.debug("Zufallsterme:");
         Term t1 = tr.createTerm();
         Term t2 = tr.createTerm();
         Term t3 = tr.createTerm();
-        System.out.println(t1.toString() + t1.getSolution()); //... und ausgeben
-        System.out.println(t2.toString() + t2.getSolution()); //... und ausgeben
-        System.out.println(t3.toString() + t3.getSolution()); //... und ausgeben
+        logger.debug(t1.toString() + t1.getSolution()); //... und ausgeben
+        logger.debug(t2.toString() + t2.getSolution()); //... und ausgeben
+        logger.debug(t3.toString() + t3.getSolution()); //... und ausgeben
     }
 
     private static void testHistoryEntries(List<String> historylist){
         for(String entry : historylist){
-            System.out.println(entry);
+            logger.debug(entry);
         }
     }
 
     private static void testBonuspointsCalculation(Term gradedTerm) throws IllegalParameterException{
         for(int i=1; i<=5; i++){
             tr.solveTerm("6", gradedTerm, i);
-            System.out.println("Nutzer gibt 6 nach "+i+" Sekunden ein:  Ergebnis mit Bonuspunkten: "+ tr.getUserScore() ); //nach einer Sekunde
+            logger.debug("Nutzer gibt 6 nach "+i+" Sekunden ein:  Ergebnis mit Bonuspunkten: "+ tr.getUserScore() ); //nach einer Sekunde
             tr.setUserScore(0);
         }
     }
