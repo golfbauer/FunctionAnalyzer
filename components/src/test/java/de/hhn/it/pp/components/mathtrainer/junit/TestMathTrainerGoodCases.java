@@ -85,7 +85,7 @@ public class TestMathTrainerGoodCases {
             exists = true;
         }
 
-        assertEquals(exists, t);
+        assertEquals(true, exists);
     }
 
     @Test
