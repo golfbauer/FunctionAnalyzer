@@ -19,6 +19,7 @@ public class BiKrMathTrainer implements MathTrainer {
     private List<String> history;
     private boolean wantstoexit;
     private boolean timeisup;
+    private int inturn;
 
     /**
      * Constructor to instantiate the basic functions for MathTrainer.
@@ -31,6 +32,8 @@ public class BiKrMathTrainer implements MathTrainer {
         history = new ArrayList<>();
         wantstoexit = false;
         timeisup = false;
+        inturn = 0;
+        createDemoHistoryData();
     }
 
     @Override
@@ -90,6 +93,10 @@ public class BiKrMathTrainer implements MathTrainer {
     @Override
     public boolean getTimeIsUp(){
         return this.timeisup;
+    }
+    @Override
+    public int getInTurn(){
+        return this.inturn;
     }
     @Override
     public void addToUserScore(int timebonus) throws IllegalParameterException{
@@ -172,7 +179,7 @@ public class BiKrMathTrainer implements MathTrainer {
     }
     @Override
     public void addToHistory(){
-        String entry = ""+this.username+ " : "+this.userscore+" points on difficulty: "+this.difficulty+". ";
+        String entry = ""+this.username+"|"+this.userscore+"|"+this.difficulty+"|"+this.section+"|countdown mode";
         history.add(entry);
     }
     @Override
@@ -190,6 +197,7 @@ public class BiKrMathTrainer implements MathTrainer {
     public void startGame(boolean warmup) throws IllegalParameterException { //kein user input via scanner oder anderer art nehmen, nur fixe werte verwenden
         if(warmup) {
             for(int i=0; i<20; i++) {
+                inturn = i;
                 Term current = this.createTerm();
                 String userinput = "10000";
                 boolean solved = solveTerm(userinput, current);
@@ -211,7 +219,7 @@ public class BiKrMathTrainer implements MathTrainer {
         }
         else{
             for(int i=0; i<20; i++) {
-
+                inturn = i;
                 Term current = this.createTerm();
                 String userinput = "10000";
                 boolean solved = solveTerm(userinput, current);
@@ -235,6 +243,7 @@ public class BiKrMathTrainer implements MathTrainer {
                 this.setUserScore(finalScore);
                 addToHistory();
             }
+            inturn = 0;
         }
     }
 
@@ -249,5 +258,11 @@ public class BiKrMathTrainer implements MathTrainer {
                 return loopCount;
             }
         } else throw new IllegalParameterException("Der uebergebene LoopCount darf nicht negativ sein.");
+    }
+
+    public void createDemoHistoryData(){
+        history.add("Matthew|15|EASY|MULTIPLICATION|countdown mode");
+        history.add("Hammond|21|HARD|ADDITION|countdown mode");
+        history.add("Erika|18|MEDIUM|MIXED|countdown mode");
     }
 }

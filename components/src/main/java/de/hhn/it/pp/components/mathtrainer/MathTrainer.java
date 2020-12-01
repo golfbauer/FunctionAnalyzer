@@ -88,6 +88,12 @@ public interface MathTrainer {
     boolean getTimeIsUp();
 
     /**
+     * returns the integer value of the local datafield inturn
+     * @return inturn
+     */
+    int getInTurn();
+
+    /**
      * adds the timebonus for fast solutions and the bonus for difficult questions to the userscore
      * @param timebonus
      * @thorws IllegalParameterException if negative values for timebonus should appear
@@ -159,4 +165,10 @@ public interface MathTrainer {
      * @throws IllegalParameterException if loopcount has negative values
      */
     int exitGame(int loopCount , boolean exit) throws IllegalParameterException;
+
+    /**
+     * creates a few demo string entries to be used in the GUI interface later.
+     *
+     */
+    void createDemoHistoryData();
 }
