@@ -61,7 +61,7 @@ public interface SpellingTrainerService {
    *
    * @param learningSetName name of the learning set to be removed from the list of learning sets
    */
-  void removeLearningSet(String learningSetName);
+  void removeLearningSet(String learningSetName) throws LearningSetCouldNotBeFoundException;
 
   /**
    * Method to get all learning sets.
