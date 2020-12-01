@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer;
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.1
  */
 public class PracticeText {
@@ -36,4 +36,8 @@ public class PracticeText {
     this.currentWordIndex = currentWordIndex;
   }
 
+  public String getWordAtIndex(int index)
+  {
+    return text[index];
+  }
 }

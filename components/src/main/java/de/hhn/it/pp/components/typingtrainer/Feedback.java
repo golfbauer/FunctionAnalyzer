@@ -1,7 +1,8 @@
 package de.hhn.it.pp.components.typingtrainer;
+
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.1
  */
 
@@ -48,6 +49,14 @@ public class Feedback {
     this.counterRightWords = counterRightWords;
   }
 
+  /**
+   * Increases counterRightWords by one.
+   */
+  public void increaseCounterRightWords()
+  {
+    this.counterRightWords++;
+  }
+
   public double getEndTime() {
     return endTime;
   }
@@ -65,7 +74,11 @@ public class Feedback {
   }
 
   /**
-   * Calculates value for wordsPerMinute
+   * Checks how much words are written correctly and
+   * calculates a value for wordsPerMinute with:
+   *
+   * WordsPerMinute = ((writtenWords / averageWordLength) / time to complete text) * 60
+   *
    * @param typedWords typed words
    */
   public void calculateWordsPerMinute(String[] typedWords, String[] selectedText) {
@@ -73,12 +86,11 @@ public class Feedback {
     int numChars = 0;
 
     for (int i = 0; i < selectedText.length; i++) {
-      try
-      {
-        if(selectedText[i].equals(typedWords[i])) {numChars++;}
-      }
-      catch (ArrayIndexOutOfBoundsException e)
-      {
+      try {
+        if (selectedText[i].equals(typedWords[i])) {
+          numChars++;
+        }
+      } catch (ArrayIndexOutOfBoundsException e) {
         System.out.println("nicht alle wörter geschrieben");
         break;
       }
