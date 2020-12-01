@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalTime;
@@ -8,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 
@@ -19,8 +20,13 @@ public class DemoTypingTrainerUsage {
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
-      public boolean checkWord(String word) {
-        return false;
+      public boolean checkWord(String word, int index) {
+        String ptWord = descriptor.getPracticeText().getWordAtIndex(index); //Word from practiceText
+        boolean isCorrect = word.equals(ptWord) ? true : false;
+
+        if(isCorrect) {descriptor.getFeedback().increaseCounterRightWords();}
+
+        return isCorrect;
       }
 
       @Override
@@ -71,8 +77,8 @@ public class DemoTypingTrainerUsage {
       }
 
       @Override
-      public void markWord(int index) {
-
+      public void markWord(int index, Color color) {
+        //Marks word at index with color in GUI displayed text.
       }
 
       @Override
@@ -100,6 +106,22 @@ public class DemoTypingTrainerUsage {
     descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
 
     //Feedback
+    for (int i = 0; i < descriptor.getPracticeText().getText().length; i++) {
+      try{
+        boolean isCorrect = service.checkWord(descriptor.getTypedWordsAtIndex(i), i);
+
+        if (isCorrect == true)
+          service.markWord(i, Color.green);
+        else
+          service.markWord(i, Color.red);
+
+      }
+      catch (ArrayIndexOutOfBoundsException e)
+      {
+        break;
+      }
+    }
+
     descriptor.getFeedback().calculateTime();
     descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
     service.showFeedback(descriptor.getFeedback());

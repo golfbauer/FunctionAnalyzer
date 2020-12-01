@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,7 +8,7 @@ import java.util.List;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.1
+ * @version 1.2
  * @since 1.0
  */
 
@@ -18,7 +19,7 @@ public interface TypingTrainerService {
    * @param word word to check
    * @return true when word is correct
    */
-  boolean checkWord(String word);
+  boolean checkWord(String word, int index);
 
   /**
    * Plays the sound for wrong Words Game goes brrrrrt.
@@ -63,7 +64,7 @@ public interface TypingTrainerService {
    * Marks either the currentWord or if the word is written correctly depending on checkWord.
    * @param index
    */
-  void markWord(int index);
+  void markWord(int index, Color color);
 
   /**
    * Selecting the text you want to train your typing in(preset texts not individual texts from User)

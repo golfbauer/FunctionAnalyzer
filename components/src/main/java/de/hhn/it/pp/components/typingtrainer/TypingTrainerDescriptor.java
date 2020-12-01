@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 
@@ -28,10 +28,20 @@ public class TypingTrainerDescriptor {
     return typedWords;
   }
 
+  public String getTypedWordsAtIndex(int index)
+  {
+    return typedWords[index];
+  }
+
   public void setTypedWords(String[] typedWords) {
     this.typedWords = typedWords;
   }
 
+  /**
+   * Adds a word to typedWords at index
+   * @param word word to write in typedWords Array
+   * @param index index where the word should be added
+   */
   public void addTypedWords(String word, int index)
   {
     //if(!word.equals(" ")) {word.strip();} //löscht das leerzeichen falls eins im wort ist}
