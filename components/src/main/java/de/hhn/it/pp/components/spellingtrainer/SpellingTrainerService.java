@@ -127,9 +127,9 @@ public interface SpellingTrainerService {
   /**
    * Method to deregister and media presentation listener.
    *
-   * @param mediaPresentationListener media presentation listener to be deregistered.
+   * @param index  index position of the media presentation listener to be removed
    */
-  void deregisterMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
+  void deregisterMediaPresentationListener(int index);
 
 
   SpellingTrainerDescriptor getDescriptor();
