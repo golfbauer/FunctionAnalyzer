@@ -156,7 +156,23 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocCategoryNotFoundException {
     logger.info("checkVocable: word = {}, category = {}, levenshteinDistance = {}", id, category,
         levenshteinDistance);
-    return false;
+    Vocable vocable = trainer.getVocableList(category).get(id);
+    int lev = Integer.MAX_VALUE;
+    for (String translation : vocable.getTranslations()) {
+      lev = Math.min(lev, levenshteinDistance(word, translation));
+    }
+    if (lev > levenshteinDistance) {
+      return false;
+    } else if (lev == 0) {
+      trainer.setScore(trainer.getScore() + 10);
+      return true;
+    } else if (lev <= 2) {
+      trainer.setScore(trainer.getScore() + 5);
+      return true;
+    } else {
+      trainer.setScore(trainer.getScore() + 2);
+      return true;
+    }
   }
 
   /**
@@ -207,4 +223,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
     return true;
   }
 
+  public int levenshteinDistance(String word1, String word2) {
+
+    return -1;
+  }
 }
