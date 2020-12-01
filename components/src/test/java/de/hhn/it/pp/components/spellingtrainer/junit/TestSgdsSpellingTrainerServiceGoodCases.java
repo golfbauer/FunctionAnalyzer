@@ -34,7 +34,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
         new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
-    MediaPresentationListener mpl = new MediaPresentationListener();
+    service.registerMediaPresentationListener();
     service.startLearning("TestSet");
   }
 
@@ -93,5 +93,46 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     }
     assertFalse(contains);
 
+  }
+
+  @Test
+  @DisplayName("Get all learning sets.")
+  void getAllLearningSets() {
+    ArrayList<LearningSet> sets = service.getLearningSets();
+    assertTrue(sets.size() == 1);
+  }
+
+  @Test
+  @DisplayName("Get existing learning set from name.")
+  void getASpecificLearningSet() throws LearningSetCouldNotBeFoundException {
+    LearningSet set = service.getLearningSet("TestSet");
+    assertEquals("TestSet", set.getLearningSetName());
+  }
+
+  @Test
+  @DisplayName("Checks if there is a next word")
+  void checkNextWord() throws LearningSetCouldNotBeFoundException, WordAlreadyAddedException {
+    service.addWord("test2", audioFile, "TestSet");
+    assertTrue(service.hasNextWord());
+  }
+
+  @Test
+  @DisplayName("Returns current word")
+  void getCurrentWord() {
+    assertEquals("test", service.currentWord());
+  }
+
+  @Test
+  @DisplayName("Registers a MediaPresentationListener")
+  void testRegisterMediapresentationListener() {
+    service.registerMediaPresentationListener();
+    //TODO wie kann man das testen ohne eine referenz auf die MPL ArrayList ?
+  }
+
+  @Test
+  @DisplayName("Registers a MediaPresentationListener")
+  void testDeregisterMediapresentationListener(){
+    service.deregisterMediaPresentationListener();
+    //TODO wo bekommt man die referenz auf den MPL her ?
   }
 }
