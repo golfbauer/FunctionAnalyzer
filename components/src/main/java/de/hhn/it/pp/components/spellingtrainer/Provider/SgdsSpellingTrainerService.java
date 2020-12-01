@@ -16,9 +16,11 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SgdsSpellingTrainerService.class);
 
-  SpellingTrainerDescriptor descriptor;
+  private SpellingTrainerDescriptor descriptor;
+  private ArrayList<MediaPresentationListener> mplisteners;
 
   public SgdsSpellingTrainerService() {
+    mplisteners = new ArrayList<>();
     descriptor = new SpellingTrainerDescriptor();
     logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
 
@@ -225,7 +227,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void playWord()
       throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-    MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
+    MediaPresentationListener mpl = this.getMediaPresentationListeners().get(0);
     MediaReference mr = descriptor.getActiveLearningSet()
         .getLearningEntry(descriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
@@ -240,7 +242,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
-    MediaPresentationListener.addMediaPresentationListener(mediaPresentationListener);
+    this.mplisteners.add(mediaPresentationListener);
     logger.info("Successfully registered a new MediaPresentationListener");
   }
 
@@ -249,25 +251,28 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   public void registerMediaPresentationListener() {
     MediaPresentationListener mpl = new MediaPresentationListener();
-    MediaPresentationListener.addMediaPresentationListener(mpl);
+    this.mplisteners.add(mpl);
     logger.info("Successfully registered a new MediaPresentationListener");
   }
 
   /**
    * Method to deregister and media presentation listener.
    *
-   * @param mediaPresentationListener media presentation listener to be deregistered.
+   * @param index position of the media presentation listener to be removed
    */
   @Override
-  public void deregisterMediaPresentationListener(
-      MediaPresentationListener mediaPresentationListener) {
-    MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
+  public void deregisterMediaPresentationListener(int index) {
+    this.mplisteners.remove(index);
     logger.info("Successfully deregistered the MediaPresentationListener");
   }
 
   @Override
   public SpellingTrainerDescriptor getDescriptor() {
     return this.descriptor;
+  }
+
+  public ArrayList<MediaPresentationListener> getMediaPresentationListeners() {
+    return this.mplisteners;
   }
 
 }
