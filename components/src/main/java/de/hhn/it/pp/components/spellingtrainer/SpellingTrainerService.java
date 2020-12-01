@@ -130,4 +130,7 @@ public interface SpellingTrainerService {
    * @param mediaPresentationListener media presentation listener to be deregistered.
    */
   void deregisterMediaPresentationListener(MediaPresentationListener mediaPresentationListener);
+
+
+  SpellingTrainerDescriptor getDescriptor();
 }
