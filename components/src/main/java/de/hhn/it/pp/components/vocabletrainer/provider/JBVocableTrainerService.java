@@ -24,7 +24,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public int getScore() {
     logger.info("getScore: no params");
-    return 0;
+    return trainer.getScore();
   }
 
   /**
