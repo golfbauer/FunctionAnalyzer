@@ -32,7 +32,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
       WordAlreadyAddedException {
     SgdsSpellingTrainerService service = new SgdsSpellingTrainerService();
-    File audioFile = new File("C:\\Users\\denni\\IdeaProjects\\learning-devtools-20ws\\components\\src\\main\\java\\de\\hhn\\it\\pp\\components\\spellingtrainer\\audiofiles\\Book.wav");
+    File audioFile = new File("../../../../../../../../../main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
     MediaPresentationListener mpl= new MediaPresentationListener();
@@ -47,7 +47,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     SgdsSpellingTrainerService service = new SgdsSpellingTrainerService();
 
     //TODO: Files global initialisieren
-    File audioFile = new File("C:\\Users\\denni\\IdeaProjects\\learning-devtools-20ws\\components\\src\\main\\java\\de\\hhn\\it\\pp\\components\\spellingtrainer\\audiofiles\\Book.wav");
+    File audioFile = new File("../../../../../../../../../main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
     MediaPresentationListener mpl= new MediaPresentationListener();
     service.createLearningSet("TestSet");
     service.addWord("test2", audioFile, "TestSet");

@@ -1,7 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
-
 import java.io.File;
 
 public class DemoSpellingTrainerUsage {
@@ -15,7 +14,7 @@ public class DemoSpellingTrainerUsage {
 
     //Not executed during runtime
     String word = "test";
-    File audioFile = new File("C:\\Users\\simon\\Downloads\\Book.wav");
+    File audioFile = new File("../../../../../../../../../main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
 
     service.createLearningSet("Test Set");
     service.addWord(word, audioFile, "Test Set");
