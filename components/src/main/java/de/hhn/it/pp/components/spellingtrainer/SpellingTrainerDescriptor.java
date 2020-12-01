@@ -9,15 +9,21 @@ public class SpellingTrainerDescriptor {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SpellingTrainerDescriptor.class);
 
-  private static boolean isLearning;
-  private static int currentWordIndex;
-  private static int counterWrongWords;
-  private static int counterRightWords;
-  private static int counterRemainingWords;
-  private static LearningSet activeLearningSet;
-  private static ArrayList<LearningSet> learningSets = new ArrayList<>();
+  private  boolean isLearning;
+  private  int currentWordIndex;
+  private  int counterWrongWords;
+  private  int counterRightWords;
+  private  int counterRemainingWords;
+  private  LearningSet activeLearningSet;
+  private  ArrayList<LearningSet> learningSets;
 
-
+public SpellingTrainerDescriptor(){
+  this.isLearning=false;
+  this.currentWordIndex=0;
+  this.counterRightWords=0;
+  this.counterWrongWords=0;
+  this.learningSets = new ArrayList<>();
+}
   /**
    * Returns the counter value of the addressed counter.
    *
@@ -25,7 +31,7 @@ public class SpellingTrainerDescriptor {
    * @return counter value
    * @throws NoWordException is thrown when no counter with the entered name is found
    */
-  public static int getCounter(String counterName) throws NoWordException {
+  public  int getCounter(String counterName) throws NoWordException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
@@ -50,7 +56,7 @@ public class SpellingTrainerDescriptor {
    * @param value       value that the counter ist updated with
    * @throws NoWordException is thrown when no counter with the entered name is found
    */
-  public static void updateCounter(String counterName, int value) throws NoWordException {
+  public  void updateCounter(String counterName, int value) throws NoWordException {
 
     switch (counterName.toLowerCase()) {
       case "wrong":
@@ -71,50 +77,50 @@ public class SpellingTrainerDescriptor {
     }
   }
 
-  public static void setActiveLearningSet(LearningSet learningSet) {
+  public  void setActiveLearningSet(LearningSet learningSet) {
     activeLearningSet = learningSet;
     logger.info("Das Aktive LearningSet wurde auf " + learningSet + " gesetzt");
   }
 
-  public static LearningSet getActiveLearningSet() {
+  public  LearningSet getActiveLearningSet() {
     logger.info("Successfully returned active learning set.");
     return activeLearningSet;
 
 
   }
 
-  public static void addLearningSet(LearningSet learningSet){
+  public  void addLearningSet(LearningSet learningSet){
     learningSets.add(learningSet);
   }
 
-  public static void removeLearningSet(LearningSet learningSet){
+  public  void removeLearningSet(LearningSet learningSet){
     learningSets.remove(learningSet);
   }
 
-  public static ArrayList<LearningSet> getLearningSets(){
+  public  ArrayList<LearningSet> getLearningSets(){
     return learningSets;
   }
 
-  public static int getCurrentWordIndex(){
+  public  int getCurrentWordIndex(){
     return currentWordIndex;
   }
 
-  public static void setCurrentWordIndex(int index){
+  public  void setCurrentWordIndex(int index){
     currentWordIndex = index;
   }
 
-  public static void resetInts(){
+  public  void resetInts(){
     currentWordIndex = 0;
     counterWrongWords = 0;
     counterRemainingWords = 0;
     counterRightWords = 0;
   }
 
-  public static boolean getIsLearning(){
+  public  boolean getIsLearning(){
     return isLearning;
   }
 
-  public static void setIsLearning(boolean learning){
+  public  void setIsLearning(boolean learning){
     isLearning = learning;
   }
 
