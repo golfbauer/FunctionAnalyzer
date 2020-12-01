@@ -17,11 +17,13 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       org.slf4j.LoggerFactory.getLogger(SgdsSpellingTrainerService.class);
 
   SpellingTrainerDescriptor descriptor;
-public SgdsSpellingTrainerService(){
-  descriptor= new SpellingTrainerDescriptor();
-  logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
 
-}
+  public SgdsSpellingTrainerService() {
+    descriptor = new SpellingTrainerDescriptor();
+    logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
+
+  }
+
   /**
    * Checks the spelling of the entered word.
    *
@@ -100,8 +102,8 @@ public SgdsSpellingTrainerService(){
         }
       }
     }
-      descriptor.addLearningSet(new LearningSet(learningSetName));
-      logger.info("Learning set successfully created.");
+    descriptor.addLearningSet(new LearningSet(learningSetName));
+    logger.info("Learning set successfully created.");
 
   }
 
@@ -111,18 +113,9 @@ public SgdsSpellingTrainerService(){
    * @param learningSetName name of the learning set to be removed from the list of learning sets
    */
   @Override
-  public void removeLearningSet(String learningSetName) {
-    ArrayList<LearningSet> learningSets = getLearningSets();
-    if (learningSets.size() > 0) {
-      for (LearningSet ls : learningSets) {
-        if (ls.getLearningSetName().equals(learningSetName)) {
-          descriptor.removeLearningSet(ls);
-        }
-        logger.info("Learning set successfully removed.");
-      }
-    } else {
-      logger.warn("No learning set found");
-    }
+  public void removeLearningSet(String learningSetName) throws LearningSetCouldNotBeFoundException {
+    descriptor.removeLearningSet(getLearningSet(learningSetName));
+
   }
 
   /**
@@ -271,8 +264,9 @@ public SgdsSpellingTrainerService(){
     MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
     logger.info("Successfully deregistered the MediaPresentationListener");
   }
+
   @Override
-  public SpellingTrainerDescriptor getDescriptor(){
+  public SpellingTrainerDescriptor getDescriptor() {
     return this.descriptor;
   }
 
