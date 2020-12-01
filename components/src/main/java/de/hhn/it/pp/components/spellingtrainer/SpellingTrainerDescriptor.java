@@ -17,12 +17,16 @@ public class SpellingTrainerDescriptor {
   private  LearningSet activeLearningSet;
   private  ArrayList<LearningSet> learningSets;
 
-public SpellingTrainerDescriptor(){
+  /**
+   * Constructor of the SpellingTrainerDescriptor object, which initializes the instance variables.
+   */
+  public SpellingTrainerDescriptor(){
   this.isLearning=false;
   this.currentWordIndex=0;
   this.counterRightWords=0;
   this.counterWrongWords=0;
   this.learningSets = new ArrayList<>();
+  logger.info("Constructor from class SpellingTrainerDescriptor successfully run.");
 }
   /**
    * Returns the counter value of the addressed counter.
