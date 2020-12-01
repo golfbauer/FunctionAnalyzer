@@ -115,7 +115,7 @@ public class Card {
    * 
    * @return headline of card
    */
-  String getHeadline() {
+  public String getHeadline() {
     return headline;
   }
 

@@ -3,6 +3,8 @@ package de.hhn.it.pp.components.learningCards;
 import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
 import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
 
+import java.util.List;
+
 
 public class DemoLearningCardsUsage {
 
@@ -94,6 +96,36 @@ public class DemoLearningCardsUsage {
             @Override
             public void stopLearningSession() {
 
+            }
+
+            @Override
+            public List<Integer> getCardsetIds() {
+                return null;
+            }
+
+            @Override
+            public List<Integer> getCardsIds() {
+                return null;
+            }
+
+            @Override
+            public List<Cardset> getCardsets() {
+                return null;
+            }
+
+            @Override
+            public List<Card> getCards() {
+                return null;
+            }
+
+            @Override
+            public Cardset getCardset(int i) {
+                return null;
+            }
+
+            @Override
+            public Card getCardFromCol(int i) {
+                return null;
             }
         };
 

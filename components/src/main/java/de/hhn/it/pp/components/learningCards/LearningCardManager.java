@@ -14,10 +14,21 @@ public class LearningCardManager {
    * @param title title to indentify what the cardset is about
    * @return id of the cardset to identify the currently created cardset
    */
-  int createCardSet(String title) {
+  public int createCardSet(String title) {
     Cardset cs = new Cardset(title);
     cardsetCol.put(cs.getId(), cs);
     return cs.getId();
+  }
+
+  public void addCardset(Cardset cardset){
+    cardsetCol.put(cardset.getId(), cardset);
+  }
+  public void addCard(Card card){
+    cardCol.put(card.getId(), card);
+  }
+  public void addCard(Card card, int cardsetId){
+    cardCol.put(card.getId(), card);
+    cardsetCol.get(cardsetId);
   }
 
   /**
@@ -29,7 +40,7 @@ public class LearningCardManager {
    * @param textA answertext of the new card
    * @return id of the card to identify the currently created card
    */
-  int newCard(int cardsetId, String headline, String textQ, String textA) {
+  public int newCard(int cardsetId, String headline, String textQ, String textA) {
     Card name = new Card(headline, textQ, textA);
     cardsetCol.get(cardsetId).addCardtoSet(name);
     cardCol.put(name.getId(), name);
@@ -43,7 +54,7 @@ public class LearningCardManager {
    * @return the card with id i in list cardCol
    * 
    */
-  Card getCardFromCol(int i) {
+  public Card getCardFromCol(int i) {
     return cardCol.get(i);
   }
 
@@ -53,12 +64,11 @@ public class LearningCardManager {
    * 
    * @param i id of the card that is about to be removed
    */
-  void removeCardFromCol(int i) {
+  public void removeCardFromCol(int i) {
     Card card = cardCol.remove(i);
     for (Cardset cardset : cardsetCol.values()) {
       if (cardset.getCardIds().contains(card.getId())) {
         cardset.removeCardfromSet(card.getId());
-        return;
       }
     }
   }
@@ -69,7 +79,7 @@ public class LearningCardManager {
    * @param i identifier of what carset should be returned
    * @return cardset out of cardsetCol with the id i
    */
-  Cardset getCardset(int i) {
+  public Cardset getCardset(int i) {
     return cardsetCol.get(i);
   }
 
@@ -78,8 +88,8 @@ public class LearningCardManager {
    * 
    * @param i identifier of what cardset should be removed from cardsetCol
    */
-  void removeCardset(int i) {
-    Cardset c = cardsetCol.remove(i);
+  public Cardset removeCardset(int i) {
+    return cardsetCol.remove(i);
   }
 
   /**
@@ -87,7 +97,7 @@ public class LearningCardManager {
    * 
    * @return all ids in a integer list named results
    */
-  List<Integer> getAllCardsIds() {
+  public List<Integer> getAllCardsIds() {
     List<Integer> results = new ArrayList<Integer>();
     Collection<Card> cards = cardCol.values();
     for (Card card : cards) {
@@ -101,7 +111,7 @@ public class LearningCardManager {
    * 
    * @return all ids in a integer list named results
    */
-  List<Integer> getCardsetIds() {
+  public List<Integer> getCardsetIds() {
     List<Integer> results = new ArrayList<Integer>();
     Collection<Cardset> cardsets = cardsetCol.values();
     for (Cardset cardset : cardsets) {

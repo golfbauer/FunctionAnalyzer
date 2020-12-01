@@ -4,147 +4,132 @@ import de.hhn.it.pp.components.learningCards.*;
 import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
 import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MYLearningCardsService implements LearningCardsService {
-    private Map<Integer, Cardset> cardsets;
-    private Map<Integer, Card> cards;
+    private LearningCardManager learningCardManager;
 
     public MYLearningCardsService(){
-        cardsets = new HashMap<>();
-        cards = new HashMap<>();
+        learningCardManager = new LearningCardManager();
     }
 
     @Override
     public void addCardsets(Cardset... newCardsets) {
         for(Cardset cardset : newCardsets){
-            this.cardsets.put(cardset.getId(), cardset);
+            learningCardManager.addCardset(cardset);
             for(Card card : cardset.getCards()){
-                cards.put(card.getId(), card);
+                learningCardManager.addCard(card);
             }
         }
     }
 
     @Override
     public int getNumberOfCardsets() {
-        return cardsets.size();
+        return learningCardManager.getAllCardsIds().size();
     }
 
     @Override
     public int createCardset(String cardsetTitle) {
-        Cardset cardset = new Cardset(cardsetTitle);
-        cardsets.put(cardset.getId(), cardset);
-        return cardset.getId();
+        return learningCardManager.createCardSet(cardsetTitle);
     }
 
     @Override
     public void removeCardset(int cardsetId) throws CardsetNotFoundException {
-        if(cardsets.remove(cardsetId) == null)
+        if(learningCardManager.removeCardset(cardsetId) == null)
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
     }
 
     @Override
     public int createCard(String cardHeadline, String cardTextQ, String cardTextA) {
         Card card = new Card(cardHeadline, cardTextQ, cardTextA);
-        cards.put(card.getId(), card);
+        learningCardManager.addCard(card);
         return card.getId();
     }
 
     @Override
     public int createCard(String cardTextQ, String cardTextA) {
         Card card = new Card("", cardTextQ, cardTextA);
-        cards.put(card.getId(), card);
+        learningCardManager.addCard(card);
         return card.getId();
     }
 
     @Override
     public int getNumberOfCards() {
-        return cards.size();
+        return learningCardManager.getAllCardsIds().size();
     }
 
     @Override
     public void addCardToCardset(int cardsetId, int cardId) throws CardsetNotFoundException, CardNotFoundException {
-        if(!cards.containsKey(cardId))
+        if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        if(!cardsets.containsKey(cardsetId))
+        if(!learningCardManager.getAllCardsIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
 
-        Cardset cardset = cardsets.get(cardsetId);
-        Card card = cards.get(cardId);
-        cardset.addCardtoSet(card);
+        learningCardManager.getCardset(cardsetId).addCardtoSet(learningCardManager.getCardFromCol(cardId));
     }
 
     @Override
     public int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ, String cardTextA) throws CardsetNotFoundException {
-        Cardset cardset = cardsets.get(cardsetId);
-        Card card = new Card(cardHeadline, cardTextQ, cardTextA);
-        cards.put(card.getId(), card);
-        cards.put(cardset.getId(), card);
-        return card.getId();
+        return learningCardManager.newCard(cardsetId, cardHeadline, cardTextA, cardTextQ);
     }
 
     @Override
     public int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA) throws CardsetNotFoundException {
-        Cardset cardset = cardsets.get(cardsetId);
-        if(!cardsets.containsKey(cardsetId))
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
         Card card = new Card("", cardTextQ, cardTextA);
-        cards.put(card.getId(), card);
-        cards.put(cardset.getId(), card);
+        learningCardManager.addCard(card, cardsetId);
         return card.getId();
     }
 
     @Override
     public void deleteCard(int cardId) throws CardNotFoundException {
-        if(!cards.containsKey(cardId))
+        if(learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        cards.remove(cardId);
-        for(Cardset cardset : cardsets.values()){
-            cardset.removeCardfromSet(cardId);
-        }
+        learningCardManager.removeCardFromCol(cardId);
 
     }
 
     @Override
     public void removeCardFromCardset(int cardsetId, int cardId) throws CardsetNotFoundException, CardNotFoundException {
-        if(!cards.containsKey(cardId))
+        if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        if(!cardsets.containsKey(cardsetId))
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
-        cardsets.remove(cardId);
+        learningCardManager.getCardset(cardsetId).removeCardfromSet(cardId);
     }
 
     @Override
     public void editCardQuestionTextFromCardset(int cardId, String newCardTextQ) throws CardNotFoundException {
-        if(!cards.containsKey(cardId))
+        if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        Card card = cards.get(cardId);
-        card.editTextQ(newCardTextQ);
+        learningCardManager.getCardFromCol(cardId).editTextQ(newCardTextQ);
     }
 
     @Override
     public void editCardAnswerTextFromCardset(int cardId, String newCardTextA) throws CardNotFoundException {
-        if(!cards.containsKey(cardId))
+        if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        Card card = cards.get(cardId);
-        card.editTextQ(newCardTextA);
+        learningCardManager.getCardFromCol(cardId).editTextA(newCardTextA);
     }
 
     @Override
     public void startLearningSession(int cardsetId, Status[] status) throws CardsetNotFoundException {
-        if(!cardsets.containsKey(cardsetId))
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
-        Cardset cardset = cardsets.get(cardsetId);
+        Cardset cardset = learningCardManager.getCardset(cardsetId);
         SessionManager sessionManager = new SessionManager();
         sessionManager.startLearningSession(cardset,status);
     }
 
     @Override
     public void repeatUnsolvedAndUnseenCards(int cardsetId) throws CardsetNotFoundException {
-        if(!cardsets.containsKey(cardsetId))
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
-        Cardset cardset = cardsets.get(cardsetId);
+        Cardset cardset = learningCardManager.getCardset(cardsetId);
         SessionManager sessionManager = new SessionManager();
         sessionManager.startLearningSession(cardset,new Status[]{Status.UNSEEN, Status.UNSOLVED});
     }
@@ -153,4 +138,44 @@ public class MYLearningCardsService implements LearningCardsService {
     public void stopLearningSession() {
 
     }
+
+    @Override
+    public List<Integer> getCardsetIds() {
+        return learningCardManager.getCardsetIds();
+    }
+
+    @Override
+    public List<Integer> getCardsIds() {
+        return learningCardManager.getAllCardsIds();
+    }
+
+    @Override
+    public List<Cardset> getCardsets() {
+        ArrayList<Cardset> cardsets = new ArrayList<>();
+        for(int cardsetId : learningCardManager.getCardsetIds()){
+            cardsets.add(learningCardManager.getCardset(cardsetId));
+        }
+        return cardsets;
+    }
+
+    @Override
+    public List<Card> getCards() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for(int cardId : learningCardManager.getAllCardsIds()){
+            cards.add(learningCardManager.getCardFromCol(cardId));
+        }
+        return cards;
+    }
+
+    @Override
+    public Cardset getCardset(int i) {
+        return learningCardManager.getCardset(i);
+    }
+
+    @Override
+    public Card getCardFromCol(int i) {
+        return learningCardManager.getCardFromCol(i);
+    }
+
+
 }

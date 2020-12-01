@@ -1,18 +1,33 @@
 package de.hhn.it.pp.javafx;
 
+import de.hhn.it.pp.javafx.controllers.LearningCardsServiceController;
 import de.hhn.it.pp.javafx.controllers.RootController;
 import de.hhn.it.pp.javafx.modules.Module;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hhn.it.pp.javafx.utilities.ButtonUtilities;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -20,11 +35,14 @@ public class Main extends Application {
 
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(Main.class);
-  private final int width = 1280;
+  private final int width = 1000;
 
   private final int height = 720;
-  private RootController controller;
-  private Map<String, Module> modules = new HashMap<>();
+  private VBox leftSide;
+  private VBox rightSide;
+  private Separator separator;
+
+  private LearningCardsServiceController learningCardsServiceController;
 
   /**
    * the main method.
@@ -39,39 +57,60 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Root2.fxml"));
+    learningCardsServiceController = new LearningCardsServiceController();
 
-    final Parent root = loader.load();
-    controller = loader.getController();
-
-    primaryStage.setTitle("JavaFX UI");
+    Pane root = new Pane();
     Scene scene = new Scene(root, width, height);
-    primaryStage.setMinWidth(width);
-    primaryStage.setMinHeight(height);
+
+    setLeftSide();
+    setSeparator();
+    setRightSide();
+
+    root.getChildren().addAll(leftSide, separator, rightSide);
+
+
+    primaryStage.setTitle("Learning Cards");
     primaryStage.setScene(scene);
     primaryStage.show();
-
-    addModule("Template");
-    addModule("CoffeeMakerService");
   }
 
-  @Override
-  public void stop() {
-    logger.info("stop: Shutting down");
+  private void setLeftSide(){
+    leftSide = new VBox(25);
+    leftSide.setPrefSize(250, height);
+    leftSide.setAlignment(Pos.TOP_CENTER);
+    leftSide.setPadding(new Insets(50,0,0,0));
+
+    Button cardsetButton = ButtonUtilities.createButton("Cardsets");
+    cardsetButton.setOnAction( e ->
+            rightSide.getChildren().setAll(learningCardsServiceController.getObservableCardsets()));
+
+    Button cardButton = ButtonUtilities.createButton("Cards");
+    cardButton.setOnAction( e ->
+            rightSide.getChildren().setAll(learningCardsServiceController.getObservableCards()));
+
+
+    leftSide.getChildren().addAll(cardsetButton, cardButton);
   }
 
-  private void addModule(String name) {
-    try {
-      URL url = getClass().getResource("/fxml/" + name + ".fxml");
-      if (url == null) {
-        logger.error("addModule: Fxml File for Module: \"" + name + "\" not found!");
-      } else {
-        logger.info("addModule: Loading Module: \"" + name + "\"!");
-        Node content = FXMLLoader.load(url);
-        controller.addModule(name, content);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private void setSeparator(){
+    separator = new Separator();
+    separator.setStyle(
+            "-fx-background-color: #000000;"+
+                    "-fx-background-radius: 1;"
+            );
+    separator.setTranslateX(250);
+    separator.setOrientation(Orientation.VERTICAL);
+    separator.setPrefHeight(height);
   }
+
+  private void setRightSide(){
+    rightSide = new VBox(25);
+    rightSide.setTranslateX(250);
+    rightSide.setPrefSize(width - 250, height);
+    rightSide.setAlignment(Pos.TOP_CENTER);
+    rightSide.setPadding(new Insets(50,0,0,0));
+  }
+
+
+
 }
