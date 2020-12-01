@@ -35,7 +35,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public List<String> getVocCategories() {
     logger.info("getVocCategories: no params");
-    return null;
+    return trainer.getVocCategories();
   }
 
   /**
@@ -49,7 +49,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   public void addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
     logger.info("addVocCategory: category = {}, vocabularyList = {}", category, vocabularyList);
-
+    trainer.addCategory(category, vocabularyList);
   }
 
   /**
@@ -61,7 +61,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void removeVocCategory(String category) throws VocCategoryNotFoundException {
     logger.info("removeVocCategory: category = {}", category);
-
+    trainer.deleteCategory(category);
   }
 
   /**
@@ -77,7 +77,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   public Vocable getVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
     logger.info("getVocable: id = {}, category = {}", id, category);
-    return null;
+    return trainer.getVocableList(category).get(id);
   }
 
   /**
