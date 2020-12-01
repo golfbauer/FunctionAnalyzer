@@ -198,11 +198,11 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean hasNextWord() {
-    descriptor
-        .setCurrentWordIndex(descriptor.getCurrentWordIndex() + 1);
-
-    if (descriptor.getCurrentWordIndex() <
+    if (descriptor.getCurrentWordIndex() + 1 <
         descriptor.getActiveLearningSet().getLearningEntries().size()) {
+      descriptor
+          .setCurrentWordIndex(descriptor.getCurrentWordIndex() + 1);
+      logger.info("The activelearningset has a next word and the currentwordindex has been incremented");
       return true;
     }
     logger.warn("No next word found");
