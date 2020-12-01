@@ -90,7 +90,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
     logger.info("getVocabulary: category = {}", category);
-    return null;
+    return trainer.getVocableList(category);
   }
 
   /**
@@ -107,7 +107,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocCategoryNotFoundException, TranslationIsEmptyException {
     logger.info("addVocable: learningWord = {}, translations = {}, category = {}", learningWord,
         translations, category);
-
+    trainer.getVocableList(category).add(new Vocable(learningWord, translations));
   }
 
   /**
@@ -122,7 +122,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   public void removeVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
     logger.info("removeVocable: id = {}, category = {}", id, category);
-
+    trainer.getVocableList(category).remove(id);
   }
 
   /**
