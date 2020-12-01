@@ -137,8 +137,12 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocCategoryNotFoundException {
     logger.info("editVocCategory: oldCategoryName = {}, newCategoryName = {}", oldCategoryName,
         newCategoryName);
-
-
+    try {
+      trainer.addCategory(newCategoryName, trainer.getVocableList(oldCategoryName));
+      trainer.deleteCategory(oldCategoryName);
+    } catch (VocCategoryAlreadyExistException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
