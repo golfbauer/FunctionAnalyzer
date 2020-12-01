@@ -164,8 +164,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
     if (!descriptor.getIsLearning()) {
-      descriptor.resetInts();
       descriptor.setActiveLearningSet(getLearningSet(learningSetName));
+      descriptor.resetInts();
       descriptor.setIsLearning(true);
       logger.info("Successfully set all the necessary start variables");
       return true;
