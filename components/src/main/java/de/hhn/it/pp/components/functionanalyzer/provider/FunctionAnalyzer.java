@@ -40,22 +40,12 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
     String variable = null;
     ArrayList<String> nums = new ArrayList<>();
     for (int i = 0; i < input.length(); i++) {
-      switch (input.charAt(i)) {
-        case('*'):
-        case('/'):
-          nums.add(buffer);
-          if (input.charAt(i + 1) == 'x') buffer = "";
-          break;
-        case('^'):
-          nums.add(buffer);
-          buffer = "";
-          break;
-        case('('):
-          nums.add("(");
-          break;
-        case(')'):
-          nums.add(")");
-          break;
+      if (input.charAt(i) == 'x') {
+        nums.add(buffer.substring(0,i - 1));
+        buffer = buffer.substring(buffer.length() - 1);
+      } else if (input.charAt(i) == '^') {
+        nums.add(buffer);
+        buffer = "";
       }
       buffer += input.charAt(i);
       if (i == input.length() - 1 && buffer != "") {
