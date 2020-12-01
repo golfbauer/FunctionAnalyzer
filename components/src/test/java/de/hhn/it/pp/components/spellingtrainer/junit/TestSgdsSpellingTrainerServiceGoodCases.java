@@ -1,15 +1,17 @@
 package de.hhn.it.pp.components.spellingtrainer.junit;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
@@ -126,13 +128,31 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @DisplayName("Registers a MediaPresentationListener")
   void testRegisterMediapresentationListener() {
     service.registerMediaPresentationListener();
-    //TODO wie kann man das testen ohne eine referenz auf die MPL ArrayList ?
+    assertTrue(service.getMediaPresentationListeners().size() == 2);
   }
 
   @Test
-  @DisplayName("Registers a MediaPresentationListener")
-  void testDeregisterMediapresentationListener(){
-    service.deregisterMediaPresentationListener();
-    //TODO wo bekommt man die referenz auf den MPL her ?
+  @DisplayName("Deregisters a MediaPresentationListener")
+  void testDeregisterMediapresentationListener() {
+    service.deregisterMediaPresentationListener(0);
+    assertTrue(service.getMediaPresentationListeners().size() == 0);
   }
+
+  @Test
+  @DisplayName("Starting the learning service")
+  void startLearning() throws LearningSetCouldNotBeFoundException, NoWordException {
+    service.getDescriptor().setActiveLearningSet(null);
+    service.getDescriptor().updateCounter("wrong",1);
+    service.getDescriptor().updateCounter("right",5);
+    service.getDescriptor().updateCounter("remaining",3);
+    service.getDescriptor().setIsLearning(false);
+    service.startLearning("TestSet");
+    assertAll(() -> assertEquals("TestSet",service.getDescriptor().getActiveLearningSet().getLearningSetName()),
+        () -> assertTrue(service.getDescriptor().getCounter("wrong") == 0 &&
+            service.getDescriptor().getCounter("right") == 0 &&
+            service.getDescriptor().getCounter("remaining") == 0),
+    ()->assertTrue(service.getDescriptor().getIsLearning()) );
+  }
+
+
 }
