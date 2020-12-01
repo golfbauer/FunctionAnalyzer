@@ -2,10 +2,10 @@ package de.hhn.it.pp.components.spellingtrainer.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
+import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
 import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
@@ -48,7 +48,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @Test
   @DisplayName("Adds a word to an existing learningset")
   void addWordToList() throws LearningSetCouldNotBeFoundException, WordAlreadyAddedException {
-    service.addWord("test2",audioFile,"TestSet");
+    service.addWord("test2", audioFile, "TestSet");
     assertEquals("test2",
         service.getDescriptor().getActiveLearningSet().getLearningEntries().get(1).getWordEntry());
   }
@@ -56,16 +56,42 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @Test
   @DisplayName("Deletes a word from an existing learning set.")
   void deleteWordFromList() throws LearningSetCouldNotBeFoundException, WordNotFoundException {
-    service.deleteWord("test","TestSet");
-    boolean contains=false;
-        ArrayList<LearningEntry> leList= service.getLearningSet("TestSet").getLearningEntries();
-        for(LearningEntry le: leList ){
-          contains=le.getWordEntry().equals("test");
-        }
-        logger.debug("There are no learning entries.");
-        assertFalse(contains);
+    service.deleteWord("test", "TestSet");
+    boolean contains = false;
+    ArrayList<LearningEntry> leList = service.getLearningSet("TestSet").getLearningEntries();
+    for (LearningEntry le : leList) {
+      contains = le.getWordEntry().equals("test");
+    }
+    logger.debug("There are no learning entries.");
+    assertFalse(contains);
 
   }
 
+  @Test
+  @DisplayName("Creating a new learning set.")
+  void createANewLearningSet()
+      throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException {
+    service.createLearningSet("LearningSet1");
+    boolean contains = false;
+    ArrayList<LearningSet> lSets = service.getDescriptor().getLearningSets();
+    for (LearningSet ls : lSets) {
+      contains = ls.getLearningSetName().equals("LearningSet1");
 
+    }
+    assertTrue(contains);
+  }
+
+  @Test
+  @DisplayName("Deletes an existing learning set.")
+  void deleteAnExistingLearningSet() throws LearningSetCouldNotBeFoundException {
+    service.removeLearningSet("TestSet");
+    boolean contains = false;
+    ArrayList<LearningSet> lSets = service.getDescriptor().getLearningSets();
+    for (LearningSet ls : lSets) {
+      contains = ls.getLearningSetName().equals("TestSet");
+
+    }
+    assertFalse(contains);
+
+  }
 }
