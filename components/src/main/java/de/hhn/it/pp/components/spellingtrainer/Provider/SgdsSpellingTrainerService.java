@@ -16,6 +16,12 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SgdsSpellingTrainerService.class);
 
+  SpellingTrainerDescriptor descriptor;
+public SgdsSpellingTrainerService(){
+  descriptor= new SpellingTrainerDescriptor();
+  logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
+
+}
   /**
    * Checks the spelling of the entered word.
    *
@@ -94,7 +100,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
         }
       }
     }
-      SpellingTrainerDescriptor.addLearningSet(new LearningSet(learningSetName));
+      descriptor.addLearningSet(new LearningSet(learningSetName));
       logger.info("Learning set successfully created.");
 
   }
@@ -110,7 +116,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     if (learningSets.size() > 0) {
       for (LearningSet ls : learningSets) {
         if (ls.getLearningSetName().equals(learningSetName)) {
-          SpellingTrainerDescriptor.removeLearningSet(ls);
+          descriptor.removeLearningSet(ls);
         }
         logger.info("Learning set successfully removed.");
       }
@@ -128,7 +134,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
 
   public ArrayList<LearningSet> getLearningSets() {
     logger.info("Successfully returned all learning sets");
-    return SpellingTrainerDescriptor.getLearningSets();
+    return descriptor.getLearningSets();
   }
 
   /**
@@ -162,10 +168,10 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
-    if (!SpellingTrainerDescriptor.getIsLearning()) {
-      SpellingTrainerDescriptor.resetInts();
-      SpellingTrainerDescriptor.setActiveLearningSet(getLearningSet(learningSetName));
-      SpellingTrainerDescriptor.setIsLearning(true);
+    if (!descriptor.getIsLearning()) {
+      descriptor.resetInts();
+      descriptor.setActiveLearningSet(getLearningSet(learningSetName));
+      descriptor.setIsLearning(true);
       logger.info("Successfully set all the necessary start variables");
       return true;
     }
@@ -180,9 +186,9 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean endLearning() {
-    if (SpellingTrainerDescriptor.getIsLearning()) {
-      SpellingTrainerDescriptor.setActiveLearningSet(null);
-      SpellingTrainerDescriptor.setIsLearning(false);
+    if (descriptor.getIsLearning()) {
+      descriptor.setActiveLearningSet(null);
+      descriptor.setIsLearning(false);
       logger.info("Successfully removed the ActiveLearningSet, stopping the Learningtask");
       return true;
     }
@@ -197,11 +203,11 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public boolean hasNextWord() {
-    SpellingTrainerDescriptor
-        .setCurrentWordIndex(SpellingTrainerDescriptor.getCurrentWordIndex() + 1);
+    descriptor
+        .setCurrentWordIndex(descriptor.getCurrentWordIndex() + 1);
 
-    if (SpellingTrainerDescriptor.getCurrentWordIndex() <
-        SpellingTrainerDescriptor.getActiveLearningSet().getLearningEntries().size()) {
+    if (descriptor.getCurrentWordIndex() <
+        descriptor.getActiveLearningSet().getLearningEntries().size()) {
       return true;
     }
     logger.warn("No next word found");
@@ -215,8 +221,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public String currentWord() {
-    return SpellingTrainerDescriptor.getActiveLearningSet()
-        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getWordEntry();
+    return descriptor.getActiveLearningSet()
+        .getLearningEntry(descriptor.getCurrentWordIndex()).getWordEntry();
   }
 
 
@@ -227,8 +233,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void playWord()
       throws UnsupportedAudioFileException, IOException, LineUnavailableException {
     MediaPresentationListener mpl = MediaPresentationListener.getMediaPresentationListener(0);
-    MediaReference mr = SpellingTrainerDescriptor.getActiveLearningSet()
-        .getLearningEntry(SpellingTrainerDescriptor.getCurrentWordIndex()).getMediaReference();
+    MediaReference mr = descriptor.getActiveLearningSet()
+        .getLearningEntry(descriptor.getCurrentWordIndex()).getMediaReference();
     mpl.present(mr);
     logger.info("Successfully presented the audio from the current Word in the learningSet");
   }
@@ -264,6 +270,10 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
       MediaPresentationListener mediaPresentationListener) {
     MediaPresentationListener.removeMediaPresentationListener(mediaPresentationListener);
     logger.info("Successfully deregistered the MediaPresentationListener");
+  }
+  @Override
+  public SpellingTrainerDescriptor getDescriptor(){
+    return this.descriptor;
   }
 
 }
