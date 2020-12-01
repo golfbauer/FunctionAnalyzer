@@ -1,22 +1,28 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import static java.util.Collections.addAll;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class FunctionElement {
 
-  private Term term;
+  private List<Term> terms = new ArrayList<>();
   private Operator operator;
 
   /**
    * Combines both the Term and the operator it belongs to
-   * @param term = single term
+   * @param terms = single term
    * @param operator = its operator
    */
-  public FunctionElement(Term term, Operator operator) {
-    this.term = term;
+  public FunctionElement(Operator operator, Term... terms) {
+    this.terms.addAll(Arrays.asList(terms));
     this.operator = operator;
   }
 
-  public Term getTerm() {
-    return term;
+  public List<Term> getTerm() {
+    return terms;
   }
 
   public Operator getOperator() {
@@ -25,7 +31,10 @@ public class FunctionElement {
 
   @Override
   public String toString() {
-    return "" + operator.getSymbol() + term;
+    StringBuilder builder = new StringBuilder();
+    builder.append(operator);
+    terms.forEach(fe -> builder.append(fe.toString()));
+    return builder.toString();
   }
 }
 

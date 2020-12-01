@@ -21,9 +21,9 @@ public class Function extends ArrayList<FunctionElement> {
    * Calculate the Derivative of Function
    * @return Derivative of the Function
    */
-  public Function getDerivative(){
+  public Function getDerivative() {
     Function derivative = new Function();
-    forEach(e -> derivative.add(new FunctionElement(e.getTerm().getDerivative(), e.getOperator())));
+    //forEach(e -> derivative.add(new FunctionElement(e.getTerm().getDerivative(), e.getOperator())));
     return derivative;
   }
 
