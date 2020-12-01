@@ -100,9 +100,8 @@ public class Term {
   public String toString() {
     if (variable != null) {
       return "" + factor + variable + "^" + exponent.toString();
-    }
-    else if (exponent != null){
-      return "" + value + exponent.toString();
+    } else if (exponent != null) {
+      return "" + value + "^" + exponent.toString();
     }
     return "" + value;
   }

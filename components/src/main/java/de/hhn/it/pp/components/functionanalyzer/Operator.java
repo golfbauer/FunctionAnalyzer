@@ -3,7 +3,7 @@ package de.hhn.it.pp.components.functionanalyzer;
 import javax.crypto.spec.OAEPParameterSpec;
 
 public enum Operator {
-  ADD('+'), SUBTRACT('-'), DIVIDE('/'), MULTIPLY('*');
+  ADD('+'), DIVIDE('/'), MULTIPLY('*');
 
   private final char symbol;
 
@@ -15,10 +15,9 @@ public enum Operator {
     return symbol;
   }
 
-  public static Operator operatorFromSymbol(char input){
-    switch(input){
+  public static Operator operatorFromSymbol(char input) {
+    switch(input) {
       case('+'): return Operator.ADD;
-      case('-'): return Operator.SUBTRACT;
       case('*'): return Operator.MULTIPLY;
       case('/'): return Operator.DIVIDE;
       default: return null;

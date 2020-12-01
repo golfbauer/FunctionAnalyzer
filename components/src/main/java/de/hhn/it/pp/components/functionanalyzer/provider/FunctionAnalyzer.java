@@ -14,43 +14,89 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
   @Override
   public Function readFunction(String input) throws IllegalArgumentException {
+    Function res = new Function();
     input = input.replaceAll("\\s", "");
     ArrayList<String> terms = new ArrayList<>();
     int lastTerm = 0;
-    for (int i = 0; i < input.length(); i++){
-      if (input.charAt(i) == '+' || input.charAt(i) == '-' && i != 0){
-        terms.add((input.charAt(lastTerm) != '-' && input.charAt(lastTerm) != '+' ? "+" : "") +
-            input.substring(lastTerm, i));
+    for (int i = 0; i < input.length(); i++) {
+      if (input.charAt(i) == '+' || input.charAt(i) == '-' && i != 0) {
+        terms.add((input.charAt(lastTerm) != '-'
+            && input.charAt(lastTerm) != '+' ? "+" : "") + input.substring(lastTerm, i));
         lastTerm = i;
       }
     }
     terms.add(input.substring(lastTerm));
-    return null;
+    for (int i = 0; i < terms.size(); i++) {
+      FunctionElement element = getTerm(terms.get(i));
+      res.add(element);
+    }
+    return res;
   }
 
-  public FunctionElement translate(String input){
+  public FunctionElement getTerm(String input) {
     String buffer = "";
-    boolean klammer = false;
-    for(int i = 1; i < input.length(); i++) {
-      switch(input.charAt(i)){
-        case('('): klammer = true;
-        case('*'): ;
-        case('/'): ;
-        case('x'):
-          if(buffer == ""){
-            double val = 1;
-          }else {
-            Term term = new Term(new Term(1), Double.parseDouble(buffer), "x");
-          }
-        case('y'): ;
-        case('^'): ;
-        case(')'): klammer = false;
-        default: buffer += input.charAt(i);
+    double factor = 0;
+    double exponent = 1;
+    String variable = null;
+    ArrayList<String> nums = new ArrayList<>();
+    for (int i = 0; i < input.length(); i++) {
+      switch (input.charAt(i)) {
+        case('*'):
+        case('/'):
+          nums.add(buffer);
+          if (input.charAt(i + 1) == 'x') buffer = "";
+          break;
+        case('^'):
+          nums.add(buffer);
+          buffer = "";
+          break;
+        case('('):
+          nums.add("(");
+          break;
+        case(')'):
+          nums.add(")");
+          break;
+      }
+      buffer += input.charAt(i);
+      if (i == input.length() - 1 && buffer != "") {
+        nums.add(buffer);
       }
     }
 
-    return null;
+    for (int i = 0; i < nums.size(); i++) {
+      if(i == 0 && nums.get(i).contains("x")) {
+        factor = Double.parseDouble(nums.get(0).charAt(0) + "1");
+        variable = "x";
+      } else  {
+        factor = Double.parseDouble(nums.get(0));
+      }
+      if (nums.get(i).equals("/x")) {
+        variable = "x";
+        exponent = -1;
+      } else if (nums.get(i).equals("*x")) {
+        variable = "x";
+        exponent = 1;
+      }
+      if (nums.get(i).contains("^")) {
+        exponent = exponent * Double.parseDouble(nums.get(i).substring(1));
+      }
+    }
+
+    if (variable == null && exponent > 1) {
+      return new FunctionElement(new Term(new Term(exponent), factor), Operator.operatorFromSymbol('+'));
+    } else if(variable != null) {
+      return new FunctionElement(new Term(new Term(exponent), factor, variable),
+          Operator.operatorFromSymbol('+'));
+    }
+    return new FunctionElement(new Term(factor), Operator.operatorFromSymbol('+'));
   }
+
+
+
+
+
+
+
 
   @Override
   public List<Double> calculateMinima(Function f) throws ValueNotDefinedException {
