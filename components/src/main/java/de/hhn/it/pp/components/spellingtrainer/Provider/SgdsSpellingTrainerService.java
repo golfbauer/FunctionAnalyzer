@@ -268,10 +268,12 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
 
   @Override
   public SpellingTrainerDescriptor getDescriptor() {
+    logger.info("Successfully returned the descriptor.");
     return this.descriptor;
   }
 
   public ArrayList<MediaPresentationListener> getMediaPresentationListeners() {
+    logger.info("Successfully returned all media presentation listeners.");
     return this.mplisteners;
   }
 

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
@@ -126,14 +127,14 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Registers a MediaPresentationListener")
-  void testRegisterMediapresentationListener() {
+  void testRegisterMediaPresentationListener() {
     service.registerMediaPresentationListener();
     assertTrue(service.getMediaPresentationListeners().size() == 2);
   }
 
   @Test
   @DisplayName("Deregisters a MediaPresentationListener")
-  void testDeregisterMediapresentationListener() {
+  void testDeregisterMediaPresentationListener() {
     service.deregisterMediaPresentationListener(0);
     assertTrue(service.getMediaPresentationListeners().size() == 0);
   }
@@ -153,6 +154,12 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
             service.getDescriptor().getCounter("remaining") == 0),
     ()->assertTrue(service.getDescriptor().getIsLearning()) );
   }
-
+@Test
+ @DisplayName("Ending learning service ")
+ void endLearning(){
+    service.endLearning();
+    assertAll(() -> assertNull(service.getDescriptor().getActiveLearningSet()),
+        () -> assertFalse(service.getDescriptor().getIsLearning()));
+}
 
 }
