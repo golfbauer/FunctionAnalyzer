@@ -1,32 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.LearningPageController">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.LearningPageController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="400.0">
+      <HBox>
          <children>
-            <ProgressBar fx:id="progressBar" layoutX="-1.0" layoutY="8.0" prefHeight="19.0" prefWidth="641.5" progress="0.0" />
-            <HBox layoutX="27.0" layoutY="29.0" prefHeight="102.0" prefWidth="586.0" spacing="40.0">
-               <children>
-                  <Label fx:id="remainingWordsLabel" prefHeight="20.0" prefWidth="170.0" text="Remaining words:" />
-                  <Label fx:id="rightWordsLabel" prefHeight="20.0" prefWidth="170.0" text="Words spelled right:" />
-                  <Label fx:id="wrongWordsLabel" prefHeight="20.0" prefWidth="170.0" text="Words spelled wrong:" />
-               </children>
-            </HBox>
-            <Button fx:id="playAgainButton" layoutX="386.0" layoutY="150.0" mnemonicParsing="false" onAction="#handlePlayAgainButtonClick" prefHeight="40.0" prefWidth="84.0" text="Play again" />
-            <TextField fx:id="solutionTextField" layoutX="130.0" layoutY="150.0" prefHeight="40.0" prefWidth="236.0" promptText="Enter your solution" />
-            <Button fx:id="continueButton" layoutX="475.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleContinueButtonClick" prefHeight="40.0" prefWidth="150.0" text="Continue" />
-            <Button fx:id="checkSpellingButton" layoutX="130.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleCheckSpellingButtonClick" prefHeight="29.0" prefWidth="140.0" text="Check spelling" />
-            <Button fx:id="endLearningButton" layoutX="15.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleEndLearningButtonClick" prefHeight="40.0" prefWidth="150.0" text="End learning" />
-            <Button fx:id="showAnswerButton" layoutX="268.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleShowAnswerButtonClick" prefHeight="40.0" prefWidth="85.0" text="Show answer" />
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="640.0" progress="0.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </ProgressBar>
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
          </children>
-      </AnchorPane>
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox spacing="40.0">
+         <children>
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <Label fx:id="remainingWordsLabel" text="Remaining words:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightWordsLabel" text="Words spelled right:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="wrongWordsLabel" text="Words spelled wrong:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Region prefHeight="1.0" prefWidth="1.0" VBox.vgrow="ALWAYS" />
+      <HBox spacing="10.0">
+         <children>
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <VBox>
+               <children>
+                  <TextField fx:id="solutionTextField" prefHeight="40.0" prefWidth="210.0" promptText="Enter your solution" />
+                  <Button fx:id="checkSpellingButton" mnemonicParsing="false" onAction="#handleCheckSpellingButtonClick" prefHeight="29.0" prefWidth="140.0" text="Check spelling" />
+               </children>
+            </VBox>
+            <Button fx:id="playAgainButton" mnemonicParsing="false" onAction="#handlePlayAgainButtonClick" prefHeight="40.0" prefWidth="84.0" text="Play again" />
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <VBox.margin>
+            <Insets top="50.0" />
+         </VBox.margin>
+      </HBox>
+      <Region prefHeight="50.0" prefWidth="1.0" VBox.vgrow="ALWAYS" />
+      <HBox>
+         <children>
+            <Button fx:id="endLearningButton" mnemonicParsing="false" onAction="#handleEndLearningButtonClick" prefHeight="40.0" prefWidth="150.0" text="End learning">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" />
+               </HBox.margin></Button>
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="showAnswerButton" mnemonicParsing="false" onAction="#handleShowAnswerButtonClick" prefHeight="40.0" prefWidth="85.0" text="Show answer" />
+            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="continueButton" mnemonicParsing="false" onAction="#handleContinueButtonClick" prefHeight="40.0" prefWidth="150.0" text="Continue">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="10.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
    </children>
 </VBox>
