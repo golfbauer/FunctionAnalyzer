@@ -14,7 +14,7 @@
   <children>
       <StackPane>
          <children>
-            <Label prefHeight="59.0" prefWidth="487.0" text="Choose a learning set from the list below">
+            <Label prefHeight="59.0" prefWidth="500.0" text="Choose a learning set from the list below">
                <font>
                   <Font size="27.0" />
                </font>
