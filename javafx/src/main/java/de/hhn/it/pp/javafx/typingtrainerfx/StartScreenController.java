@@ -131,6 +131,7 @@ public class StartScreenController implements Initializable {
 
   /**
    * Handles onClick Event at items in list
+   * Enables btn_Start and changes lbl_SelectAText to the selected text
    * @param item -> name
    */
   public void clickOnItem(String item) {

@@ -1,5 +1,6 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
+import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -18,6 +19,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class TypingScreenController implements Initializable {
+
+  private TypingTrainerDescriptor descriptor;
 
   @FXML private Button btn_Exit;
   @FXML private Button btn_Retry;
