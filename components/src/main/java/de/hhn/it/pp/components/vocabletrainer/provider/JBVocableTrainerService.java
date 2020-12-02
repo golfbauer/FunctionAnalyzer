@@ -7,7 +7,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +14,7 @@ import java.util.List;
 public class JBVocableTrainerService implements VocableTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(JBVocableTrainerService.class);
-
-  JBVocableTrainer trainer = new JBVocableTrainer();
+  private JBVocableTrainer trainer = new JBVocableTrainer();
 
   /**
    * Returns the current score.
