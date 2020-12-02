@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="400.0">
+         <children>
+            <ProgressBar layoutX="-1.0" layoutY="8.0" prefHeight="19.0" prefWidth="641.5" progress="0.0" />
+            <HBox layoutX="27.0" layoutY="29.0" prefHeight="102.0" prefWidth="586.0" spacing="40.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="170.0" text="Remaining words:" />
+                  <Label prefHeight="20.0" prefWidth="170.0" text="Words spelled right:" />
+                  <Label prefHeight="20.0" prefWidth="170.0" text="Words spelled wrong:" />
+               </children>
+            </HBox>
+            <Button layoutX="386.0" layoutY="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="84.0" text="Play again" />
+            <TextField layoutX="130.0" layoutY="150.0" prefHeight="40.0" prefWidth="236.0" promptText="Enter your solution" />
+            <Button layoutX="475.0" layoutY="340.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Continue" />
+            <Button layoutX="130.0" layoutY="191.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="140.0" text="Check spelling" />
+            <Button layoutX="15.0" layoutY="340.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="End learning" />
+            <Button layoutX="268.0" layoutY="340.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="85.0" text="Show answer" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
