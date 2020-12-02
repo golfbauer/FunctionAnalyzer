@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.SpellingTrainerServiceController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -15,7 +15,7 @@
                   <Font size="27.0" />
                </font>
             </Label>
-            <Button layoutX="285.0" layoutY="206.0" mnemonicParsing="false" text="Start">
+            <Button fx:id="startButton" layoutX="285.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleStartButtonClick" text="Start">
                <font>
                   <Font size="21.0" />
                </font>
