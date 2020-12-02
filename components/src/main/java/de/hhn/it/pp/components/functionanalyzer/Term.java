@@ -54,7 +54,8 @@ public class Term implements FunctionElementComponent {
    *
    * @param that the term that will be added
    * @return result of the addition
-   * @throws ValueNotDefinedException if the Terms are not equal according to {@link #structurallyEqual}
+   * @throws ValueNotDefinedException if the Terms are not equal
+   *         according to {@link #structurallyEqual}
    */
   public Term add(Term that) throws ValueNotDefinedException {
     if (!this.structurallyEqual(that)) {
@@ -67,35 +68,8 @@ public class Term implements FunctionElementComponent {
     }
   }
 
-  @Override
-  public FunctionElementComponent add(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
-
-  @Override
-  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
-
-  @Override
-  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
-
-  @Override
-  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    if (functionElementComponent instanceof Term) {
-      return multiply((Term) functionElementComponent);
-    }
-    return null;
-  }
-
   /**
-   * Calculates the result of multiplying another Term with this Term.
+   * Calculates the result of multiplying this Term with another Term.
    *
    * @param that the Term that will be multiplied by
    * @return result of the multiplication
@@ -116,6 +90,11 @@ public class Term implements FunctionElementComponent {
       return new Term(this.exponent.add(that.exponent),
           this.factor * that.factor, this.variable);
     }
+  }
+
+  @Override
+  public void simplify() {
+    //todo
   }
 
   @Override

@@ -48,28 +48,10 @@ public class FunctionElement implements FunctionElementComponent {
     return builder.toString();
   }
 
-  @Override
-  public FunctionElementComponent add(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
 
   @Override
-  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
+  public void simplify() {
 
-  @Override
-  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
-  }
-
-  @Override
-  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent)
-      throws ValueNotDefinedException {
-    return null;
   }
 
   @Override
