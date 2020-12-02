@@ -37,7 +37,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public List<String> getVocCategories() {
     logger.info("getVocCategories: no params");
-    return Arrays.asList(String.valueOf(trainer.getVocCategories().toArray()));
+    return (List<String>) trainer.getVocCategories();
   }
 
   /**
