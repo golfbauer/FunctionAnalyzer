@@ -135,6 +135,26 @@ public class Term {
     return "" + value;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Term term = (Term) o;
+    return Double.compare(term.value, value) == 0 &&
+        Double.compare(term.factor, factor) == 0 &&
+        Objects.equals(exponent, term.exponent) &&
+        Objects.equals(variable, term.variable);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, exponent, factor, variable);
+  }
+
   /**
    * Checks if two Terms are equal in structure, meaning they have the same variable and exponent
    * @param that the Term to compare against
