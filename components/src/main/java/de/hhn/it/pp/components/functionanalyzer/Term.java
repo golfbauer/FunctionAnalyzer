@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import java.util.Objects;
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 
 /**
@@ -55,7 +55,7 @@ public class Term implements FunctionElementComponent {
    * @param that the term that will be added
    * @return result of the addition
    * @throws ValueNotDefinedException if the Terms are not equal
-   *         according to {@link #structurallyEqual}
+   *                                  according to {@link #structurallyEqual}
    */
   public Term add(Term that) throws ValueNotDefinedException {
     if (!this.structurallyEqual(that)) {
@@ -74,7 +74,7 @@ public class Term implements FunctionElementComponent {
    * @param that the term that will be added
    * @return result of the addition
    * @throws ValueNotDefinedException if the Terms are not equal
-   *         according to {@link #structurallyEqual}
+   *                                  according to {@link #structurallyEqual}
    */
   public Term subtract(Term that) throws ValueNotDefinedException {
     return this.add(that.multiply(new Term(-1)));
@@ -130,9 +130,41 @@ public class Term implements FunctionElementComponent {
     }
   }
 
+  public Term copy() {
+    if (this.exponent != null) {
+      return new Term(this.exponent.copy(), this.factor, this.variable);
+    } else if (this.variable != null) {
+      return new Term(null, this.factor, this.variable);
+    } else {
+      return new Term(this.value);
+    }
+  }
+
   @Override
   public void simplify() {
-    //todo
+    if (exponent != null) {
+      exponent.simplify();
+    }
+    if (variable != null) {
+      return;
+    }
+    if (!exponentHasVariable() && exponent != null) {
+      this.value = Math.pow(this.value, this.exponent.value);
+      this.exponent = null;
+    }
+  }
+
+  private boolean exponentHasVariable() {
+    boolean variableInExponent = false;
+    Term temp = this.copy();
+    while (temp.exponent != null) {
+      temp = temp.exponent;
+      if (temp.variable != null) {
+        variableInExponent = true;
+        break;
+      }
+    }
+    return variableInExponent;
   }
 
   @Override
@@ -145,6 +177,7 @@ public class Term implements FunctionElementComponent {
    *
    * @return Derivative of the Term
    */
+  @Override
   public Term getDerivative() {
     if (variable == null) {
       return null;
@@ -191,10 +224,12 @@ public class Term implements FunctionElementComponent {
 
   @Override
   public String toString() {
-    if (variable != null) {
+    if (variable != null && exponent != null) {
       return "" + factor + variable + "^" + exponent.toString();
     } else if (exponent != null) {
       return "" + value + "^" + exponent.toString();
+    } else if (variable != null) {
+      return "" + factor + variable;
     }
     return "" + value;
   }

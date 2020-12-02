@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 public class TermSpec {
   Term constant;
   Term constant2;
+  Term constantRaisedByConstant;
+  Term constantRaisedByVariable;
+  Term variableRaisedByConstants;
   Term linear;
   Term linear2;
   Term cube;
@@ -20,6 +23,9 @@ public class TermSpec {
   void init() {
     constant = new Term(4.5);
     constant2 = new Term(3);
+    constantRaisedByConstant = new Term(new Term(3), 3);
+    constantRaisedByVariable = new Term(new Term(null, 1, "x"), 2);
+    variableRaisedByConstants = new Term(new Term(new Term(2), 2), 1, "x");
     linear = new Term(new Term(1),2, "x");
     linear2 = new Term(new Term(1), 3, "x");
     cube = new Term(new Term(2), 2, "x");
@@ -135,5 +141,30 @@ public class TermSpec {
     Term actual = constant2.getDerivative();
     Term expected = null;
     assertEquals(expected, actual, "Term should be the derivative");
+  }
+
+  @Test
+  void constantRaisedByConstantIsSimplifiedToOneConstant() {
+    Term actual = constantRaisedByConstant;
+    Term expected = new Term(Math.pow(constantRaisedByConstant.getValue(),
+        constantRaisedByConstant.getExponent().getValue()));
+    actual.simplify();
+    assertEquals(expected, actual, "Value of Term should have been raised by exponent");
+  }
+
+  @Test
+  void constantRaisedByVariableIsNotSimplified() {
+    Term actual = constantRaisedByVariable;
+    Term expected = new Term(new Term(null, 1, "x"), 2);
+    actual.simplify();
+    assertEquals(expected, actual, "Term should not have been simplified");
+  }
+
+  @Test
+  void variableRaisedByConstantHasExponentSimplified() {
+    Term actual = variableRaisedByConstants;
+    Term expected = new Term(new Term(4), 1, "x");
+    actual.simplify();
+    assertEquals(expected, actual, "Only Exponent of Term should be simplified");
   }
 }
