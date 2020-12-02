@@ -1,39 +1,58 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 
 public class StartScreenController implements Initializable {
 
-  @FXML
-  Label lbl_Title;
-
+  //Startscreen Main
   @FXML
   Button btn_Start;
+  @FXML
+  Button btn_Highscore;
+  @FXML
+  Button btn_Quit;
+  @FXML
+  Label lbl_SelectAText;
+
+  @FXML
+  ListView<String> list_TextSelection;
+
+  //Highscore Panel
+  @FXML
+  Pane pane_Highscores;
+  @FXML
+  ListView<String> list_Highscores;
+  @FXML
+  Button btn_Close;
 
 
   @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) { //Wenn startet -> ändert sachen und so
-    lbl_Title.setText("penis");
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    pane_Highscores.setVisible(false);
+    lbl_SelectAText.setText("Please select a text from the list.");
   }
 
-  public void buttonClick()
-  {
-    System.out.println("asdasd");
+  public void btnClick_Start() {
+    //wurde ein text ausgewählt
+    System.out.println("Wechselt zu typingscreen");
+  }
+
+  public void btnClick_Highscore() {
+    pane_Highscores.setVisible(true);
+  }
+
+  public void btnClick_Quit() {
+    System.exit(98);
+  }
+
+  public void btnClick_Close() {
+    pane_Highscores.setVisible(false);
   }
 }

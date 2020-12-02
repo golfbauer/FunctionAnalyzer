@@ -16,7 +16,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="82.0" layoutY="174.0" prefHeight="560.0" prefWidth="420.0" spacing="10.0">
          <children>
-            <Button fx:id="btn_Start" mnemonicParsing="false" onAction="#buttonClick" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
+            <Button fx:id="btn_Start" mnemonicParsing="false" onAction="#btnClick_Start" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
@@ -26,12 +26,12 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="btn_Highscore" mnemonicParsing="false" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Highscore" textFill="#0a2463">
+            <Button fx:id="btn_Highscore" mnemonicParsing="false" onAction="#btnClick_Highscore" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Highscore" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="btn_Quit" mnemonicParsing="false" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Quit" textFill="#0a2463">
+            <Button fx:id="btn_Quit" mnemonicParsing="false" onAction="#btnClick_Quit" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Quit" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
@@ -48,18 +48,13 @@
          </font>
       </Label>
       <ScrollBar fx:id="scrollbar_TextSelection" layoutX="971.0" layoutY="173.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="23.0" style="-fx-background-color: d8315b;" />
-      <Label fx:id="lbl_SelectAText" alignment="CENTER" layoutX="392.0" layoutY="122.0" prefHeight="27.0" prefWidth="240.0" text="Select a text..." textAlignment="CENTER" textFill="#d8315b">
+      <Label fx:id="lbl_SelectAText" alignment="CENTER" layoutX="286.0" layoutY="122.0" prefHeight="27.0" prefWidth="452.0" text="Select a text..." textAlignment="CENTER" textFill="#d8315b">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Pane fx:id="pane_Highscores" layoutX="32.0" layoutY="46.0" prefHeight="675.0" prefWidth="959.0" style="-fx-background-color: #d8315b;" visible="false">
+      <Pane fx:id="pane_Highscores" layoutX="32.0" layoutY="46.0" prefHeight="675.0" prefWidth="959.0" style="-fx-background-color: #d8315b;">
          <children>
-            <Button fx:id="btn_Close" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="153.0" style="-fx-background-color: fffaff;" text="Close" textFill="#0a2463">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Button>
             <Label fx:id="lbl_TitleHighscores" alignment="CENTER" layoutX="-23.0" layoutY="-9.0" prefHeight="122.0" prefWidth="1005.0" text="Highscores" textAlignment="CENTER" textFill="#0a2463">
                <font>
                   <Font name="System Bold Italic" size="64.0" />
@@ -82,6 +77,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="btn_Close" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnClick_Close" prefHeight="55.0" prefWidth="153.0" style="-fx-background-color: fffaff;" text="Close" textFill="#0a2463">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
