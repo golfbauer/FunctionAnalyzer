@@ -1,9 +1,13 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
 import java.io.IOException;
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +34,7 @@ public class StartScreenController implements Initializable {
 
   @FXML
   ListView<String> list_TextSelection;
+  ObservableList<String> listView_TextSelection;
 
   //Highscore Panel
   @FXML
@@ -44,6 +49,41 @@ public class StartScreenController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     pane_Highscores.setVisible(false);
     lbl_SelectAText.setText("Please select a text from the list.");
+
+    //Init list_TextSelection
+    ArrayList<File> files = findTxtPracticeFiles();
+    String[] availablePracticeFiles = new String[files.size()];
+
+    for (int i = 0; i < availablePracticeFiles.length; i++) {
+      String f = files.get(i).getName();
+      availablePracticeFiles[i] = f;
+    }
+
+    listView_TextSelection = FXCollections
+        .observableArrayList(availablePracticeFiles[0], availablePracticeFiles[1],
+            availablePracticeFiles[2]);
+    list_TextSelection.setItems(listView_TextSelection);
+  }
+
+  /**
+   * Finds all .txt files in resources Folder to fill in the list in Startscreen
+   *
+   * @return
+   */
+  private ArrayList<File> findTxtPracticeFiles() {
+
+    File folder = new File("components/src/main/resources");
+    File[] listOfFiles = folder.listFiles();
+
+    ArrayList<File> files = new ArrayList<>();
+
+    for (File file : listOfFiles) {
+      if (file.isFile() && file.getName().endsWith(".txt")) {
+        files.add(file);
+      }
+    }
+
+    return files;
   }
 
   public void btnClick_Start(ActionEvent event) throws IOException {
