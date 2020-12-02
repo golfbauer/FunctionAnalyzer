@@ -25,7 +25,7 @@ public class Function extends ArrayList<FunctionElement> {
     Function derivative = new Function();
     List<Term> derivativeTerms = new ArrayList<>();
     forEach(functionElement ->
-        functionElement.getTerms().forEach(term ->
+        functionElement.getComponents().forEach(term ->
             derivative.add(new FunctionElement
                 (functionElement.getOperator(), term.getDerivative()))));
     return derivative;

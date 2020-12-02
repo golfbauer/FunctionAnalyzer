@@ -1,23 +1,21 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
-import static java.util.Collections.addAll;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class FunctionElement {
+public class FunctionElement implements FunctionElementComponent {
 
-  private List<Term> terms = new ArrayList<>();
+  private List<Term> components = new ArrayList<>();
   private Operator operator;
 
   /**
    * Combines both the Term and the operator it belongs to
-   * @param terms = single term
+   * @param components = single term
    * @param operator = its operator
    */
-  public FunctionElement(Operator operator, Term... terms) {
-    this.terms.addAll(Arrays.asList(terms));
+  public FunctionElement(Operator operator, Term... components) {
+    this.components.addAll(Arrays.asList(components));
     this.operator = operator;
   }
 
@@ -25,12 +23,12 @@ public class FunctionElement {
     this.operator = operator;
   }
 
-  public List<Term> getTerms() {
-    return terms;
+  public List<Term> getComponents() {
+    return components;
   }
 
   public void addTerm(Term term) {
-    terms.add(term);
+    components.add(term);
   }
 
   public Operator getOperator() {
@@ -41,12 +39,42 @@ public class FunctionElement {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append(operator.getSymbol());
-    if (terms.size() > 1) {                       //Notdürftige Lösung: FEs mit mehr als einem Term
-      terms.forEach(fe -> builder.append("+" + fe.toString())); //haben untereinander keine
+    if (components.size() > 1) {                       //Notdürftige Lösung: FEs mit mehr als einem Term
+      components.forEach(fe -> builder.append("+" + fe.toString())); //haben untereinander keine
     } else {                                      //Verbindung deswegen das "+" + im stream
-      terms.forEach(fe -> builder.append(fe.toString()));
+      components.forEach(fe -> builder.append(fe.toString()));
     }
     return builder.toString();
+  }
+
+  @Override
+  public FunctionElementComponent add(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public double evaluate(double variableValue) {
+    return 0;
+  }
+
+  @Override
+  public FunctionElementComponent getDerivative() {
+    return null;
   }
 }
 

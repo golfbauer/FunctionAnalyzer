@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Represent a single term inside a function.
  */
-public class Term {
+public class Term implements FunctionElementComponent {
   public static final Term E = new Term(Math.E);
   public static final Term PI = new Term(Math.PI);
 
@@ -91,12 +91,37 @@ public class Term {
     }
   }
 
+  @Override
+  public FunctionElementComponent add(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent) {
+    return null;
+  }
+
+  @Override
+  public double evaluate(double variableValue) {
+    return 0;
+  }
+
   /**
    * Calculate the Derivative of Term.
    *
    * @return Derivative of the Term
    */
-  protected Term getDerivative() {
+  public Term getDerivative() {
     return null;
   }
 
