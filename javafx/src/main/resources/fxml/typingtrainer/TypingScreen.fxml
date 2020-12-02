@@ -12,7 +12,7 @@
 
 <!--        fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.TypingScreenController"-->
 
-<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="322.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="322.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.TypingScreenController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
@@ -22,7 +22,7 @@
             <Font size="36.0" />
          </font>
       </TextField>
-      <Button layoutX="44.0" layoutY="14.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="153.0" style="-fx-background-color: fffaff;" text="Exit" textFill="#0a2463">
+      <Button fx:id="btn_Exit" layoutX="44.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnClick_Exit" prefHeight="55.0" prefWidth="153.0" style="-fx-background-color: fffaff;" text="Exit" textFill="#0a2463">
          <font>
             <Font size="36.0" />
          </font>
@@ -64,7 +64,7 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button layoutX="54.0" layoutY="379.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="338.0" style="-fx-background-color: fffaff;" text="Exit" textFill="#0a2463">
+            <Button fx:id="btn_ExitPane" layoutX="54.0" layoutY="379.0" mnemonicParsing="false" onAction="#btnClick_Exit" prefHeight="77.0" prefWidth="338.0" style="-fx-background-color: fffaff;" text="Exit" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
