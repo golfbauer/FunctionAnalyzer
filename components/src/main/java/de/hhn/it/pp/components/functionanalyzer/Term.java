@@ -1,7 +1,8 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
-import java.util.Objects;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+import java.util.Objects;
+
 
 
 /**
@@ -130,6 +131,11 @@ public class Term implements FunctionElementComponent {
     }
   }
 
+  /**
+   * Creates a copy of a Term.
+   *
+   * @return a copy of the Term
+   */
   public Term copy() {
     if (this.exponent != null) {
       return new Term(this.exponent.copy(), this.factor, this.variable);
