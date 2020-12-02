@@ -236,6 +236,13 @@ public class JbVocableTrainerService implements VocableTrainerService {
     return true;
   }
 
+  /**
+   * An algorithm for measuring the difference between two character sequences.
+   *
+   * @param userInput     word which should be compared with the original word
+   * @param checkingVocab original word to be compared with
+   * @return Integer distance between both words
+   */
   public int levenshteinDistance(String userInput, String checkingVocab) {
     logger.info("levenshteinDistance: userInput= {}, checkingVocab = {}", userInput, checkingVocab);
     userInput = userInput.toLowerCase();
