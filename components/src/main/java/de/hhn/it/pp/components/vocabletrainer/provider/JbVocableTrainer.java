@@ -20,6 +20,13 @@ public class JbVocableTrainer {
     this.score = score;
   }
 
+  /**
+   * Adds a new Category to the trainer.
+   *
+   * @param categoryName name of the new Category
+   * @param voc a vocab list for the new Category
+   * @throws VocCategoryAlreadyExistException when the Category already exist
+   */
   public void addCategory(String categoryName, List<Vocable> voc)
       throws VocCategoryAlreadyExistException {
     if (trainerData.get(categoryName) != null) {
@@ -28,6 +35,11 @@ public class JbVocableTrainer {
     trainerData.put(categoryName, voc);
   }
 
+  /**
+   * Deletes the Category with the given name.
+   * @param categoryName name of the Category which should be delete
+   * @throws VocCategoryNotFoundException when Category doesn't exist
+   */
   public void deleteCategory(String categoryName) throws VocCategoryNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException("The VocCategory could not be deleted");
@@ -35,6 +47,12 @@ public class JbVocableTrainer {
     trainerData.remove(categoryName);
   }
 
+  /**
+   * Adds the Vocable to the Category.
+   * @param categoryName name of the category
+   * @param voc Vocable which should be added
+   * @throws VocCategoryNotFoundException when Category doesn't exist
+   */
   public void addVocable(String categoryName, Vocable voc) throws VocCategoryNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException();
@@ -42,6 +60,13 @@ public class JbVocableTrainer {
     trainerData.get(categoryName).add(voc);
   }
 
+  /**
+   * Deletes a Vocab from the Category.
+   * @param categoryName name of the category
+   * @param voc Vocable which should be deleted
+   * @throws VocCategoryNotFoundException when Category doesn't exist
+   * @throws VocableNotFoundException when Vocable doesn't exist
+   */
   public void deleteVocable(String categoryName, Vocable voc)
       throws VocCategoryNotFoundException, VocableNotFoundException {
     if (trainerData.get(categoryName) == null) {
@@ -54,6 +79,12 @@ public class JbVocableTrainer {
     trainerData.get(categoryName).remove(voc);
   }
 
+  /**
+   * Return every Vocab.
+   * @param categoryName name of the Category
+   * @return vocabList
+   * @throws VocCategoryNotFoundException when Category doesn't exist
+   */
   public List<Vocable> getVocableList(String categoryName) throws VocCategoryNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException();
