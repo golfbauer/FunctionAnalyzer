@@ -18,15 +18,15 @@ public class FunctionAnalyzerSpec {
   void init(){
     functionAnalyzer = new FunctionAnalyzer();
     first = new Function(
-        new FunctionElement(new Term(new Term(-2.0), 2.0, "x"), Operator.ADD),
-        new FunctionElement(new Term(new Term(1.0), -3.0, "x"), Operator.ADD),
-        new FunctionElement(new Term(-2.0), Operator.ADD),
-        new FunctionElement(new Term(4), Operator.ADD));
+        new FunctionElement(Operator.ADD, new Term(new Term(-2.0), 2.0, "x")),
+        new FunctionElement(Operator.ADD, new Term(new Term(1.0), -3.0, "x")),
+        new FunctionElement(Operator.ADD, new Term(-2.0)),
+        new FunctionElement(Operator.ADD, new Term(4)));
   }
 
   @Test
   void functionCreatedFromString() {
-    Function function = functionAnalyzer.readFunction("2/x^2-3*x - 2 + 4");
+    Function function = functionAnalyzer.readFunction("-3^2*x^2 + 3*-5/x*(3*x+9)+16/8");
     assertEquals(first.toString(),
         function.toString(),
         () -> "Function should be created");
