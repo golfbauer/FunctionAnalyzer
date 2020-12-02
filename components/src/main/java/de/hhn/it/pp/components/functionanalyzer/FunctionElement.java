@@ -21,8 +21,16 @@ public class FunctionElement {
     this.operator = operator;
   }
 
-  public List<Term> getTerms() {
+  public FunctionElement(Operator operator) {
+    this.operator = operator;
+  }
+
+  public List<Term> getTerm() {
     return terms;
+  }
+
+  public void addTerm(Term term) {
+    terms.add(term);
   }
 
   public Operator getOperator() {
@@ -32,8 +40,12 @@ public class FunctionElement {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(operator);
-    terms.forEach(fe -> builder.append(fe.toString()));
+    builder.append(operator.getSymbol());
+    if (terms.size() > 1) {                       //Notdürftige Lösung: FEs mit mehr als einem Term
+      terms.forEach(fe -> builder.append("+" + fe.toString())); //haben untereinander keine
+    } else {                                      //Verbindung deswegen das "+" + im stream
+      terms.forEach(fe -> builder.append(fe.toString()));
+    }
     return builder.toString();
   }
 }
