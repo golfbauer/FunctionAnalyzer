@@ -54,7 +54,7 @@ public class JBVocableTrainer {
     trainerData.get(categoryName).remove(voc);
   }
 
-  public List<Vocable> getVocableList(String categoryName) {
+  public List<Vocable> getVocableList(String categoryName) throws VocCategoryNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException();
     }

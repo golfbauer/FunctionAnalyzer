@@ -7,7 +7,9 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,9 +35,9 @@ public class JBVocableTrainerService implements VocableTrainerService {
    * @return List of registered Categories
    */
   @Override
-  public List getVocCategories() {
+  public List<String> getVocCategories() {
     logger.info("getVocCategories: no params");
-    return Arrays.asList(trainer.getVocCategories().toArray());
+    return Arrays.asList(String.valueOf(trainer.getVocCategories().toArray()));
   }
 
   /**
