@@ -12,16 +12,16 @@
 
 <!--        fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.StartScreenController">-->
 
-<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="271.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="271.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.StartScreenController">
    <children>
       <VBox alignment="CENTER" layoutX="82.0" layoutY="174.0" prefHeight="560.0" prefWidth="420.0" spacing="10.0">
          <children>
-            <Button fx:id="btn_Start" mnemonicParsing="false" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
+            <Button fx:id="btn_Start" mnemonicParsing="false" onAction="#buttonClick" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="btn_AddText" mnemonicParsing="false" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Add Text" textFill="#0a2463">
+            <Button fx:id="btn_AddText" disable="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Add Text" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>

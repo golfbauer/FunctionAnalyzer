@@ -46,7 +46,7 @@ public class FileReader {
    * Splits fileContent in different words
    * @return fileContent as String[]
    */
-  public String[] GetPracticeText() {
+  public String[] getPracticeText() {
     return fileContent.split(" ");
   }
 }

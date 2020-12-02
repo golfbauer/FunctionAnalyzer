@@ -29,7 +29,7 @@
       </Button>
       <ImageView fitHeight="345.0" fitWidth="652.0" layoutX="203.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../MockupTypingTrainer/KeyboardFinger.png" />
+            <Image url="@../../../../../../components/src/main/resources/KeyboardFinger.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" layoutX="606.0" layoutY="26.0" prefHeight="53.0" prefWidth="361.0" text="Time: 00:18" textAlignment="RIGHT" textFill="#0a2463">
