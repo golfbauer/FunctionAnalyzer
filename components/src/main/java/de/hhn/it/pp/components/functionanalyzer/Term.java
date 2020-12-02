@@ -1,5 +1,8 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import java.util.Objects;
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+
 /**
  * Represent a single term inside a function
  */
@@ -43,17 +46,43 @@ public class Term {
   }
 
   /**
-   * Multiplies the Term with another Term
+   * Calculates the result of multiplying another Term with this Term
+   * @param that the Term that will be multiplied by
+   * @return result of the multiplication
+   * @throws ValueNotDefinedException if the Terms do not have the same variable
    */
-  public void multiplyBy(Term multiplier) throws IllegalArgumentException {
-
+  public Term multiplyBy(Term that) throws ValueNotDefinedException {
+    if (!Objects.equals(this.variable, that.variable) &&
+        (this.variable != null) == (that.variable != null)){
+      throw new ValueNotDefinedException("Cannot multiply Term with different variables");
+    }
+    if ((this.variable == null) && (that.variable == null)){
+      return new Term(this.value * that.value);
+    } else if (this.variable == null){
+      return new Term(that.exponent, this.value * that.factor ,that.variable);
+    } else if (that.variable == null){
+      return new Term(this.exponent, this.factor * that.value ,this.variable);
+    } else {
+      return new Term(this.exponent.add(that.exponent),
+          this.factor * that.factor, this.variable);
+    }
   }
 
   /**
-   * Adds another Term to the Term
+   * Calculates the result of adding another Term to this Term
+   * @param that the term that will be added
+   * @return result of the addition
+   * @throws ValueNotDefinedException if the Terms are not equal according to {@link #structurallyEqual}
    */
-  public void add(Term addend) throws IllegalArgumentException {
-
+  public Term add(Term that) throws ValueNotDefinedException {
+    if (!this.structurallyEqual(that)){
+      throw new ValueNotDefinedException("Cannot add Terms with different structure");
+    }
+    if (this.variable != null) {
+      return new Term(this.exponent, this.factor + that.factor, this.variable);
+    } else {
+      return new Term(this.value + that.value);
+    }
   }
 
   /**
@@ -104,6 +133,21 @@ public class Term {
       return "" + value + "^" + exponent.toString();
     }
     return "" + value;
+  }
+
+  /**
+   * Checks if two Terms are equal in structure, meaning they have the same variable and exponent
+   * @param that the Term to compare against
+   * @return {@code true} if both variable and exponents are equal {@code false} if not
+   */
+  public boolean structurallyEqual(Term that) {
+    if (this.variable != null && that.variable != null){
+      return this.variable.equals(that.variable) && this.exponent == that.exponent;
+    } else if (this.variable == null && that.variable == null) {
+      return this.exponent == that.exponent;
+    } else {
+      return false;
+    }
   }
 }
 
