@@ -1,6 +1,7 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
-import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
+import de.hhn.it.pp.components.typingtrainer.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -49,5 +50,4 @@ public class TypingScreenController implements Initializable {
     //wurde ein text ausgewählt
     System.out.println("Wechselt zu startscreen");
   }
-
 }
