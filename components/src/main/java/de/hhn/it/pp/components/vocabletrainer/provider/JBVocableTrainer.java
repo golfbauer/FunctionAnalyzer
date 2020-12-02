@@ -6,6 +6,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExist
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class JBVocableTrainer {
   private static final org.slf4j.Logger logger =
@@ -47,4 +48,7 @@ public class JBVocableTrainer {
     return trainerData.get(categoryName);
   }
 
+  public Set<String> getVocCategories(){
+    return trainerData.keySet();
+  }
 }
