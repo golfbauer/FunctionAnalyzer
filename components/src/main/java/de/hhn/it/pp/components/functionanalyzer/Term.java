@@ -69,6 +69,18 @@ public class Term implements FunctionElementComponent {
   }
 
   /**
+   * Calculates the result of subtracting another Term from this Term.
+   *
+   * @param that the term that will be added
+   * @return result of the addition
+   * @throws ValueNotDefinedException if the Terms are not equal
+   *         according to {@link #structurallyEqual}
+   */
+  public Term subtract(Term that) throws ValueNotDefinedException {
+    return this.add(that.multiply(new Term(-1)));
+  }
+
+  /**
    * Calculates the result of multiplying this Term with another Term.
    *
    * @param that the Term that will be multiplied by
@@ -181,7 +193,7 @@ public class Term implements FunctionElementComponent {
    */
   public boolean structurallyEqual(Term that) {
     if (this.variable != null && that.variable != null) {
-      return this.variable.equals(that.variable) && this.exponent == that.exponent;
+      return this.variable.equals(that.variable) && this.exponent.equals(that.exponent);
     } else if (this.variable == null && that.variable == null) {
       return this.exponent == that.exponent;
     } else {
