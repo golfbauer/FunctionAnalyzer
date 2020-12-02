@@ -25,6 +25,19 @@ public interface MathTrainer {
     void setUsername(String username) throws IllegalParameterException;
 
     /**
+     * returns current Section value
+     * @return section
+     */
+    Section getSection();
+
+    /**
+     * sets the section to the value specified in the parameter
+     * @param section
+     */
+    void setSection(Section section);
+
+
+    /**
      * returns the currently active difficulty level
      * @return difficulty
      */
@@ -92,6 +105,18 @@ public interface MathTrainer {
      * @return inturn
      */
     int getInTurn();
+
+    /**
+     * changes the boolean value of warmup
+     * @param warmupboolean
+     */
+    void setWarmup(boolean warmupboolean);
+
+    /**
+     * returns the boolean value of warmup
+     * @return warmup
+     */
+    boolean getWarmup();
 
     /**
      * adds the timebonus for fast solutions and the bonus for difficult questions to the userscore

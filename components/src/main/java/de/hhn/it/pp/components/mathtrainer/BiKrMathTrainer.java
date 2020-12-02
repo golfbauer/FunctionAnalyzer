@@ -8,50 +8,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BiKrMathTrainer implements MathTrainer {
-    private static final org.slf4j.Logger logger =
+  private static final org.slf4j.Logger logger =
             org.slf4j.LoggerFactory.getLogger(BiKrMathTrainer.class);
 
-    private String username;
-    private int userscore;
-    private Section section;
-    private Difficulty difficulty;
-    private int decimalPlace;
-    private List<String> history;
-    private boolean wantstoexit;
-    private boolean timeisup;
-    private int inturn;
+  private String username;
+  private int userscore;
+  private Section section;
+  private Difficulty difficulty;
+  private int decimalPlace;
+  private List<String> history;
+  private boolean wantstoexit;
+  private boolean timeisup;
+  private int inturn;
+  private boolean warmup;
 
-    /**
-     * Constructor to instantiate the basic functions for MathTrainer.
-     */
-    public BiKrMathTrainer() {
-        section = Section.MIXED;
-        difficulty = Difficulty.EASY;
-        decimalPlace = 0;
-        userscore = 0;
-        history = new ArrayList<>();
-        wantstoexit = false;
-        timeisup = false;
-        inturn = 0;
-        createDemoHistoryData();
-    }
+  /**
+   * Constructor to instantiate the basic functions for MathTrainer.
+   */
+  public BiKrMathTrainer() {
+    section = Section.MIXED;
+    difficulty = Difficulty.EASY;
+    decimalPlace = 0;
+    userscore = 0;
+    history = new ArrayList<>();
+    wantstoexit = false;
+    timeisup = false;
+    inturn = 0;
+    warmup = true;
+    createDemoHistoryData();
+  }
 
-    @Override
-    public void setUsername(String username) throws IllegalParameterException{
-        if(username.length() > 0){
-            this.username = username;
-        } else throw new IllegalParameterException("Bitte einen Namen mit mindestens einem Zeichen festlegen.");
+  @Override
+  public void setUsername(String username) throws IllegalParameterException {
+    if (username.length() > 0) {
+      this.username = username;
+    } else {
+      throw new IllegalParameterException("Bitte einen Namen mit mindestens einem Zeichen festlegen.");
     }
+  }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+  @Override
+  public String getUsername() {
+    return username;
+  }
 
-    @Override
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
+  @Override
+  public Difficulty getDifficulty() {
+    return difficulty;
+  }
 
     @Override
     public void setDifficulty(Difficulty difficulty) {
@@ -79,6 +83,15 @@ public class BiKrMathTrainer implements MathTrainer {
         return this.userscore;
     }
     @Override
+    public Section getSection() {
+        return this.section;
+    }
+
+    @Override
+    public void setSection(Section section) {
+        this.section = section;
+    }
+    @Override
     public void setWantsToExit(boolean exitboolean){
         this.wantstoexit = exitboolean;
     }
@@ -97,6 +110,14 @@ public class BiKrMathTrainer implements MathTrainer {
     @Override
     public int getInTurn(){
         return this.inturn;
+    }
+    @Override
+    public boolean getWarmup() {
+      return this.warmup;
+    }
+    @Override
+    public void setWarmup(boolean warmupboolean) {
+      this.warmup = warmupboolean;
     }
     @Override
     public void addToUserScore(int timebonus) throws IllegalParameterException{
