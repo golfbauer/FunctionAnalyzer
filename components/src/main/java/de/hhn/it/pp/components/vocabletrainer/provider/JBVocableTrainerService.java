@@ -233,7 +233,22 @@ public class JBVocableTrainerService implements VocableTrainerService {
   }
 
   public int levenshteinDistance(String word1, String word2) {
-
-    return -1;
+    word1 = word1.toLowerCase();
+    word2 = word2.toLowerCase();
+    // i == 0
+    int [] costs = new int [word2.length() + 1];
+    for (int j = 0; j < costs.length; j++)
+      costs[j] = j;
+    for (int i = 1; i <= word1.length(); i++) {
+      // j == 0; nw = lev(i - 1, j)
+      costs[0] = i;
+      int nw = i - 1;
+      for (int j = 1; j <= word2.length(); j++) {
+        int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]), word1.charAt(i - 1) == word2.charAt(j - 1) ? nw : nw + 1);
+        nw = costs[j];
+        costs[j] = cj;
+      }
+    }
+    return costs[word2.length()];
   }
 }
