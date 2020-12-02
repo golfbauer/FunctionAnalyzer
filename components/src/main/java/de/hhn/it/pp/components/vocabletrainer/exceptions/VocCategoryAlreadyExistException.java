@@ -10,7 +10,6 @@ public class VocCategoryAlreadyExistException extends Exception {
    * call to {@link #initCause}.
    */
   public VocCategoryAlreadyExistException() {
-
   }
 
   /**

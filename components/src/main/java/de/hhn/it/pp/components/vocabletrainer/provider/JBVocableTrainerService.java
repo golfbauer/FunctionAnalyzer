@@ -141,10 +141,11 @@ public class JBVocableTrainerService implements VocableTrainerService {
         newCategoryName);
     try {
       trainer.addCategory(newCategoryName, trainer.getVocableList(oldCategoryName));
-      trainer.deleteCategory(oldCategoryName);
     } catch (VocCategoryAlreadyExistException e) {
       e.printStackTrace();
     }
+    trainer.deleteCategory(oldCategoryName);
+
   }
 
   /**
@@ -201,9 +202,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throw new TranslationIsEmptyException("Translation is Empty!");
     }
     Vocable vocEdit = new Vocable(learningWord, translations);
-    trainer.deleteVocable(category, vocEdit);
-    trainer.getVocableList(category).get(id).setLearningWord(learningWord);
-    trainer.getVocableList(category).get(id).setTranslations(translations);
+    trainer.addVocable(category, vocEdit);
+    trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
   }
 
   /**
@@ -232,25 +232,26 @@ public class JBVocableTrainerService implements VocableTrainerService {
     return true;
   }
 
-  public int levenshteinDistance(String word1, String word2) {
-    word1 = word1.toLowerCase();
-    word2 = word2.toLowerCase();
+  public int levenshteinDistance(String userInput, String checkingVocab) {
+    logger.info("levenshteinDistance: userInput= {}, checkingVocab = {}", userInput, checkingVocab);
+    userInput = userInput.toLowerCase();
+    checkingVocab = checkingVocab.toLowerCase();
     // i == 0
-    int[] costs = new int[word2.length() + 1];
+    int[] costs = new int[checkingVocab.length() + 1];
     for (int j = 0; j < costs.length; j++) {
       costs[j] = j;
     }
-    for (int i = 1; i <= word1.length(); i++) {
+    for (int i = 1; i <= userInput.length(); i++) {
       // j == 0; nw = lev(i - 1, j)
       costs[0] = i;
       int nw = i - 1;
-      for (int j = 1; j <= word2.length(); j++) {
+      for (int j = 1; j <= checkingVocab.length(); j++) {
         int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]),
-            word1.charAt(i - 1) == word2.charAt(j - 1) ? nw : nw + 1);
+            userInput.charAt(i - 1) == checkingVocab.charAt(j - 1) ? nw : nw + 1);
         nw = costs[j];
         costs[j] = cj;
       }
     }
-    return costs[word2.length()];
+    return costs[checkingVocab.length()];
   }
 }
