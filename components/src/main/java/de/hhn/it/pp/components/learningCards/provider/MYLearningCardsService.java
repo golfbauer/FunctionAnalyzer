@@ -26,9 +26,10 @@ public class MYLearningCardsService implements LearningCardsService {
         }
     }
 
+
     @Override
     public int getNumberOfCardsets() {
-        return learningCardManager.getAllCardsIds().size();
+        return learningCardManager.getCardsetIds().size();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class MYLearningCardsService implements LearningCardsService {
     public void addCardToCardset(int cardsetId, int cardId) throws CardsetNotFoundException, CardNotFoundException {
         if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
-        if(!learningCardManager.getAllCardsIds().contains(cardsetId))
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
             throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
 
         learningCardManager.getCardset(cardsetId).addCardtoSet(learningCardManager.getCardFromCol(cardId));
@@ -73,6 +74,8 @@ public class MYLearningCardsService implements LearningCardsService {
 
     @Override
     public int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ, String cardTextA) throws CardsetNotFoundException {
+        if(!learningCardManager.getCardsetIds().contains(cardsetId))
+            throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
         return learningCardManager.newCard(cardsetId, cardHeadline, cardTextA, cardTextQ);
     }
 
@@ -87,7 +90,7 @@ public class MYLearningCardsService implements LearningCardsService {
 
     @Override
     public void deleteCard(int cardId) throws CardNotFoundException {
-        if(learningCardManager.getAllCardsIds().contains(cardId))
+        if(!learningCardManager.getAllCardsIds().contains(cardId))
             throw new CardNotFoundException("there is no Card with ID " + cardId);
         learningCardManager.removeCardFromCol(cardId);
 

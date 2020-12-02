@@ -97,7 +97,7 @@ public class Card {
    * 
    * @return questiontext
    */
-  String getTextQ() {
+  public String getTextQ() {
     return textQ;
   }
 
@@ -106,7 +106,7 @@ public class Card {
    * 
    * @return textA of card
    */
-  String getTextA() {
+  public String getTextA() {
     return textA;
   }
 
@@ -136,7 +136,7 @@ public class Card {
    * 
    * @return status of card
    */
-  Status getStatus() {
+  public Status getStatus() {
     return status;
   }
 

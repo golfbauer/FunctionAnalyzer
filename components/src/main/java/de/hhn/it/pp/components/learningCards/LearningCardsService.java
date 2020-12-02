@@ -14,6 +14,7 @@ public interface LearningCardsService {
      */
     void addCardsets(Cardset... newCardsets);
 
+
     /**
      * @return the number of added cardsets
      */
@@ -157,11 +158,47 @@ public interface LearningCardsService {
      */
     void stopLearningSession();
 
+
+    /**
+     * Returns a list of added cardset IDs
+     *
+     * @return List of id of added cardsets
+     */
     List<Integer> getCardsetIds();
+
+    /**
+     * Returns a list of added card IDs
+     *
+     * @return List of id of added cards
+     */
     List<Integer> getCardsIds();
+
+    /**
+     * Returns a list of added cardsets
+     *
+     * @return List of added cardsets
+     */
     List<Cardset> getCardsets();
+
+    /**
+     * Returns a list of added cards
+     *
+     * @return List of added cards
+     */
     List<Card> getCards();
-    Cardset getCardset(int i);
-    Card getCardFromCol(int i);
+
+    /**
+     * Returns a cardset according to its ID
+     *
+     * @return a cardset
+     */
+    Cardset getCardset(int cardsetID);
+
+    /**
+     * Returns a card according to its ID
+     *
+     * @return a card
+     */
+    Card getCardFromCol(int cardID);
 
 }

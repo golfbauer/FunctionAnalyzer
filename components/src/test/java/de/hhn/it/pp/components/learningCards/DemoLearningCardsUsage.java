@@ -11,8 +11,6 @@ public class DemoLearningCardsUsage {
     public static void main(String[] args) throws CardsetNotFoundException, CardNotFoundException {
 
         LearningCardsService service = new LearningCardsService() {
-
-
             @Override
             public void addCardsets(Cardset... newCardsets) {
 
@@ -119,12 +117,12 @@ public class DemoLearningCardsUsage {
             }
 
             @Override
-            public Cardset getCardset(int i) {
+            public Cardset getCardset(int cardsetID) {
                 return null;
             }
 
             @Override
-            public Card getCardFromCol(int i) {
+            public Card getCardFromCol(int cardID) {
                 return null;
             }
         };

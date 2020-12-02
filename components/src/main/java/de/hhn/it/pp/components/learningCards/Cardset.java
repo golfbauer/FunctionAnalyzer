@@ -81,7 +81,7 @@ public class Cardset {
    * 
    * @return all ids of all cards in cardset in a list
    */
-  List<Integer> getCardIds() {
+  public List<Integer> getCardIds() {
     List<Integer> results = new ArrayList<Integer>();
     Collection<Card> cards = cardset.values();
     for (Card card : cards) {
