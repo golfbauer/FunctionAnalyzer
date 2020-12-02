@@ -7,9 +7,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -127,7 +124,7 @@ public class JBVocableTrainerService implements VocableTrainerService {
   public void removeVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
     logger.info("removeVocable: id = {}, category = {}", id, category);
-    trainer.getVocableList(category).remove(id);
+    trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
   }
 
   /**
