@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="150.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="150.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.AnswerPopUpPageController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="21.0" layoutY="48.0" prefHeight="30.0" prefWidth="143.0" text="The correct answer is:" />
-            <Button layoutX="91.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="61.0" text="Close" />
+            <Label fx:id="correctAnswerLabel" layoutX="21.0" layoutY="48.0" prefHeight="30.0" prefWidth="143.0" text="The correct answer is:" />
+            <Button fx:id="closeButton" layoutX="91.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleCloseButtonClick" prefHeight="17.0" prefWidth="61.0" text="Close" />
          </children>
     </AnchorPane>
   </children>
