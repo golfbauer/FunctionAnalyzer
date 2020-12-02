@@ -1,7 +1,6 @@
 package de.hhn.it.pp.components.functionanalyzer.provider;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +28,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
               Operator.operatorFromSymbol(functionString.get(i - 1).charAt(0)));
           int j;
           for (j = i + 1; !functionString.get(j).equals(")"); j++) {
-            temp.addTerm(getTerm(functionString.get(j)));
+            temp.addFunctionElementComponent(getTerm(functionString.get(j)));
           }
           result.add(temp);
           i = j;
