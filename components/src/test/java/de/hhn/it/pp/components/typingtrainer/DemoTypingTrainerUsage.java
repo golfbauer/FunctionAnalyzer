@@ -93,7 +93,7 @@ public class DemoTypingTrainerUsage {
     Feedback feedback = new Feedback(0,0);
 
     FileReader fileReader = new FileReader();
-    String[] selectedText = fileReader.GetPracticeText(); //for later: depends on what button was clicked (use other constructor)
+    String[] selectedText = fileReader.getPracticeText(); //for later: depends on what button was clicked (use other constructor)
     PracticeText practiceText = new PracticeText(selectedText);
 
     TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor(audioWrongWord, feedback,practiceText);
