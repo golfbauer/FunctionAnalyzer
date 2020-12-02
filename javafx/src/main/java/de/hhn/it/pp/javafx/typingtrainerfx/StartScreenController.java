@@ -35,6 +35,7 @@ public class StartScreenController implements Initializable {
   Button btn_Quit;
   @FXML
   Label lbl_SelectAText;
+  private String selectedText = "";
 
   @FXML
   ListView<String> list_TextSelection;
@@ -102,20 +103,26 @@ public class StartScreenController implements Initializable {
   }
 
   //region Button methods
+
+  /**
+   * erstellt descriptor in typingscreencontroller
+   * @param event
+   * @throws IOException
+   */
   public void btnClick_Start(ActionEvent event) throws IOException {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
+    Parent tableViewParent = loader.load();
 
-    Parent typingScreenParent =
-        FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
-    Scene typingScreenScene = new Scene(typingScreenParent);
+    Scene tableViewScene = new Scene(tableViewParent);
 
-    //Stage Info
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    TypingScreenController controller = loader.getController();
+    controller.initData(selectedText);
 
-    window.setScene(typingScreenScene);
+    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+    window.setScene(tableViewScene);
     window.show();
-
-    //wurde ein text ausgewählt
-    System.out.println("Wechselt zu typingscreen");
   }
 
   public void btnClick_Highscore() {
@@ -138,6 +145,7 @@ public class StartScreenController implements Initializable {
    */
   public void clickOnItem(String item) {
     lbl_SelectAText.setText(item);
+    selectedText = item;
     //Set PRACTICETEXT
     btn_Start.setDisable(false);
   }

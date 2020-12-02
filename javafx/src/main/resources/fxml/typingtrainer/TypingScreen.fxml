@@ -17,7 +17,7 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <children>
-      <TextField layoutX="44.0" layoutY="349.0" prefHeight="111.0" prefWidth="924.0" style="-fx-background-color: fffaff;" text="tex">
+      <TextField id="textfield_typedText" fx:id="textfield_typedText" layoutX="44.0" layoutY="349.0" prefHeight="111.0" prefWidth="924.0" style="-fx-background-color: fffaff;" text="tex">
          <font>
             <Font size="36.0" />
          </font>
@@ -32,34 +32,34 @@
             <Image url="@../../../../../../components/src/main/resources/KeyboardFinger.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="606.0" layoutY="26.0" prefHeight="53.0" prefWidth="361.0" text="Time: 00:18" textAlignment="RIGHT" textFill="#0a2463">
+      <Label id="lbl_Time" fx:id="lbl_Time" alignment="CENTER" layoutX="606.0" layoutY="26.0" prefHeight="53.0" prefWidth="361.0" text="Time: 00:18" textAlignment="RIGHT" textFill="#0a2463">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField layoutX="44.0" layoutY="98.0" prefHeight="240.0" prefWidth="924.0" style="-fx-background-color: fffaff;" text="text 12 sdk soa">
+      <TextField id="textfield_practiceText" fx:id="textfield_practiceText" disable="true" layoutX="44.0" layoutY="98.0" prefHeight="240.0" prefWidth="924.0" style="-fx-background-color: fffaff;" text="text 12 sdk soa">
          <font>
             <Font size="36.0" />
          </font>
       </TextField>
-      <Pane layoutX="283.0" layoutY="91.0" prefHeight="517.0" prefWidth="445.0" style="-fx-background-color: d8315b;" visible="false">
+      <Pane fx:id="pane_Score" layoutX="283.0" layoutY="91.0" prefHeight="517.0" prefWidth="445.0" style="-fx-background-color: d8315b;">
          <children>
             <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="53.0" prefWidth="430.0" text="Score" textFill="#0a2463">
                <font>
                   <Font name="System Bold" size="64.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="8.0" layoutY="197.0" prefHeight="53.0" prefWidth="430.0" text="WPM: 27" textFill="#0a2463">
+            <Label id="lbl_WPM" fx:id="lbl_FeedbackWPM" alignment="CENTER" layoutX="8.0" layoutY="197.0" prefHeight="53.0" prefWidth="430.0" text="WPM: 27" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="8.0" layoutY="123.0" prefHeight="53.0" prefWidth="430.0" text="Time: 00:18" textFill="#0a2463">
+            <Label fx:id="lbl_FeedbackTime" alignment="CENTER" layoutX="8.0" layoutY="123.0" prefHeight="53.0" prefWidth="430.0" text="Time: 00:18" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button layoutX="54.0" layoutY="281.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="338.0" style="-fx-background-color: fffaff;" text="Retry" textFill="#0a2463">
+            <Button fx:id="btn_Retry" layoutX="54.0" layoutY="281.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="338.0" style="-fx-background-color: fffaff;" text="Retry" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
