@@ -38,7 +38,7 @@ public class PracticeText {
 
   public void increaseCurrentWordIndex()
   {
-    this.currentWordIndex++;
+    ++currentWordIndex;
   }
 
   public String getWordAtIndex(int index)
