@@ -10,10 +10,10 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundExceptio
 import java.util.HashMap;
 import java.util.List;
 
-public class JBVocableTrainerService implements VocableTrainerService {
+public class JbVocableTrainerService implements VocableTrainerService {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(JBVocableTrainerService.class);
-  private JBVocableTrainer trainer = new JBVocableTrainer();
+      org.slf4j.LoggerFactory.getLogger(JbVocableTrainerService.class);
+  private JbVocableTrainer trainer = new JbVocableTrainer();
 
   /**
    * Returns the current score.

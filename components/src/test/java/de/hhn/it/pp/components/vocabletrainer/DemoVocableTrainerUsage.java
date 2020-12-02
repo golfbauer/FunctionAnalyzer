@@ -4,7 +4,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import de.hhn.it.pp.components.vocabletrainer.provider.JBVocableTrainerService;
+import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +14,8 @@ public class DemoVocableTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
   public static void main(String[] args) {
-    JBVocableTrainerService jbVocableTrainerService =
-        new JBVocableTrainerService(); // new vocableTrainer instance
+    JbVocableTrainerService jbVocableTrainerService =
+        new JbVocableTrainerService(); // new vocableTrainer instance
     LearningState learningState = new LearningState();
     List<Vocable> carVocabulary =
         new ArrayList<>(); // new vocabulary list for the car category

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class JBVocableTrainer {
+public class JbVocableTrainer {
   private HashMap<String, List<Vocable>> trainerData = new HashMap<>();
   private int score;
 
