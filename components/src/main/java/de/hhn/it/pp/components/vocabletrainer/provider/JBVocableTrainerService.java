@@ -109,6 +109,9 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocCategoryNotFoundException, TranslationIsEmptyException {
     logger.info("addVocable: learningWord = {}, translations = {}, category = {}", learningWord,
         translations, category);
+    if (translations.length == 0) {
+      throw new TranslationIsEmptyException("Translation is Empty!");
+    }
     trainer.getVocableList(category).add(new Vocable(learningWord, translations));
   }
 
