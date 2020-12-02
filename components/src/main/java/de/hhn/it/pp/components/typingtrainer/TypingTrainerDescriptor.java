@@ -14,14 +14,13 @@ public class TypingTrainerDescriptor {
   private Feedback feedback;
   private PracticeText practiceText;
   private String[] typedWords; //words that user typed
-  private int crntIndex;
 
   public TypingTrainerDescriptor(File audioWrongWord, Feedback feedback, PracticeText selectedText)
   {
     this.audioWrongWord = audioWrongWord;
     this.feedback = feedback;
     this.practiceText = selectedText;
-    this.crntIndex = 0;
+    this.typedWords = new String[selectedText.getText().length];
   }
 
   public String[] getTypedWords() {
@@ -45,7 +44,7 @@ public class TypingTrainerDescriptor {
   public void addTypedWords(String word, int index)
   {
     //if(!word.equals(" ")) {word.strip();} //löscht das leerzeichen falls eins im wort ist}
-    typedWords[index] = typedWords[index].concat(word);
+    typedWords[index] = word;
     System.out.println("Hinzugefügt: "+word);
   }
 

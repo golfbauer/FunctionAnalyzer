@@ -1,16 +1,18 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
-import de.hhn.it.pp.components.typingtrainer.*;
-
+import de.hhn.it.pp.components.typingtrainer.Feedback;
+import de.hhn.it.pp.components.typingtrainer.FileReader;
+import de.hhn.it.pp.components.typingtrainer.PracticeText;
+import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
+import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,24 +22,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class TypingScreenController implements Initializable,TypingTrainerService {
+public class TypingScreenController implements Initializable, TypingTrainerService {
 
   private TypingTrainerDescriptor descriptor; //TEST
 
-  @FXML private Button btn_Exit;
-  @FXML private Button btn_Retry;
+  @FXML
+  private Button btn_Exit;
+  @FXML
+  private Button btn_Retry;
 
-  @FXML private Label lbl_Time;
-  @FXML private TextField textfield_practiceText;
-  @FXML private TextField textfield_typedText;
+  @FXML
+  private Label lbl_Time;
+  @FXML
+  private TextField textfield_practiceText;
+  @FXML
+  private TextField textfield_typedText;
 
-  @FXML private Pane pane_Score;
-  @FXML private Label lbl_FeedbackTime;
-  @FXML private Label lbl_FeedbackWPM;
+  @FXML
+  private Pane pane_Score;
+  @FXML
+  private Label lbl_FeedbackTime;
+  @FXML
+  private Label lbl_FeedbackWPM;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,6 +56,15 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
     textfield_typedText.setText("");
     lbl_FeedbackTime.setText("--:--");
     lbl_FeedbackWPM.setText("--:--");
+
+    textfield_typedText.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getCode().isWhitespaceKey()) {
+          userInput();
+        }
+      }
+    });
   }
 
   //region Init Methods
@@ -55,7 +74,7 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
     File audioWrongWord = new File("sound_wrongWord.mp3");
 
     //Feedback holen
-    Feedback feedback = new Feedback(0,0);
+    Feedback feedback = new Feedback(0, 0);
 
     //PracticeText holen
     FileReader fileReader = new FileReader(item);
@@ -71,26 +90,28 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
 
   /**
    * Converts String[] to a single String to initialize the textbox
+   *
    * @param arrayText String[] that should be converted
    * @return single String of arrayText
    */
-  private String singleString(String[] arrayText)
-  {
+  private String singleString(String[] arrayText) {
     StringBuffer sb = new StringBuffer();
-    for(int i = 0; i < arrayText.length; i++) {
-      sb.append(arrayText[i]+" ");
+    for (int i = 0; i < arrayText.length; i++) {
+      sb.append(arrayText[i] + " ");
     }
     return sb.toString();
   }
   //endregion
 
+  //IST IN INTERFACE = QUIT SESSION. MUSS GEÄNDERT WERDEN :)
   public void btnClick_Exit(ActionEvent event) throws IOException {
 
-    Parent typingScreenParent = FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/StartScreen.fxml"));
+    Parent typingScreenParent =
+        FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/StartScreen.fxml"));
     Scene typingScreenScene = new Scene(typingScreenParent);
 
     //Stage Info
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
     window.setScene(typingScreenScene);
     window.show();
@@ -99,7 +120,12 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
     System.out.println("Wechselt zu startscreen");
   }
 
+  public String[] splitText(String text) {
+    return text.split(" ");
+  }
+
   //region TypingTrainerService Interface
+
   /**
    * Checks if a word is written correctly and calls markWord to either mark the current Word or marks the correct Word
    *
@@ -109,7 +135,14 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
    */
   @Override
   public boolean checkWord(String word, int index) {
-    return false;
+    boolean ret = false;
+    String wordPT = descriptor.getPracticeText().getWordAtIndex(index);
+
+    //Debug
+    System.out.println("word = "+word);
+    System.out.println("PT = "+wordPT);
+
+    return word.equals(wordPT) ? true : false;
   }
 
   /**
@@ -161,7 +194,22 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
    */
   @Override
   public void userInput() {
+    //das vom label 1 + 2
+    String[] typedWordsTxtf = splitText(textfield_typedText.getText());
+    //überprüfen mit typedWords[currentIndex]
+    int currentIndex = descriptor.getPracticeText().getCurrentWordIndex();
+    descriptor.addTypedWords(typedWordsTxtf[currentIndex], currentIndex);
 
+
+    if (checkWord(descriptor.getTypedWordsAtIndex(currentIndex), currentIndex)) {
+      markWord(currentIndex, Color.GREEN);
+      System.out.println("RICHTIG");
+    } else {
+      markWord(currentIndex, Color.RED);
+      System.out.println("FALSCHÖ");
+    }
+
+    descriptor.getPracticeText().increaseCurrentWordIndex();
   }
 
   /**
@@ -183,7 +231,13 @@ public class TypingScreenController implements Initializable,TypingTrainerServic
    */
   @Override
   public void markWord(int index, Color color) {
+    if (color.equals(Color.GREEN)) {
+      textfield_typedText.setStyle("-fx-text-fill: #008000");
+    } else {
+      textfield_typedText.setStyle("-fx-text-fill: #ff0000");
+    }
 
+    System.out.println("MARKED " + color);
   }
 
   /**
