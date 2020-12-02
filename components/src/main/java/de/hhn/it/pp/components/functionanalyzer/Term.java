@@ -104,6 +104,32 @@ public class Term implements FunctionElementComponent {
     }
   }
 
+  /**
+   * Calculates the result of dividing this Term with another Term.
+   *
+   * @param that the Term that will be divided by
+   * @return result of the division
+   * @throws ValueNotDefinedException if the Terms do not have the same variable
+   */
+  public Term divide(Term that) throws ValueNotDefinedException {
+    if (this.variable == null && that.variable == null) {
+      return new Term(this.value / that.value);
+    } else if (this.variable != null && that.variable != null) {
+      double fac = this.factor / that.factor;
+      Term exp = this.exponent.subtract(that.exponent);
+      if (exp.factor == 0) {
+        return new Term(fac);
+      } else {
+        return new Term(exp, fac, this.variable);
+      }
+    } else if (this.variable != null) {
+      return new Term(this.exponent, this.factor / that.value, this.variable);
+    } else {
+      return new Term(that.exponent.multiply(new Term(-1)),
+          this.value / that.factor, that.variable);
+    }
+  }
+
   @Override
   public void simplify() {
     //todo

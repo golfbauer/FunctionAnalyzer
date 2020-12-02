@@ -78,4 +78,48 @@ public class TermSpec {
           "Should throw ValueNotDefinedException");
     }
   }
+
+  @Test
+  void constantsAreMultipliedByValue() throws ValueNotDefinedException {
+    Term actual = constant.multiply(constant2);
+    Term expected = new Term(13.5);
+    assertEquals(expected, actual, "Constants should have been multiplied");
+  }
+
+  @Test
+  void constantsAndVariableTermsAreMultipliedByFactor() throws ValueNotDefinedException {
+    Term actual = constant2.multiply(linear);
+    Term expected = new Term(new Term(1), 6, "x");
+    assertEquals(expected, actual, "Terms should have been multiplied by factor");
+  }
+
+  @Test
+  void variableTermsAreMultipliedByFactorAndAddedExponent() throws ValueNotDefinedException {
+    Term actual = linear.multiply(linear2);
+    Term expected = new Term(new Term(2), 6, "x");
+    assertEquals(expected, actual, "Terms should have been multiplied by factor "
+        + "and added exponent");
+  }
+
+  @Test
+  void constantsAreDividedByValue() throws ValueNotDefinedException {
+    Term actual = constant.divide(constant2);
+    Term expected = new Term(1.5);
+    assertEquals(expected, actual, "Constants should have been multiplied");
+  }
+
+  @Test
+  void constantsAndVariableTermsAreDividedByFactor() throws ValueNotDefinedException {
+    Term actual = linear.divide(constant2);
+    Term expected = new Term(new Term(1), 2.0 / 3.0, "x");
+    assertEquals(expected, actual, "Terms should have been multiplied by factor");
+  }
+
+  @Test
+  void variableTermsAreDividedByFactorAndSubtractedExponent() throws ValueNotDefinedException {
+    Term actual = linear.divide(linear2);
+    Term expected = new Term(2.0 / 3.0);
+    assertEquals(expected, actual, "Terms should have been multiplied by factor "
+        + "and added exponent");
+  }
 }
