@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.functionanalyzer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 public class FunctionElement implements FunctionElementComponent {
 
@@ -48,22 +49,26 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   @Override
-  public FunctionElementComponent add(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent add(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 

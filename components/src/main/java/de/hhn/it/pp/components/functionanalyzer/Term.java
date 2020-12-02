@@ -50,30 +50,6 @@ public class Term implements FunctionElementComponent {
   }
 
   /**
-   * Calculates the result of multiplying another Term with this Term.
-   *
-   * @param that the Term that will be multiplied by
-   * @return result of the multiplication
-   * @throws ValueNotDefinedException if the Terms do not have the same variable
-   */
-  public Term multiplyBy(Term that) throws ValueNotDefinedException {
-    if (!Objects.equals(this.variable, that.variable)
-        && (this.variable != null) == (that.variable != null)) {
-      throw new ValueNotDefinedException("Cannot multiply Term with different variables");
-    }
-    if ((this.variable == null) && (that.variable == null)) {
-      return new Term(this.value * that.value);
-    } else if (this.variable == null) {
-      return new Term(that.exponent, this.value * that.factor, that.variable);
-    } else if (that.variable == null) {
-      return new Term(this.exponent, this.factor * that.value, this.variable);
-    } else {
-      return new Term(this.exponent.add(that.exponent),
-          this.factor * that.factor, this.variable);
-    }
-  }
-
-  /**
    * Calculates the result of adding another Term to this Term.
    *
    * @param that the term that will be added
@@ -92,23 +68,54 @@ public class Term implements FunctionElementComponent {
   }
 
   @Override
-  public FunctionElementComponent add(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent add(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent subtract(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent divide(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
     return null;
   }
 
   @Override
-  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent) {
+  public FunctionElementComponent multiply(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException {
+    if (functionElementComponent instanceof Term) {
+      return multiply((Term) functionElementComponent);
+    }
     return null;
+  }
+
+  /**
+   * Calculates the result of multiplying another Term with this Term.
+   *
+   * @param that the Term that will be multiplied by
+   * @return result of the multiplication
+   * @throws ValueNotDefinedException if the Terms do not have the same variable
+   */
+  public Term multiply(Term that) throws ValueNotDefinedException {
+    if (!Objects.equals(this.variable, that.variable)
+        && (this.variable != null) == (that.variable != null)) {
+      throw new ValueNotDefinedException("Cannot multiply Term with different variables");
+    }
+    if ((this.variable == null) && (that.variable == null)) {
+      return new Term(this.value * that.value);
+    } else if (this.variable == null) {
+      return new Term(that.exponent, this.value * that.factor, that.variable);
+    } else if (that.variable == null) {
+      return new Term(this.exponent, this.factor * that.value, this.variable);
+    } else {
+      return new Term(this.exponent.add(that.exponent),
+          this.factor * that.factor, this.variable);
+    }
   }
 
   @Override

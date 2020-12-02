@@ -1,14 +1,20 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+
 public interface FunctionElementComponent {
 
-  FunctionElementComponent add(FunctionElementComponent functionElementComponent);
+  FunctionElementComponent add(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException;
 
-  FunctionElementComponent subtract(FunctionElementComponent functionElementComponent);
+  FunctionElementComponent subtract(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException;
 
-  FunctionElementComponent divide(FunctionElementComponent functionElementComponent);
+  FunctionElementComponent divide(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException;
 
-  FunctionElementComponent multiply(FunctionElementComponent functionElementComponent);
+  FunctionElementComponent multiply(FunctionElementComponent functionElementComponent)
+      throws ValueNotDefinedException;
 
   double evaluate(double variableValue);
 
