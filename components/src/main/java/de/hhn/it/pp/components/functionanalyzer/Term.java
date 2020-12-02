@@ -146,7 +146,15 @@ public class Term implements FunctionElementComponent {
    * @return Derivative of the Term
    */
   public Term getDerivative() {
-    return null;
+    if (variable == null) {
+      return null;
+    } else {
+      if (exponent.value <= 1) {
+        return new Term(factor);
+      } else {
+        return new Term(new Term(exponent.value - 1), exponent.value * factor, variable);
+      }
+    }
   }
 
   public double getValue() {
