@@ -40,11 +40,8 @@ public class FunctionElement implements FunctionElementComponent {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append(operator.getSymbol());
-    if (components.size() > 1) {                       //Notdürftige Lösung: FEs mit mehr als einem Term
-      components.forEach(fe -> builder.append("+" + fe.toString())); //haben untereinander keine
-    } else {                                      //Verbindung deswegen das "+" + im stream
       components.forEach(fe -> builder.append(fe.toString()));
-    }
+
     return builder.toString();
   }
 
@@ -60,8 +57,27 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   @Override
-  public FunctionElementComponent getDerivative() {
-    return null;
+  public FunctionElement getDerivative() {
+    FunctionElement result = new FunctionElement(operator);
+    if (components.get(0) instanceof FunctionElement) {
+      for (int i = 0; i < components.size(); i++) {
+        result.addFunctionElementComponent(components.get(i).getDerivative());
+      }
+    } else if (components.get(0) instanceof Term) {
+      for (int j = 0; j < components.size(); j++) {
+        if (components.get(j).getDerivative() != null) {
+          result.addFunctionElementComponent(components.get(j).getDerivative());
+        } else if(components.size() == 1) {
+          return null;
+        }
+      }
+    }
+    for(int i = 0; i < result.components.size(); i++) {
+      if (result.components.get(i) == null) {
+        result.components.remove(i);
+      }
+    }
+    return result;
   }
 }
 
