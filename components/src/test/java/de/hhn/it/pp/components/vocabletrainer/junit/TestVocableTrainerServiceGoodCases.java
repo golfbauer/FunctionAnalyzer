@@ -1,5 +1,12 @@
 package de.hhn.it.pp.components.vocabletrainer.junit;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import de.hhn.it.pp.components.example.coffeemakerservice.junit.TestCoffeeMakerServiceGoodCases;
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
@@ -9,6 +16,7 @@ import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,15 +27,15 @@ public class TestVocableTrainerServiceGoodCases {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(TestCoffeeMakerServiceGoodCases.class);
 
-  JbVocableTrainerService jbVocableTrainerService;
-  JbVocableTrainer jbVocableTrainer;
-  LearningState learningState;
 
+  LearningState learningState;
+  JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
 
   @BeforeEach
-  void setup() throws VocCategoryAlreadyExistException {
-    List<Vocable> testList = new ArrayList<>();
+  void setUp() throws VocCategoryAlreadyExistException {
 
+
+    List<Vocable> testList = new ArrayList<>();
     testList.add(
         new Vocable("Auto", new String[] {"car", "vehicle", "motorcar", "automobile", "auto"}));
     testList.add(new Vocable("Spiegel", new String[] {"mirror", "glass", "reflector"}));
@@ -46,5 +54,9 @@ public class TestVocableTrainerServiceGoodCases {
 
   }
 
+  @Test
+  void TesterGetterScore(){
+    assertEquals(10,learningState.getScore());
+  }
 
 }
