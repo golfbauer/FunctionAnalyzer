@@ -25,7 +25,7 @@ public class FunctionElement {
     this.operator = operator;
   }
 
-  public List<Term> getTerm() {
+  public List<Term> getTerms() {
     return terms;
   }
 
