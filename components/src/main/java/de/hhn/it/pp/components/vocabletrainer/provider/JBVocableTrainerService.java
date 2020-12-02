@@ -200,6 +200,9 @@ public class JBVocableTrainerService implements VocableTrainerService {
       throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
     logger.info("editVocable: id = {}, learningWord = {}, translations = {}, category = {}", id,
         learningWord, translations, category);
+    if (translations.length == 0) {
+      throw new TranslationIsEmptyException("Translation is Empty!");
+    }
     Vocable vocEdit = new Vocable(learningWord, translations);
     trainer.deleteVocable(category, vocEdit);
     trainer.getVocableList(category).get(id).setLearningWord(learningWord);
