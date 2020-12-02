@@ -130,14 +130,14 @@ public class TermSpec {
   }
 
   @Test
-  void DerivativeOfTermWithVariableAndFactor() {
+  void derivativeOfTermWithVariableAndFactor() {
     Term actual = linear.getDerivative();
     Term expected = new Term(2);
     assertEquals(expected, actual, "Term should be the derivative");
   }
 
   @Test
-  void DerivativeOfTermWithNoVariable() {
+  void derivativeOfTermWithNoVariable() {
     Term actual = constant2.getDerivative();
     Term expected = null;
     assertEquals(expected, actual, "Term should be the derivative");
