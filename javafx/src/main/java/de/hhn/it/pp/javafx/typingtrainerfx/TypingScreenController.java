@@ -194,6 +194,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void userInput() {
+
     //das vom label 1 + 2
     String[] typedWordsTxtf = splitText(textfield_typedText.getText());
     //überprüfen mit typedWords[currentIndex]
