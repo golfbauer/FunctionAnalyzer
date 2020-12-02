@@ -17,7 +17,6 @@ dependencies {
     // logging with slf4j
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
-    implementation 'junit:junit:4.12'
     // use JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
