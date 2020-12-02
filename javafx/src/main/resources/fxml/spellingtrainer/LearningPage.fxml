@@ -72,7 +72,7 @@
                   <Insets bottom="5.0" left="10.0" />
                </HBox.margin></Button>
             <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="showAnswerButton" mnemonicParsing="false" onAction="#handleShowAnswerButtonClick" prefHeight="40.0" prefWidth="85.0" text="Show answer" />
+            <Button fx:id="showAnswerButton" mnemonicParsing="false" onAction="#handleShowAnswerButtonClick" prefHeight="40.0" prefWidth="92.0" text="Show answer" />
             <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="continueButton" mnemonicParsing="false" onAction="#handleContinueButtonClick" prefHeight="40.0" prefWidth="150.0" text="Continue">
                <HBox.margin>
