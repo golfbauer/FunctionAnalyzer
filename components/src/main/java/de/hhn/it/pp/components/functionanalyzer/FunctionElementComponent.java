@@ -13,5 +13,4 @@ public interface FunctionElementComponent {
   double evaluate(double variableValue);
 
   FunctionElementComponent getDerivative();
-
 }
