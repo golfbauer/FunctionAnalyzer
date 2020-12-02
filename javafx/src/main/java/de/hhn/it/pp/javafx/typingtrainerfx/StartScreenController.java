@@ -1,5 +1,7 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
+import de.hhn.it.pp.components.typingtrainer.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -131,6 +133,7 @@ public class StartScreenController implements Initializable {
 
   /**
    * Handles onClick Event at items in list
+   * Enables btn_Start and changes lbl_SelectAText to the selected text
    * @param item -> name
    */
   public void clickOnItem(String item) {
