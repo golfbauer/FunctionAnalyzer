@@ -16,7 +16,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="82.0" layoutY="174.0" prefHeight="560.0" prefWidth="420.0" spacing="10.0">
          <children>
-            <Button fx:id="btn_Start" mnemonicParsing="false" onAction="#btnClick_Start" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
+            <Button fx:id="btn_Start" disable="true" mnemonicParsing="false" onAction="#btnClick_Start" prefHeight="75.0" prefWidth="350.0" style="-fx-background-color: fffaff;" text="Start" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>

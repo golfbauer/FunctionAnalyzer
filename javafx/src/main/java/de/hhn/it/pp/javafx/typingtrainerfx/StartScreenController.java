@@ -1,13 +1,15 @@
 package de.hhn.it.pp.javafx.typingtrainerfx;
 
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,7 +52,7 @@ public class StartScreenController implements Initializable {
     pane_Highscores.setVisible(false);
     lbl_SelectAText.setText("Please select a text from the list.");
 
-    //Init list_TextSelection
+    //region Init TextSelection
     ArrayList<File> files = findTxtPracticeFiles();
     String[] availablePracticeFiles = new String[files.size()];
 
@@ -63,6 +65,17 @@ public class StartScreenController implements Initializable {
         .observableArrayList(availablePracticeFiles[0], availablePracticeFiles[1],
             availablePracticeFiles[2]);
     list_TextSelection.setItems(listView_TextSelection);
+    list_TextSelection.getSelectionModel().selectedItemProperty().addListener(
+        new ChangeListener<String>() {
+          @Override
+          public void changed(ObservableValue<? extends String> observableValue, String oldValue,
+                              String newValue) {
+            clickOnItem(newValue);
+          }
+        });
+    //endregion
+
+
   }
 
   /**
@@ -86,13 +99,15 @@ public class StartScreenController implements Initializable {
     return files;
   }
 
+  //region Button methods
   public void btnClick_Start(ActionEvent event) throws IOException {
 
-    Parent typingScreenParent = FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
+    Parent typingScreenParent =
+        FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
     Scene typingScreenScene = new Scene(typingScreenParent);
 
     //Stage Info
-    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
     window.setScene(typingScreenScene);
     window.show();
@@ -111,5 +126,16 @@ public class StartScreenController implements Initializable {
 
   public void btnClick_Close() {
     pane_Highscores.setVisible(false);
+  }
+  //endregion
+
+  /**
+   * Handles onClick Event at items in list
+   * @param item -> name
+   */
+  public void clickOnItem(String item) {
+    lbl_SelectAText.setText(item);
+    //Set PRACTICETEXT
+    btn_Start.setDisable(false);
   }
 }
