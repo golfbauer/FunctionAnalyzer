@@ -128,7 +128,7 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for editVocCategory")
-  void TestEditVocCategory() throws VocCategoryNotFoundException {
+  void TestEditVocCategory() throws VocCategoryNotFoundException, VocCategoryAlreadyExistException {
     jbVocableTrainerService.editVocCategory("Auto", "Fahrzeug");
     int ka = 0;
     for (int i = 0; i < jbVocableTrainerService.getVocCategories().size(); i++) {

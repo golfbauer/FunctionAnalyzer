@@ -92,7 +92,7 @@ public interface VocableTrainerService {
    * @throws VocCategoryNotFoundException if category doesn't exist
    */
   void editVocCategory(String oldCategoryName, String newCategoryName)
-      throws VocCategoryNotFoundException;
+      throws VocCategoryNotFoundException,VocCategoryAlreadyExistException;
 
   /**
    * Checks if the vocable is correct with the levenshtein distance.
