@@ -1,5 +1,8 @@
 package de.hhn.it.pp.javafx.controllers.spellingtrainer;
 
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -16,5 +19,6 @@ public class ChooseLearningSetController {
   }
 
   public void handleHomescreenButtonClick(){
+
   }
 }
