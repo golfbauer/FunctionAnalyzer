@@ -1,18 +1,14 @@
-package de.hhn.it.pp.javafx.controllers;
+package de.hhn.it.pp.javafx.learningCards.controllers;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerDescriptor;
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerService;
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.AdminCoffeeMakerService;
 import de.hhn.it.pp.components.learningCards.Card;
 import de.hhn.it.pp.components.learningCards.Cardset;
 import de.hhn.it.pp.components.learningCards.LearningCardsService;
 import de.hhn.it.pp.components.learningCards.provider.MYLearningCardsService;
-import de.hhn.it.pp.javafx.utilities.ButtonUtilities;
+import de.hhn.it.pp.javafx.learningCards.utilities.ButtonUtilities;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LearningCardsServiceController {
