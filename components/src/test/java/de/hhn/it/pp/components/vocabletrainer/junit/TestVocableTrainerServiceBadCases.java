@@ -40,6 +40,7 @@ public class TestVocableTrainerServiceBadCases {
 
     testMap = new HashMap<>();
     testMap.put("Auto", testList);
+    testMap.put("PC", new ArrayList<>());
     learningState = new LearningState();
     jbVocableTrainerService = new JbVocableTrainerService();
     learningState.setScore(10);
@@ -115,5 +116,21 @@ public class TestVocableTrainerServiceBadCases {
     VocCategoryNotFoundException vocCategoryNotFoundException =
         assertThrows(VocCategoryNotFoundException.class,
             () -> jbVocableTrainerService.removeVocable(0, "NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Edit a non existent vocCategory")
+  public void testExceptionWhenEditingNonExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class, () -> jbVocableTrainerService
+            .editVocCategory("NotExistentVocCategoryName", "NewCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Edit a vocCategory to an already existend VocCategory")
+  public void testExceptionWhenEditingVocCategoryToAlreadyExistentVocCategory() {
+    VocCategoryAlreadyExistException vocCategoryAlreadyExistException =
+        assertThrows(VocCategoryAlreadyExistException.class,
+            () -> jbVocableTrainerService.editVocCategory("Auto", "PC"));
   }
 }
