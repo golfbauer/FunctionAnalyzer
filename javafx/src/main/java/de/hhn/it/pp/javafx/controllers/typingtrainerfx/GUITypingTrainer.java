@@ -1,4 +1,4 @@
-package de.hhn.it.pp.javafx.typingtrainerfx;
+package de.hhn.it.pp.javafx.controllers.typingtrainerfx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ public class GUITypingTrainer extends Application {
 
   @Override
   public void start(final Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/StartScreen.fxml")); //Opens Startscreen
+    Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartScreen.fxml")); //Opens Startscreen
     //Parent root = FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml")); //Opens Typingscreen
 
     Scene scene = new Scene(root);

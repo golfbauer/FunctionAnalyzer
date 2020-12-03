@@ -1,4 +1,4 @@
-package de.hhn.it.pp.javafx.typingtrainerfx;
+package de.hhn.it.pp.javafx.controllers.typingtrainerfx;
 
 import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
@@ -131,7 +131,23 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void btnClick_Exit(ActionEvent event) throws IOException {
 
     Parent typingScreenParent =
-        FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/StartScreen.fxml"));
+        FXMLLoader.load(getClass().getResource("/fxml/StartScreen.fxml"));
+    Scene typingScreenScene = new Scene(typingScreenParent);
+
+    //Stage Info
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+    window.setScene(typingScreenScene);
+    window.show();
+
+    //wurde ein text ausgewählt
+    System.out.println("Wechselt zu startscreen");
+  }
+
+  public void btnClick_Retry(ActionEvent event) throws IOException{
+
+    Parent typingScreenParent =
+        FXMLLoader.load(getClass().getResource("/fxml/TypingScreen.fxml"));
     Scene typingScreenScene = new Scene(typingScreenParent);
 
     //Stage Info

@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--        fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.StartScreenController">-->
+<!--        fx:controller="de.hhn.it.pp.javafx.controllers.typingtrainerfx.StartScreenController">-->
 
-<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="271.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.typingtrainerfx.StartScreenController">
+<AnchorPane minHeight="768.0" minWidth="1024.0" prefHeight="200" prefWidth="271.0" style="-fx-background-color: e4e4e4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.typingtrainerfx.StartScreenController">
    <children>
       <VBox alignment="CENTER" layoutX="82.0" layoutY="174.0" prefHeight="560.0" prefWidth="420.0" spacing="10.0">
          <children>
