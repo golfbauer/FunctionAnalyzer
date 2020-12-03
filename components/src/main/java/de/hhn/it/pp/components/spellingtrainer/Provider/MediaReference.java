@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer;
+package de.hhn.it.pp.components.spellingtrainer.Provider;
 
 import java.io.File;
 

@@ -2,13 +2,13 @@ package de.hhn.it.pp.components.spellingtrainer.exceptions;
 
 import java.security.PrivilegedActionException;
 
-public class LearningSetNameAlreadyAssignedException extends Exception {
+public class NoWordException extends Exception {
   /**
    * Constructs a new exception with {@code null} as its detail message.
    * The cause is not initialized, and may subsequently be initialized by a
    * call to {@link #initCause}.
    */
-  public LearningSetNameAlreadyAssignedException() {
+  public NoWordException() {
   }
 
   /**
@@ -19,7 +19,7 @@ public class LearningSetNameAlreadyAssignedException extends Exception {
    * @param message the detail message. The detail message is saved for
    *                later retrieval by the {@link #getMessage()} method.
    */
-  public LearningSetNameAlreadyAssignedException(final String message) {
+  public NoWordException(final String message) {
     super(message);
   }
 
@@ -39,7 +39,7 @@ public class LearningSetNameAlreadyAssignedException extends Exception {
    *                unknown.)
    * @since 1.4
    */
-  public LearningSetNameAlreadyAssignedException(final String message, final Throwable cause) {
+  public NoWordException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
@@ -57,9 +57,10 @@ public class LearningSetNameAlreadyAssignedException extends Exception {
    *              unknown.)
    * @since 1.4
    */
-  public LearningSetNameAlreadyAssignedException(final Throwable cause) {
+  public NoWordException(final Throwable cause) {
     super(cause);
   }
 }
+
 
 

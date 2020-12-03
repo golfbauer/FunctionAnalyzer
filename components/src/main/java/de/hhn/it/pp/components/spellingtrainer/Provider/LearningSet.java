@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer;
+package de.hhn.it.pp.components.spellingtrainer.Provider;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,6 @@ public class LearningSet {
    */
   public void removeLearningEntry(LearningEntry learningEntry) {
     this.learningEntries.remove(learningEntry);
-
   }
 
   /**
@@ -49,6 +48,13 @@ public class LearningSet {
    */
   public LearningEntry getLearningEntry(int index) {
     return this.learningEntries.get(index);
+  }
 
+  public ArrayList<LearningEntry> getLearningEntries() {
+    return this.learningEntries;
+  }
+
+  public String getLearningSetName() {
+    return this.learningSetName;
   }
 }
