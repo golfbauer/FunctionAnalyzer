@@ -60,9 +60,9 @@ public class FunctionElement implements FunctionElementComponent {
   public FunctionElement getDerivative() {
     FunctionElement result = new FunctionElement(operator);
     for (int i = 0; i < components.size(); i++) {
-      if (components.get(0) instanceof FunctionElement) {
+      if (components.get(i) instanceof FunctionElement) {
         result.addFunctionElementComponent(components.get(i).getDerivative());
-      } else if (components.get(0) instanceof Term) {
+      } else if (components.get(i) instanceof Term) {
         if (components.get(i).getDerivative() != null) {
           result.addFunctionElementComponent(components.get(i).getDerivative());
         } else if (components.size() == 1) {
@@ -73,6 +73,26 @@ public class FunctionElement implements FunctionElementComponent {
     for(int i = 0; i < result.components.size(); i++) {
       if (result.components.get(i) == null) {
         result.components.remove(i);
+      }
+    }
+    return result;
+  }
+
+  public double getMaxExponent() {
+    double result = 0;
+    for (int i = 0; i < components.size(); i++) {
+      if (components.get(i) instanceof FunctionElement) {
+        double temp = ((FunctionElement) components.get(i)).getMaxExponent();
+        if (result < temp) {
+          result = temp;
+        }
+      } else if (components.get(i) instanceof Term) {
+        if (((Term) components.get(i)).getExponent() != null) {
+          double temp = ((Term) components.get(i)).getExponent().getValue();
+          if (result < temp) {
+            result = temp;
+          }
+        }
       }
     }
     return result;

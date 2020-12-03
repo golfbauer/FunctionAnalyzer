@@ -53,4 +53,28 @@ public class FunctionElementSpec {
     FunctionElement actual = simple.getDerivative();
     assertEquals(null, actual, "Derivative should be null");
   }
+
+  @Test
+  void getMaxExponentFromSquare() {
+    double actual = normal.getMaxExponent();
+    assertEquals(2, actual, "should get the highest exponent");
+  }
+
+  @Test
+  void getMaxExponentFromComplexSquare() {
+    double actual = multiple.getMaxExponent();
+    assertEquals(2, actual, "Should get the highest exponent");
+  }
+
+  @Test
+  void getMaxExponenetFromComplexHigherSquare() {
+    double actual = multipleFe.getMaxExponent();
+    assertEquals(2, actual, "Shoulg get the highest Exponent");
+  }
+
+  @Test
+  void getMaxExponentFromMostSimpleFunction() {
+    double actual = simple.getMaxExponent();
+    assertEquals(0, actual,"Should give back the highest exponent");
+  }
 }
