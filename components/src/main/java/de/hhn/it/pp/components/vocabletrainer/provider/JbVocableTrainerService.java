@@ -86,10 +86,6 @@ public class JbVocableTrainerService implements VocableTrainerService {
     } catch (IndexOutOfBoundsException e) {
       throw new VocableNotFoundException();
     }
-
-    if (voc == null) {
-      throw new VocableNotFoundException();
-    }
     return voc;
   }
 
