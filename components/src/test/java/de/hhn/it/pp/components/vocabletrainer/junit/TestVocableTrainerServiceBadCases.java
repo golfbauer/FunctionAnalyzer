@@ -1,5 +1,6 @@
 package de.hhn.it.pp.components.vocabletrainer.junit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -151,7 +152,7 @@ public class TestVocableTrainerServiceBadCases {
   }
 
   @Test
-  @DisplayName("Check non existend vocable")
+  @DisplayName("Check non existent vocable")
   public void testExceptionWhenCheckingNonExistentVocable() {
     VocableNotFoundException vocableNotFoundException =
         assertThrows(VocableNotFoundException.class,
@@ -159,7 +160,14 @@ public class TestVocableTrainerServiceBadCases {
   }
 
   @Test
-  @DisplayName("Edit a not exitstent vocable")
+  @DisplayName("Check levenshteinDistance negative")
+  public void testLevenshteinDistanceNegative()
+      throws VocCategoryNotFoundException, VocableNotFoundException {
+    assertFalse(jbVocableTrainerService.checkVocable("car", 0, "Auto", Integer.MIN_VALUE));
+  }
+
+  @Test
+  @DisplayName("Edit a not existent vocable")
   public void testExceptionWhenEditingNotExistentVocable() {
     VocableNotFoundException vocableNotFoundException = assertThrows(VocableNotFoundException.class,
         () -> jbVocableTrainerService.editVocable(123456, "test", new String[] {"test"}, "Auto"));
