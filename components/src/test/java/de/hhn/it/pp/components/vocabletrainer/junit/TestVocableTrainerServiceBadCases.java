@@ -7,6 +7,7 @@ import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,5 +60,20 @@ public class TestVocableTrainerServiceBadCases {
     VocCategoryNotFoundException vocCategoryNotFoundException =
         assertThrows(VocCategoryNotFoundException.class, () ->
             jbVocableTrainerService.removeVocCategory("NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Get a non existent vocable in an existent vocCategory")
+  public void testExceptionWhenGettingNonExistentVocable() {
+    VocableNotFoundException vocableNotFoundException = assertThrows(VocableNotFoundException.class,
+        () -> jbVocableTrainerService.getVocable(12345, "Auto"));
+  }
+
+  @Test
+  @DisplayName("Get a vocable in an not existent vocCategory")
+  public void testExceptionWhenGettingVocableFromNotExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class,
+            () -> jbVocableTrainerService.getVocable(0, "NotExistentVocCategoryName"));
   }
 }
