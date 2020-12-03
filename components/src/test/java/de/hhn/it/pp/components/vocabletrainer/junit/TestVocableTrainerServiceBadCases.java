@@ -101,4 +101,19 @@ public class TestVocableTrainerServiceBadCases {
         assertThrows(TranslationIsEmptyException.class,
             () -> jbVocableTrainerService.addVocable("test", new String[] {}, "Auto"));
   }
+
+  @Test
+  @DisplayName("Remove not existent vocable")
+  public void testExceptionWhenRemovingNotExistentVocable() {
+    VocableNotFoundException vocableNotFoundException = assertThrows(VocableNotFoundException.class,
+        () -> jbVocableTrainerService.removeVocable(123456, "Auto"));
+  }
+
+  @Test
+  @DisplayName("Remove vocable from not existent vocCategory")
+  public void testExceptionWhenRemovingVocableFromNotExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class,
+            () -> jbVocableTrainerService.removeVocable(0, "NotExistentVocCategoryName"));
+  }
 }
