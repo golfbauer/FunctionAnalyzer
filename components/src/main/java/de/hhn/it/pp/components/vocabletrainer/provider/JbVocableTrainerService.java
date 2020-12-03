@@ -15,6 +15,8 @@ public class JbVocableTrainerService implements VocableTrainerService {
       org.slf4j.LoggerFactory.getLogger(JbVocableTrainerService.class);
   private JbVocableTrainer trainer = new JbVocableTrainer();
 
+  public JbVocableTrainerService(){}
+
   /**
    * Returns the current score.
    *
