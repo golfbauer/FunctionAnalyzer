@@ -85,4 +85,11 @@ public class TestVocableTrainerServiceGoodCases {
     jbVocableTrainerService.removeVocCategory("Auto");
     assertEquals(new ArrayList<>(), jbVocableTrainerService.getVocCategories());
   }
+
+  @Test
+  @DisplayName("Test for getVocable")
+  void TestGetVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
+    assertEquals("Auto", jbVocableTrainerService.getVocable(0, "Auto").getLearningWord());
+  }
+
 }
