@@ -58,8 +58,14 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for getScore")
-  void TestGetScore() {
+  void TestGetScoreFromLearning() {
     assertEquals(10, learningState.getScore());
+  }
+
+  @Test
+  @DisplayName("Test for getScore")
+  void TestGetScoreFromService() {
+    assertEquals(10, jbVocableTrainerService.getScore());
   }
 
   @Test
@@ -147,8 +153,20 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for CheckVocable")
-  void TestCheckVocable() throws VocCategoryNotFoundException {
+  void TestCheckVocableNoMistake() throws VocCategoryNotFoundException {
     assertTrue(jbVocableTrainerService.checkVocable("Auto", 0, "Auto", 3));
+  }
+
+  @Test
+  @DisplayName("Test for CheckVocable")
+  void TestCheckVocableTwoMistake() throws VocCategoryNotFoundException {
+    assertTrue(jbVocableTrainerService.checkVocable("Autoss", 0, "Auto", 3));
+  }
+
+  @Test
+  @DisplayName("Test for CheckVocable")
+  void TestCheckVocableTreeMistake() throws VocCategoryNotFoundException {
+    assertTrue(jbVocableTrainerService.checkVocable("Autosss", 0, "Auto", 3));
   }
 
   @Test
