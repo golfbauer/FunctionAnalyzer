@@ -1,6 +1,9 @@
 package de.hhn.it.pp.components.functionanalyzer.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.ArrayList;
+import java.util.List;
 import de.hhn.it.pp.components.functionanalyzer.Function;
 import de.hhn.it.pp.components.functionanalyzer.FunctionElement;
 import de.hhn.it.pp.components.functionanalyzer.Operator;
@@ -81,5 +84,85 @@ public class FunctionAnalyzerSpec {
                     new FunctionElement(Operator.ADD, new Term(new Term(1), -6, "x")))
     ), 2);
     assertEquals(-31,actual, "Should get the exact Y Value");
+  }
+
+  @Test
+  void getXIntersectionWithOneIntersection() {
+    List<Double> expected = new ArrayList<>();
+    expected.add(2.0);
+
+    List<Double> actual = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")),
+        new FunctionElement(Operator.ADD, new Term(-4))
+    ).setFunctionEqualZero();
+
+    assertEquals(expected, actual, "Should get a List of intersictione with the X Axis");
+  }
+
+  @Test
+  void getXIntersectionWithMultipleIntersections() {
+    List<Double> expected = new ArrayList<>();
+    expected.add(2.0);
+    expected.add(-2.0);
+    List<Double> actual = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(2), 1, "x")),
+        new FunctionElement(Operator.ADD, new Term(-4))
+    ).setFunctionEqualZero();
+    assertEquals(expected, actual, "Should get a List of intersictione with the X Axis");
+  }
+
+  @Test
+  void getXIntersectionWithNoIntersection() {
+    List<Double> actual = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(2), 1, "x")),
+        new FunctionElement(Operator.ADD, new Term(4))
+    ).setFunctionEqualZero();
+    assertNull(actual, "Should get a List of intersictione with the X Axis");
+  }
+
+  @Test
+  void getYIntersectionWithOneIntersection() throws ValueNotDefinedException {
+    Function temp = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(2), 1, "x")),
+        new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")),
+        new FunctionElement(Operator.ADD, new Term(-4))
+    );
+    double actual = functionAnalyzer.calculateYIntersection(temp);
+    assertEquals(-4, actual, "Should get a List of intersictione with the X Axis");
+  }
+
+  @Test
+  void getYIntersectionWithNoIntersection() throws ValueNotDefinedException {
+    Function temp = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(-1), 1, "x"))
+    );
+    double actual = functionAnalyzer.calculateYIntersection(temp);
+    assertEquals(Double.POSITIVE_INFINITY, actual,
+        "Should get a List of intersictione with the X Axis");
+  }
+
+  @Test
+  void getOneMinimaForComplexFunction() throws ValueNotDefinedException {
+    Function temp = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(2), 1, "x")),
+        new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")),
+        new FunctionElement(Operator.ADD, new Term(-4))
+    );
+    List<Double> actual = functionAnalyzer.calculateMinima(temp);
+    List<Double> expected = new ArrayList<>();
+    expected.add(-5.0);
+    assertEquals(expected, actual, "This should calculate the Minima");
+  }
+
+  @Test
+  void getNoMinimaForComplexFunction() throws ValueNotDefinedException {
+    Function temp = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(3), 3, "x")),
+        new FunctionElement(Operator.ADD, new Term(new Term(2), 1, "x")),
+        new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")),
+        new FunctionElement(Operator.ADD, new Term(-4))
+    );
+    List<Double> actual = functionAnalyzer.calculateMinima(temp);
+    assertNull(actual, "This should calculate the Minima");
   }
 }

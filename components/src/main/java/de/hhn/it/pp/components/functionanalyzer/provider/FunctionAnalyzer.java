@@ -70,7 +70,8 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
           }
           i = j + 1;
         } else {
-          functionElement.addFunctionElementComponent(getTerm(input.get(i)));
+          functionElement.addFunctionElementComponent(
+                  new FunctionElement(Operator.ADD, getTerm(input.get(i))));
         }
       }
     }
@@ -243,35 +244,63 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
   @Override
   public List<Double> calculateMinima(Function f) throws ValueNotDefinedException {
-    return null;
+    List<Double> result = new ArrayList<>();
+    List<Double> temp;
+    temp = f.getDerivative().setFunctionEqualZero();
+    if (temp == null) {
+      return null;
+    }
+    Function secondDerivative = f.getDerivative().getDerivative();
+    for (int i = 0; i < temp.size(); i++) {
+      if (getTermValueFromFunction(secondDerivative, temp.get(i)) > 0) {
+        result.add(getTermValueFromFunction(f, temp.get(i)));
+      }
+    }
+    return result;
   }
 
   @Override
   public List<Double> calculateMaxima(Function f) throws ValueNotDefinedException {
-    return null;
+    List<Double> result = new ArrayList<>();
+    List<Double> temp;
+    temp = f.getDerivative().setFunctionEqualZero();
+    if (temp == null) {
+      return null;
+    }
+    Function secondDerivative = f.getDerivative().getDerivative();
+    for (int i = 0; i < temp.size(); i++) {
+      if (getTermValueFromFunction(secondDerivative, temp.get(i)) < 0) {
+        result.add(getTermValueFromFunction(f, temp.get(i)));
+      }
+    }
+    return result;
   }
 
   @Override
   public List<Double> calculateXIntersection(Function f) throws ValueNotDefinedException {
-    return null;
+    return f.setFunctionEqualZero();
   }
 
   @Override
-  public List<Double> calculateYIntersection(Function f) throws ValueNotDefinedException {
-    return null;
+  public double calculateYIntersection(Function f) throws ValueNotDefinedException {
+    return getTermValueFromFunction(f, 0);
   }
 
   @Override
   public double calculateFunctionValue(Function f, double functionParameter)
       throws ValueNotDefinedException {
-    double result = getTermValueFromFunctionElement(f.get(0), functionParameter);
-    for (int i = 1; i < f.size(); i++) {
-      if (f.get(i).getOperator().getSymbol() == '*' || f.get(i).getOperator().getSymbol() == '/') {
+    return getTermValueFromFunction(f, functionParameter);
+  }
+
+  public double getTermValueFromFunction(Function function, double x) {
+    double result = getTermValueFromFunctionElement(function.get(0), x);
+    for (int i = 1; i < function.size(); i++) {
+      if (function.get(i).getOperator().getSymbol() == '*' || function.get(i).getOperator().getSymbol() == '/') {
         throw new IllegalStateException();
-      } else if (f.get(i).getOperator().getSymbol() == '+') {
-        result += getTermValueFromFunctionElement(f.get(i), functionParameter);
+      } else if (function.get(i).getOperator().getSymbol() == '+') {
+        result += getTermValueFromFunctionElement(function.get(i), x);
       } else {
-        result -= getTermValueFromFunctionElement(f.get(i), functionParameter);
+        result -= getTermValueFromFunctionElement(function.get(i), x);
       }
     }
     return result;
@@ -280,11 +309,11 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
   public double getTermValueFromFunctionElement(FunctionElement fe, double x) {
     double result = 0;
     List<FunctionElementComponent> temp = fe.getComponents();
-    for (int i = 0; i < temp.size(); i++) {
+    for (FunctionElementComponent functionElementComponent : temp) {
       if (temp.get(0) instanceof FunctionElement) {
-        result += getTermValueFromFunctionElement((FunctionElement) temp.get(i), x);
+        result += getTermValueFromFunctionElement((FunctionElement) functionElementComponent, x);
       } else if (temp.get(0) instanceof Term) {
-        result += calcTerm((Term) temp.get(i), x);
+        result += calcTerm((Term) functionElementComponent, x);
       }
     }
     return result;
@@ -294,6 +323,14 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
     if (term.getVariable() == null) {
       return term.getValue();
     } else {
+      if (term.getFactor() * Math.pow(
+          x, term.getExponent().getValue()) == Double.POSITIVE_INFINITY) {
+        try {
+          throw new Exception();
+        } catch (Exception exception) {
+          System.out.println("Y-Achse wird nie geschnitten!");
+        }
+      }
       return term.getFactor() * Math.pow(x, term.getExponent().getValue());
     }
   }
