@@ -203,9 +203,6 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
   }
 
-  /**
-   * Quits learning session and return to main menu
-   */
   @Override
   public void quitSession() {
 
@@ -218,11 +215,16 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException {
-    lbl_FeedbackTime.setText(String.valueOf(feedback.getTime()));
-    lbl_FeedbackWPM.setText(String.valueOf(feedback.getWordsPerMinute()));
+    lbl_FeedbackTime.setText("Time: " +String.valueOf(timeShort(feedback.getTime())) +"s");
+    lbl_FeedbackWPM.setText("WPM: " + String.valueOf(feedback.getWordsPerMinute()));
     pane_Score.setVisible(true);
 
     saveScore(feedback);
+  }
+
+  public double timeShort(double a){
+    a = (Math.round(100.0 * a) / 100.0);
+    return a;
   }
 
   /**
