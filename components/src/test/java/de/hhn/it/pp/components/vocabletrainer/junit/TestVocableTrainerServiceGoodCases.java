@@ -7,7 +7,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainer;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +37,7 @@ public class TestVocableTrainerServiceGoodCases {
   HashMap<String, List<Vocable>> testMap;
 
   @BeforeEach
-  void setup() throws VocCategoryAlreadyExistException {
+  void setup() {
     testList = new ArrayList<>();
 
     testList.add(
@@ -119,11 +118,56 @@ public class TestVocableTrainerServiceGoodCases {
   @Test
   @DisplayName("Test for removeVocable")
   void TestRemoveVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
-    jbVocableTrainerService.removeVocable(0,"Auto");
+    jbVocableTrainerService.removeVocable(0, "Auto");
     try {
-      jbVocableTrainerService.getVocable(0,"Auto").getLearningWord();
-    }catch (VocableNotFoundException e){
-      assertTrue(true,"Vocable is removed");
+      jbVocableTrainerService.getVocable(0, "Auto").getLearningWord();
+    } catch (VocableNotFoundException e) {
+      assertTrue(true, "Vocable is removed");
+    }
+  }
+
+  @Test
+  @DisplayName("Test for editVocCategory")
+  void TestEditVocCategory() throws VocCategoryNotFoundException {
+    jbVocableTrainerService.editVocCategory("Auto", "Fahrzeug");
+    int ka = 0;
+    for (int i = 0; i < jbVocableTrainerService.getVocCategories().size(); i++) {
+      if ("Auto".equals(jbVocableTrainerService.getVocCategories().get(i))) {
+        assertFalse(fail("Old Category is still here"));
+      }
+      if ("Fahrzeug".equals(jbVocableTrainerService.getVocCategories().get(i))) {
+        assertTrue(true);
+        ka = 1;
+      }
+    }
+    if (ka != 1) {
+      assertFalse(fail("Category is not edited"));
+    }
+  }
+
+  @Test
+  @DisplayName("Test for CheckVocable")
+  void TestCheckVocable() throws VocCategoryNotFoundException {
+    assertTrue(jbVocableTrainerService.checkVocable("Auto", 0, "Auto", 3));
+  }
+
+  @Test
+  @DisplayName("Test for EditVocab")
+  void TestEditVocab()
+      throws VocCategoryNotFoundException, VocableNotFoundException, TranslationIsEmptyException {
+    int ka = 0;
+    jbVocableTrainerService.editVocable(0,"Car",new String[] {"car"},"Auto");
+    for (int i = 0; i < jbVocableTrainerService.getVocabulary("Auto").size(); i++) {
+      if ("Car".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())) {
+        assertTrue(true);
+        ka = 1;
+      }
+      if ("Auto".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())){
+        assertFalse(fail("Vocable is not edited"));
+      }
+    }
+    if (ka != 1) {
+      assertFalse(fail("Vocable is not edited"));
     }
   }
 }
