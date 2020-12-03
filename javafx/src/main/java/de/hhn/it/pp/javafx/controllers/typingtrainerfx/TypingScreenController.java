@@ -3,6 +3,7 @@ package de.hhn.it.pp.javafx.controllers.typingtrainerfx;
 import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
 import java.awt.Color;
@@ -71,7 +72,11 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
       @Override
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode().isWhitespaceKey()) {
-          userInput();
+          try {
+            userInput();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
         } else if (!isWriting) {
           isWriting = true;
           try {
@@ -212,10 +217,12 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * @param feedback feedback to show
    */
   @Override
-  public void showFeedback(Feedback feedback) {
+  public void showFeedback(Feedback feedback) throws IOException {
     lbl_FeedbackTime.setText(String.valueOf(feedback.getTime()));
     lbl_FeedbackWPM.setText(String.valueOf(feedback.getWordsPerMinute()));
     pane_Score.setVisible(true);
+
+    saveScore(feedback);
   }
 
   /**
@@ -224,8 +231,9 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * @param score feedback to save
    */
   @Override
-  public void saveScore(Feedback score) {
-
+  public void saveScore(Feedback score) throws IOException {
+    SaveLoad save = new SaveLoad();
+    save.save(selectedText, String.valueOf(score.getTime()), String.valueOf(score.getWordsPerMinute()));
   }
 
   /**
@@ -240,7 +248,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * Gets the userinput aka keystrokes through a scanner and is potentially used for Feedback, CheckWord etc
    */
   @Override
-  public void userInput() {
+  public void userInput() throws IOException {
 
     //das vom label 1 + 2
     String[] typedWordsTxtf = splitText(textfield_typedText.getText());
@@ -306,7 +314,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void markWord(int index,
-                       Color color) { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
+                       Color color) throws IOException { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
 
     int addIndex = 0; //Zusätzlicher Index falls hboxBuffer 3 überschreitet
     if (hboxBuffer > 3) {
