@@ -80,7 +80,13 @@ public class JbVocableTrainerService implements VocableTrainerService {
   public Vocable getVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
     logger.info("getVocable: id = {}, category = {}", id, category);
-    Vocable voc = trainer.getVocableList(category).get(id);
+    Vocable voc;
+    try {
+      voc = trainer.getVocableList(category).get(id);
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
+
     if (voc == null) {
       throw new VocableNotFoundException();
     }
