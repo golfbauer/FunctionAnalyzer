@@ -15,6 +15,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundExce
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,8 +55,14 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for getScore")
-  void TestGetScore() {
+  void TestGetScoreFromLearning() {
     assertEquals(10, learningState.getScore());
+  }
+
+  @Test
+  @DisplayName("Test for getScore")
+  void TestGetScoreFromService() {
+    assertEquals(10, jbVocableTrainerService.getScore());
   }
 
   @Test
@@ -86,6 +93,17 @@ public class TestVocableTrainerServiceGoodCases {
   @DisplayName("Test for getVocable")
   void TestGetVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
     assertEquals("Auto", jbVocableTrainerService.getVocable(0, "Auto").getLearningWord());
+  }
+
+  @Test
+  @DisplayName("Test for getVocable")
+  void TestGetVocableForTranslation()
+      throws VocCategoryNotFoundException, VocableNotFoundException, TranslationIsEmptyException {
+    Vocable testVocable = new Vocable("null", new String[] {"null"});
+    testVocable.setTranslations(new String[] {"car", "vehicle", "motorcar", "automobile", "auto"});
+    testVocable.setLearningWord("Auto");
+    assertTrue(Arrays.equals(testVocable.getTranslations(),
+        jbVocableTrainerService.getVocable(0, "Auto").getTranslations()));
   }
 
   @Test
@@ -143,8 +161,20 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for CheckVocable")
-  void TestCheckVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
+  void TestCheckVocableNoMistake() throws VocCategoryNotFoundException, VocableNotFoundException {
     assertTrue(jbVocableTrainerService.checkVocable("Auto", 0, "Auto", 3));
+  }
+
+  @Test
+  @DisplayName("Test for CheckVocable")
+  void TestCheckVocableTwoMistake() throws VocCategoryNotFoundException, VocableNotFoundException {
+    assertTrue(jbVocableTrainerService.checkVocable("Autoss", 0, "Auto", 3));
+  }
+
+  @Test
+  @DisplayName("Test for CheckVocable")
+  void TestCheckVocableTreeMistake() throws VocCategoryNotFoundException, VocableNotFoundException {
+    assertTrue(jbVocableTrainerService.checkVocable("Autosss", 0, "Auto", 3));
   }
 
   @Test
