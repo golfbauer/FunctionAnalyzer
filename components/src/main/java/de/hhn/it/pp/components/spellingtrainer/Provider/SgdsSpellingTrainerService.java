@@ -4,6 +4,7 @@ import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
@@ -179,10 +180,12 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return true if the learning session started successfully, false if it doesn't
    */
   @Override
-  public boolean startLearning(String learningSetName) throws LearningSetCouldNotBeFoundException {
+  public boolean startLearning(String learningSetName)
+      throws LearningSetCouldNotBeFoundException, NoWordException {
     if (!descriptor.getIsLearning()) {
       descriptor.setActiveLearningSet(getLearningSet(learningSetName));
       descriptor.resetInts();
+      descriptor.updateCounter("remaining", getLearningSet(learningSetName).getLearningEntries().size());
       descriptor.setIsLearning(true);
       logger.info("Successfully set all the necessary start variables");
       return true;

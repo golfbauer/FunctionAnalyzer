@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="365.0" minWidth="415.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ChooseLearningSetController">
+<VBox minHeight="500.0" minWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ChooseLearningSetController">
   <children>
       <StackPane>
          <children>

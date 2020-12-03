@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox minHeight="700.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ResultPageController">
+<VBox minHeight="500.0" minWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ResultPageController">
   <children>
       <StackPane>
          <children>
@@ -23,7 +27,7 @@
       <Region prefHeight="9.0" prefWidth="350.0" VBox.vgrow="ALWAYS" />
       <StackPane>
          <children>
-            <PieChart fx:id="pieChart" prefHeight="250.0" prefWidth="350.0" />
+            <PieChart fx:id="pieChart" />
          </children>
          <VBox.margin>
             <Insets />

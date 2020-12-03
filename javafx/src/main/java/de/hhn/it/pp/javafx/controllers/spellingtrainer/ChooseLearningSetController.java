@@ -4,6 +4,7 @@ import static de.hhn.it.pp.javafx.controllers.spellingtrainer.SpellingTrainerSer
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ChooseLearningSetController implements Initializable {
   public ListView<String> learningsetListView;
 
   public void handleStartLearningButtonClick(ActionEvent event)
-      throws IOException, LearningSetCouldNotBeFoundException {
+      throws IOException, LearningSetCouldNotBeFoundException, NoWordException {
 
     String learningSet = learningsetListView.getSelectionModel().getSelectedItem();
     if (learningSet == null) {
@@ -48,9 +49,9 @@ public class ChooseLearningSetController implements Initializable {
       label.setText("Please choose an learning set!");
       popUpWindow.show();
     } else {
+      service.startLearning(learningSet);
       loadPane(event);
       setScenePane("spellingtrainer/LearningPage");
-      service.startLearning(learningSet);
     }
 
   }

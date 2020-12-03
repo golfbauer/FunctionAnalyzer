@@ -52,6 +52,7 @@ public class LearningPageController implements Initializable {
         rightWordsLabel
             .setText("Words spelled right: " + service.getDescriptor().getCounter("right"));
         service.getDescriptor().updateCounter("remaining", -1);
+
         remainingWordsLabel
             .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
       }
@@ -80,7 +81,7 @@ public class LearningPageController implements Initializable {
     service.endLearning();
   }
 
-  public void handleShowAnswerButtonClick(ActionEvent event) throws IOException {
+  public void handleShowAnswerButtonClick(ActionEvent event) throws IOException, NoWordException {
     Stage popUpWindow = new Stage();
     popUpWindow.initModality(Modality.APPLICATION_MODAL);
     popUpWindow.setTitle("AnswerPopUpPage");
@@ -91,11 +92,27 @@ public class LearningPageController implements Initializable {
     Label label = (Label) scene.lookup("#popUpTextLabel");
     label.setText("The correct answer is: "+service.currentWord());
     popUpWindow.show();
-
+    if(tries == 1){
+      tries++;
+      service.getDescriptor().updateCounter("remaining", -1);
+      remainingWordsLabel
+          .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
+    }
   }
 
-  public void handleContinueButtonClick(ActionEvent event) {
-    tries = 0;
+  public void handleContinueButtonClick(ActionEvent event) throws IOException, NoWordException {
+    if(tries == 1){
+      handleCheckSpellingButtonClick();
+    }
+    if(service.hasNextWord()){
+      loadPane(event);
+      setScenePane("spellingtrainer/LearningPage");
+    }else{
+      service.endLearning();
+      loadPane(event);
+      setScenePane("spellingtrainer/ResultPage");
+    }
+    tries = 1;
   }
 
   public void setScenePane(String url) throws IOException {
@@ -122,7 +139,7 @@ public class LearningPageController implements Initializable {
     } catch (NoWordException e) {
       e.printStackTrace();
     }
-
+    tries = 1;
     progressBar.setProgress(0.0);
   }
 }
