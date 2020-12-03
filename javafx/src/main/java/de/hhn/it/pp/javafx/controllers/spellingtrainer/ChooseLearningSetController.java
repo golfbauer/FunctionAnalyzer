@@ -36,7 +36,7 @@ public class ChooseLearningSetController implements Initializable {
       throws IOException, LearningSetCouldNotBeFoundException {
 
     String learningSet = learningsetListView.getSelectionModel().getSelectedItem();
-    if(learningSet==null){
+    if (learningSet == null) {
       Stage popUpWindow = new Stage();
       popUpWindow.initModality(Modality.APPLICATION_MODAL);
       popUpWindow.setTitle("WarningPopUpPage");
@@ -47,10 +47,7 @@ public class ChooseLearningSetController implements Initializable {
       Label label = (Label) scene.lookup("#popUpTextLabel");
       label.setText("Please choose an learning set!");
       popUpWindow.show();
-
-
-    }
-    else{
+    } else {
       loadPane(event);
       setScenePane("spellingtrainer/LearningPage");
       service.startLearning(learningSet);
@@ -78,7 +75,7 @@ public class ChooseLearningSetController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     ArrayList<LearningSet> learningSets = service.getLearningSets();
-    for(LearningSet learningSet: learningSets){
+    for (LearningSet learningSet : learningSets) {
       learningsetListView.getItems().add(learningSet.getLearningSetName());
     }
   }
