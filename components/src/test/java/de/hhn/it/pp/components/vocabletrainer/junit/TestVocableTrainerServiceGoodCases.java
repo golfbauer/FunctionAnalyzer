@@ -9,6 +9,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundExce
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -96,6 +97,15 @@ public class TestVocableTrainerServiceGoodCases {
   @DisplayName("Test for getVocable")
   void TestGetVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
     assertEquals("Auto", jbVocableTrainerService.getVocable(0, "Auto").getLearningWord());
+  }
+
+  @Test
+  @DisplayName("Test for getVocable")
+  void TestGetVocableForTranslation() throws VocCategoryNotFoundException, VocableNotFoundException {
+    Vocable testVocable = new Vocable("null",new String[]{"null"});
+    testVocable.setTranslations(new String[] {"car", "vehicle", "motorcar", "automobile", "auto"});
+    testVocable.setLearningWord("Auto");
+    assertTrue(Arrays.equals(testVocable.getTranslations(),jbVocableTrainerService.getVocable(0,"Auto").getTranslations()));
   }
 
   @Test
