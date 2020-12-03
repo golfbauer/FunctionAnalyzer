@@ -1,6 +1,12 @@
 package de.hhn.it.pp.components.vocabletrainer.junit;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
@@ -10,16 +16,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundExceptio
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +33,7 @@ public class TestVocableTrainerServiceGoodCases {
   HashMap<String, List<Vocable>> testMap;
 
   @BeforeEach
-  void setup() {
+  void setup() throws TranslationIsEmptyException {
     testList = new ArrayList<>();
 
     testList.add(
@@ -71,7 +67,7 @@ public class TestVocableTrainerServiceGoodCases {
   @Test
   @DisplayName("Test for addVocCategory")
   void TestAddVocCategory() throws VocCategoryAlreadyExistException, VocCategoryNotFoundException,
-      VocableNotFoundException {
+      VocableNotFoundException, TranslationIsEmptyException {
     Vocable testVocable = new Vocable("tisch", new String[] {"table"});
     List<Vocable> vocableListTester = new ArrayList<>();
     vocableListTester.add(testVocable);
@@ -147,7 +143,7 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for CheckVocable")
-  void TestCheckVocable() throws VocCategoryNotFoundException {
+  void TestCheckVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
     assertTrue(jbVocableTrainerService.checkVocable("Auto", 0, "Auto", 3));
   }
 
@@ -156,13 +152,13 @@ public class TestVocableTrainerServiceGoodCases {
   void TestEditVocab()
       throws VocCategoryNotFoundException, VocableNotFoundException, TranslationIsEmptyException {
     int ka = 0;
-    jbVocableTrainerService.editVocable(0,"Car",new String[] {"car"},"Auto");
+    jbVocableTrainerService.editVocable(0, "Car", new String[] {"car"}, "Auto");
     for (int i = 0; i < jbVocableTrainerService.getVocabulary("Auto").size(); i++) {
       if ("Car".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())) {
         assertTrue(true);
         ka = 1;
       }
-      if ("Auto".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())){
+      if ("Auto".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())) {
         assertFalse(fail("Vocable is not edited"));
       }
     }
@@ -173,16 +169,16 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for loadData")
-  void TestLoadData(){
+  void TestLoadData() {
     LearningState testState = new LearningState();
-    HashMap<String,List<Vocable>> loaderMap = new HashMap<>();
+    HashMap<String, List<Vocable>> loaderMap = new HashMap<>();
     testState.setVocabularyList(loaderMap);
     assertTrue(jbVocableTrainerService.loadData(testState));
   }
 
   @Test
   @DisplayName("Test for LevenshteinDistance")
-  void TestLevenshtein(){
-    assertEquals(1,jbVocableTrainerService.levenshteinDistance("TestOne","TestOnes"));
+  void TestLevenshtein() {
+    assertEquals(1, jbVocableTrainerService.levenshteinDistance("TestOne", "TestOnes"));
   }
 }

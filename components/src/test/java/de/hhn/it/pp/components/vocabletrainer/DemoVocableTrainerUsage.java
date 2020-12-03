@@ -19,13 +19,16 @@ public class DemoVocableTrainerUsage {
     LearningState learningState = new LearningState();
     List<Vocable> carVocabulary =
         new ArrayList<>(); // new vocabulary list for the car category
-    carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
-    carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
-    carVocabulary.add(new Vocable("tire", new String[] {"Reifen", "Bereifung"}));
-    carVocabulary.add(new Vocable("drive", new String[] {"fahren", "lenken"}));
-    carVocabulary
-        .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
-
+    try {
+      carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
+      carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
+      carVocabulary.add(new Vocable("tire", new String[] {"Reifen", "Bereifung"}));
+      carVocabulary.add(new Vocable("drive", new String[] {"fahren", "lenken"}));
+      carVocabulary
+          .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
+    } catch (TranslationIsEmptyException e) {
+      e.printStackTrace();
+    }
     HashMap<String, List<Vocable>> data =
         new HashMap<>(); // new HashMap for categories and their vocabulary lists
     data.put("car",

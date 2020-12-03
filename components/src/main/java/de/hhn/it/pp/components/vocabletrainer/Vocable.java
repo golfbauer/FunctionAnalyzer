@@ -1,12 +1,14 @@
 package de.hhn.it.pp.components.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
+
 public class Vocable {
   private String learningWord;
   private String[] translations;
 
-  public Vocable(String learningWord, String[] translations) {
+  public Vocable(String learningWord, String[] translations) throws TranslationIsEmptyException {
     this.learningWord = learningWord;
-    this.translations = translations;
+    this.setTranslations(translations);
   }
 
   public String getLearningWord() {
@@ -21,7 +23,10 @@ public class Vocable {
     return translations;
   }
 
-  public void setTranslations(String[] translations) {
+  public void setTranslations(String[] translations) throws TranslationIsEmptyException {
+    if (translations == null || translations.length == 0 || translations[0].trim().length() == 0) {
+      throw new TranslationIsEmptyException("Translation is Empty!");
+    }
     this.translations = translations;
   }
 }

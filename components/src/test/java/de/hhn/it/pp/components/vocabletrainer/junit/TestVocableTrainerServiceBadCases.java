@@ -28,7 +28,7 @@ public class TestVocableTrainerServiceBadCases {
   HashMap<String, List<Vocable>> testMap;
 
   @BeforeEach
-  void setup() {
+  void setup() throws TranslationIsEmptyException {
     testList = new ArrayList<>();
 
     testList.add(
@@ -153,8 +153,8 @@ public class TestVocableTrainerServiceBadCases {
   @Test
   @DisplayName("Check non existend vocable")
   public void testExceptionWhenCheckingNonExistentVocable() {
-    VocCategoryNotFoundException vocCategoryNotFoundException =
-        assertThrows(VocCategoryNotFoundException.class,
+    VocableNotFoundException vocableNotFoundException =
+        assertThrows(VocableNotFoundException.class,
             () -> jbVocableTrainerService.checkVocable("car", 123456, "Auto", 0));
   }
 
