@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,11 +46,18 @@ public class TestVocableTrainerServiceBadCases {
   }
 
   @Test
-  @DisplayName("create an already existing Category")
+  @DisplayName("Create an already existent VocCategory")
   public void testExceptionWhenCreatingExistentVocCategory() {
     VocCategoryAlreadyExistException vocCategoryAlreadyExistException =
         assertThrows(VocCategoryAlreadyExistException.class, () ->
             jbVocableTrainerService.addVocCategory("Auto", new ArrayList<>()));
   }
 
+  @Test
+  @DisplayName("Remove a non existent VocCategory")
+  public void testExceptionWhenRemovingNonExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class, () ->
+            jbVocableTrainerService.removeVocCategory("NotExistentVocCategoryName"));
+  }
 }
