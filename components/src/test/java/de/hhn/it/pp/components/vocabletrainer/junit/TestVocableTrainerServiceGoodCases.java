@@ -183,6 +183,6 @@ public class TestVocableTrainerServiceGoodCases {
   @Test
   @DisplayName("Test for LevenshteinDistance")
   void TestLevenshtein(){
-    assertEquals(0,jbVocableTrainerService.levenshteinDistance("TestOne","TestOne"));
+    assertEquals(1,jbVocableTrainerService.levenshteinDistance("TestOne","TestOnes"));
   }
 }
