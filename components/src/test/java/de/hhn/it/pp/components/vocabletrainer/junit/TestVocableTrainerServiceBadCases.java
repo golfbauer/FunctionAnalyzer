@@ -141,4 +141,27 @@ public class TestVocableTrainerServiceBadCases {
         assertThrows(VocCategoryNotFoundException.class,
             () -> jbVocableTrainerService.checkVocable("car", 0, "NotExistentVocCategoryName", 0));
   }
+
+  @Test
+  @DisplayName("Edit a not exitstent vocable")
+  public void testExceptionWhenEditingNotExistentVocable() {
+    VocableNotFoundException vocableNotFoundException = assertThrows(VocableNotFoundException.class,
+        () -> jbVocableTrainerService.editVocable(123456, "test", new String[] {"test"}, "Auto"));
+  }
+
+  @Test
+  @DisplayName("Edit vocable in not existent vocCategory")
+  public void testExceptionWhenEditingVocableInNotExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class, () -> jbVocableTrainerService
+            .editVocable(0, "test", new String[] {"test"}, "NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Edit vocable with empty translations")
+  public void testExceptionWhenEditingVocableWithTranslationIsEmpty() {
+    TranslationIsEmptyException translationIsEmptyException =
+        assertThrows(TranslationIsEmptyException.class, () -> jbVocableTrainerService
+            .editVocable(0, "test", new String[] {}, "NotExistentVocCategoryName"));
+  }
 }
