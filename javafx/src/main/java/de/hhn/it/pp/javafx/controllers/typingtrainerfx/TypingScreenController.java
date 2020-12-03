@@ -30,6 +30,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class TypingScreenController implements Initializable, TypingTrainerService {
 
@@ -152,7 +157,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     System.out.println("Wechselt zu startscreen");
   }
 
-  public void btnClick_Retry(ActionEvent event) throws IOException{
+  public void btnClick_Retry(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
     Parent tableViewParent = loader.load();
@@ -162,7 +167,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     TypingScreenController controller = loader.getController();
     controller.initData(selectedText);
 
-    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
     window.setScene(tableViewScene);
     window.show();
@@ -185,6 +190,12 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public boolean checkWord(String word, int index) {
+
+    if (word == null) //Wegen NullPointerException
+    {
+      return false;
+    }
+
     boolean ret = false;
     String wordPT = descriptor.getPracticeText().getWordAtIndex(index).trim();
 
@@ -199,8 +210,17 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * Plays the sound for wrong Words Game goes brrrrrt.
    */
   @Override
-  public void audioOutput() {
+  public void audioOutput()
+      throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    String path = "components/src/main/resources/8BIT RETRO Beep.mp3";
 
+    AudioInputStream audioInput = AudioSystem.getAudioInputStream(new File(path));
+    Clip clip = AudioSystem.getClip();
+    clip.open(audioInput);
+    clip.start();
+
+//    long clipTimePosition = clip.getMicrosecondPosition();
+//    clip.stop();
   }
 
   @Override
@@ -215,14 +235,14 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException {
-    lbl_FeedbackTime.setText("Time: " +String.valueOf(timeShort(feedback.getTime())) +"s");
+    lbl_FeedbackTime.setText("Time: " + String.valueOf(timeShort(feedback.getTime())) + "s");
     lbl_FeedbackWPM.setText("WPM: " + String.valueOf(feedback.getWordsPerMinute()));
     pane_Score.setVisible(true);
 
     saveScore(feedback);
   }
 
-  public double timeShort(double a){
+  public double timeShort(double a) {
     a = (Math.round(100.0 * a) / 100.0);
     return a;
   }
@@ -235,7 +255,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public void saveScore(Feedback score) throws IOException {
     SaveLoad save = new SaveLoad();
-    save.save(selectedText, String.valueOf(score.getTime()), String.valueOf(score.getWordsPerMinute()));
+    save.save(selectedText, String.valueOf(score.getTime()),
+        String.valueOf(score.getWordsPerMinute()));
   }
 
   /**
@@ -257,7 +278,15 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
     //überprüfen mit typedWords[currentIndex]
     int currentIndex = descriptor.getPracticeText().getCurrentWordIndex();
-    descriptor.addTypedWords(typedWordsTxtf[currentIndex], currentIndex);
+
+    try {
+      descriptor.addTypedWords(typedWordsTxtf[currentIndex], currentIndex);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      //logger: Ich pass auf gell.
+      System.out.println("autsch");
+      //e.printStackTrace();
+    }
+
 
     if (checkWord(descriptor.getTypedWordsAtIndex(currentIndex), currentIndex)) {
       markWord(currentIndex, Color.GREEN);
@@ -281,7 +310,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     if (hboxBuffer >= 3) {
       hbox_practiceText.getChildren().remove(0); //Entfernt das erste Child (ganz links)
 
-      if(descriptor.getPracticeText().getText().length>descriptor.getPracticeText().getCurrentWordIndex()+1) {
+      if (descriptor.getPracticeText().getText().length >
+          descriptor.getPracticeText().getCurrentWordIndex() + 1) {
         Label word = new Label(descriptor.getPracticeText()
             .getWordAtIndex(descriptor.getPracticeText().getCurrentWordIndex() + 1) + " ");
         word.setPrefHeight(53);
@@ -317,7 +347,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void markWord(int index,
-                       Color color) throws IOException { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
+                       Color color)
+      throws IOException { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
 
     int addIndex = 0; //Zusätzlicher Index falls hboxBuffer 3 überschreitet
     if (hboxBuffer > 3) {
@@ -328,18 +359,27 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
       hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #008000");
     } else {
       hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #ff0000");
+//      try {
+//        audioOutput();
+//      } catch (UnsupportedAudioFileException e) {
+//        e.printStackTrace();
+//      } catch (LineUnavailableException e) {
+//        e.printStackTrace();
+//      }
     }
 
 
     //Zeigt Feedback wenn man am Ende vom Text angekommen ist
-    if (descriptor.getPracticeText().getCurrentWordIndex() == descriptor.getPracticeText().getText().length - 1) {
+    if (descriptor.getPracticeText().getCurrentWordIndex() ==
+        descriptor.getPracticeText().getText().length - 1) {
       try {
         countdown(66);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
       descriptor.getFeedback().calculateTime();
-      descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
+      descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(),
+          descriptor.getPracticeText().getText());
       showFeedback(descriptor.getFeedback());
     }
 

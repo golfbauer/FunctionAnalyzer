@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /***
  * @author Tobias Maraci, Robert Pistea
@@ -24,7 +26,7 @@ public interface TypingTrainerService {
   /**
    * Plays the sound for wrong Words Game goes brrrrrt.
    */
-  void audioOutput();
+  void audioOutput() throws IOException, UnsupportedAudioFileException, LineUnavailableException;
 
   /**
    * Quits learning session and return to main menu

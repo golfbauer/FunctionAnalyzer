@@ -17,7 +17,7 @@ public class TypingTrainerDescriptor {
 
   public TypingTrainerDescriptor(File audioWrongWord, Feedback feedback, PracticeText selectedText)
   {
-    this.audioWrongWord = audioWrongWord;
+    this.audioWrongWord = new File("components/src/main/resources/8BIT RETRO Beep.mp3");
     this.feedback = feedback;
     this.practiceText = selectedText;
     this.typedWords = new String[selectedText.getText().length];
