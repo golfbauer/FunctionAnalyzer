@@ -1,4 +1,1 @@
-practiceText-2.txt | 2.8405551 | 21.0
-practiceText-2.txt | 19.8075137 | 3.0
-practiceText-2.txt | 4.4313982 | 13.0
-practiceText-2.txt | 9.1031323 | 1.0
+practiceText-2.txt 1.6334904 36.0 practiceText-2.txt 6.9285079 8.0 practiceText-2.txt 2.5806147 23.0 

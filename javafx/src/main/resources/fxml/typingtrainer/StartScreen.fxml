@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -60,28 +62,18 @@
                   <Font name="System Bold Italic" size="64.0" />
                </font>
             </Label>
-            <ListView fx:id="list_Highscores" layoutX="14.0" layoutY="172.0" prefHeight="489.0" prefWidth="909.0" style="-fx-background-color: fffaff;" />
-            <ScrollBar fx:id="scrollbar_Highscores" layoutX="924.0" layoutY="172.0" orientation="VERTICAL" prefHeight="490.0" prefWidth="21.0" style="-fx-background-color: fffaff;" />
-            <Label fx:id="lbl_Time" alignment="CENTER" layoutX="349.0" layoutY="131.0" prefHeight="27.0" prefWidth="240.0" text="Time" textAlignment="CENTER" textFill="#0a2463">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbl_WPM" alignment="CENTER" layoutX="683.0" layoutY="131.0" prefHeight="27.0" prefWidth="240.0" text="WPM" textAlignment="CENTER" textFill="#0a2463">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="lbl_Session" alignment="CENTER" layoutX="14.0" layoutY="131.0" prefHeight="27.0" prefWidth="240.0" text="Session" textAlignment="CENTER" textFill="#0a2463">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
             <Button fx:id="btn_Close" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnClick_Close" prefHeight="55.0" prefWidth="153.0" style="-fx-background-color: fffaff;" text="Close" textFill="#0a2463">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
+            <TableView fx:id="tv_Highscores" layoutX="63.0" layoutY="148.0" prefHeight="490.0" prefWidth="833.0">
+              <columns>
+                <TableColumn fx:id="col_text" prefWidth="212.0" text="Text" />
+                <TableColumn fx:id="col_time" prefWidth="212.0" text="Time" />
+                  <TableColumn fx:id="col_wpm" prefWidth="212.0" text="Words Per Minute" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>

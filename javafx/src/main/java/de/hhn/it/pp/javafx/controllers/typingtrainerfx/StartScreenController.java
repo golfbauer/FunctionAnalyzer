@@ -1,5 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.typingtrainerfx;
 
+import de.hhn.it.pp.components.typingtrainer.SaveData;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +21,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -42,8 +48,16 @@ public class StartScreenController implements Initializable {
   //Highscore Panel
   @FXML
   Pane pane_Highscores;
+
   @FXML
-  ListView<String> list_Highscores;
+  TableView<SaveData> tv_Highscores; //DataStructure für gespeichertes stattdessen rein
+  @FXML
+  TableColumn<SaveData, String> col_text;
+  @FXML
+  TableColumn<SaveData, String> col_time;
+  @FXML
+  TableColumn<SaveData, String> col_wpm;
+
   @FXML
   Button btn_Close;
 
@@ -124,7 +138,45 @@ public class StartScreenController implements Initializable {
   }
 
   public void btnClick_Highscore() {
+    SaveLoad load = new SaveLoad();
+    String data = load.load();
+
+    String[] datas = data.split(" ");
+
+    //Debug
+    for (int i = 0; i < datas.length; i++) {
+      System.out.println(datas[i]);
+    }
+
+
+    //setup
+      col_text.setCellValueFactory(new PropertyValueFactory<SaveData, String>("text"));
+      col_time.setCellValueFactory(new PropertyValueFactory<SaveData, String>("time"));
+      col_wpm.setCellValueFactory(new PropertyValueFactory<SaveData, String>("wpm"));
+
+    //load data
+    tv_Highscores.setItems(getDatas(datas));
+
+    System.out.println(data);
+
     pane_Highscores.setVisible(true);
+  }
+
+  /**
+   * Konvertiert String[] -> die datas die aus der Txtfile gelesen wurden und dann in ein String[] konvertiert wurden
+   * zu einer OvservableList damit sie von den Columns benutzt werden können
+   * @param datas
+   * @return
+   */
+  private ObservableList<SaveData> getDatas(String[] datas)
+  {
+    ObservableList<SaveData> rows = FXCollections.observableArrayList();
+
+    for (int i = 0; i < datas.length; i+=3) {
+      rows.add(new SaveData(datas[i], datas[i+1], datas[i+2]));
+    }
+
+    return rows;
   }
 
   public void btnClick_Quit() {

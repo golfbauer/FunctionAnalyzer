@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class SaveLoad {
 
@@ -18,7 +20,7 @@ public class SaveLoad {
       bw = new BufferedWriter(fw);
       pw = new PrintWriter(bw);
 
-      pw.println(sessionText+" | "+time+" | "+wpm); //Schreibt in highscores.txt
+      pw.print(sessionText+" "+time+" "+wpm+" "); //Schreibt in highscores.txt
 
       System.out.println("Data Successfully appended into file");
 
@@ -34,4 +36,19 @@ public class SaveLoad {
 
   }
 
+  public String load()
+  {
+    String filePath = "components/src/main/resources/saveData/highscores.txt";
+    String content = "empty";
+
+    try
+    {
+      content = new String (Files.readAllBytes(Paths.get(filePath)));
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+    return content;
+  }
 }
