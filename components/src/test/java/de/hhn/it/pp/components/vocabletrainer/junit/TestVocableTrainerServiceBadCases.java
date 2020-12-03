@@ -166,10 +166,18 @@ public class TestVocableTrainerServiceBadCases {
   }
 
   @Test
-  @DisplayName("Edit vocable with empty translations")
-  public void testExceptionWhenEditingVocableWithTranslationIsEmpty() {
+  @DisplayName("Edit vocable with no translations")
+  public void testExceptionWhenEditingVocableWithoutTranslationIsEmpty() {
     TranslationIsEmptyException translationIsEmptyException =
         assertThrows(TranslationIsEmptyException.class, () -> jbVocableTrainerService
             .editVocable(0, "test", new String[] {}, "NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Edit vocable with empty translations")
+  public void testExceptionWhenEditingVocableWithEmptyTranslationIsEmpty() {
+    TranslationIsEmptyException translationIsEmptyException =
+        assertThrows(TranslationIsEmptyException.class, () -> jbVocableTrainerService
+            .editVocable(0, "test", new String[] {""}, "NotExistentVocCategoryName"));
   }
 }
