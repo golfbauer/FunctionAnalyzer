@@ -170,4 +170,19 @@ public class TestVocableTrainerServiceGoodCases {
       assertFalse(fail("Vocable is not edited"));
     }
   }
+
+  @Test
+  @DisplayName("Test for loadData")
+  void TestLoadData(){
+    LearningState testState = new LearningState();
+    HashMap<String,List<Vocable>> loaderMap = new HashMap<>();
+    testState.setVocabularyList(loaderMap);
+    assertTrue(jbVocableTrainerService.loadData(testState));
+  }
+
+  @Test
+  @DisplayName("Test for LevenshteinDistance")
+  void TestLevenshtein(){
+    assertEquals(0,jbVocableTrainerService.levenshteinDistance("TestOne","TestOne"));
+  }
 }
