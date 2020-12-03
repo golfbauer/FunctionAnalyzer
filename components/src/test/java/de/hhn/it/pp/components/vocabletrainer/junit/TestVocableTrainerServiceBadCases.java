@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -83,5 +84,21 @@ public class TestVocableTrainerServiceBadCases {
     VocCategoryNotFoundException vocCategoryNotFoundException =
         assertThrows(VocCategoryNotFoundException.class,
             () -> jbVocableTrainerService.getVocabulary("NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Add vocable to not existent vocCategory")
+  public void testExceptionWhenAddingVocableToNotExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class, () -> jbVocableTrainerService
+            .addVocable("test", new String[] {"test"}, "NotExistentVocCategoryName"));
+  }
+
+  @Test
+  @DisplayName("Add vocable with empty translations")
+  public void testExceptionWhenAddingVocableWithoutTranslation() {
+    TranslationIsEmptyException translationIsEmptyException =
+        assertThrows(TranslationIsEmptyException.class,
+            () -> jbVocableTrainerService.addVocable("test", new String[] {}, "Auto"));
   }
 }
