@@ -8,7 +8,8 @@ public class Vocable {
 
   public Vocable(String learningWord, String[] translations) throws TranslationIsEmptyException {
     this.learningWord = learningWord;
-    this.setTranslations(translations);
+    checkTranslation(translations);
+    this.translations = translations.clone();
   }
 
   public String getLearningWord() {
@@ -20,13 +21,17 @@ public class Vocable {
   }
 
   public String[] getTranslations() {
-    return translations;
+    return translations.clone();
   }
 
   public void setTranslations(String[] translations) throws TranslationIsEmptyException {
+    checkTranslation(translations);
+    this.translations = translations.clone();
+  }
+
+  private void checkTranslation(String[] translations) throws TranslationIsEmptyException {
     if (translations == null || translations.length == 0 || translations[0].trim().length() == 0) {
       throw new TranslationIsEmptyException("Translation is Empty!");
     }
-    this.translations = translations;
   }
 }
