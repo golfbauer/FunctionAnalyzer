@@ -1,7 +1,6 @@
 package de.hhn.it.pp.components.vocabletrainer.junit;
 
 
-
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
@@ -31,11 +30,12 @@ public class TestVocableTrainerServiceGoodCases {
   JbVocableTrainerService jbVocableTrainerService;
   JbVocableTrainer jbVocableTrainer;
   LearningState learningState;
-
+  List<Vocable> testList;
+  HashMap<String, List<Vocable>> testMap;
 
   @BeforeEach
   void setup() throws VocCategoryAlreadyExistException {
-    List<Vocable> testList = new ArrayList<>();
+    testList = new ArrayList<>();
 
     testList.add(
         new Vocable("Auto", new String[] {"car", "vehicle", "motorcar", "automobile", "auto"}));
@@ -44,7 +44,7 @@ public class TestVocableTrainerServiceGoodCases {
     testList.add(new Vocable("Lenkrad", new String[] {"wheel", "steering wheel"}));
     testList.add(new Vocable("Autositz", new String[] {"car seat", "seat"}));
 
-    HashMap<String, List<Vocable>> testMap = new HashMap<>();
+    testMap = new HashMap<>();
     testMap.put("Auto", testList);
     learningState = new LearningState();
     jbVocableTrainerService = new JbVocableTrainerService();
@@ -55,7 +55,20 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for getScore")
-  void TestgetScore(){
-    assertEquals(10,learningState.getScore());
+  void TestgetScore() {
+    assertEquals(10, learningState.getScore());
+  }
+
+  @Test
+  @DisplayName("Test for getVocCategories")
+  void TestgetVocCategories() {
+    List<String> keyTester = new ArrayList<>();
+
+    for (String key : testMap.keySet()) {
+      keyTester.add(key);
+    }
+
+    assertEquals(keyTester, jbVocableTrainerService.getVocCategories());
+
   }
 }

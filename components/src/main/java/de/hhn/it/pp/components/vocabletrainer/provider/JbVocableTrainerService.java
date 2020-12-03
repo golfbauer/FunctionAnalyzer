@@ -7,6 +7,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class JbVocableTrainerService implements VocableTrainerService {
       org.slf4j.LoggerFactory.getLogger(JbVocableTrainerService.class);
   private JbVocableTrainer trainer = new JbVocableTrainer();
 
-  public JbVocableTrainerService(){}
+  public JbVocableTrainerService() {
+  }
 
   /**
    * Returns the current score.
@@ -36,7 +38,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
   @Override
   public List<String> getVocCategories() {
     logger.info("getVocCategories: no params");
-    return (List<String>) trainer.getVocCategories();
+    return new ArrayList<>(trainer.getVocCategories());
   }
 
   /**
