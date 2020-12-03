@@ -134,7 +134,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void btnClick_Exit(ActionEvent event) throws IOException {
 
     Parent typingScreenParent =
-        FXMLLoader.load(getClass().getResource("/fxml/StartScreen.fxml"));
+        FXMLLoader.load(getClass().getResource("/fxml/typingtrainer/StartScreen.fxml"));
     Scene typingScreenScene = new Scene(typingScreenParent);
 
     //Stage Info
@@ -149,7 +149,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
   public void btnClick_Retry(ActionEvent event) throws IOException{
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/fxml/TypingScreen.fxml"));
+    loader.setLocation(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
     Parent tableViewParent = loader.load();
 
     Scene tableViewScene = new Scene(tableViewParent);
@@ -181,7 +181,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public boolean checkWord(String word, int index) {
     boolean ret = false;
-    String wordPT = descriptor.getPracticeText().getWordAtIndex(index);
+    String wordPT = descriptor.getPracticeText().getWordAtIndex(index).trim();
 
     //Debug
     System.out.println("word = " + word);
@@ -259,7 +259,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
     descriptor.getPracticeText().increaseCurrentWordIndex();
 
-    //handleHboxChildren(); // <--- nicht vergessen wieder zu entkommentieren
+    handleHboxChildren(); // <--- nicht vergessen wieder zu entkommentieren
   }
 
   public void handleHboxChildren() {
@@ -271,13 +271,14 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     if (hboxBuffer >= 3) {
       hbox_practiceText.getChildren().remove(0); //Entfernt das erste Child (ganz links)
 
-      Label word = new Label(descriptor.getPracticeText()
-          .getWordAtIndex(descriptor.getPracticeText().getCurrentWordIndex() + 1) + " ");
-      word.setPrefHeight(53);
-      word.setTextFill(Paint.valueOf("#0a2463"));
-      word.setFont(Font.font("System", 36));
-      hbox_practiceText.getChildren().add(word);
-
+      if(descriptor.getPracticeText().getText().length>descriptor.getPracticeText().getCurrentWordIndex()+1) {
+        Label word = new Label(descriptor.getPracticeText()
+            .getWordAtIndex(descriptor.getPracticeText().getCurrentWordIndex() + 1) + " ");
+        word.setPrefHeight(53);
+        word.setTextFill(Paint.valueOf("#0a2463"));
+        word.setFont(Font.font("System", 36));
+        hbox_practiceText.getChildren().add(word);
+      }
     } else {
       ++hboxBuffer;
     }

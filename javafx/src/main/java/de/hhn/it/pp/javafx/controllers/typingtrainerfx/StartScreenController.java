@@ -109,7 +109,7 @@ public class StartScreenController implements Initializable {
    */
   public void btnClick_Start(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/fxml/TypingScreen.fxml"));
+    loader.setLocation(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
     Parent tableViewParent = loader.load();
 
     Scene tableViewScene = new Scene(tableViewParent);
