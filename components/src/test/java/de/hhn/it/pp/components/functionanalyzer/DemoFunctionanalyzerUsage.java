@@ -1,8 +1,6 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
 import java.util.List;
-import de.hhn.it.pp.components.functionanalyzer.Function;
-import de.hhn.it.pp.components.functionanalyzer.FunctionAnalyserService;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 public class DemoFunctionanalyzerUsage {
@@ -16,7 +14,7 @@ public class DemoFunctionanalyzerUsage {
         List<Double> max = functionAnalyserService.calculateMaxima(f);
         List<Double> xIntersection = functionAnalyserService.calculateXIntersection(f);
         List<Double> yIntersection = functionAnalyserService.calculateYIntersection(f);
-        List<Double> functionValueTest = functionAnalyserService.calculateFunctionValue(f, 25);
+        double functionValueTest = functionAnalyserService.calculateFunctionValue(f, 25);
         List<Double> functionPointTest = functionAnalyserService.calculatePointIntersection(f, 25);
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import de.hhn.it.pp.components.functionanalyzer.Function;
 import de.hhn.it.pp.components.functionanalyzer.FunctionAnalyserService;
 import de.hhn.it.pp.components.functionanalyzer.FunctionElement;
+import de.hhn.it.pp.components.functionanalyzer.FunctionElementComponent;
 import de.hhn.it.pp.components.functionanalyzer.Operator;
 import de.hhn.it.pp.components.functionanalyzer.Term;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
@@ -261,9 +262,40 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
   }
 
   @Override
-  public List<Double> calculateFunctionValue(Function f, double functionParameter)
+  public double calculateFunctionValue(Function f, double functionParameter)
       throws ValueNotDefinedException {
-    return null;
+    double result = getTermValueFromFunctionElement(f.get(0), functionParameter);
+    for (int i = 1; i < f.size(); i++) {
+      if (f.get(i).getOperator().getSymbol() == '*' || f.get(i).getOperator().getSymbol() == '/') {
+        throw new IllegalStateException();
+      } else if (f.get(i).getOperator().getSymbol() == '+') {
+        result += getTermValueFromFunctionElement(f.get(i), functionParameter);
+      } else {
+        result -= getTermValueFromFunctionElement(f.get(i), functionParameter);
+      }
+    }
+    return result;
+  }
+
+  public double getTermValueFromFunctionElement(FunctionElement fe, double x) {
+    double result = 0;
+    List<FunctionElementComponent> temp = fe.getComponents();
+    for (int i = 0; i < temp.size(); i++) {
+      if (temp.get(0) instanceof FunctionElement) {
+        result += getTermValueFromFunctionElement((FunctionElement) temp.get(i), x);
+      } else if (temp.get(0) instanceof Term) {
+        result += calcTerm((Term) temp.get(i), x);
+      }
+    }
+    return result;
+  }
+
+  public double calcTerm(Term term, double x) {
+    if (term.getVariable() == null) {
+      return term.getValue();
+    } else {
+      return term.getFactor() * Math.pow(x, term.getExponent().getValue());
+    }
   }
 
   @Override
