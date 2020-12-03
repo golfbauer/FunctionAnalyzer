@@ -53,7 +53,7 @@ public class DemoVocableTrainerUsage {
     try {
       jbVocableTrainerService.editVocCategory("Computer", "VocCategory");
       logger.debug("Category successfully edited");
-    } catch (VocCategoryNotFoundException e) {
+    } catch (VocCategoryNotFoundException | VocCategoryAlreadyExistException e) {
       logger.debug("Category failed to edit");
       e.printStackTrace();
     }
