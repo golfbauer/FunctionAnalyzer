@@ -50,7 +50,6 @@ public class TestVocableTrainerServiceGoodCases {
     jbVocableTrainerService = new JbVocableTrainerService();
     learningState.setScore(10);
     learningState.setVocabularyList(testMap);
-    jbVocableTrainerService.addVocCategory("Auto", testList);
     jbVocableTrainerService.loadData(learningState);
   }
 

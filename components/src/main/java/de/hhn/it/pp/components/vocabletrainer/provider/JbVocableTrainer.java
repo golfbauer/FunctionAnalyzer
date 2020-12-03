@@ -29,7 +29,7 @@ public class JbVocableTrainer {
    */
   public void addCategory(String categoryName, List<Vocable> voc)
       throws VocCategoryAlreadyExistException {
-    if (trainerData.get(categoryName) != null) {
+    if (trainerData.containsKey(categoryName)) {
       throw new VocCategoryAlreadyExistException("The VocCategory could not be added");
     }
     trainerData.put(categoryName, voc);
