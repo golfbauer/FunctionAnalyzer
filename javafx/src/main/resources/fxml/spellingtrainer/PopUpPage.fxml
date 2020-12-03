@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.AnswerPopUpPageController">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.PopUpPageController">
   <children>
       <Region prefHeight="1.0" prefWidth="1.0" VBox.vgrow="ALWAYS" />
       <HBox>
@@ -16,7 +16,7 @@
             <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
             <StackPane>
                <children>
-                  <Label fx:id="correctAnswerLabel" prefHeight="30.0" prefWidth="143.0" text="The correct answer is:">
+                  <Label fx:id="popUpTextLabel" prefHeight="30.0" prefWidth="143.0" text="The correct answer is:">
                      <StackPane.margin>
                         <Insets bottom="50.0" />
                      </StackPane.margin>

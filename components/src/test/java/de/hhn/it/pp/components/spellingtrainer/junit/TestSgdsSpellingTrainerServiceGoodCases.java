@@ -102,7 +102,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @DisplayName("Get all learning sets.")
   void getAllLearningSets() {
     ArrayList<LearningSet> sets = service.getLearningSets();
-    assertTrue(sets.size() == 1);
+    assertTrue(sets.size() >= 3);
   }
 
   @Test

@@ -19,10 +19,27 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private SpellingTrainerDescriptor descriptor;
   private ArrayList<MediaPresentationListener> mplisteners;
 
-  public SgdsSpellingTrainerService() {
+  public SgdsSpellingTrainerService()
+      throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
+      WordAlreadyAddedException {
     mplisteners = new ArrayList<>();
     descriptor = new SpellingTrainerDescriptor();
+    createLearningSet("GermanLearningSet");
+    createLearningSet("EnglishLearningSet");
+    addWord("Book",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Book.wav"),"EnglishLearningSet");
+    addWord("Brain",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav"),"EnglishLearningSet");
+    addWord("Computer",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav"),"EnglishLearningSet");
+    addWord("Engineering",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav"),"EnglishLearningSet");
+    addWord("Software",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav"),"EnglishLearningSet");
+    addWord("Buch",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav"),"GermanLearningSet");
+    addWord("Gehirn",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav"),"GermanLearningSet");
+    addWord("Computer",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav"),"GermanLearningSet");
+    addWord("Ingenieur",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav"),"GermanLearningSet");
+    addWord("Software",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav"),"GermanLearningSet");
+
+
     logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
+
 
   }
 
