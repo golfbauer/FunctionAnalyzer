@@ -38,7 +38,6 @@ public class LearningSet {
    */
   public void removeLearningEntry(LearningEntry learningEntry) {
     this.learningEntries.remove(learningEntry);
-
   }
 
   /**
@@ -49,17 +48,13 @@ public class LearningSet {
    */
   public LearningEntry getLearningEntry(int index) {
     return this.learningEntries.get(index);
-
   }
 
-  public  ArrayList<LearningEntry> getLearningEntries(){
+  public ArrayList<LearningEntry> getLearningEntries() {
     return this.learningEntries;
-
   }
 
-
-  public String getLearningSetName(){
+  public String getLearningSetName() {
     return this.learningSetName;
   }
-
 }

@@ -28,16 +28,36 @@ public class ResultPageController implements Initializable {
 
   StackPane scenePane;
 
+  /**
+   * Method to handle the event triggered by clicking on the 'Homescreen' button.
+   *
+   * @param event event triggered by clicking on the 'Homescreen' button.
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void handleHomescreenButtonClick(ActionEvent event) throws IOException {
     loadPane(event);
     setScenePane("SpellingTrainerService");
   }
 
+  /**
+   * Method to handle the event triggered by clicking on the 'Continue learning' button.
+   *
+   * @param event event triggered by clicking on the 'Continue learning' button
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void handleContinueLearningButtonClick(ActionEvent event) throws IOException {
     loadPane(event);
     setScenePane("spellingtrainer/ChooseLearningSet");
   }
 
+  /**
+   * Called to initialize a controller after its root element has been
+   * completely processed.
+   *
+   * @param url            The location used to resolve relative paths for the root object, or
+   *                       <tt>null</tt> if the location is not known.
+   * @param resourceBundle The resources used to localize the root object, or <tt>null</tt> if
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     try {
@@ -50,12 +70,24 @@ public class ResultPageController implements Initializable {
     }
   }
 
+  /**
+   * Method to set the next pane.
+   *
+   * @param url reference to the next pane (.fxml file)
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void setScenePane(String url) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/" + url + ".fxml"));
     scenePane.getChildren().clear();
     scenePane.getChildren().add(root);
   }
 
+  /**
+   * Method to load the current pane.
+   *
+   * @param event triggered by clicking a button, which switches the page
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void loadPane(ActionEvent event) throws IOException {
     Node node = (Node) event.getSource();
     Scene scene = node.getScene();

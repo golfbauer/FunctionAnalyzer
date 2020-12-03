@@ -27,21 +27,37 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     descriptor = new SpellingTrainerDescriptor();
     createLearningSet("GermanLearningSet");
     createLearningSet("EnglishLearningSet");
-    addWord("Book",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Book.wav"),"EnglishLearningSet");
-    addWord("Brain",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav"),"EnglishLearningSet");
-    addWord("Computer",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav"),"EnglishLearningSet");
-    addWord("Engineering",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav"),"EnglishLearningSet");
-    addWord("Software",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav"),"EnglishLearningSet");
-    addWord("Buch",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav"),"GermanLearningSet");
-    addWord("Gehirn",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav"),"GermanLearningSet");
-    addWord("Computer",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav"),"GermanLearningSet");
-    addWord("Ingenieur",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav"),"GermanLearningSet");
-    addWord("Software",new File("/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav"),"GermanLearningSet");
-
-
+    addWord("Book", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Book.wav"),
+        "EnglishLearningSet");
+    addWord("Brain", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav"),
+        "EnglishLearningSet");
+    addWord("Computer", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav"),
+        "EnglishLearningSet");
+    addWord("Engineering", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav"),
+        "EnglishLearningSet");
+    addWord("Software", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav"),
+        "EnglishLearningSet");
+    addWord("Buch", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav"),
+        "GermanLearningSet");
+    addWord("Gehirn", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav"),
+        "GermanLearningSet");
+    addWord("Computer", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav"),
+        "GermanLearningSet");
+    addWord("Ingenieur", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav"),
+        "GermanLearningSet");
+    addWord("Software", new File(
+            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav"),
+        "GermanLearningSet");
     logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
-
-
   }
 
   /**
@@ -96,7 +112,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
         logger.info("Learning entry successfully removed from {}.", learningSetName);
         return;
       }
-
     }
     logger.warn("Could not delete the referenced word.");
     throw new WordNotFoundException(
@@ -124,7 +139,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     }
     descriptor.addLearningSet(new LearningSet(learningSetName));
     logger.info("Learning set successfully created.");
-
   }
 
   /**
@@ -135,7 +149,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   @Override
   public void removeLearningSet(String learningSetName) throws LearningSetCouldNotBeFoundException {
     descriptor.removeLearningSet(getLearningSet(learningSetName));
-
   }
 
   /**
@@ -144,7 +157,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @return list of learning sets
    */
   @Override
-
   public ArrayList<LearningSet> getLearningSets() {
     logger.info("Successfully returned all learning sets");
     return descriptor.getLearningSets();
@@ -160,7 +172,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public LearningSet getLearningSet(String learningSetName)
       throws LearningSetCouldNotBeFoundException {
     ArrayList<LearningSet> learningSets = getLearningSets();
-
     for (LearningSet learningSet : learningSets) {
       if (learningSet.getLearningSetName().equals(learningSetName)) {
         logger.info("Successfully returned the LearningSet with the name " + learningSetName);
@@ -171,7 +182,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     throw new LearningSetCouldNotBeFoundException(
         "LearningSet with name " + learningSetName + " could not be found");
   }
-
 
   /**
    * Method to start an learning session with an learning set.
@@ -185,7 +195,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     if (!descriptor.getIsLearning()) {
       descriptor.setActiveLearningSet(getLearningSet(learningSetName));
       descriptor.resetInts();
-      descriptor.updateCounter("remaining", getLearningSet(learningSetName).getLearningEntries().size());
+      descriptor
+          .updateCounter("remaining", getLearningSet(learningSetName).getLearningEntries().size());
       descriptor.setIsLearning(true);
       logger.info("Successfully set all the necessary start variables");
       return true;
@@ -222,7 +233,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
         descriptor.getActiveLearningSet().getLearningEntries().size()) {
       descriptor
           .setCurrentWordIndex(descriptor.getCurrentWordIndex() + 1);
-      logger.info("The activelearningset has a next word and the currentwordindex has been incremented");
+      logger.info(
+          "The activelearningset has a next word and the currentwordindex has been incremented");
       return true;
     }
     logger.warn("No next word found");
@@ -239,7 +251,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     return descriptor.getActiveLearningSet()
         .getLearningEntry(descriptor.getCurrentWordIndex()).getWordEntry();
   }
-
 
   /**
    * Method to play the current word.
@@ -296,6 +307,4 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     logger.info("Successfully returned all media presentation listeners.");
     return this.mplisteners;
   }
-
 }
-

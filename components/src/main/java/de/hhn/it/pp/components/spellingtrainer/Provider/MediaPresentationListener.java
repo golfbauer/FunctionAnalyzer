@@ -1,8 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer.Provider;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -25,12 +23,8 @@ public class MediaPresentationListener {
    */
   public void present(MediaReference mediaReference)
       throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-      AudioInputStream inputStream = AudioSystem.getAudioInputStream(mediaReference.getMediaFile());
-      Clip clip = AudioSystem.getClip();
-      clip.open(inputStream);
+    AudioInputStream inputStream = AudioSystem.getAudioInputStream(mediaReference.getMediaFile());
+    Clip clip = AudioSystem.getClip();
+    clip.open(inputStream);
   }
-
-
-
-
 }

@@ -3,7 +3,6 @@ package de.hhn.it.pp.components.spellingtrainer.junit;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -41,7 +40,6 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     service.startLearning("TestSet");
   }
 
-
   @Test
   @DisplayName("Checks if the spelling is correct.")
   void checkingSpellingIsCorrect() {
@@ -67,7 +65,6 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     }
     logger.debug("There are no learning entries.");
     assertFalse(contains);
-
   }
 
   @Test
@@ -79,7 +76,6 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     ArrayList<LearningSet> lSets = service.getDescriptor().getLearningSets();
     for (LearningSet ls : lSets) {
       contains = ls.getLearningSetName().equals("LearningSet1");
-
     }
     assertTrue(contains);
   }
@@ -92,10 +88,8 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     ArrayList<LearningSet> lSets = service.getDescriptor().getLearningSets();
     for (LearningSet ls : lSets) {
       contains = ls.getLearningSetName().equals("TestSet");
-
     }
     assertFalse(contains);
-
   }
 
   @Test
@@ -143,23 +137,24 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @DisplayName("Starting the learning service")
   void startLearning() throws LearningSetCouldNotBeFoundException, NoWordException {
     service.getDescriptor().setActiveLearningSet(null);
-    service.getDescriptor().updateCounter("wrong",1);
-    service.getDescriptor().updateCounter("right",5);
-    service.getDescriptor().updateCounter("remaining",3);
+    service.getDescriptor().updateCounter("wrong", 1);
+    service.getDescriptor().updateCounter("right", 5);
+    service.getDescriptor().updateCounter("remaining", 3);
     service.getDescriptor().setIsLearning(false);
     service.startLearning("TestSet");
-    assertAll(() -> assertEquals("TestSet",service.getDescriptor().getActiveLearningSet().getLearningSetName()),
+    assertAll(() -> assertEquals("TestSet",
+        service.getDescriptor().getActiveLearningSet().getLearningSetName()),
         () -> assertTrue(service.getDescriptor().getCounter("wrong") == 0 &&
             service.getDescriptor().getCounter("right") == 0 &&
             service.getDescriptor().getCounter("remaining") == 1),
-    ()->assertTrue(service.getDescriptor().getIsLearning()) );
+        () -> assertTrue(service.getDescriptor().getIsLearning()));
   }
-@Test
- @DisplayName("Ending learning service ")
- void endLearning(){
+
+  @Test
+  @DisplayName("Ending learning service ")
+  void endLearning() {
     service.endLearning();
     assertAll(() -> assertNull(service.getDescriptor().getActiveLearningSet()),
         () -> assertFalse(service.getDescriptor().getIsLearning()));
-}
-
+  }
 }

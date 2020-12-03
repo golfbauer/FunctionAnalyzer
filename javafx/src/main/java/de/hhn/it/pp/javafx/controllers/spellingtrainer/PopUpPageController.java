@@ -23,7 +23,5 @@ public class PopUpPageController   {
     Node actualStage = (Node) event.getSource();
     Stage stage = (Stage) actualStage.getScene().getWindow();
     stage.close();
-
   }
-
 }

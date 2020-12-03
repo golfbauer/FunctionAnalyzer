@@ -9,43 +9,48 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<VBox minHeight="500.0" minWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ResultPageController">
-  <children>
-      <StackPane>
-         <children>
-            <Label prefHeight="65.0" prefWidth="175.0" text="Your results">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-         </children>
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </StackPane>
-      <Region prefHeight="9.0" prefWidth="350.0" VBox.vgrow="ALWAYS" />
-      <StackPane>
-         <children>
-            <PieChart fx:id="pieChart" />
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </StackPane>
-      <Region prefHeight="31.0" prefWidth="350.0" VBox.vgrow="ALWAYS" />
-      <HBox>
-         <children>
-            <Button fx:id="homescreenButton" mnemonicParsing="false" onAction="#handleHomescreenButtonClick" prefHeight="40.0" prefWidth="150.0" text="Homescreen">
-               <HBox.margin>
-                  <Insets bottom="5.0" left="10.0" />
-               </HBox.margin></Button>
-            <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="continueLearningButton" mnemonicParsing="false" onAction="#handleContinueLearningButtonClick" prefHeight="40.0" prefWidth="150.0" text="Continue learning">
-               <HBox.margin>
-                  <Insets bottom="5.0" right="10.0" />
-               </HBox.margin></Button>
-         </children>
-      </HBox>
-  </children>
+<VBox minHeight="500.0" minWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="de.hhn.it.pp.javafx.controllers.spellingtrainer.ResultPageController">
+    <children>
+        <StackPane>
+            <children>
+                <Label prefHeight="65.0" prefWidth="175.0" text="Your results">
+                    <font>
+                        <Font size="29.0"/>
+                    </font>
+                </Label>
+            </children>
+            <VBox.margin>
+                <Insets top="10.0"/>
+            </VBox.margin>
+        </StackPane>
+        <Region prefHeight="9.0" prefWidth="350.0" VBox.vgrow="ALWAYS"/>
+        <StackPane>
+            <children>
+                <PieChart fx:id="pieChart"/>
+            </children>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </StackPane>
+        <Region prefHeight="31.0" prefWidth="350.0" VBox.vgrow="ALWAYS"/>
+        <HBox>
+            <children>
+                <Button fx:id="homescreenButton" mnemonicParsing="false" onAction="#handleHomescreenButtonClick"
+                        prefHeight="40.0" prefWidth="150.0" text="Homescreen">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="10.0"/>
+                    </HBox.margin>
+                </Button>
+                <Region prefHeight="1.0" prefWidth="1.0" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="continueLearningButton" mnemonicParsing="false"
+                        onAction="#handleContinueLearningButtonClick" prefHeight="40.0" prefWidth="150.0"
+                        text="Continue learning">
+                    <HBox.margin>
+                        <Insets bottom="5.0" right="10.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </children>
 </VBox>

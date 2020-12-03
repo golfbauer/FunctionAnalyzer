@@ -1,7 +1,7 @@
 package de.hhn.it.pp.components.spellingtrainer.junit;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
@@ -36,62 +36,62 @@ public class TestSgdsSpellingTrainerServiceBadCases {
 
   @Test
   @DisplayName("Checks how checkSpelling handels wrong spelling")
-  void wrongCheckSpelling(){
+  void wrongCheckSpelling() {
     assertFalse(service.checkSpelling("tes"));
   }
 
   @Test
   @DisplayName("Checks how addWord handels adding an existing word")
   void addAlreadyAddedWord() throws LearningSetCouldNotBeFoundException, WordAlreadyAddedException {
-    assertThrows( WordAlreadyAddedException.class,
-    () -> service.addWord("test", audioFile, "TestSet"));
+    assertThrows(WordAlreadyAddedException.class,
+        () -> service.addWord("test", audioFile, "TestSet"));
   }
 
   @Test
   @DisplayName("Checks how deleteWord handels removing a non existing word")
-  void removeNonExistingWord(){
+  void removeNonExistingWord() {
     assertThrows(WordNotFoundException.class,
         () -> service.deleteWord("tes", "TestSet"));
   }
 
   @Test
   @DisplayName("Checks how createLearningSet handels adding a LearningSet with the same name")
-  void addAlreadyExistingLearningSet(){
+  void addAlreadyExistingLearningSet() {
     assertThrows(LearningSetNameAlreadyAssignedException.class,
         () -> service.createLearningSet("TestSet"));
   }
 
   @Test
   @DisplayName("Checks how removeLearningSet handels removing a LearningSet which does not exist")
-  void removeNonExistingLearningSet(){
+  void removeNonExistingLearningSet() {
     assertThrows(LearningSetCouldNotBeFoundException.class,
         () -> service.removeLearningSet("TestSe"));
   }
 
   @Test
   @DisplayName("Checks how getLearningSet handels getting a not existing learningset")
-  void getNonExistingLearningSet(){
+  void getNonExistingLearningSet() {
     assertThrows(LearningSetCouldNotBeFoundException.class,
         () -> service.getLearningSet("TestSe"));
   }
 
   @Test
   @DisplayName("Checks how startLearning handels getting a not existing learningset")
-  void startLearningWithNonExistingLearningSet(){
+  void startLearningWithNonExistingLearningSet() {
     service.getDescriptor().setIsLearning(false);
     assertThrows(LearningSetCouldNotBeFoundException.class,
-    () -> service.startLearning("TestSe"));
+        () -> service.startLearning("TestSe"));
   }
 
   @Test
   @DisplayName("Checks how nextWord handels not having a next word")
-  void noNextWord(){
+  void noNextWord() {
     assertFalse(service.hasNextWord());
   }
 
   @Test
   @DisplayName("Checks how currentWord handels getting invalid index")
-  void currentWordFromInvalidIndex(){
+  void currentWordFromInvalidIndex() {
     service.getDescriptor().setCurrentWordIndex(5);
     assertThrows(IndexOutOfBoundsException.class,
         () -> service.currentWord());
@@ -99,10 +99,8 @@ public class TestSgdsSpellingTrainerServiceBadCases {
 
   @Test
   @DisplayName("Checks how deregisterMediaPresentationListener handels getting invalid index")
-  void deregisterMediaPresentationListenerFromInvalidIndex(){
+  void deregisterMediaPresentationListenerFromInvalidIndex() {
     assertThrows(IndexOutOfBoundsException.class,
         () -> service.deregisterMediaPresentationListener(5));
   }
-
-
 }

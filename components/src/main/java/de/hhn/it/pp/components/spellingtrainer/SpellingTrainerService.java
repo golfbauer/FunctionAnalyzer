@@ -7,7 +7,6 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlready
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public interface SpellingTrainerService {
   /**
    * Checks the spelling of the entered word.
    *
-   * @param enteredWord   word, that the user entered
+   * @param enteredWord word, that the user entered
    * @return Returns true if the spelling of the word was correct, false if the spelling was wrong
    */
   boolean checkSpelling(String enteredWord);
@@ -31,8 +30,8 @@ public interface SpellingTrainerService {
   /**
    * Adds the given word to the learning set and maps the audio file to the word.
    *
-   * @param word        word that will be added
-   * @param audio       audio that will be mapped to the word
+   * @param word            word that will be added
+   * @param audio           audio that will be mapped to the word
    * @param learningSetName name of the set, that the word should be added to
    */
   void addWord(String word, File audio, String learningSetName)
@@ -41,7 +40,7 @@ public interface SpellingTrainerService {
   /**
    * Removes the given word from the Learning List and removes the mapping.
    *
-   * @param word        word that is to be removed
+   * @param word            word that is to be removed
    * @param learningSetName name of the set, that the word is deleted from
    */
   void deleteWord(String word, String learningSetName)
@@ -87,7 +86,6 @@ public interface SpellingTrainerService {
   boolean startLearning(String learningSetName)
       throws LearningSetCouldNotBeFoundException, NoWordException;
 
-
   /**
    * Method to stop a learning session.
    *
@@ -128,10 +126,9 @@ public interface SpellingTrainerService {
   /**
    * Method to deregister and media presentation listener.
    *
-   * @param index  index position of the media presentation listener to be removed
+   * @param index index position of the media presentation listener to be removed
    */
   void deregisterMediaPresentationListener(int index);
-
 
   SpellingTrainerDescriptor getDescriptor();
 }

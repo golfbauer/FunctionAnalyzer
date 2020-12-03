@@ -19,24 +19,21 @@ public class LearningEntry {
   public LearningEntry(MediaReference mediaReference, String wordEntry) {
     this.mediaReference = mediaReference;
     this.wordEntry = wordEntry;
-
-  }
-
-
-  public void setWordEntry(String wordEntry) {
-    this.wordEntry = wordEntry;
   }
 
   public String getWordEntry() {
     return this.wordEntry;
   }
 
-  public void setMediaReference(MediaReference mediaReference) {
-    this.mediaReference = mediaReference;
+  public void setWordEntry(String wordEntry) {
+    this.wordEntry = wordEntry;
   }
 
   public MediaReference getMediaReference() {
     return this.mediaReference;
   }
 
+  public void setMediaReference(MediaReference mediaReference) {
+    this.mediaReference = mediaReference;
+  }
 }

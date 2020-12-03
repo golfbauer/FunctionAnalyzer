@@ -2,7 +2,7 @@ package de.hhn.it.pp.components.spellingtrainer.exceptions;
 
 import java.security.PrivilegedActionException;
 
-public class LearningSetNameAlreadyAssignedException extends Exception{
+public class LearningSetNameAlreadyAssignedException extends Exception {
   /**
    * Constructs a new exception with {@code null} as its detail message.
    * The cause is not initialized, and may subsequently be initialized by a

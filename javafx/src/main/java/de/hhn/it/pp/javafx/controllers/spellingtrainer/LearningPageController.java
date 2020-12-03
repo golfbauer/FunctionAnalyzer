@@ -43,6 +43,11 @@ public class LearningPageController implements Initializable {
   public void handlePlayAgainButtonClick() {
   }
 
+  /**
+   * Method to handle the event by clicking on the 'Check spelling' button.
+   *
+   * @throws NoWordException is thrown, when the parameter of the method updateCounter is not equal to right,wrong or remaining
+   */
   public void handleCheckSpellingButtonClick() throws NoWordException {
     String answer = solutionTextField.getText();
     boolean isTrue = service.checkSpelling(answer);
@@ -52,47 +57,55 @@ public class LearningPageController implements Initializable {
         rightWordsLabel
             .setText("Words spelled right: " + service.getDescriptor().getCounter("right"));
         service.getDescriptor().updateCounter("remaining", -1);
-
         remainingWordsLabel
             .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
       }
       solutionTextField.setStyle("-fx-background-color: #09e909");
-
-
     } else {
       if (tries == 1) {
         service.getDescriptor().updateCounter("wrong", 1);
         wrongWordsLabel
             .setText("Words spelled wrong: " + service.getDescriptor().getCounter("wrong"));
-
         service.getDescriptor().updateCounter("remaining", -1);
         remainingWordsLabel
             .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
-
       }
       solutionTextField.setStyle("-fx-background-color: #ff0a0a");
     }
     tries++;
   }
 
+  /**
+   * Method to handle the even triggered by clicking on the 'End learning' button
+   *
+   * @param event triggered by clicking on the 'End learning' button
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void handleEndLearningButtonClick(ActionEvent event) throws IOException {
     loadPane(event);
     setScenePane("SpellingTrainerService");
     service.endLearning();
   }
 
+  /**
+   * Method to handle the event triggered by clicking on the 'Show answer' button
+   *
+   * @param event event triggered by clicking on the 'Show answer' button
+   * @throws IOException     is thrown, when the referenced .fxml file does not exist
+   * @throws NoWordException is thrown, when the parameter of the method updateCounter is not equal to right,wrong or remaining
+   */
   public void handleShowAnswerButtonClick(ActionEvent event) throws IOException, NoWordException {
     Stage popUpWindow = new Stage();
     popUpWindow.initModality(Modality.APPLICATION_MODAL);
     popUpWindow.setTitle("AnswerPopUpPage");
     Parent root =
-       FXMLLoader.load(getClass().getResource("/fxml/spellingtrainer/PopUpPage.fxml"));
+        FXMLLoader.load(getClass().getResource("/fxml/spellingtrainer/PopUpPage.fxml"));
     popUpWindow.setScene(new Scene(root));
     Scene scene = popUpWindow.getScene();
     Label label = (Label) scene.lookup("#popUpTextLabel");
-    label.setText("The correct answer is: "+service.currentWord());
+    label.setText("The correct answer is: " + service.currentWord());
     popUpWindow.show();
-    if(tries == 1){
+    if (tries == 1) {
       tries++;
       service.getDescriptor().updateCounter("remaining", -1);
       remainingWordsLabel
@@ -100,14 +113,21 @@ public class LearningPageController implements Initializable {
     }
   }
 
+  /**
+   * Method to handle the event triggered by clicking on the 'Continue' button
+   *
+   * @param event event triggered by clicking on the 'Continue' button
+   * @throws IOException     is thrown, when the referenced .fxml file does not exist
+   * @throws NoWordException is thrown, when the parameter of the method updateCounter is not equal to right,wrong or remaining
+   */
   public void handleContinueButtonClick(ActionEvent event) throws IOException, NoWordException {
-    if(tries == 1){
+    if (tries == 1) {
       handleCheckSpellingButtonClick();
     }
-    if(service.hasNextWord()){
+    if (service.hasNextWord()) {
       loadPane(event);
       setScenePane("spellingtrainer/LearningPage");
-    }else{
+    } else {
       service.endLearning();
       loadPane(event);
       setScenePane("spellingtrainer/ResultPage");
@@ -115,18 +135,38 @@ public class LearningPageController implements Initializable {
     tries = 1;
   }
 
+  /**
+   * Method to set the next pane.
+   *
+   * @param url reference to the next pane (.fxml file)
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void setScenePane(String url) throws IOException {
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/" + url + ".fxml"));
     scenePane.getChildren().clear();
     scenePane.getChildren().add(root);
   }
 
+  /**
+   * Method to load the current pane.
+   *
+   * @param event triggered by clicking a button, which switches the page
+   * @throws IOException is thrown, when the referenced .fxml file does not exist
+   */
   public void loadPane(ActionEvent event) throws IOException {
     Node node = (Node) event.getSource();
     Scene scene = node.getScene();
     scenePane = (StackPane) scene.lookup("#scenePane");
   }
 
+  /**
+   * Called to initialize a controller after its root element has been
+   * completely processed.
+   *
+   * @param location  The location used to resolve relative paths for the root object, or
+   *                  <tt>null</tt> if the location is not known.
+   * @param resources The resources used to localize the root object, or <tt>null</tt> if
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     try {
