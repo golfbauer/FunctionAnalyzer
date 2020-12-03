@@ -1,13 +1,18 @@
 package de.hhn.it.pp.components.vocabletrainer.junit;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Test for VocableTrainerService bad cases")
 public class TestVocableTrainerServiceBadCases {
@@ -39,5 +44,12 @@ public class TestVocableTrainerServiceBadCases {
     jbVocableTrainerService.loadData(learningState);
   }
 
+  @Test
+  @DisplayName("create an already existing Category")
+  public void testExceptionWhenCreatingExistentVocCategory() {
+    VocCategoryAlreadyExistException vocCategoryAlreadyExistException =
+        assertThrows(VocCategoryAlreadyExistException.class, () ->
+            jbVocableTrainerService.addVocCategory("Auto", new ArrayList<>()));
+  }
 
 }
