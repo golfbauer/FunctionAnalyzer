@@ -35,13 +35,13 @@ public interface TypingTrainerService {
    * Shows feedback
    * @param feedback feedback to show
    */
-  void showFeedback(Feedback feedback);
+  void showFeedback(Feedback feedback) throws IOException;
 
   /**
    * saves feedback (score)
    * @param score feedback to save
    */
-  void saveScore(Feedback score);
+  void saveScore(Feedback score) throws IOException;
 
   /**
    * loads saved feedbacks (scores)
@@ -51,7 +51,7 @@ public interface TypingTrainerService {
   /**
    * Gets the userinput aka keystrokes through a scanner and is potentially used for Feedback, CheckWord etc
    */
-  void userInput();
+  void userInput() throws IOException;
 
   /**
    * Print a countdown
@@ -64,7 +64,7 @@ public interface TypingTrainerService {
    * Marks either the currentWord or if the word is written correctly depending on checkWord.
    * @param index
    */
-  void markWord(int index, Color color);
+  void markWord(int index, Color color) throws IOException;
 
   /**
    * Selecting the text you want to train your typing in(preset texts not individual texts from User)
