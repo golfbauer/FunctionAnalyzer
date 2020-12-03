@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.vocabletrainer.junit;
 
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +33,6 @@ public class TestVocableTrainerServiceGoodCases {
       org.slf4j.LoggerFactory.getLogger(TestVocableTrainerServiceGoodCases.class);
 
   JbVocableTrainerService jbVocableTrainerService;
-  JbVocableTrainer jbVocableTrainer;
   LearningState learningState;
   List<Vocable> testList;
   HashMap<String, List<Vocable>> testMap;
@@ -92,4 +93,37 @@ public class TestVocableTrainerServiceGoodCases {
     assertEquals("Auto", jbVocableTrainerService.getVocable(0, "Auto").getLearningWord());
   }
 
+  @Test
+  @DisplayName("Test for getVocabulary")
+  void TestGetVocabulary() throws VocCategoryNotFoundException {
+    assertEquals(testList, jbVocableTrainerService.getVocabulary("Auto"));
+  }
+
+  @Test
+  @DisplayName("Test for addVocable")
+  void TestAddVocable()
+      throws VocCategoryNotFoundException, TranslationIsEmptyException, VocableNotFoundException {
+    jbVocableTrainerService.addVocable("Hupe", new String[] {"horn"}, "Auto");
+    int ka = 0;
+    for (int i = 0; i < jbVocableTrainerService.getVocabulary("Auto").size(); i++) {
+      if ("Hupe".equals(jbVocableTrainerService.getVocable(i, "Auto").getLearningWord())) {
+        assertTrue(true);
+        ka = 1;
+      }
+    }
+    if (ka != 1) {
+      assertFalse(fail("Vocable is not added"));
+    }
+  }
+
+  @Test
+  @DisplayName("Test for removeVocable")
+  void TestRemoveVocable() throws VocCategoryNotFoundException, VocableNotFoundException {
+    jbVocableTrainerService.removeVocable(0,"Auto");
+    try {
+      jbVocableTrainerService.getVocable(0,"Auto").getLearningWord();
+    }catch (VocableNotFoundException e){
+      assertTrue(true,"Vocable is removed");
+    }
+  }
 }
