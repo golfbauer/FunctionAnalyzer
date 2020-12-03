@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,6 +36,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   private int hboxCnt;
   private int hboxCntMaxValue;
   private int hboxBuffer = 0;
+  private boolean isWriting = false;
 
   @FXML
   private Button btn_Exit;
@@ -69,6 +71,13 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode().isWhitespaceKey()) {
           userInput();
+        } else if (!isWriting) {
+          isWriting = true;
+          try {
+            countdown(11);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
         }
       }
     });
@@ -183,7 +192,9 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void showFeedback(Feedback feedback) {
-
+    lbl_FeedbackTime.setText(String.valueOf(feedback.getTime()));
+    lbl_FeedbackWPM.setText(String.valueOf(feedback.getWordsPerMinute()));
+    pane_Score.setVisible(true);
   }
 
   /**
@@ -211,6 +222,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void userInput() {
     //das vom label 1 + 2
     String[] typedWordsTxtf = splitText(textfield_typedText.getText());
+
     //überprüfen mit typedWords[currentIndex]
     int currentIndex = descriptor.getPracticeText().getCurrentWordIndex();
     descriptor.addTypedWords(typedWordsTxtf[currentIndex], currentIndex);
@@ -225,20 +237,20 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
     descriptor.getPracticeText().increaseCurrentWordIndex();
 
-    handleHboxChildren();
+    //handleHboxChildren(); // <--- nicht vergessen wieder zu entkommentieren
   }
 
   public void handleHboxChildren() {
 
     //Debug
-    System.out.println("hboxCnt = "+hboxCnt);
-    System.out.println("buffer = "+hboxBuffer);
+    System.out.println("hboxCnt = " + hboxCnt);
+    System.out.println("buffer = " + hboxBuffer);
 
     if (hboxBuffer >= 3) {
       hbox_practiceText.getChildren().remove(0); //Entfernt das erste Child (ganz links)
 
       Label word = new Label(descriptor.getPracticeText()
-          .getWordAtIndex(descriptor.getPracticeText().getCurrentWordIndex()+1) + " ");
+          .getWordAtIndex(descriptor.getPracticeText().getCurrentWordIndex() + 1) + " ");
       word.setPrefHeight(53);
       word.setTextFill(Paint.valueOf("#0a2463"));
       word.setFont(Font.font("System", 36));
@@ -257,7 +269,11 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void countdown(int seconds) throws InterruptedException {
-
+    if (seconds == 11) {
+      descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
+    } else if (seconds == 66) {
+      descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
+    }
   }
 
   /**
@@ -267,17 +283,33 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * @param color
    */
   @Override
-  public void markWord(int index, Color color) {
+  public void markWord(int index,
+                       Color color) { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
 
     int addIndex = 0; //Zusätzlicher Index falls hboxBuffer 3 überschreitet
-    if(hboxBuffer >3)
+    if (hboxBuffer > 3) {
       addIndex = 1;
+    }
 
     if (color.equals(Color.GREEN)) {
-      hbox_practiceText.getChildren().get(hboxBuffer+addIndex).setStyle("-fx-text-fill: #008000");
+      hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #008000");
     } else {
-      hbox_practiceText.getChildren().get(hboxBuffer+addIndex).setStyle("-fx-text-fill: #ff0000");
+      hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #ff0000");
     }
+
+
+    //Zeigt Feedback wenn man am Ende vom Text angekommen ist
+    if (descriptor.getPracticeText().getCurrentWordIndex() == descriptor.getPracticeText().getText().length - 1) {
+      try {
+        countdown(66);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      descriptor.getFeedback().calculateTime();
+      descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
+      showFeedback(descriptor.getFeedback());
+    }
+
   }
 
   /**
