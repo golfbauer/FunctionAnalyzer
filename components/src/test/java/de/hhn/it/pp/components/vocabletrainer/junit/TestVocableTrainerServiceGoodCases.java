@@ -4,6 +4,8 @@ package de.hhn.it.pp.components.vocabletrainer.junit;
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainer;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -55,20 +58,31 @@ public class TestVocableTrainerServiceGoodCases {
 
   @Test
   @DisplayName("Test for getScore")
-  void TestgetScore() {
+  void TestGetScore() {
     assertEquals(10, learningState.getScore());
   }
 
   @Test
   @DisplayName("Test for getVocCategories")
-  void TestgetVocCategories() {
-    List<String> keyTester = new ArrayList<>();
+  void TestGetVocCategories() {
+    assertEquals(new ArrayList<>(testMap.keySet()), jbVocableTrainerService.getVocCategories());
+  }
 
-    for (String key : testMap.keySet()) {
-      keyTester.add(key);
-    }
+  @Test
+  @DisplayName("Test for addVocCategory")
+  void TestAddVocCategory() throws VocCategoryAlreadyExistException, VocCategoryNotFoundException,
+      VocableNotFoundException {
+    Vocable testVocable = new Vocable("tisch", new String[] {"table"});
+    List<Vocable> vocableListTester = new ArrayList<>();
+    vocableListTester.add(testVocable);
+    jbVocableTrainerService.addVocCategory("schule", vocableListTester);
+    assertEquals(testVocable, jbVocableTrainerService.getVocable(0, "schule"));
+  }
 
-    assertEquals(keyTester, jbVocableTrainerService.getVocCategories());
-
+  @Test
+  @DisplayName("Test for removeVocCategory")
+  void TestRemoveVocCategory() throws VocCategoryNotFoundException {
+    jbVocableTrainerService.removeVocCategory("Auto");
+    assertEquals(new ArrayList<>(), jbVocableTrainerService.getVocCategories());
   }
 }
