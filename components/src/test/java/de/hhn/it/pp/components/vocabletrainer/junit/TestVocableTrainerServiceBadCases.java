@@ -76,4 +76,12 @@ public class TestVocableTrainerServiceBadCases {
         assertThrows(VocCategoryNotFoundException.class,
             () -> jbVocableTrainerService.getVocable(0, "NotExistentVocCategoryName"));
   }
+
+  @Test
+  @DisplayName("Get vocabulary list from a not existent vocCategory")
+  public void testExceptionWhenGettingVocableListFromNotExistentVocCategory() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class,
+            () -> jbVocableTrainerService.getVocabulary("NotExistentVocCategoryName"));
+  }
 }
