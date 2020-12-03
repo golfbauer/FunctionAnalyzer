@@ -217,7 +217,11 @@ public class JbVocableTrainerService implements VocableTrainerService {
     }
     Vocable vocEdit = new Vocable(learningWord, translations);
     trainer.addVocable(category, vocEdit);
-    trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
+    try {
+      trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
   }
 
   /**
