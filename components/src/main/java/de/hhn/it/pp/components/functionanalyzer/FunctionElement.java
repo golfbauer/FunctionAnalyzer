@@ -59,15 +59,13 @@ public class FunctionElement implements FunctionElementComponent {
   @Override
   public FunctionElement getDerivative() {
     FunctionElement result = new FunctionElement(operator);
-    if (components.get(0) instanceof FunctionElement) {
-      for (int i = 0; i < components.size(); i++) {
+    for (int i = 0; i < components.size(); i++) {
+      if (components.get(0) instanceof FunctionElement) {
         result.addFunctionElementComponent(components.get(i).getDerivative());
-      }
-    } else if (components.get(0) instanceof Term) {
-      for (int j = 0; j < components.size(); j++) {
-        if (components.get(j).getDerivative() != null) {
-          result.addFunctionElementComponent(components.get(j).getDerivative());
-        } else if(components.size() == 1) {
+      } else if (components.get(0) instanceof Term) {
+        if (components.get(i).getDerivative() != null) {
+          result.addFunctionElementComponent(components.get(i).getDerivative());
+        } else if (components.size() == 1) {
           return null;
         }
       }
