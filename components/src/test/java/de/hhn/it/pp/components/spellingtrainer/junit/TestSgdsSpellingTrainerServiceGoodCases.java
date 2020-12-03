@@ -31,7 +31,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @BeforeEach
   void initialize()
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
-      WordAlreadyAddedException {
+      WordAlreadyAddedException, NoWordException {
     service = new SgdsSpellingTrainerService();
     audioFile =
         new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
@@ -151,7 +151,7 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     assertAll(() -> assertEquals("TestSet",service.getDescriptor().getActiveLearningSet().getLearningSetName()),
         () -> assertTrue(service.getDescriptor().getCounter("wrong") == 0 &&
             service.getDescriptor().getCounter("right") == 0 &&
-            service.getDescriptor().getCounter("remaining") == 0),
+            service.getDescriptor().getCounter("remaining") == 1),
     ()->assertTrue(service.getDescriptor().getIsLearning()) );
   }
 @Test

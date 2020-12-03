@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
+import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
 import java.io.File;
@@ -23,7 +24,7 @@ public class TestSgdsSpellingTrainerServiceBadCases {
   @BeforeEach
   void initialize()
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
-      WordAlreadyAddedException {
+      WordAlreadyAddedException, NoWordException {
     service = new SgdsSpellingTrainerService();
     audioFile =
         new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
