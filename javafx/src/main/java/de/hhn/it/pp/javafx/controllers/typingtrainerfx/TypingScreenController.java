@@ -37,6 +37,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   private int hboxCntMaxValue;
   private int hboxBuffer = 0;
   private boolean isWriting = false;
+  private String selectedText;
 
   @FXML
   private Button btn_Exit;
@@ -86,6 +87,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   //region Init Methods
   public void initData(String item) throws FileNotFoundException //TEST
   {
+    selectedText = item;
+
     //Audio file holen
     File audioWrongWord = new File("sound_wrongWord.mp3");
 
@@ -145,17 +148,19 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   }
 
   public void btnClick_Retry(ActionEvent event) throws IOException{
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/TypingScreen.fxml"));
+    Parent tableViewParent = loader.load();
 
-    Parent typingScreenParent =
-        FXMLLoader.load(getClass().getResource("/fxml/TypingScreen.fxml"));
-    Scene typingScreenScene = new Scene(typingScreenParent);
+    Scene tableViewScene = new Scene(tableViewParent);
 
-    //Stage Info
-    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    TypingScreenController controller = loader.getController();
+    controller.initData(selectedText);
 
-    window.setScene(typingScreenScene);
+    Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+    window.setScene(tableViewScene);
     window.show();
-
     //wurde ein text ausgewählt
     System.out.println("Wechselt zu startscreen");
   }
