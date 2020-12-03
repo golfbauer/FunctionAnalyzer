@@ -21,6 +21,7 @@ public class BiKrMathTrainer implements MathTrainer {
   private boolean timeisup;
   private int inturn;
   private boolean warmup;
+  private Term currentTerm;
 
   /**
    * Constructor to instantiate the basic functions for MathTrainer.
@@ -130,6 +131,10 @@ public class BiKrMathTrainer implements MathTrainer {
         } else throw new IllegalParameterException("Der Zeitbonus kann nicht negativ sein.");
     }
 
+    public Term getCurrentTerm() {
+      return this.currentTerm;
+    }
+
     @Override
     public Term createTerm() {
         int maxNumberSize =
@@ -152,7 +157,16 @@ public class BiKrMathTrainer implements MathTrainer {
             secondNumber = BigDecimal.ONE;
         }
 
-        return new Term(firstNumber, secondNumber, operator, this.getDecimalPlace());
+        Term term = new Term(firstNumber, secondNumber, operator, this.getDecimalPlace());
+
+        currentTerm = term;
+
+        return term;
+    }
+
+    public Term nextTerm() {
+      inturn++;
+      return createTerm();
     }
 
     @Override
