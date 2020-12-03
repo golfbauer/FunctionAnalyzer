@@ -13,7 +13,7 @@ public class DemoFunctionanalyzerUsage {
         List<Double> min = functionAnalyserService.calculateMinima(f);
         List<Double> max = functionAnalyserService.calculateMaxima(f);
         List<Double> xIntersection = functionAnalyserService.calculateXIntersection(f);
-        List<Double> yIntersection = functionAnalyserService.calculateYIntersection(f);
+        double yIntersection = functionAnalyserService.calculateYIntersection(f);
         double functionValueTest = functionAnalyserService.calculateFunctionValue(f, 25);
         List<Double> functionPointTest = functionAnalyserService.calculatePointIntersection(f, 25);
     }
