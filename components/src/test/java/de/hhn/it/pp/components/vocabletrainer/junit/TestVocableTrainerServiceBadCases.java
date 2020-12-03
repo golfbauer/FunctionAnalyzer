@@ -151,6 +151,14 @@ public class TestVocableTrainerServiceBadCases {
   }
 
   @Test
+  @DisplayName("Check non existend vocable")
+  public void testExceptionWhenCheckingNonExistentVocable() {
+    VocCategoryNotFoundException vocCategoryNotFoundException =
+        assertThrows(VocCategoryNotFoundException.class,
+            () -> jbVocableTrainerService.checkVocable("car", 123456, "Auto", 0));
+  }
+
+  @Test
   @DisplayName("Edit a not exitstent vocable")
   public void testExceptionWhenEditingNotExistentVocable() {
     VocableNotFoundException vocableNotFoundException = assertThrows(VocableNotFoundException.class,

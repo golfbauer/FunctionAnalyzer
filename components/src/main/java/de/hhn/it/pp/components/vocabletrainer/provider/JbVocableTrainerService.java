@@ -175,10 +175,15 @@ public class JbVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
-      throws VocCategoryNotFoundException {
+      throws VocCategoryNotFoundException, VocableNotFoundException {
     logger.info("checkVocable: word = {}, category = {}, levenshteinDistance = {}", id, category,
         levenshteinDistance);
-    Vocable vocable = trainer.getVocableList(category).get(id);
+    Vocable vocable;
+    try {
+      vocable = trainer.getVocableList(category).get(id);
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
     int lev = Integer.MAX_VALUE;
     for (String translation : vocable.getTranslations()) {
       lev = Math.min(lev, levenshteinDistance(word, translation));
