@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPaneContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.MathTrainerController">
+<AnchorPane fx:id="anchorPaneContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.MathTrainerController">
    <children>
-      <BorderPane fx:id="borderPaneMainMenu" prefHeight="401.0" prefWidth="601.0" visible="false">
+      <BorderPane fx:id="borderPaneMainMenu" prefHeight="401.0" prefWidth="601.0">
          <center>
             <GridPane prefHeight="166.0" prefWidth="269.0" BorderPane.alignment="CENTER">
                <columnConstraints>
@@ -28,8 +28,8 @@
                   <Label text="Mode:" GridPane.rowIndex="3" />
                   <RadioButton fx:id="radioButtonWarmup" mnemonicParsing="false" text="Warmup Mode" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <RadioButton fx:id="radioButtonCountdown" mnemonicParsing="false" text="Countdown Mode" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField promptText="Enter your name" text="MathTrainerDemo" GridPane.columnIndex="1" />
-                  <TextField promptText="Specify decimal count" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfieldUsername" promptText="Enter your name" text="MathTrainerDemo" GridPane.columnIndex="1" />
+                  <TextField fx:id="textfieldDecimal" promptText="Specify decimal count" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ChoiceBox fx:id="choiceboxDifficulty" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ChoiceBox fx:id="choiceboxMode" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
@@ -105,7 +105,7 @@
             </HBox>
          </bottom>
          <top>
-            <Label prefHeight="134.0" prefWidth="543.0" text="Rules (countdown mode only): Solve questions within 5 seconds to get points for your corrent solution" BorderPane.alignment="CENTER" />
+            <Label prefHeight="134.0" prefWidth="543.0" text="Rules (countdown mode only): Solve questions within 5 seconds to get points for your correct solution" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <Pane prefHeight="116.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
