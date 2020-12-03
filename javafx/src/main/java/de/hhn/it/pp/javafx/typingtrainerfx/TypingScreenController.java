@@ -35,6 +35,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   private int hboxCnt;
   private int hboxCntMaxValue;
   private int hboxBuffer = 0;
+  private boolean isWriting = false;
 
   @FXML
   private Button btn_Exit;
@@ -258,7 +259,6 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void countdown(int seconds) throws InterruptedException {
-
   }
 
   /**
@@ -286,7 +286,6 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void selectionOfText() {
-
   }
   //endregion
 }
