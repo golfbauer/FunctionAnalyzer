@@ -19,7 +19,7 @@ public class TestSgdsSpellingTrainerServiceBadCases {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(TestSgdsSpellingTrainerServiceBadCases.class);
   SgdsSpellingTrainerService service;
-  File audioFile;
+  String audioFile;
 
   @BeforeEach
   void initialize()
@@ -27,7 +27,7 @@ public class TestSgdsSpellingTrainerServiceBadCases {
       WordAlreadyAddedException, NoWordException {
     service = new SgdsSpellingTrainerService();
     audioFile =
-        new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
+       "src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav";
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
     service.registerMediaPresentationListener();

@@ -34,7 +34,7 @@ public interface SpellingTrainerService {
    * @param audio           audio that will be mapped to the word
    * @param learningSetName name of the set, that the word should be added to
    */
-  void addWord(String word, File audio, String learningSetName)
+  void addWord(String word, String audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException;
 
   /**

@@ -7,11 +7,11 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlready
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 
 public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private static final org.slf4j.Logger logger =
@@ -27,35 +27,35 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     descriptor = new SpellingTrainerDescriptor();
     createLearningSet("GermanLearningSet");
     createLearningSet("EnglishLearningSet");
-    addWord("Book", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Book.wav"),
+    addWord("Book",
+        "/audiofiles/englishwords/Book.wav",
         "EnglishLearningSet");
-    addWord("Brain", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav"),
+    addWord("Brain",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav",
         "EnglishLearningSet");
-    addWord("Computer", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav"),
+    addWord("Computer",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav",
         "EnglishLearningSet");
-    addWord("Engineering", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav"),
+    addWord("Engineering",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav",
         "EnglishLearningSet");
-    addWord("Software", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav"),
+    addWord("Software",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav",
         "EnglishLearningSet");
-    addWord("Buch", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav"),
+    addWord("Buch",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav",
         "GermanLearningSet");
-    addWord("Gehirn", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav"),
+    addWord("Gehirn",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav",
         "GermanLearningSet");
-    addWord("Computer", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav"),
+    addWord("Computer",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav",
         "GermanLearningSet");
-    addWord("Ingenieur", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav"),
+    addWord("Ingenieur",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav",
         "GermanLearningSet");
-    addWord("Software", new File(
-            "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav"),
+    addWord("Software",
+        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav",
         "GermanLearningSet");
     logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
   }
@@ -80,7 +80,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * @param learningSetName name of the set, that the word should be added to
    */
   @Override
-  public void addWord(String word, File audio, String learningSetName)
+  public void addWord(String word, String audio, String learningSetName)
       throws WordAlreadyAddedException, LearningSetCouldNotBeFoundException {
     LearningSet ls = getLearningSet(learningSetName);
     if (ls.getLearningEntries().size() > 0) {
@@ -281,7 +281,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * Method to register an media presentation listener.
    */
   public void registerMediaPresentationListener() {
-    MediaPresentationListener mpl = new MediaPresentationListener();
+    MediaPresentationListener mpl = new AudioPresentationListener();
     this.mplisteners.add(mpl);
     logger.info("Successfully registered a new MediaPresentationListener");
   }

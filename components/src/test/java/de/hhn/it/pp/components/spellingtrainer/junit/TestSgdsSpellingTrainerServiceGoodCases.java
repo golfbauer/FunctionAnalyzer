@@ -25,15 +25,14 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(TestSgdsSpellingTrainerServiceGoodCases.class);
   SgdsSpellingTrainerService service;
-  File audioFile;
+  String audioFile;
 
   @BeforeEach
   void initialize()
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
       WordAlreadyAddedException, NoWordException {
     service = new SgdsSpellingTrainerService();
-    audioFile =
-        new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
+    audioFile = "src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav";
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
     service.registerMediaPresentationListener();
