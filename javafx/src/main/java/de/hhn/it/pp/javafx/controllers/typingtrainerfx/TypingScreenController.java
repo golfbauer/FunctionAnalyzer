@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -89,6 +90,16 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
+        }
+      }
+    });
+
+    textfield_typedText.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+        if(event.getCode() == KeyCode.BACK_SPACE)
+        {
+          event.consume();
         }
       }
     });
