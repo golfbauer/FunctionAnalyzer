@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.typingtrainer;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +18,7 @@ public class DemoTypingTrainerUsage {
 
   private static TypingTrainerDescriptor descriptor;
 
-  public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+  public static void main(String[] args) throws IOException, InterruptedException {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
       public boolean checkWord(String word, int index) {
@@ -116,7 +117,7 @@ public class DemoTypingTrainerUsage {
           service.markWord(i, Color.red);
 
       }
-      catch (ArrayIndexOutOfBoundsException e)
+      catch (ArrayIndexOutOfBoundsException | IOException e)
       {
         break;
       }
