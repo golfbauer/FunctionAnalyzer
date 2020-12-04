@@ -52,7 +52,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
   public void addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
     logger.info("addVocCategory: category = {}, vocabularyList = {}", category, vocabularyList);
-    trainer.addCategory(category, vocabularyList);
+    trainer.addVocCategory(category, vocabularyList);
   }
 
   /**
@@ -64,7 +64,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
   @Override
   public void removeVocCategory(String category) throws VocCategoryNotFoundException {
     logger.info("removeVocCategory: category = {}", category);
-    trainer.deleteCategory(category);
+    trainer.removeVocCategory(category);
   }
 
   /**
@@ -132,7 +132,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
       throws VocableNotFoundException, VocCategoryNotFoundException {
     logger.info("removeVocable: id = {}, category = {}", id, category);
     try {
-      trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
+      trainer.removeVocable(category, trainer.getVocableList(category).get(id));
     } catch (IndexOutOfBoundsException e) {
       throw new VocableNotFoundException();
     }
@@ -151,8 +151,8 @@ public class JbVocableTrainerService implements VocableTrainerService {
     logger.info("editVocCategory: oldCategoryName = {}, newCategoryName = {}", oldCategoryName,
         newCategoryName);
 
-    trainer.addCategory(newCategoryName, trainer.getVocableList(oldCategoryName));
-    trainer.deleteCategory(oldCategoryName);
+    trainer.addVocCategory(newCategoryName, trainer.getVocableList(oldCategoryName));
+    trainer.removeVocCategory(oldCategoryName);
 
   }
 
@@ -217,7 +217,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
     Vocable vocEdit = new Vocable(learningWord, translations);
     trainer.addVocable(category, vocEdit);
     try {
-      trainer.deleteVocable(category, trainer.getVocableList(category).get(id));
+      trainer.removeVocable(category, trainer.getVocableList(category).get(id));
     } catch (IndexOutOfBoundsException e) {
       throw new VocableNotFoundException();
     }
@@ -240,7 +240,7 @@ public class JbVocableTrainerService implements VocableTrainerService {
       List<Vocable> value = entry.getValue();
 
       try {
-        trainer.addCategory(key, value);
+        trainer.addVocCategory(key, value);
       } catch (VocCategoryAlreadyExistException e) {
         e.printStackTrace();
         return false;

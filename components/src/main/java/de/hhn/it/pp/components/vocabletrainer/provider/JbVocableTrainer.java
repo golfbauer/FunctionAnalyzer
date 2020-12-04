@@ -27,7 +27,7 @@ public class JbVocableTrainer {
    * @param voc a vocab list for the new Category
    * @throws VocCategoryAlreadyExistException when the Category already exist
    */
-  public void addCategory(String categoryName, List<Vocable> voc)
+  public void addVocCategory(String categoryName, List<Vocable> voc)
       throws VocCategoryAlreadyExistException {
     if (trainerData.containsKey(categoryName)) {
       throw new VocCategoryAlreadyExistException("The VocCategory could not be added");
@@ -40,7 +40,7 @@ public class JbVocableTrainer {
    * @param categoryName name of the Category which should be delete
    * @throws VocCategoryNotFoundException when Category doesn't exist
    */
-  public void deleteCategory(String categoryName) throws VocCategoryNotFoundException {
+  public void removeVocCategory(String categoryName) throws VocCategoryNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException("The VocCategory could not be deleted");
     }
@@ -67,7 +67,7 @@ public class JbVocableTrainer {
    * @throws VocCategoryNotFoundException when Category doesn't exist
    * @throws VocableNotFoundException when Vocable doesn't exist
    */
-  public void deleteVocable(String categoryName, Vocable voc)
+  public void removeVocable(String categoryName, Vocable voc)
       throws VocCategoryNotFoundException, VocableNotFoundException {
     if (trainerData.get(categoryName) == null) {
       throw new VocCategoryNotFoundException();
