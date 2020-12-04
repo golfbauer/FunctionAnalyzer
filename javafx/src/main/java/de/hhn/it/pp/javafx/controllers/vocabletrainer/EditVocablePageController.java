@@ -1,7 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.jbVocableTrainerService;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
 
 
@@ -36,12 +36,19 @@ public class EditVocablePageController implements Initializable {
   public void saveVocable(ActionEvent event) throws IOException {
     if (vocEdit == null) {
       // Create Vocable
-      // ToDo: method to separate translations
-      String tWords = translationWords.getText();
-      
+      String str = translationWords.getText().trim();
+      String[] tWords;
+      //if string is empty or null, return empty array
+      if (str == null || str.equals("")) {
+        tWords = new String[0];
+      }
+      String[] words = str.split(",");
+      for (String s : words) {
+        s = s.trim();
+      }
       try {
         jbVocableTrainerService.addVocable(learningWord.getText().trim(),
-            new String[] {translationWords.getText().trim()}, cateSaver);
+            words, cateSaver);
       } catch (VocCategoryNotFoundException e) {
         e.printStackTrace();
         Alert alert = new Alert(Alert.AlertType.WARNING);
