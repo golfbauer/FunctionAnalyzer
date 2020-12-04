@@ -7,10 +7,9 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-
-<AnchorPane fx:id="HomepagePane" maxHeight="680.0" maxWidth="1080.0" minHeight="680.0" minWidth="1080" prefHeight="680.0" prefWidth="1080.0"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="HomepagePane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0"
+            prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController">
     <children>
         <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
@@ -23,13 +22,13 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <ListView fx:id="categoryListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="639.0"/>
-        <Label layoutX="713.0" layoutY="119.0" text="Difficulty (Levenshtein distance:)">
+        <ListView fx:id="categoryListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="478.0"/>
+        <Label layoutX="545.0" layoutY="121.0" text="Difficulty (Levenshtein distance:)">
             <font>
                 <Font size="16.0"/>
             </font>
         </Label>
-        <RadioButton fx:id="easyRadio" onAction="#levenSet" layoutX="713.0" layoutY="155.0" mnemonicParsing="false"
+        <RadioButton fx:id="easyRadio" layoutX="545.0" layoutY="157.0" mnemonicParsing="false" onAction="#levenSet"
                      text="easy">
             <font>
                 <Font size="16.0"/>
@@ -38,43 +37,43 @@
                 <ToggleGroup fx:id="levenRadio"/>
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="mediumRadio" onAction="#levenSet" layoutX="713.0" layoutY="190.0" mnemonicParsing="false"
+        <RadioButton fx:id="mediumRadio" layoutX="545.0" layoutY="192.0" mnemonicParsing="false" onAction="#levenSet"
                      text="medium" toggleGroup="$levenRadio">
             <font>
                 <Font size="16.0"/>
             </font>
         </RadioButton>
-        <RadioButton fx:id="hardRadio" onAction="#levenSet" layoutX="713.0" layoutY="225.0" mnemonicParsing="false"
+        <RadioButton fx:id="hardRadio" layoutX="545.0" layoutY="227.0" mnemonicParsing="false" onAction="#levenSet"
                      text="hard" toggleGroup="$levenRadio">
             <font>
                 <Font size="16.0"/>
             </font>
         </RadioButton>
-        <Button fx:id="newCategoryButton" onAction="#newCategory" layoutX="576.0" layoutY="617.0"
-                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="New">
+        <Button fx:id="newCategoryButton" layoutX="412.0" layoutY="616.0" mnemonicParsing="false"
+                onAction="#newCategory" prefHeight="27.0" prefWidth="100.0" text="New">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button fx:id="editCategoryButton" onAction="#editCategory" layoutX="696.0" layoutY="617.0"
-                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Edit">
+        <Button fx:id="editCategoryButton" layoutX="532.0" layoutY="616.0" mnemonicParsing="false"
+                onAction="#editCategory" prefHeight="27.0" prefWidth="100.0" text="Edit">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button fx:id="deleteCategoryButton" onAction="#deleteCategory" layoutX="816.0" layoutY="617.0"
-                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Delete">
+        <Button fx:id="deleteCategoryButton" layoutX="652.0" layoutY="616.0" mnemonicParsing="false"
+                onAction="#deleteCategory" prefHeight="27.0" prefWidth="100.0" text="Delete">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button fx:id="okButton" onAction="#okClick" layoutX="936.0" layoutY="617.0" mnemonicParsing="false"
+        <Button fx:id="okButton" layoutX="772.0" layoutY="616.0" mnemonicParsing="false" onAction="#okClick"
                 prefHeight="27.0" prefWidth="100.0" text="OK">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Label fx:id="scoreButton" layoutX="936.0" layoutY="44.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
+        <Label fx:id="scoreButton" layoutX="711.0" layoutY="44.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
             <font>
                 <Font size="16.0"/>
             </font>
