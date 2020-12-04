@@ -4,7 +4,7 @@ import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedExcept
 
 public interface FunctionElementComponent {
 
-  void simplify();
+  void simplify() throws ValueNotDefinedException;
 
   double evaluate(double variableValue);
 

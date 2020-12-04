@@ -1,27 +1,157 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+
 
 public class FunctionElement implements FunctionElementComponent {
 
-  private List<FunctionElementComponent> components = new ArrayList<FunctionElementComponent>();
+  private List<FunctionElementComponent> components = new ArrayList<>();
   private Operator operator;
 
   /**
-   * Combines both the Term and the operator it belongs to
+   * Combines both the Term and the operator it belongs to.
+   *
    * @param components = single term
-   * @param operator = its operator
+   * @param operator   = its operator
    */
   public FunctionElement(Operator operator, FunctionElementComponent... components) {
     this.components.addAll(Arrays.asList(components));
     this.operator = operator;
   }
 
+  /**
+   * Combines both the Term and the operator it belongs to.
+   *
+   * @param components = single term
+   * @param operator   = its operator
+   */
+  public FunctionElement(Operator operator, List<FunctionElement> components) {
+    this.components.addAll(components);
+    this.operator = operator;
+  }
+
   public FunctionElement(Operator operator) {
     this.operator = operator;
+  }
+
+  private static FunctionElement sum(List<FunctionElement> functionElements) {
+    List<FunctionElement> sums = new ArrayList<>();
+    sums.add(new FunctionElement(Operator.ADD, new Term(0)));
+    for (FunctionElement functionElement :
+        functionElements) {
+      try {
+        for (int i = 0; i < sums.size(); i++) {
+          FunctionElement sum = sums.get(i);
+          try {
+            FunctionElement replacement = new FunctionElement(Operator.ADD,
+                ((Term) sum.components.get(0)).add(((Term) functionElement.components.get(0))));
+            int replacementIndex = sums.indexOf(sum);
+            sums.remove(sum);
+            sums.add(replacementIndex, replacement);
+            break;
+
+          } catch (ValueNotDefinedException e) {
+            if (sum == sums.get(sums.size() - 1)) {
+              throw e;
+            }
+          }
+
+        }
+      } catch (ValueNotDefinedException ignored) {
+        sums.add(new FunctionElement(Operator.ADD, functionElement.components.get(0)));
+      }
+    }
+    return new FunctionElement(Operator.ADD, sums);
+  }
+
+  public FunctionElement add(FunctionElement that) throws ValueNotDefinedException {
+    if (that.isBracket()) {
+      that.resolveBrackets();
+    }
+
+    List<FunctionElement> values = new ArrayList<>();
+    for (FunctionElementComponent component : this.components) {
+      values.add(((FunctionElement) component));
+    }
+    for (FunctionElementComponent component : that.components) {
+      values.add(((FunctionElement) component));
+    }
+
+    FunctionElement result = new FunctionElement(this.operator);
+    FunctionElement replacement = sum(values);
+    result.components = replacement.components;
+    result.removeBrackets();
+    return result;
+  }
+
+  public FunctionElement multiply(FunctionElement that) throws ValueNotDefinedException {
+    FunctionElement result = new FunctionElement(this.operator);
+    if (that.isBracket()) {
+      that.resolveBrackets();
+    }
+    for (FunctionElementComponent component : components) {
+      for (FunctionElementComponent thatComponent : that.components) {
+
+        Term factor1 = component instanceof Term ? (Term) component :
+            (Term) ((FunctionElement) component).components.get(0);
+        Term factor2 = thatComponent instanceof Term ? (Term) thatComponent :
+            (Term) ((FunctionElement) thatComponent).components.get(0);
+
+
+        FunctionElement product = new FunctionElement(Operator.ADD, factor1.multiply(factor2));
+        result.addFunctionElementComponent(product);
+      }
+    }
+    List<FunctionElement> values = new ArrayList<>();
+    for (FunctionElementComponent component : result.components) {
+      if (component instanceof FunctionElement) {
+        values.add(((FunctionElement) component));
+      }
+    }
+    FunctionElement replacement = sum(values);
+    result.components = replacement.components;
+    result.removeBrackets();
+    return result;
+  }
+
+  public FunctionElement divide(FunctionElement that) throws ValueNotDefinedException {
+    if (this.equals(that)) {
+      return new FunctionElement(this.operator, new Term(1));
+    }
+    FunctionElement result = new FunctionElement(this.operator);
+    if (that.isBracket()) {
+      that.resolveBrackets();
+    }
+    for (FunctionElementComponent component : components) {
+      for (FunctionElementComponent thatComponent : that.components) {
+
+        Term factor1 = component instanceof Term ? (Term) component :
+            (Term) ((FunctionElement) component).components.get(0);
+        Term factor2 = thatComponent instanceof Term ? (Term) thatComponent :
+            (Term) ((FunctionElement) thatComponent).components.get(0);
+
+
+        FunctionElement product = new FunctionElement(Operator.ADD, factor1.divide(factor2));
+        result.addFunctionElementComponent(product);
+      }
+    }
+    List<FunctionElement> values = new ArrayList<>();
+    for (FunctionElementComponent component : result.components) {
+      if (component instanceof FunctionElement) {
+        values.add(((FunctionElement) component));
+      }
+    }
+    FunctionElement replacement = sum(values);
+    result.components = replacement.components;
+    result.removeBrackets();
+    return result;
   }
 
   public List<FunctionElementComponent> getComponents() {
@@ -40,20 +170,200 @@ public class FunctionElement implements FunctionElementComponent {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append(operator.getSymbol());
-      components.forEach(fe -> builder.append(fe.toString()));
+    components.forEach(fe -> builder.append(fe.toString()));
 
     return builder.toString();
   }
 
-
   @Override
-  public void simplify() {
+  public void simplify() throws ValueNotDefinedException {
+    if (isBracket()) {
+      List<FunctionElement> simplificationCandidates = new ArrayList<>();
+      for (FunctionElementComponent component : components) {
+        if (component instanceof FunctionElement
+            && ((FunctionElement) component).isBracket()) { //nested Bracket -> recursion
+          component.simplify();
+        } else { // Function elment with only 1 Term
+          simplificationCandidates.add(((FunctionElement) component));
+        }
+      }
+      for (int i = 1; i < simplificationCandidates.size();
+           i++) { // remove multiplication and division
+        FunctionElement previous = simplificationCandidates.get(i - 1);
+        FunctionElement candidate = simplificationCandidates.get(i);
+        switch (candidate.getOperator()) {
+          case MULTIPLY:
+            try {
+              int replacementIndex = components.indexOf(previous);
+              FunctionElement replacement = new FunctionElement(previous.getOperator(),
+                  ((Term) candidate.components.get(0)).multiply(
+                      ((Term) previous.components.get(0))));
+              components.add(replacementIndex, replacement);
+              components.remove(previous);
+              components.remove(candidate);
+              simplificationCandidates.remove(candidate);
+              removeBrackets();
+            } catch (ValueNotDefinedException ignored) {
+              continue;
+            }
+            break;
 
+          case DIVIDE:
+            try {
+              int replacementIndex = components.indexOf(previous);
+              FunctionElement replacement = new FunctionElement(previous.getOperator(),
+                  ((Term) previous.components.get(0)).divide(
+                      ((Term) candidate.components.get(0))));
+              components.add(replacementIndex, replacement);
+              components.remove(previous);
+              components.remove(candidate);
+              simplificationCandidates.remove(candidate);
+              removeBrackets();
+            } catch (ValueNotDefinedException ignored) {
+              continue;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+      resolveBrackets();
+      simplificationCandidates.clear();
+      if (components.size() > 1) {
+        for (FunctionElementComponent component : components) {
+          simplificationCandidates.add(((FunctionElement) component));
+        }
+      }
+      if (simplificationCandidates.size() > 1) {
+        FunctionElement replacement = sum(simplificationCandidates);
+        this.components = replacement.components;
+      }
+      removeBrackets();
+      sortByHighestExponent();
+    }
+  }
+
+  private boolean isBracket() {
+    if (components.size() < 2 && components.get(0) instanceof Term) {
+      return false;
+    }
+    if (components.size() > 1) {
+      return true;
+    }
+    return components.get(0) instanceof FunctionElement;
   }
 
   @Override
   public double evaluate(double variableValue) {
     return 0;
+  }
+
+
+  public void resolveBrackets() throws ValueNotDefinedException {
+    if (components.size() < 2) {
+      removeBrackets();
+      return;
+    }
+
+    for (int i = 0; i < components.size(); i++) {
+      FunctionElement component = (FunctionElement) components.get(i);
+      boolean isLast = i == components.size() - 1;
+      boolean isFirst = i == 0;
+      FunctionElement next = isLast ? null : (FunctionElement) components.get(i + 1);
+      FunctionElement prev = isFirst ? null : (FunctionElement) components.get(i - 1);
+
+      if (component.isBracket()) {
+        component.resolveBrackets();
+        FunctionElement replacement;
+
+        FunctionElement linked;
+        if (isFirst) {
+          linked = next;
+        } else if (isLast) {
+          linked = prev;
+        } else {
+          if (prev.operator == Operator.ADD && next.operator == Operator.MULTIPLY) {
+            linked = next;
+          } else if (next.operator == Operator.ADD && prev.operator == Operator.MULTIPLY) {
+            linked = prev;
+          } else if (prev.operator == Operator.ADD && next.operator == Operator.ADD) {
+            linked = next;
+          } else {
+            throw new IllegalStateException();
+          }
+        }
+        Operator linkingOperator = linked == prev ? component.operator : linked.operator;
+
+        switch (linkingOperator) {
+          case DIVIDE:
+            if (linked.equals(prev)) {
+              replacement =
+                  new FunctionElement(component.operator, linked.divide(component));
+            } else {
+              replacement =
+                  new FunctionElement(component.operator, component.divide(linked));
+            }
+            components.add(i, replacement);
+            components.remove(component);
+            components.remove(linked);
+            break;
+          case MULTIPLY:
+            if (linked.equals(prev)) {
+              replacement =
+                  new FunctionElement(component.operator, linked.multiply(component));
+            } else {
+              replacement =
+                  new FunctionElement(component.operator, component.multiply(linked));
+            }
+            components.add(i, replacement);
+            components.remove(component);
+            components.remove(linked);
+            break;
+          case ADD:
+            for (FunctionElementComponent innerComponent : component.components) {
+              components.add(i, innerComponent);
+            }
+            components.remove(component);
+            break;
+          default:
+            throw new IllegalStateException("Unexpected value: " + next.operator);
+        }
+      }
+
+    }
+    List<FunctionElement> values = new ArrayList<>();
+    for (FunctionElementComponent component : components) {
+      values.add(((FunctionElement) component));
+    }
+    FunctionElement replacement = sum(values);
+    components = replacement.components;
+    removeBrackets();
+
+  }
+
+  public void removeBrackets() {
+    if (isBracket()) {
+      if (components.size() > 1) {
+        for (FunctionElementComponent component : components) {
+          if (((FunctionElement) component).isBracket()) {
+            ((FunctionElement) component).removeBrackets();
+          }
+        }
+      } else if ((((FunctionElement) components
+          .get(0)).components //single component nested in multiple brackets
+          .get(0)) instanceof FunctionElement) {
+        ((FunctionElement) components.get(0))
+            .removeBrackets();
+      }
+      if (components.size() == 1) { //Bracket with only 1 element
+        Term replacement =
+            (((Term) ((FunctionElement) components.get(0)).components.get(0)).copy());
+        this.components.remove(0);
+        this.components.add(replacement);
+      }
+
+
+    }
   }
 
   @Override
@@ -70,7 +380,7 @@ public class FunctionElement implements FunctionElementComponent {
         }
       }
     }
-    for(int i = 0; i < result.components.size(); i++) {
+    for (int i = 0; i < result.components.size(); i++) {
       if (result.components.get(i) == null) {
         result.components.remove(i);
       }
@@ -96,6 +406,51 @@ public class FunctionElement implements FunctionElementComponent {
       }
     }
     return result;
+  }
+
+  void sortByHighestExponent() {
+    if (components.size() > 1) {
+      final List<FunctionElement> componentList = new ArrayList<>();
+      FunctionElement constant = null;
+      for (FunctionElementComponent component : components) {
+        if (((FunctionElement) component).components.get(0) instanceof Term) {
+          constant = (FunctionElement) component;
+        }
+      }
+      components.stream().filter(component -> ((Term) ((FunctionElement) component).components
+          .get(0)).getExponent() != null).forEach(functionElementComponent ->
+          componentList.add((FunctionElement) functionElementComponent));
+      Comparator<FunctionElement> expComp = Comparator.comparing(functionElement ->
+          ((Term) functionElement.components.get(0)).getExponent().getValue());
+      List<FunctionElement> sortedList =
+          componentList.stream().sorted(expComp).collect(Collectors.toList());
+      for (FunctionElement element : sortedList) {
+        components.remove(element);
+        components.add(components.size() - 1, element);
+      }
+      if (constant != null) {
+        components.remove(constant);
+        components.add(components.size() - 1, constant);
+      }
+    }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FunctionElement that = (FunctionElement) o;
+    return components.equals(that.components)
+        && operator == that.operator;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(components, operator);
   }
 }
 

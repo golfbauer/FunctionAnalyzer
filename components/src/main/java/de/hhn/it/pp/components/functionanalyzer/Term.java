@@ -1,14 +1,15 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+import java.awt.event.TextEvent;
 import java.util.Objects;
-
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 
 /**
  * Represent a single term inside a function.
  */
 public class Term implements FunctionElementComponent {
+  public static final  Term ZERO = new Term(0);
   public static final Term E = new Term(Math.E);
   public static final Term PI = new Term(Math.PI);
 
@@ -59,14 +60,19 @@ public class Term implements FunctionElementComponent {
    *                                  according to {@link #structurallyEqual}
    */
   public Term add(Term that) throws ValueNotDefinedException {
-    if (!this.structurallyEqual(that)) {
+    if (!this.structurallyEqual(that) && !this.equals(Term.ZERO) && !that.equals(Term.ZERO)) {
       throw new ValueNotDefinedException("Cannot add Terms with different structure");
+    }
+    if (this.value == 0 && this.variable == null
+        || this.variable != null && this.factor == 0 && !this.exponent.equals(Term.ZERO)) {
+      return that;
     }
     if (this.variable != null) {
       return new Term(this.exponent, this.factor + that.factor, this.variable);
     } else {
       return new Term(this.value + that.value);
     }
+
   }
 
   /**
@@ -118,7 +124,7 @@ public class Term implements FunctionElementComponent {
     } else if (this.variable != null && that.variable != null) {
       double fac = this.factor / that.factor;
       Term exp = this.exponent.subtract(that.exponent);
-      if (exp.factor == 0) {
+      if (exp.value == 0) {
         return new Term(fac);
       } else {
         return new Term(exp, fac, this.variable);
