@@ -1,1 +1,1 @@
-practiceText-2.txt 2.63 0.0 practiceText-2.txt 2.6 23.0 practiceText-2.txt 2.61 22.0 
+practiceText-2.txt 2.63 0.0 practiceText-2.txt 2.6 23.0 practiceText-2.txt 2.61 22.0 practiceText-2.txt 1.84 32.0 practiceText-2.txt 1.73 34.0 
