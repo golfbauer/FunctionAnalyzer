@@ -43,17 +43,17 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="editCategoryButton" layoutX="696.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Edit">
+        <Button fx:id="editCategoryButton" onAction="#editCategory" layoutX="696.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Edit">
             <font>
                 <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="deleteCategoryButton" layoutX="816.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Delete">
+        <Button fx:id="deleteCategoryButton" onAction="#deleteCategory" layoutX="816.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Delete">
             <font>
                 <Font size="16.0" />
             </font>
         </Button>
-        <Button fx:id="okButton" layoutX="936.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="OK">
+        <Button fx:id="okButton" onAction="#okClick" layoutX="936.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="OK">
             <font>
                 <Font size="16.0" />
             </font>
