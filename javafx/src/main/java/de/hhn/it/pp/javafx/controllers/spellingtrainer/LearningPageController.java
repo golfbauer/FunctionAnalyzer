@@ -51,12 +51,6 @@ public class LearningPageController implements Initializable {
   public StackPane scenePane;
   private int tries;
 
-  public void playAudio(MediaReference mediaReference){
-
-    Media media = new Media(Main.class.getResource(mediaReference.getMediaFile()).toString());
-    MediaPlayer player = new MediaPlayer(media);
-    player.play();
-  }
   public void handlePlayAgainButtonClick()
       throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
@@ -139,6 +133,8 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
       service.getDescriptor().updateCounter("remaining", -1);
       remainingWordsLabel
           .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
+      service.getDescriptor().updateCounter("wrong", 1);
+      wrongWordsLabel.setText("Words spelled wrong: " + service.getDescriptor().getCounter("wrong"));
     }
   }
 
@@ -210,6 +206,7 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
     }
     tries = 1;
     progressBar.setProgress(0.0);
+
     try {
       handlePlayAgainButtonClick();
     } catch (UnsupportedAudioFileException e) {
@@ -219,5 +216,6 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
     } catch (LineUnavailableException e) {
       e.printStackTrace();
     }
+
   }
 }

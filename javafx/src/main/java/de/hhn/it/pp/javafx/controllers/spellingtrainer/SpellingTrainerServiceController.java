@@ -17,6 +17,13 @@ public class SpellingTrainerServiceController {
   public Button startButton;
   public StackPane scenePane;
 
+  public SpellingTrainerServiceController()
+      throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
+      WordAlreadyAddedException {
+    service = new SgdsSpellingTrainerService();
+    service.registerMediaPresentationListener(new AudioPresentationListener());
+  }
+
   /**
    * Method to handle the event triggered by clicking on the 'Start learning' button.
    *
@@ -25,9 +32,7 @@ public class SpellingTrainerServiceController {
    * @throws LearningSetCouldNotBeFoundException     is thrown, when the learning set could not be found
    * @throws WordAlreadyAddedException               is thrown, when the word is already added in the learning set
    */
-  public void handleStartButtonClick() throws IOException, LearningSetNameAlreadyAssignedException,
-      LearningSetCouldNotBeFoundException, WordAlreadyAddedException {
-    service = new SgdsSpellingTrainerService();
+  public void handleStartButtonClick() throws IOException{
     setScenePane("spellingtrainer/ChooseLearningSet");
   }
 
