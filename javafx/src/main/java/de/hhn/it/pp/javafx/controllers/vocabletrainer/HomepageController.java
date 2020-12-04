@@ -20,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -32,12 +34,20 @@ public class HomepageController implements Initializable {
   ListView<String> categoryListView;
   @FXML
   Label scoreButton;
+  @FXML
+  RadioButton easyRadio;
+  @FXML
+  RadioButton mediumRadio;
+  @FXML
+  RadioButton hardRadio;
+  @FXML
+  ToggleGroup LevenRadio;
 
 
   public void initialize(URL location, ResourceBundle resources) {
     List<Vocable> test2 = new ArrayList<>();
     try {
-      jbVocableTrainerService.addVocCategory("test1",test2);
+      jbVocableTrainerService.addVocCategory("test1", test2);
     } catch (VocCategoryAlreadyExistException e) {
       e.printStackTrace();
     }
@@ -45,7 +55,9 @@ public class HomepageController implements Initializable {
     for (int i = 0; categories.size() > i; i++) {
       categoryListView.getItems().add(jbVocableTrainerService.getVocCategories().get(i));
     }
-    scoreButton.setText(String.valueOf(jbVocableTrainerService.getScore()));
+    scoreButton.setText("Score: "+String.valueOf(jbVocableTrainerService.getScore()));
+    categoryListView.getSelectionModel().select(0);
+    hardRadio.
   }
 
   /**
@@ -91,6 +103,22 @@ public class HomepageController implements Initializable {
 
   public void okClick(ActionEvent event) throws IOException {
     //Seite Wechseln ZWISCHENSPEICHER?
+
+  }
+
+  public void levenSet(ActionEvent actionEvent) {
+    if (easyRadio.isSelected()) {
+
+    }
+
+    if (mediumRadio.isSelected()) {
+
+    }
+
+    if (hardRadio.isSelected()) {
+
+    }
+
 
   }
 }
