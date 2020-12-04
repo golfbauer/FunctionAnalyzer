@@ -1,6 +1,8 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -20,33 +23,60 @@ import javafx.scene.layout.AnchorPane;
 public class VocabularyViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
-
+  public static Vocable vocEdit;
   @FXML
   AnchorPane scenePane;
   @FXML
-  ListView vocableListView;
+  ListView<Vocable> vocableListView;
   @FXML
   Label cateLabel;
+  @FXML
+  Label scoreVocList;
 
 
   public void addVocable(ActionEvent event) throws IOException {
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/EditVocablePage");
   }
 
   public void editVocable(ActionEvent event) throws IOException {
-    loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+
+    if (vocableListView.getSelectionModel().getSelectedItem() != null) {
+      vocEdit = vocableListView.getSelectionModel().getSelectedItem();
+      loadPane(event);
+      setScenePane("/vocabletrainer/EditVocablePage");
+    } else {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText(null);
+      alert.setContentText("Select Vocable First!");
+
+      alert.showAndWait();
+    }
   }
 
-  public void removeVocable(ActionEvent event) throws IOException {
-    loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+  public void removeVocable(ActionEvent event)
+      throws VocCategoryNotFoundException, VocableNotFoundException {
+    if (vocableListView.getSelectionModel().getSelectedItem() != null) {
+      HomepageController.jbVocableTrainerService
+          .removeVocable(vocableListView.getSelectionModel().getSelectedIndex(),
+              HomepageController.cateSaver);
+      vocableListView.getItems().clear();
+      listLoader();
+    } else {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText(null);
+      alert.setContentText("Select Vocable to delete first!");
+
+      alert.showAndWait();
+    }
+
   }
 
   public void learnCategory(ActionEvent event) throws IOException {
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/LearningView");
   }
 
   public void back(ActionEvent event) throws IOException {
@@ -94,6 +124,7 @@ public class VocabularyViewController implements Initializable {
       e.printStackTrace();
     }
     cateLabel.setText("Category: " + HomepageController.cateSaver);
+
   }
 
   public void listLoader() throws VocCategoryNotFoundException {
@@ -102,7 +133,8 @@ public class VocabularyViewController implements Initializable {
         .size(); i++) {
       vocableListView.getItems().add(
           HomepageController.jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
-              .get(i).toString());
+              .get(i));
+      scoreVocList.setText("Scroe: " + HomepageController.jbVocableTrainerService.getScore());
     }
   }
 }
