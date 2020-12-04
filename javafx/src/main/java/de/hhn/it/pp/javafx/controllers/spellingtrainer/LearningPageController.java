@@ -19,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -43,6 +45,9 @@ public class LearningPageController implements Initializable {
   private int tries;
 
   public void handlePlayAgainButtonClick() {
+    Media media = new Media(this.getClass().getResource("/audiofiles/englishwords/Book.wav").toString());
+    MediaPlayer player = new MediaPlayer(media);
+    player.play();
   }
 
   public void handlePressingEnterInTextField(KeyEvent event) throws NoWordException {
@@ -189,5 +194,6 @@ public class LearningPageController implements Initializable {
     }
     tries = 1;
     progressBar.setProgress(0.0);
+    handlePlayAgainButtonClick();
   }
 }
