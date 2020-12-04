@@ -53,7 +53,7 @@ public class Main extends Application {
 
     addModule("Template");
     addModule("CoffeeMakerService");
-    addModule("vocabletrainer/Homepage");
+    addModule("VocableTrainerService");
   }
 
   @Override
