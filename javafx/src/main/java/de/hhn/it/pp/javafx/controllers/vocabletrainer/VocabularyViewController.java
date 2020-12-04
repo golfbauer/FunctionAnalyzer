@@ -1,6 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
 
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
@@ -9,6 +10,8 @@ import de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +29,7 @@ public class VocabularyViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
   public static Vocable vocEdit;
+  public static List<Vocable> toLearnList = new ArrayList<>();
   @FXML
   AnchorPane scenePane;
   @FXML
@@ -62,7 +66,7 @@ public class VocabularyViewController implements Initializable {
     if (vocableListView.getSelectionModel().getSelectedItem() != null) {
       jbVocableTrainerService
           .removeVocable(vocableListView.getSelectionModel().getSelectedIndex(),
-              HomepageController.cateSaver);
+              cateSaver);
       vocableListView.getItems().clear();
       listLoader();
     } else {
@@ -76,7 +80,8 @@ public class VocabularyViewController implements Initializable {
 
   }
 
-  public void learnCategory(ActionEvent event) throws IOException {
+  public void learnCategory(ActionEvent event) throws IOException, VocCategoryNotFoundException {
+    toLearnList = jbVocableTrainerService.getVocabulary(cateSaver);
     loadPane(event);
     setScenePane("/vocabletrainer/LearningView");
   }
@@ -125,16 +130,16 @@ public class VocabularyViewController implements Initializable {
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-    cateLabel.setText("Category: " + HomepageController.cateSaver);
+    cateLabel.setText("Category: " + cateSaver);
 
   }
 
   public void listLoader() throws VocCategoryNotFoundException {
     for (int i = 0; i
-        < jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+        < jbVocableTrainerService.getVocabulary(cateSaver)
         .size(); i++) {
       vocableListView.getItems().add(
-          jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+          jbVocableTrainerService.getVocabulary(cateSaver)
               .get(i));
       scoreVocList.setText("Scroe: " + jbVocableTrainerService.getScore());
     }
