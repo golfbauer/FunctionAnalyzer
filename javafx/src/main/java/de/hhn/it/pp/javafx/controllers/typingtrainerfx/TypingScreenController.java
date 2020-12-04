@@ -27,6 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -51,8 +53,6 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   private Button btn_Retry;
 
   @FXML
-  private Label lbl_Time;
-  @FXML
   private HBox hbox_practiceText;
   @FXML
   private TextField textfield_typedText;
@@ -68,7 +68,6 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hboxCnt = 0;
     pane_Score.setVisible(false);
-    lbl_Time.setText("00:00");
     textfield_typedText.setText("");
     lbl_FeedbackTime.setText("--:--");
     lbl_FeedbackWPM.setText("--:--");
@@ -212,15 +211,11 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public void audioOutput()
       throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-    String path = "components/src/main/resources/8BIT RETRO Beep.mp3";
+    String path = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
 
-    AudioInputStream audioInput = AudioSystem.getAudioInputStream(new File(path));
-    Clip clip = AudioSystem.getClip();
-    clip.open(audioInput);
-    clip.start();
-
-//    long clipTimePosition = clip.getMicrosecondPosition();
-//    clip.stop();
+    Media sound = new Media(new File(path).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    mediaPlayer.play();
   }
 
   @Override
@@ -255,7 +250,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public void saveScore(Feedback score) throws IOException {
     SaveLoad save = new SaveLoad();
-    save.save(selectedText, String.valueOf(score.getTime()),
+    save.save(selectedText, String.valueOf(timeShort(score.getTime())),
         String.valueOf(score.getWordsPerMinute()));
   }
 
@@ -359,13 +354,13 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
       hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #008000");
     } else {
       hbox_practiceText.getChildren().get(hboxBuffer + addIndex).setStyle("-fx-text-fill: #ff0000");
-//      try {
-//        audioOutput();
-//      } catch (UnsupportedAudioFileException e) {
-//        e.printStackTrace();
-//      } catch (LineUnavailableException e) {
-//        e.printStackTrace();
-//      }
+      try {
+        audioOutput();
+      } catch (UnsupportedAudioFileException e) {
+        e.printStackTrace();
+      } catch (LineUnavailableException e) {
+        e.printStackTrace();
+     }
     }
 
 
