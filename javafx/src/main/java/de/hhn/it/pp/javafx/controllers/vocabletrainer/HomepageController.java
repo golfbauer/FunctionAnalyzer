@@ -26,9 +26,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class HomepageController implements Initializable {
-  JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
-  LearningState learningState = new LearningState();
-  static int levenshtein;
+  public static JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
+  public static LearningState learningState = new LearningState();
+  public static String cateSaver;
+  public static int levenshtein;
 
   public AnchorPane scenePane;
   @FXML
@@ -112,8 +113,9 @@ public class HomepageController implements Initializable {
   }
 
   public void okClick(ActionEvent event) throws IOException {
-    //Seite Wechseln ZWISCHENSPEICHER?
-
+    cateSaver = categoryListView.getSelectionModel().getSelectedItem();
+    loadPane(event);
+    setScenePane("/vocabletrainer/VocabularyView");
   }
 
   public void levenSet() {
