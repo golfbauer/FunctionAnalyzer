@@ -35,17 +35,17 @@
                 <Font size="16.0"/>
             </font>
             <toggleGroup>
-                <ToggleGroup fx:id="LevenRadio"/>
+                <ToggleGroup fx:id="levenRadio"/>
             </toggleGroup>
         </RadioButton>
         <RadioButton fx:id="mediumRadio" onAction="#levenSet" layoutX="713.0" layoutY="190.0" mnemonicParsing="false"
-                     text="medium" toggleGroup="$LevenRadio">
+                     text="medium" toggleGroup="$levenRadio">
             <font>
                 <Font size="16.0"/>
             </font>
         </RadioButton>
         <RadioButton fx:id="hardRadio" onAction="#levenSet" layoutX="713.0" layoutY="225.0" mnemonicParsing="false"
-                     text="hard" toggleGroup="$LevenRadio">
+                     text="hard" toggleGroup="$levenRadio">
             <font>
                 <Font size="16.0"/>
             </font>
