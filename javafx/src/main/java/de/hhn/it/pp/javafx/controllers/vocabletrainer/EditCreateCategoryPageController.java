@@ -70,6 +70,7 @@ public class EditCreateCategoryPageController implements Initializable {
       }
     }
     // clear VocEdit in Homepage
+    HomepageController.cateSaver = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
@@ -84,6 +85,7 @@ public class EditCreateCategoryPageController implements Initializable {
 
   public void cancel(ActionEvent event) throws IOException {
     // clear VocEdit in Homepage
+    HomepageController.cateSaver = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
