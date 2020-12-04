@@ -32,7 +32,7 @@ public class Feedback {
     return time;
   }
 
-  public void setTime(float time) {
+  public void setTime(double time) {
     this.time = time;
   }
 
