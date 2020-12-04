@@ -22,6 +22,7 @@ public class GUITypingTrainer extends Application {
 
     Scene scene = new Scene(root);
 
+    primaryStage.setTitle("Typing Trainer");
     primaryStage.setScene(scene);
     primaryStage.show();
 

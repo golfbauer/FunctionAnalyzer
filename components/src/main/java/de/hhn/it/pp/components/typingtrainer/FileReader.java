@@ -9,6 +9,7 @@ package de.hhn.it.pp.components.typingtrainer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class FileReader {
     System.out.println("PFAD:"+path);
 
     File file = new File(path);
-    Scanner scan = new Scanner(file);
+    Scanner scan = new Scanner(file, StandardCharsets.UTF_8.name());
 
     fileContent = "";
     while (scan.hasNextLine()) {
