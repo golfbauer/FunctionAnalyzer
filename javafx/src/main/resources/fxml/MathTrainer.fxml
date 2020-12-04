@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPaneContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.MathTrainerController">
+<AnchorPane fx:id="anchorPaneContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.MathTrainerController">
    <children>
       <BorderPane fx:id="borderPaneMainMenu" prefHeight="401.0" prefWidth="601.0">
          <center>
@@ -130,7 +130,7 @@
             </HBox>
          </bottom>
          <center>
-            <TextArea prefHeight="146.0" prefWidth="510.0" text="Matthew | 15 | EASY | MULTIPLICATION | Countdown Mode&#10;Hammond | 21 | MEDIUM | ADDIFICATION | Countdown Mode&#10;Erika | 18 | HARD | MIXED | Countdown Mode" BorderPane.alignment="CENTER" />
+            <TextArea fx:id="textareaHistory" editable="false" prefHeight="146.0" prefWidth="510.0" text="Matthew | 15 | EASY | MULTIPLICATION | Countdown Mode&#10;Hammond | 21 | MEDIUM | ADDIFICATION | Countdown Mode&#10;Erika | 18 | HARD | MIXED | Countdown Mode" BorderPane.alignment="CENTER" />
          </center>
          <left>
             <Pane prefHeight="239.0" prefWidth="21.0" BorderPane.alignment="CENTER" />

@@ -27,9 +27,9 @@ public class BiKrMathTrainer implements MathTrainer {
    * Constructor to instantiate the basic functions for MathTrainer.
    */
   public BiKrMathTrainer() {
-    section = Section.MIXED;
+    section = Section.PLUS;
     difficulty = Difficulty.EASY;
-    decimalPlace = 0;
+    decimalPlace = 2;
     userscore = 0;
     history = new ArrayList<>();
     wantstoexit = false;
@@ -123,6 +123,11 @@ public class BiKrMathTrainer implements MathTrainer {
   }
 
   @Override
+  public void setInTurn(int inturn) {
+    this.inturn = inturn;
+  }
+
+  @Override
   public int getInTurn() {
     return this.inturn;
   }
@@ -178,7 +183,7 @@ public class BiKrMathTrainer implements MathTrainer {
                 section == Section.MINUS ? operands[1] :
                     section == Section.MULTIPLICATION ? operands[2] :
                         section == Section.DIVISION ? operands[3] :
-                            operands[(int)(Math.random() * 3)]; //Mixed Mode
+                            operands[(int)(Math.random() * 4)]; //Mixed Mode
 
     if (secondNumber.equals(BigDecimal.ZERO) && operator.equals('/')) {
       secondNumber = BigDecimal.ONE;
@@ -231,8 +236,8 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public void addToHistory() {
-    String entry = "" + this.username + "|" + this.userscore
-            + "|" + this.difficulty + "|" + this.section + "|countdown mode";
+    String entry = "" + this.username + " | " + this.userscore
+            + " | " + this.difficulty + " | " + this.section + " | Countdown mode";
     history.add(entry);
   }
 
@@ -322,8 +327,8 @@ public class BiKrMathTrainer implements MathTrainer {
   }
 
   public void createDemoHistoryData() {
-    history.add("Matthew|15|EASY|MULTIPLICATION|countdown mode");
-    history.add("Hammond|21|HARD|ADDITION|countdown mode");
-    history.add("Erika|18|MEDIUM|MIXED|countdown mode");
+    history.add("Matthew | 15 | EASY | MULTIPLICATION | countdown mode");
+    history.add("Hammond | 21 | HARD | ADDITION | countdown mode");
+    history.add("Erika | 18 | MEDIUM | MIXED | countdown mode");
   }
 }

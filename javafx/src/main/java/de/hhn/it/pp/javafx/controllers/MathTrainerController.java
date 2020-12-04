@@ -5,22 +5,17 @@ import de.hhn.it.pp.components.mathtrainer.BiKrMathTrainer;
 import de.hhn.it.pp.components.mathtrainer.Difficulty;
 import de.hhn.it.pp.components.mathtrainer.Section;
 import de.hhn.it.pp.components.mathtrainer.Term;
+import de.hhn.it.pp.javafx.controllers.mathtrainer.MathTrainerWatch;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,10 +54,14 @@ public class MathTrainerController extends Controller implements Initializable {
     @FXML
     Label labelYourPoints;
 
+    private MathTrainerWatch watch;
+
 
     //------- Scene: History -------------
     @FXML
     BorderPane borderPaneHistory;
+    @FXML
+    TextArea textareaHistory;
     @FXML
     Button buttonPlayAgain;
 
@@ -72,6 +71,7 @@ public class MathTrainerController extends Controller implements Initializable {
 
   public MathTrainerController() {
     biKrMathTrainer = new BiKrMathTrainer();
+    watch = new MathTrainerWatch(biKrMathTrainer,this);
   }
 
 
@@ -193,21 +193,26 @@ public class MathTrainerController extends Controller implements Initializable {
                 logger.info("Warmupmode selected: " + biKrMathTrainer.getWarmup());
             }
         });
-
-
     }
+
 
     //----------- Scene: Main Menu ---------
 
-    public void startGame(ActionEvent actionEvent) {
+    public void startGame(ActionEvent actionEvent) throws IllegalParameterException {
       logger.info("Play button pressed, game started as " + biKrMathTrainer.getUsername() + " with "
                 + biKrMathTrainer.getDecimalPlace() + " decimals on "
                 + biKrMathTrainer.getDifficulty() + " with calculation mode "
                 + biKrMathTrainer.getSection() + " in warmup mode: " + biKrMathTrainer.getWarmup());
 
-      switchScene(borderPaneQuestionRun);
-      nextQuestion(null);
+      biKrMathTrainer.setUserScore(0);
+      biKrMathTrainer.setInTurn(0);
 
+      switchScene(borderPaneQuestionRun);
+
+      if(biKrMathTrainer.getWarmup()) {
+          labelYourPoints.setText("Warmup Mode");
+      }
+        nextQuestion(null);
     }
 
     public void showHistoryFromMainMenu(ActionEvent actionEvent) {
@@ -220,43 +225,76 @@ public class MathTrainerController extends Controller implements Initializable {
         switchScene(borderPaneMainMenu);
     }
 
-    public void nextQuestion(ActionEvent actionEvent) {
-        if(biKrMathTrainer.getInTurn() == 0) {
-            labelYourPoints.setText("0");
-        }
+    public void runWatch() {
+        watch.runWatch();
+    }
 
-        if (biKrMathTrainer.getInTurn() == 20) {
+    public void timeIsUp() {
+        labelYourPoints.setText("Time is up!");
+    }
+
+    public void nextQuestion(ActionEvent actionEvent) {
+      if(!biKrMathTrainer.getWarmup()) { //Im Countdown Mode
+          runWatch();
+
+          labelYourPoints.setText(""+biKrMathTrainer.getUserScore());
+
+          if(biKrMathTrainer.getInTurn() == 0) {
+              labelYourPoints.setText("0");
+          }
+      }
+
+      //Bei Countdown + Warmup Mode
+        if (biKrMathTrainer.getInTurn() >= 20) {
             switchScene(borderPaneHistory);
             buttonPlayAgain.setVisible(true);
+
+            if(!biKrMathTrainer.getWarmup()) {
+                biKrMathTrainer.addToHistory();
+                textareaHistory.setText(textareaHistory.getText()+"\n"+biKrMathTrainer.getHistory().get(biKrMathTrainer.getHistory().size()-1));
+            }
         }
 
         Term term = biKrMathTrainer.nextTerm();
 
         textfieldTerm.setText(term.toString());
         textfieldYourSolution.requestFocus();
+        textfieldYourSolution.setText("");
         textfieldActualSolution.setText("");
 
-
-
-        labelQuestionInTurn.setText(""+biKrMathTrainer.getInTurn());
+        labelQuestionInTurn.setText(""+biKrMathTrainer.getInTurn()+"/20");
     }
 
-    public BigDecimal keyReleasedAtYourSolution(KeyEvent k) {
-        BigDecimal output = new BigDecimal(textfieldYourSolution.getText());
+    public void keyReleasedAtYourSolution(KeyEvent k) {
         if(k.getCode().equals(KeyCode.ENTER)) {
             logger.debug("Return key pressed");
-            logger.info("You said: " + output);
+            logger.info("You said: " + textfieldYourSolution.getText());
+
+            if(biKrMathTrainer.getWarmup()) {
+                try {
+                    biKrMathTrainer.solveTerm(textfieldYourSolution.getText(), biKrMathTrainer.getCurrentTerm());
+                } catch(IllegalArgumentException ex) {}
+            }
+            else {
+                if(!biKrMathTrainer.getTimeIsUp()) {
+                    boolean b = biKrMathTrainer.solveTerm(textfieldYourSolution.getText(), biKrMathTrainer.getCurrentTerm(), watch.getSeconds());
+                    labelYourPoints.setText(""+biKrMathTrainer.getUserScore());
+                    if(b) {
+                        biKrMathTrainer.setTimeIsUp(true);
+                    }
+                }
+            }
         }
-        return output;
     }
 
     public void showSolution(ActionEvent actionEvent) {
         textfieldActualSolution.setText(biKrMathTrainer.getCurrentTerm().getSolution().toString());
+        biKrMathTrainer.setTimeIsUp(true);
     }
 
     //-------- Scene: History -----------
-    public void playAgain(ActionEvent actionEvent) {
-        switchScene(borderPaneQuestionRun);
+    public void playAgain(ActionEvent actionEvent) throws IllegalParameterException {
+        startGame(null);
     }
 
     public void exitToMenu(ActionEvent actionEvent) {

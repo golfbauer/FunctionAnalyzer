@@ -31,5 +31,6 @@ public class Watch implements Runnable {
     }
     logger.info("5 seconds passed");
     setTimeisup(true);
+
   }
 }

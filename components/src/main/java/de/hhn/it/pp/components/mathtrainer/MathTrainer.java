@@ -100,6 +100,12 @@ public interface MathTrainer {
   boolean getTimeIsUp();
 
   /**
+   * set the integer value inside the MathTrainer class
+   * @param inturn integer value
+   */
+  void setInTurn(int inturn);
+
+  /**
   * returns the integer value of the local datafield inturn.
   * @return inturn
   */
