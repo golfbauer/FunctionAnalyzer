@@ -21,6 +21,7 @@ public class BiKrMathTrainer implements MathTrainer {
   private int inturn;
   private boolean warmup;
   private Term currentTerm;
+  private BigDecimal usersolution;
 
   /**
    * Constructor to instantiate the basic functions for MathTrainer.
@@ -35,6 +36,7 @@ public class BiKrMathTrainer implements MathTrainer {
     timeisup = false;
     inturn = 0;
     warmup = true;
+    usersolution = new BigDecimal("10000");
     createDemoHistoryData();
   }
 
@@ -152,6 +154,14 @@ public class BiKrMathTrainer implements MathTrainer {
     return this.currentTerm;
   }
 
+  public void setUsersolution(BigDecimal number) {
+    this.usersolution = number;
+  }
+
+  public BigDecimal getUsersolution() {
+    return usersolution;
+  }
+
   @Override
   public Term createTerm() {
     int maxNumberSize =
@@ -243,6 +253,7 @@ public class BiKrMathTrainer implements MathTrainer {
   @Override
   public void startGame(boolean warmup) throws IllegalParameterException {
     if (warmup) {
+      /*
       for (int i = 0; i < 20; i++) {
         inturn = i;
         Term current = this.createTerm();
@@ -259,6 +270,17 @@ public class BiKrMathTrainer implements MathTrainer {
         int finalScore = storeScore + userscore;
         this.setUserScore(finalScore);
         addToHistory();
+      }*/
+      Term current = this.createTerm();
+      Watch stopwatch = new Watch();
+      OneQuestion asinglequestion = new OneQuestion(usersolution, current, current.getSolution(), stopwatch, userscore,this );
+      new Thread(asinglequestion).start();
+      boolean local = true;
+      while (local) {
+        if (asinglequestion.getSolved()) {
+          local = false;
+          logger.info("Question was solved.");
+        }
       }
     } else {
       for (int i = 0; i < 20; i++) {

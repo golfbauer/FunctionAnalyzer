@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -69,9 +70,9 @@ public class MathTrainerController extends Controller implements Initializable {
 
     private BiKrMathTrainer biKrMathTrainer;
 
-    public MathTrainerController() {
-        biKrMathTrainer = new BiKrMathTrainer();
-    }
+  public MathTrainerController() {
+    biKrMathTrainer = new BiKrMathTrainer();
+  }
 
 
     public void switchScene(BorderPane bp) {
@@ -206,12 +207,7 @@ public class MathTrainerController extends Controller implements Initializable {
 
       switchScene(borderPaneQuestionRun);
       nextQuestion(null);
-        try {
-            biKrMathTrainer.startGame(biKrMathTrainer.getWarmup());
-        } catch (IllegalParameterException e) {
-            logger.info("Bad input, please correct your entires.");
-            e.printStackTrace();
-        }
+
     }
 
     public void showHistoryFromMainMenu(ActionEvent actionEvent) {
@@ -240,13 +236,18 @@ public class MathTrainerController extends Controller implements Initializable {
         textfieldYourSolution.requestFocus();
         textfieldActualSolution.setText("");
 
+
+
         labelQuestionInTurn.setText(""+biKrMathTrainer.getInTurn());
     }
 
-    public void keyReleasedAtYourSolution(KeyEvent k) {
+    public BigDecimal keyReleasedAtYourSolution(KeyEvent k) {
+        BigDecimal output = new BigDecimal(textfieldYourSolution.getText());
         if(k.getCode().equals(KeyCode.ENTER)) {
             logger.debug("Return key pressed");
+            logger.info("You said: " + output);
         }
+        return output;
     }
 
     public void showSolution(ActionEvent actionEvent) {
