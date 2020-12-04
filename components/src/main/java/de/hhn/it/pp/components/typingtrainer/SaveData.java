@@ -6,6 +6,9 @@ package de.hhn.it.pp.components.typingtrainer;
  * @since 1.1
  */
 public class SaveData {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(SaveData.class);
+
   private String text;
   private String time;
   private String wpm;

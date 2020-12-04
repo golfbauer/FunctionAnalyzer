@@ -5,6 +5,9 @@ package de.hhn.it.pp.components.typingtrainer;
  * @since 1.1
  */
 public class PracticeText {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(PracticeText.class);
+
   private String[] text; //actual practice text
   private int currentWordIndex;
 

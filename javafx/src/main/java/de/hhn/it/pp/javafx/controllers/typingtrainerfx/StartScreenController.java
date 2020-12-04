@@ -33,6 +33,8 @@ import javafx.stage.Stage;
  * @since 1.1
  */
 public class StartScreenController implements Initializable {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(StartScreenController.class);
 
   //Startscreen Main
   @FXML
@@ -94,7 +96,7 @@ public class StartScreenController implements Initializable {
         });
     //endregion
 
-
+    logger.debug("StartScreen initialized");
   }
 
   /**
@@ -114,6 +116,8 @@ public class StartScreenController implements Initializable {
         files.add(file);
       }
     }
+
+    logger.debug("Practice files found.");
 
     return files;
   }
@@ -141,6 +145,8 @@ public class StartScreenController implements Initializable {
 
     window.setScene(tableViewScene);
     window.show();
+
+    logger.debug("Start button clicked.");
   }
 
   /**
@@ -169,13 +175,15 @@ public class StartScreenController implements Initializable {
     System.out.println(data);
 
     pane_Highscores.setVisible(true);
+
+    logger.debug("Highscore button clicked.");
   }
 
   /**
-   * Konvertiert String[] -> die datas die aus der Txtfile gelesen wurden und dann in ein String[] konvertiert wurden
-   * zu einer ObservableList damit sie von den Columns benutzt werden können
-   * @param datas
-   * @return
+   * Converts String[] into OvervableList with type SaveData.
+   * E.G. Data from txtfile was converted into a String[] but needs to be a ObservableList to put it in the UI
+   * @param datas String[] data to convert
+   * @return Observable list with all the data from datas
    */
   private ObservableList<SaveData> getDatas(String[] datas)
   {
@@ -185,6 +193,8 @@ public class StartScreenController implements Initializable {
       rows.add(new SaveData(datas[i], datas[i+1], datas[i+2]));
     }
 
+    logger.debug("Save data converted for highscore list.");
+
     return rows;
   }
 
@@ -192,6 +202,8 @@ public class StartScreenController implements Initializable {
    * Closes the GUI
    */
   public void btnClick_Quit() {
+
+    logger.debug("Close Typing Trainer.");
     System.exit(98);
   }
 
@@ -208,7 +220,9 @@ public class StartScreenController implements Initializable {
   public void clickOnItem(String item) {
     lbl_SelectAText.setText(item);
     selectedText = item;
-    //Set PRACTICETEXT
+
+    logger.debug("Practice text selected.");
+
     btn_Start.setDisable(false);
   }
 }

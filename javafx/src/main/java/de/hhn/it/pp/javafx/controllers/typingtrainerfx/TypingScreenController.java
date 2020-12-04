@@ -42,6 +42,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @since 1.1
  */
 public class TypingScreenController implements Initializable, TypingTrainerService {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(StartScreenController.class);
 
   private TypingTrainerDescriptor descriptor; //TEST
   private int hboxCnt;
@@ -99,17 +101,17 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     textfield_typedText.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent event) {
-        if(event.getCode() == KeyCode.BACK_SPACE)
-        {
+        if (event.getCode() == KeyCode.BACK_SPACE) {
           event.consume();
         }
       }
     });
+
+    logger.debug("Typing Screen initialized.");
   }
 
   //region Init Methods
-  public void initData(String item) throws FileNotFoundException //TEST
-  {
+  public void initData(String item) throws FileNotFoundException {
     selectedText = item;
 
     //Audio file holen
@@ -136,6 +138,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     }
 
     hboxCntMaxValue = hbox_practiceText.getChildren().size();
+
+    logger.debug("Descriptor created and GUI prepared.");
   }
 
   /**
@@ -149,12 +153,16 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     for (int i = 0; i < arrayText.length; i++) {
       sb.append(arrayText[i] + " ");
     }
+
+    logger.debug("ArrayText converted into singleString.");
+
     return sb.toString();
   }
   //endregion
 
   /**
    * Exits the typingscreen and returns back to the startscreen
+   *
    * @param event
    * @throws IOException
    */
@@ -170,12 +178,12 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     window.setScene(typingScreenScene);
     window.show();
 
-    //wurde ein text ausgewählt
-    System.out.println("Wechselt zu startscreen");
+    logger.debug("Changed to startscreen.");
   }
 
   /**
    * Starts a new session with the same PracticeText
+   *
    * @param event
    * @throws IOException
    */
@@ -193,11 +201,12 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
     window.setScene(tableViewScene);
     window.show();
-    //wurde ein text ausgewählt
-    System.out.println("Wechselt zu startscreen");
+
+    logger.debug("Start a new learning session with the same practice text.");
   }
 
   public String[] splitText(String text) {
+    logger.debug("String splittet into String[].");
     return text.split(" ");
   }
 
@@ -213,17 +222,16 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public boolean checkWord(String word, int index) {
 
-    if (word == null) //Wegen NullPointerException
-    {
+    //to prevent NullPointerException
+    if (word == null) {
+      logger.warn("NullPointerException in checkword.");
       return false;
     }
 
     boolean ret = false;
     String wordPT = descriptor.getPracticeText().getWordAtIndex(index).trim();
 
-    //Debug
-    System.out.println("word = " + word);
-    System.out.println("PT = " + wordPT);
+    logger.debug("Word checked\n" + "word= " + word + "\npracticeTextWord= " + wordPT);
 
     return word.equals(wordPT) ? true : false;
   }
@@ -239,6 +247,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     Media sound = new Media(new File(path).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
     mediaPlayer.play();
+
+    logger.debug("Plays sound for wrong word.");
   }
 
   @Override
@@ -258,10 +268,17 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     pane_Score.setVisible(true);
 
     saveScore(feedback);
+
+    logger.debug(
+        "show Feedback:\n" + "Time: " + String.valueOf(timeShort(feedback.getTime())) + "s\nWPM: " +
+            String.valueOf(feedback.getWordsPerMinute()));
   }
 
   public double timeShort(double a) {
     a = (Math.round(100.0 * a) / 100.0);
+
+    logger.debug("Trim something.");
+
     return a;
   }
 
@@ -275,6 +292,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     SaveLoad save = new SaveLoad();
     save.save(selectedText, String.valueOf(timeShort(score.getTime())),
         String.valueOf(score.getWordsPerMinute()));
+
+    logger.debug("Score saved.");
   }
 
   /**
@@ -316,6 +335,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
     descriptor.getPracticeText().increaseCurrentWordIndex();
 
+    logger.debug("handle user input.");
+
     handleHboxChildren(); // <--- nicht vergessen wieder zu entkommentieren
   }
 
@@ -344,6 +365,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     } else {
       ++hboxBuffer;
     }
+
+    logger.debug("handle practice text words.");
   }
 
   /**
@@ -356,8 +379,10 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void countdown(int seconds) throws InterruptedException {
     if (seconds == 11) {
       descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
+      logger.debug("Set start time");
     } else if (seconds == 66) {
       descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
+      logger.debug("Set end time");
     }
   }
 
@@ -387,9 +412,10 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
         e.printStackTrace();
       } catch (LineUnavailableException e) {
         e.printStackTrace();
-     }
+      }
     }
 
+    logger.debug("marks a word");
 
     //Zeigt Feedback wenn man am Ende vom Text angekommen ist
     if (descriptor.getPracticeText().getCurrentWordIndex() ==

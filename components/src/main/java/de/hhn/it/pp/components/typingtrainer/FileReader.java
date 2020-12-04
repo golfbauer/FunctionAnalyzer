@@ -14,6 +14,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FileReader {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(FileReader.class);
+
   public String fileContent = "";//String where text from file gets saved
 
   public FileReader() throws FileNotFoundException {

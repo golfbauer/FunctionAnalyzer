@@ -7,6 +7,9 @@ package de.hhn.it.pp.components.typingtrainer;
  */
 
 public class Feedback {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(Feedback.class);
+
   private double time, startTime, endTime;
   private int wordsPerMinute;
   private int counterRightWords;

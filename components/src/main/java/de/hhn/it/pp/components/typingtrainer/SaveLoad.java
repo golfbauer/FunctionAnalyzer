@@ -13,6 +13,8 @@ import java.nio.file.Paths;
  * @since 1.1
  */
 public class SaveLoad {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(SaveLoad.class);
 
   /**
    * Appends new text in the existing highscores.txt (adds new scores)

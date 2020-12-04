@@ -10,6 +10,9 @@ import java.util.ArrayList;
  */
 
 public class TypingTrainerDescriptor {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(TypingTrainerDescriptor.class);
+
   private File audioWrongWord;
   private Feedback feedback;
   private PracticeText practiceText;
@@ -43,9 +46,8 @@ public class TypingTrainerDescriptor {
    */
   public void addTypedWords(String word, int index)
   {
-    //if(!word.equals(" ")) {word.strip();} //löscht das leerzeichen falls eins im wort ist}
     typedWords[index] = word;
-    System.out.println("Hinzugefügt: "+word);
+    logger.debug("word added: "+word);
   }
 
   public void setAudioWrongWord(File audioWrongWord) {
