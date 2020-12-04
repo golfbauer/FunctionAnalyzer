@@ -1,4 +1,5 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
-public class VocableTrainerServiceController {
+public class HomepageController {
+
 }
