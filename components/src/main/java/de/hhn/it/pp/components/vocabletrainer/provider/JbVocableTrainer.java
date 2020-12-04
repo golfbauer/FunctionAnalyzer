@@ -24,7 +24,7 @@ public class JbVocableTrainer {
    * Adds a new Category to the trainer.
    *
    * @param categoryName name of the new Category
-   * @param voc a vocab list for the new Category
+   * @param voc          a vocab list for the new Category
    * @throws VocCategoryAlreadyExistException when the Category already exist
    */
   public void addVocCategory(String categoryName, List<Vocable> voc)
@@ -37,6 +37,7 @@ public class JbVocableTrainer {
 
   /**
    * Deletes the Category with the given name.
+   *
    * @param categoryName name of the Category which should be delete
    * @throws VocCategoryNotFoundException when Category doesn't exist
    */
@@ -49,8 +50,9 @@ public class JbVocableTrainer {
 
   /**
    * Adds the Vocable to the Category.
+   *
    * @param categoryName name of the category
-   * @param voc Vocable which should be added
+   * @param voc          Vocable which should be added
    * @throws VocCategoryNotFoundException when Category doesn't exist
    */
   public void addVocable(String categoryName, Vocable voc) throws VocCategoryNotFoundException {
@@ -62,10 +64,11 @@ public class JbVocableTrainer {
 
   /**
    * Deletes a Vocab from the Category.
+   *
    * @param categoryName name of the category
-   * @param voc Vocable which should be deleted
+   * @param voc          Vocable which should be deleted
    * @throws VocCategoryNotFoundException when Category doesn't exist
-   * @throws VocableNotFoundException when Vocable doesn't exist
+   * @throws VocableNotFoundException     when Vocable doesn't exist
    */
   public void removeVocable(String categoryName, Vocable voc)
       throws VocCategoryNotFoundException, VocableNotFoundException {
@@ -81,6 +84,7 @@ public class JbVocableTrainer {
 
   /**
    * Return every Vocab.
+   *
    * @param categoryName name of the Category
    * @return vocabList
    * @throws VocCategoryNotFoundException when Category doesn't exist
