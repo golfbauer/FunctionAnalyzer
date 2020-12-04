@@ -36,6 +36,11 @@ import javafx.stage.Stage;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/***
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.0
+ * @since 1.1
+ */
 public class TypingScreenController implements Initializable, TypingTrainerService {
 
   private TypingTrainerDescriptor descriptor; //TEST
@@ -148,7 +153,11 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   }
   //endregion
 
-  //IST IN INTERFACE = QUIT SESSION. MUSS GEÄNDERT WERDEN :)
+  /**
+   * Exits the typingscreen and returns back to the startscreen
+   * @param event
+   * @throws IOException
+   */
   public void btnClick_Exit(ActionEvent event) throws IOException {
 
     Parent typingScreenParent =
@@ -165,6 +174,11 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     System.out.println("Wechselt zu startscreen");
   }
 
+  /**
+   * Starts a new session with the same PracticeText
+   * @param event
+   * @throws IOException
+   */
   public void btnClick_Retry(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/typingtrainer/TypingScreen.fxml"));
@@ -305,6 +319,10 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
     handleHboxChildren(); // <--- nicht vergessen wieder zu entkommentieren
   }
 
+  /**
+   * After typing the first 3 words it removes the most left word the word you need to type
+   * is in the middle of  the screen.
+   */
   public void handleHboxChildren() {
 
     //Debug
