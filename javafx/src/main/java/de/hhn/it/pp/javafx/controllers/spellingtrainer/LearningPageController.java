@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,6 +43,12 @@ public class LearningPageController implements Initializable {
   private int tries;
 
   public void handlePlayAgainButtonClick() {
+  }
+
+  public void handlePressingEnterInTextField(KeyEvent event) throws NoWordException {
+    if(event.getCode().equals(KeyCode.ENTER)){
+      handleCheckSpellingButtonClick();
+    }
   }
 
   /**
