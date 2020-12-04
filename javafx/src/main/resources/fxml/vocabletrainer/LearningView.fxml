@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="680" maxWidth="1080" minHeight="680" minWidth="1080" prefHeight="680.0"
+<AnchorPane fx:id="LearningViewPane" maxHeight="680" maxWidth="1080" minHeight="680" minWidth="1080" prefHeight="680.0"
             prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController">
     <children>
