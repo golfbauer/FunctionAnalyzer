@@ -73,6 +73,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   public void initialize(URL url, ResourceBundle resourceBundle) {
     hboxCnt = 0;
     pane_Score.setVisible(false);
+    textfield_typedText.setDisable(false);
     textfield_typedText.setText("");
     lbl_FeedbackTime.setText("--:--");
     lbl_FeedbackWPM.setText("--:--");
@@ -263,6 +264,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException {
+    textfield_typedText.setDisable(true);
     lbl_FeedbackTime.setText("Time: " + String.valueOf(timeShort(feedback.getTime())) + "s");
     lbl_FeedbackWPM.setText("WPM: " + String.valueOf(feedback.getWordsPerMinute()));
     pane_Score.setVisible(true);
