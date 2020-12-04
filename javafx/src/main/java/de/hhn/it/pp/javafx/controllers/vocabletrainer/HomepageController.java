@@ -18,16 +18,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 
 public class HomepageController implements Initializable {
   JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
   LearningState learningState = new LearningState();
+  static int levenshtein;
 
   public AnchorPane scenePane;
   @FXML
@@ -41,7 +42,7 @@ public class HomepageController implements Initializable {
   @FXML
   RadioButton hardRadio;
   @FXML
-  ToggleGroup LevenRadio;
+  ToggleGroup levenRadio;
 
 
   public void initialize(URL location, ResourceBundle resources) {
@@ -55,9 +56,9 @@ public class HomepageController implements Initializable {
     for (int i = 0; categories.size() > i; i++) {
       categoryListView.getItems().add(jbVocableTrainerService.getVocCategories().get(i));
     }
-    scoreButton.setText("Score: "+String.valueOf(jbVocableTrainerService.getScore()));
+    scoreButton.setText("Score: " + jbVocableTrainerService.getScore());
     categoryListView.getSelectionModel().select(0);
-    hardRadio.
+    mediumRadio.setSelected(true);
   }
 
   /**
@@ -78,7 +79,7 @@ public class HomepageController implements Initializable {
    * @param event triggered by clicking a button, which switches the page
    * @throws IOException is thrown, when the referenced .fxml file does not exist
    */
-  public void loadPane(ActionEvent event) throws IOException {
+  public void loadPane(ActionEvent event) {
     Node node = (Node) event.getSource();
     Scene scene = node.getScene();
     scenePane = (AnchorPane) scene.lookup("#scenePane");
@@ -95,8 +96,17 @@ public class HomepageController implements Initializable {
   }
 
   public void deleteCategory(ActionEvent event) throws VocCategoryNotFoundException {
-    jbVocableTrainerService
-        .removeVocCategory(categoryListView.getSelectionModel().getSelectedItem());
+    try {
+      jbVocableTrainerService
+          .removeVocCategory(categoryListView.getSelectionModel().getSelectedItem());
+    } catch (VocCategoryNotFoundException e) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Warning Dialog");
+      alert.setHeaderText("No Categories");
+      alert.setContentText("Create new a Category");
+      alert.showAndWait();
+    }
+
     categoryListView.getItems().remove(categoryListView.getSelectionModel().getSelectedItem());
     categoryListView.refresh();
   }
@@ -106,17 +116,17 @@ public class HomepageController implements Initializable {
 
   }
 
-  public void levenSet(ActionEvent actionEvent) {
+  public void levenSet() {
     if (easyRadio.isSelected()) {
-
+      levenshtein = 3;
     }
 
     if (mediumRadio.isSelected()) {
-
+      levenshtein = 2;
     }
 
     if (hardRadio.isSelected()) {
-
+      levenshtein = 0;
     }
 
 
