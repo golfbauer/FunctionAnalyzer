@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
+<<<<<<< HEAD
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="680.0" maxWidth="1080.0" minHeight="680.0" minWidth="1080" prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController">
+=======
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="680.0" maxWidth="1080.0" minHeight="680.0" minWidth="1080" prefHeight="680.0" prefWidth="1080.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController">
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
     <children>
         <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
             <font>
-                <Font size="25.0" />
+                <Font size="25.0"/>
             </font>
         </Label>
         <Label layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="77.0" text="Category">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
-        <ListView fx:id="categoryListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="639.0" />
+        <ListView fx:id="categoryListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="639.0"/>
         <Label layoutX="713.0" layoutY="119.0" text="Difficulty (Levenshtein distance:)">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
         <RadioButton fx:id="easyRadio" onAction="#levenSet" layoutX="713.0" layoutY="155.0" mnemonicParsing="false" text="easy">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
          <toggleGroup>
             <ToggleGroup fx:id="LevenRadio" />
@@ -36,37 +48,57 @@
         </RadioButton>
         <RadioButton fx:id="mediumRadio" onAction="#levenSet" layoutX="713.0" layoutY="190.0" mnemonicParsing="false" text="medium" toggleGroup="$LevenRadio">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </RadioButton>
         <RadioButton fx:id="hardRadio" onAction="#levenSet" layoutX="713.0" layoutY="225.0" mnemonicParsing="false" text="hard" toggleGroup="$LevenRadio">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </RadioButton>
+<<<<<<< HEAD
         <Button fx:id="newCategoryButton" layoutX="576.0" layoutY="617.0" mnemonicParsing="false" onAction="#newCategory" prefHeight="27.0" prefWidth="100.0" text="New">
+=======
+        <Button fx:id="newCategoryButton" onAction="#newCategory" layoutX="576.0" layoutY="617.0"
+                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="New">
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Button>
+<<<<<<< HEAD
         <Button fx:id="editCategoryButton" layoutX="696.0" layoutY="617.0" mnemonicParsing="false" onAction="#editCategory" prefHeight="27.0" prefWidth="100.0" text="Edit">
+=======
+        <Button fx:id="editCategoryButton" onAction="#editCategory" layoutX="696.0" layoutY="617.0"
+                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Edit">
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Button>
+<<<<<<< HEAD
         <Button fx:id="deleteCategoryButton" layoutX="816.0" layoutY="617.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="27.0" prefWidth="100.0" text="Delete">
+=======
+        <Button fx:id="deleteCategoryButton" onAction="#deleteCategory" layoutX="816.0" layoutY="617.0"
+                mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Delete">
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Button>
+<<<<<<< HEAD
         <Button fx:id="okButton" layoutX="936.0" layoutY="617.0" mnemonicParsing="false" onAction="#okClick" prefHeight="27.0" prefWidth="100.0" text="OK">
+=======
+        <Button fx:id="okButton" onAction="#okClick" layoutX="936.0" layoutY="617.0" mnemonicParsing="false"
+                prefHeight="27.0" prefWidth="100.0" text="OK">
+>>>>>>> 15f3c878db7dcd1e25a392e03ec50e54ee6e1862
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Button>
         <Label fx:id="scoreButton" layoutX="936.0" layoutY="44.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
             <font>
-                <Font size="16.0" />
+                <Font size="16.0"/>
             </font>
         </Label>
     </children>
