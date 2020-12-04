@@ -1,5 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 public class VocabularyViewController implements Initializable {
@@ -19,6 +23,10 @@ public class VocabularyViewController implements Initializable {
 
   @FXML
   AnchorPane scenePane;
+  @FXML
+  ListView vocableListView;
+  @FXML
+  Label cateLabel;
 
 
   public void addVocable(ActionEvent event) throws IOException {
@@ -80,6 +88,21 @@ public class VocabularyViewController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    try {
+      listLoader();
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
+    cateLabel.setText("Category: " + HomepageController.cateSaver);
+  }
 
+  public void listLoader() throws VocCategoryNotFoundException {
+    for (int i = 0; i
+        < HomepageController.jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+        .size(); i++) {
+      vocableListView.getItems().add(
+          HomepageController.jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+              .get(i).toString());
+    }
   }
 }

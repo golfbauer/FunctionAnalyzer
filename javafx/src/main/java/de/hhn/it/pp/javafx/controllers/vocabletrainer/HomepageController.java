@@ -3,6 +3,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
@@ -26,9 +27,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class HomepageController implements Initializable {
-  JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
-  LearningState learningState = new LearningState();
-  static int levenshtein;
+  public static JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
+  public static LearningState learningState = new LearningState();
+  public static String cateSaver;
+  public static int levenshtein;
 
   public AnchorPane scenePane;
   @FXML
@@ -47,6 +49,11 @@ public class HomepageController implements Initializable {
 
   public void initialize(URL location, ResourceBundle resources) {
     List<Vocable> test2 = new ArrayList<>();
+    try {
+      test2.add(new Vocable("Auto",new String[]{"car"}));
+    } catch (TranslationIsEmptyException e) {
+      e.printStackTrace();
+    }
     try {
       jbVocableTrainerService.addVocCategory("test1", test2);
     } catch (VocCategoryAlreadyExistException e) {
@@ -112,8 +119,9 @@ public class HomepageController implements Initializable {
   }
 
   public void okClick(ActionEvent event) throws IOException {
-    //Seite Wechseln ZWISCHENSPEICHER?
-
+    cateSaver = categoryListView.getSelectionModel().getSelectedItem();
+    loadPane(event);
+    setScenePane("/vocabletrainer/VocabularyView");
   }
 
   public void levenSet() {
