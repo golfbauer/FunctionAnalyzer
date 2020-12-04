@@ -53,7 +53,6 @@ public class Main extends Application {
 
     addModule("Template");
     addModule("CoffeeMakerService");
-    addModule("SpellingTrainerService");
   }
 
   @Override
