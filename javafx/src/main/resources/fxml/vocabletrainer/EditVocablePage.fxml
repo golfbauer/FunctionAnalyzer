@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="EditVocablePagePane" maxHeight="680" maxWidth="1080" minHeight="680" minWidth="1080"
-            prefHeight="680.0"
-            prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="EditVocablePagePane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0"
+            prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.EditVocablePageController">
     <children>
         <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
@@ -15,13 +15,14 @@
                 <Font size="25.0"/>
             </font>
         </Label>
-        <Button layoutX="816.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Save">
+        <Button layoutX="640.0" layoutY="602.0" mnemonicParsing="false" onAction="#saveVocable" prefHeight="27.0"
+                prefWidth="100.0" text="Save">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button layoutX="936.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0"
-                text="Cancel">
+        <Button layoutX="760.0" layoutY="602.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0"
+                prefWidth="100.0" text="Cancel">
             <font>
                 <Font size="16.0"/>
             </font>
@@ -31,13 +32,13 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <TextField layoutX="37.0" layoutY="219.0" prefHeight="25.0" prefWidth="867.0"/>
+        <TextField fx:id="vocable" layoutX="26.0" layoutY="222.0" prefHeight="25.0" prefWidth="782.0"/>
         <Label layoutX="37.0" layoutY="271.0" prefHeight="25.0" prefWidth="112.0" text="Translations:">
             <font>
                 <Font size="16.0"/>
             </font>
         </Label>
-        <TextField layoutX="37.0" layoutY="305.0" prefHeight="37.0" prefWidth="867.0"/>
+        <TextField fx:id="translations" layoutX="26.0" layoutY="308.0" prefHeight="37.0" prefWidth="782.0"/>
         <Label layoutX="37.0" layoutY="351.0" text="Please seperate the words with comma"/>
     </children>
 </AnchorPane>
