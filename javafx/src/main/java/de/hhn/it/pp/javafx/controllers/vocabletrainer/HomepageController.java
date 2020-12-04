@@ -52,7 +52,7 @@ public class HomepageController implements Initializable {
    * @param event triggered by clicking a button, which switches the page
    * @throws IOException is thrown, when the referenced .fxml file does not exist
    */
-  public void loadPane(javafx.event.ActionEvent event) throws IOException {
+  public void loadPane(ActionEvent event) throws IOException {
     Node node = (Node) event.getSource();
     Scene scene = node.getScene();
     scenePane = (AnchorPane) scene.lookup("#scenePane");
@@ -60,6 +60,6 @@ public class HomepageController implements Initializable {
 
   public void newCategory(ActionEvent event) throws IOException {
     loadPane(event);
-    setScenePane("EditCreateCategoryPage");
+    setScenePane("/vocabletrainer/EditCreateCategoryPage");
   }
 }
