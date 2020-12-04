@@ -1,5 +1,12 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
+
+
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class EditVocablePageController implements Initializable {
@@ -19,13 +28,54 @@ public class EditVocablePageController implements Initializable {
 
   @FXML
   AnchorPane scenePane;
+  @FXML
+  TextField learningWord;
+  @FXML
+  TextField translationWords;
 
   public void saveVocable(ActionEvent event) throws IOException {
+    if (vocEdit == null) {
+      // Create Vocable
+      String str = translationWords.getText().trim();
+      String[] tWords;
+      //if string is empty or null, return empty array
+      if (str == null || str.equals("")) {
+        tWords = new String[0];
+      }
+      String[] words = str.split(",");
+      for (String s : words) {
+        s = s.trim();
+      }
+      try {
+        jbVocableTrainerService.addVocable(learningWord.getText().trim(),
+            words, cateSaver);
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Category not found");
+        alert.setContentText("Please cancel");
+        alert.showAndWait();
+      } catch (TranslationIsEmptyException e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Translations are empty");
+        alert.setContentText("Please add translation words");
+        alert.showAndWait();
+      }
+    } else {
+      // Edit Vocable
+      // jbVocableTrainerService.editVocable();
+
+    }
+    vocEdit = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    vocEdit = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
@@ -64,6 +114,10 @@ public class EditVocablePageController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    if (vocEdit != null) {
+      learningWord.setText(vocEdit.getLearningWord());
+      // ToDo display translation words with commas in the textbox
+      translationWords.setText(vocEdit.getTranslations().toString());
+    }
   }
 }
