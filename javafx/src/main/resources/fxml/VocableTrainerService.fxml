@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="vocableTrainerRootPane" maxHeight="680.0" maxWidth="1080.0" minHeight="680.0" minWidth="1080"
-            prefHeight="680.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController">
-
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="scenePane" maxHeight="680.0" maxWidth="1080.0" minHeight="680.0" minWidth="1080.0" prefHeight="680.0"
+            prefWidth="1080.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController">
+    <children>
+        <Label layoutX="458.0" layoutY="301.0" text="VocableTrainer">
+            <font>
+                <Font name="Roboto Medium" size="64.0"/>
+            </font>
+        </Label>
+        <Button layoutX="643.0" layoutY="439.0" mnemonicParsing="false" onAction="#startVocableTrainer" text="Start">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+    </children>
 </AnchorPane>
