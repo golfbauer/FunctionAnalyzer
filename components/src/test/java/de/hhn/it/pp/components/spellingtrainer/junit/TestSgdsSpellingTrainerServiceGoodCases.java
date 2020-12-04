@@ -35,7 +35,6 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     audioFile = "src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav";
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
-    service.registerMediaPresentationListener();
     service.startLearning("TestSet");
   }
 
@@ -116,20 +115,6 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
   @DisplayName("Returns current word")
   void getCurrentWord() {
     assertEquals("test", service.currentWord());
-  }
-
-  @Test
-  @DisplayName("Registers a MediaPresentationListener")
-  void testRegisterMediaPresentationListener() {
-    service.registerMediaPresentationListener();
-    assertTrue(service.getMediaPresentationListeners().size() == 2);
-  }
-
-  @Test
-  @DisplayName("Deregisters a MediaPresentationListener")
-  void testDeregisterMediaPresentationListener() {
-    service.deregisterMediaPresentationListener(0);
-    assertTrue(service.getMediaPresentationListeners().size() == 0);
   }
 
   @Test

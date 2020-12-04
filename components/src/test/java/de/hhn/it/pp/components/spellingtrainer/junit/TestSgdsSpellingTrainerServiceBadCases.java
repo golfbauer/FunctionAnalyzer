@@ -3,6 +3,8 @@ package de.hhn.it.pp.components.spellingtrainer.junit;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
@@ -30,7 +32,6 @@ public class TestSgdsSpellingTrainerServiceBadCases {
        "src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav";
     service.createLearningSet("TestSet");
     service.addWord("test", audioFile, "TestSet");
-    service.registerMediaPresentationListener();
     service.startLearning("TestSet");
   }
 
@@ -95,12 +96,5 @@ public class TestSgdsSpellingTrainerServiceBadCases {
     service.getDescriptor().setCurrentWordIndex(5);
     assertThrows(IndexOutOfBoundsException.class,
         () -> service.currentWord());
-  }
-
-  @Test
-  @DisplayName("Checks how deregisterMediaPresentationListener handels getting invalid index")
-  void deregisterMediaPresentationListenerFromInvalidIndex() {
-    assertThrows(IndexOutOfBoundsException.class,
-        () -> service.deregisterMediaPresentationListener(5));
   }
 }

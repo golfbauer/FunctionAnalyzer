@@ -27,35 +27,35 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
     descriptor = new SpellingTrainerDescriptor();
     createLearningSet("GermanLearningSet");
     createLearningSet("EnglishLearningSet");
-    addWord("Book",
+    addWord("book",
         "/audiofiles/englishwords/Book.wav",
         "EnglishLearningSet");
-    addWord("Brain",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Brain.wav",
+    addWord("brain",
+        "/audiofiles/englishwords/Brain.wav",
         "EnglishLearningSet");
-    addWord("Computer",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Computer.wav",
+    addWord("computer",
+        "/audiofiles/englishwords/Computer.wav",
         "EnglishLearningSet");
-    addWord("Engineering",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Engineering.wav",
+    addWord("engineering",
+        "/audiofiles/englishwords/Engineering.wav",
         "EnglishLearningSet");
-    addWord("Software",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/englishwords/Software.wav",
+    addWord("software",
+        "/audiofiles/englishwords/Software.wav",
         "EnglishLearningSet");
     addWord("Buch",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Buch.wav",
+        "/audiofiles/germanwords/Buch.wav",
         "GermanLearningSet");
     addWord("Gehirn",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Gehirn.wav",
+        "/audiofiles/germanwords/Gehirn.wav",
         "GermanLearningSet");
     addWord("Computer",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Computer.wav",
+        "/audiofiles/germanwords/Computer.wav",
         "GermanLearningSet");
     addWord("Ingenieur",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Ingenieur.wav",
+        "/audiofiles/germanwords/Ingenieur.wav",
         "GermanLearningSet");
     addWord("Software",
-        "/src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/germanwords/Software.wav",
+        "/audiofiles/germanwords/Software.wav",
         "GermanLearningSet");
     logger.info("Constructor from class SgdsSpellingTrainerService successfully run.");
   }
@@ -256,8 +256,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * Method to play the current word.
    */
   @Override
-  public void playWord()
-      throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+  public void playWord() {
     MediaPresentationListener mpl = this.getMediaPresentationListeners().get(0);
     MediaReference mr = descriptor.getActiveLearningSet()
         .getLearningEntry(descriptor.getCurrentWordIndex()).getMediaReference();
@@ -274,15 +273,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public void registerMediaPresentationListener(
       MediaPresentationListener mediaPresentationListener) {
     this.mplisteners.add(mediaPresentationListener);
-    logger.info("Successfully registered a new MediaPresentationListener");
-  }
-
-  /**
-   * Method to register an media presentation listener.
-   */
-  public void registerMediaPresentationListener() {
-    MediaPresentationListener mpl = new AudioPresentationListener();
-    this.mplisteners.add(mpl);
     logger.info("Successfully registered a new MediaPresentationListener");
   }
 

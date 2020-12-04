@@ -109,12 +109,8 @@ public interface SpellingTrainerService {
 
   /**
    * Method to play the current word.
-   *
-   * @throws UnsupportedAudioFileException
-   * @throws IOException
-   * @throws LineUnavailableException
    */
-  void playWord() throws UnsupportedAudioFileException, IOException, LineUnavailableException;
+  void playWord();
 
   /**
    * Method to register an media presentation listener.
