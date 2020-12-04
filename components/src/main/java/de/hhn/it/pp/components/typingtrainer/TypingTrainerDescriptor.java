@@ -5,38 +5,49 @@ import java.util.ArrayList;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 
 public class TypingTrainerDescriptor {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(TypingTrainerDescriptor.class);
+
   private File audioWrongWord;
   private Feedback feedback;
   private PracticeText practiceText;
   private String[] typedWords; //words that user typed
-  private int crntIndex;
 
   public TypingTrainerDescriptor(File audioWrongWord, Feedback feedback, PracticeText selectedText)
   {
-    this.audioWrongWord = audioWrongWord;
+    this.audioWrongWord = new File("components/src/main/resources/8BIT RETRO Beep.mp3");
     this.feedback = feedback;
     this.practiceText = selectedText;
-    this.crntIndex = 0;
+    this.typedWords = new String[selectedText.getText().length];
   }
 
   public String[] getTypedWords() {
     return typedWords;
   }
 
+  public String getTypedWordsAtIndex(int index)
+  {
+    return typedWords[index];
+  }
+
   public void setTypedWords(String[] typedWords) {
     this.typedWords = typedWords;
   }
 
+  /**
+   * Adds a word to typedWords at index
+   * @param word word to write in typedWords Array
+   * @param index index where the word should be added
+   */
   public void addTypedWords(String word, int index)
   {
-    //if(!word.equals(" ")) {word.strip();} //löscht das leerzeichen falls eins im wort ist}
-    typedWords[index] = typedWords[index].concat(word);
-    System.out.println("Hinzugefügt: "+word);
+    typedWords[index] = word;
+    logger.debug("word added: "+word);
   }
 
   public void setAudioWrongWord(File audioWrongWord) {

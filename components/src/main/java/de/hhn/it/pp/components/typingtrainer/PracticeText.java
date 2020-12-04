@@ -1,10 +1,13 @@
 package de.hhn.it.pp.components.typingtrainer;
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.1
  */
 public class PracticeText {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(PracticeText.class);
+
   private String[] text; //actual practice text
   private int currentWordIndex;
 
@@ -36,4 +39,13 @@ public class PracticeText {
     this.currentWordIndex = currentWordIndex;
   }
 
+  public void increaseCurrentWordIndex()
+  {
+    ++currentWordIndex;
+  }
+
+  public String getWordAtIndex(int index)
+  {
+    return text[index];
+  }
 }

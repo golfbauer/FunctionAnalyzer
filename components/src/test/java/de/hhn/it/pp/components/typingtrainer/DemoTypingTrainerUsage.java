@@ -1,14 +1,16 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /***
  * @author Tobias Maraci, Robert Pistea
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 
@@ -16,11 +18,16 @@ public class DemoTypingTrainerUsage {
 
   private static TypingTrainerDescriptor descriptor;
 
-  public static void main(String[] args) throws FileNotFoundException, InterruptedException {
+  public static void main(String[] args) throws IOException, InterruptedException {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
-      public boolean checkWord(String word) {
-        return false;
+      public boolean checkWord(String word, int index) {
+        String ptWord = descriptor.getPracticeText().getWordAtIndex(index); //Word from practiceText
+        boolean isCorrect = word.equals(ptWord) ? true : false;
+
+        if(isCorrect) {descriptor.getFeedback().increaseCounterRightWords();}
+
+        return isCorrect;
       }
 
       @Override
@@ -71,8 +78,8 @@ public class DemoTypingTrainerUsage {
       }
 
       @Override
-      public void markWord(int index) {
-
+      public void markWord(int index, Color color) {
+        //Marks word at index with color in GUI displayed text.
       }
 
       @Override
@@ -87,7 +94,7 @@ public class DemoTypingTrainerUsage {
     Feedback feedback = new Feedback(0,0);
 
     FileReader fileReader = new FileReader();
-    String[] selectedText = fileReader.GetPracticeText(); //for later: depends on what button was clicked (use other constructor)
+    String[] selectedText = fileReader.getPracticeText(); //for later: depends on what button was clicked (use other constructor)
     PracticeText practiceText = new PracticeText(selectedText);
 
     TypingTrainerDescriptor descriptor = new TypingTrainerDescriptor(audioWrongWord, feedback,practiceText);
@@ -100,6 +107,22 @@ public class DemoTypingTrainerUsage {
     descriptor.getFeedback().setEndTime(LocalTime.now().toNanoOfDay());
 
     //Feedback
+    for (int i = 0; i < descriptor.getPracticeText().getText().length; i++) {
+      try{
+        boolean isCorrect = service.checkWord(descriptor.getTypedWordsAtIndex(i), i);
+
+        if (isCorrect == true)
+          service.markWord(i, Color.green);
+        else
+          service.markWord(i, Color.red);
+
+      }
+      catch (ArrayIndexOutOfBoundsException | IOException e)
+      {
+        break;
+      }
+    }
+
     descriptor.getFeedback().calculateTime();
     descriptor.getFeedback().calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
     service.showFeedback(descriptor.getFeedback());
