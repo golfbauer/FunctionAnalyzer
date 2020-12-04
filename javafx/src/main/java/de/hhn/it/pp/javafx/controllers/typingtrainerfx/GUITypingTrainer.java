@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/***
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.0
+ * @since 1.1
+ */
 public class GUITypingTrainer extends Application {
 
   @Override

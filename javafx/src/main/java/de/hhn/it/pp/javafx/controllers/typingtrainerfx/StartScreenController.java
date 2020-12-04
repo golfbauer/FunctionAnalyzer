@@ -28,6 +28,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/***
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.0
+ * @since 1.1
+ */
 public class StartScreenController implements Initializable {
 
   //Startscreen Main
@@ -117,7 +122,9 @@ public class StartScreenController implements Initializable {
   //region Button methods
 
   /**
-   * erstellt descriptor in typingscreencontroller
+   * creates descriptor in typingscreencontroller
+   * changes scene
+   * sets practiceText to be used in typingScreen
    * @param event
    * @throws IOException
    */
@@ -137,6 +144,9 @@ public class StartScreenController implements Initializable {
     window.show();
   }
 
+  /**
+   * Reads all data from highscores.txt and adds it to the corresponding cell
+   */
   public void btnClick_Highscore() {
     SaveLoad load = new SaveLoad();
     String data = load.load();
@@ -164,7 +174,7 @@ public class StartScreenController implements Initializable {
 
   /**
    * Konvertiert String[] -> die datas die aus der Txtfile gelesen wurden und dann in ein String[] konvertiert wurden
-   * zu einer OvservableList damit sie von den Columns benutzt werden können
+   * zu einer ObservableList damit sie von den Columns benutzt werden können
    * @param datas
    * @return
    */
@@ -179,6 +189,9 @@ public class StartScreenController implements Initializable {
     return rows;
   }
 
+  /**
+   * Closes the GUI
+   */
   public void btnClick_Quit() {
     System.exit(98);
   }

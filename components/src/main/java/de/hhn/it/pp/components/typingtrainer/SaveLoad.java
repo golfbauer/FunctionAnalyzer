@@ -7,8 +7,20 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/***
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.0
+ * @since 1.1
+ */
 public class SaveLoad {
 
+  /**
+   * Appends new text in the existing highscores.txt (adds new scores)
+   * @param sessionText
+   * @param time
+   * @param wpm
+   * @throws IOException
+   */
   public void save(String sessionText, String time, String wpm) throws IOException { //   "components/src/main/resources/highscores.txt"
 
     FileWriter fw = null;
@@ -36,6 +48,10 @@ public class SaveLoad {
 
   }
 
+  /**
+   * Reads the content of highscores.txt and returns for further use in the gui
+   * @return content of highscores.txt
+   */
   public String load()
   {
     String filePath = "components/src/main/resources/saveData/highscores.txt";
