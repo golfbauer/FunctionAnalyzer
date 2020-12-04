@@ -37,7 +37,7 @@
                 <Font size="16.0" />
             </font>
         </RadioButton>
-        <Button fx:id="newCategoryButton" layoutX="576.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="New">
+        <Button fx:id="newCategoryButton" onAction="#newCategory" layoutX="576.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="New">
             <font>
                 <Font size="16.0" />
             </font>
