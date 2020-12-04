@@ -378,7 +378,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    * @throws InterruptedException If an interruption exception occurred
    */
   @Override
-  public void countdown(int seconds) throws InterruptedException {
+  public void countdown(int seconds) throws InterruptedException { // <- Rename its not a countdown anymore
     if (seconds == 11) {
       descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
       logger.debug("Set start time");
