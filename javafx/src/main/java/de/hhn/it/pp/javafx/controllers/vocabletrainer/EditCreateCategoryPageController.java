@@ -1,8 +1,8 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
-import java.awt.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class EditCreateCategoryPageController implements Initializable {
@@ -36,24 +37,49 @@ public class EditCreateCategoryPageController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    if (HomepageController.cateSaver != null) {
+      categoryNameTextField.setText(HomepageController.cateSaver);
+    }
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
-    // Test if VocEdit is set
-    try {
-      HomepageController.jbVocableTrainerService.addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
-    } catch (VocCategoryAlreadyExistException e) {
-      logger.error("Category already existent", e);
-      Alert alert = new Alert(Alert.AlertType.WARNING);
-      alert.setTitle("Warning Dialog");
-      alert.setHeaderText("Category already existent");
-      alert.setContentText("Rename the category");
-      alert.showAndWait();
+    if (HomepageController.cateSaver == null) {
+      // Create Category
+      try {
+        HomepageController.jbVocableTrainerService
+            .addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
+      } catch (VocCategoryAlreadyExistException e) {
+        logger.error("Category already existent", e);
+        categoryExistentAlert();
+      }
+    } else {
+      // Edit Category
+      try {
+        HomepageController.jbVocableTrainerService
+            .editVocCategory(HomepageController.cateSaver, categoryNameTextField.getText());
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setHeaderText("Category to edit not found");
+        alert.setContentText("Please cancel");
+        alert.showAndWait();
+      } catch (VocCategoryAlreadyExistException e) {
+        e.printStackTrace();
+        categoryExistentAlert();
+      }
     }
     // clear VocEdit in Homepage
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
+  }
+
+  private void categoryExistentAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Category already existent");
+    alert.setContentText("Rename the category");
+    alert.showAndWait();
   }
 
   public void cancel(ActionEvent event) throws IOException {
