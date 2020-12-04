@@ -5,9 +5,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="VocabularyViewPane" maxHeight="680" maxWidth="1080" minHeight="680" minWidth="1080"
-            prefHeight="680.0"
-            prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="VocabularyViewPane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0"
+            prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController">
     <children>
         <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
@@ -20,35 +20,38 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <ListView layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="771.0"/>
-        <Button layoutX="459.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="New">
+        <ListView layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="825.0"/>
+        <Button layoutX="290.0" layoutY="608.0" mnemonicParsing="false" onAction="#addVocable" prefHeight="27.0"
+                prefWidth="100.0" text="New">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button layoutX="579.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Edit">
+        <Button layoutX="410.0" layoutY="608.0" mnemonicParsing="false" onAction="#editVocable" prefHeight="27.0"
+                prefWidth="100.0" text="Edit">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button layoutX="699.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0"
-                text="Delete">
+        <Button layoutX="530.0" layoutY="608.0" mnemonicParsing="false" onAction="#removeVocable" prefHeight="27.0"
+                prefWidth="100.0" text="Delete">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button layoutX="819.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0"
-                text="Learn">
+        <Button layoutX="650.0" layoutY="608.0" mnemonicParsing="false" onAction="#learnCategory" prefHeight="27.0"
+                prefWidth="100.0" text="Learn">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Label layoutX="936.0" layoutY="44.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
+        <Label layoutX="767.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
             <font>
                 <Font size="16.0"/>
             </font>
         </Label>
-        <Button layoutX="939.0" layoutY="617.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="OK">
+        <Button layoutX="770.0" layoutY="608.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0"
+                prefWidth="100.0" text="Back">
             <font>
                 <Font size="16.0"/>
             </font>
