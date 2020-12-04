@@ -1,5 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
@@ -46,7 +48,7 @@ public class EditCreateCategoryPageController implements Initializable {
     if (HomepageController.cateSaver == null) {
       // Create Category
       try {
-        HomepageController.jbVocableTrainerService
+        jbVocableTrainerService
             .addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
       } catch (VocCategoryAlreadyExistException e) {
         logger.error("Category already existent", e);
@@ -55,7 +57,7 @@ public class EditCreateCategoryPageController implements Initializable {
     } else {
       // Edit Category
       try {
-        HomepageController.jbVocableTrainerService
+        jbVocableTrainerService
             .editVocCategory(HomepageController.cateSaver, categoryNameTextField.getText());
       } catch (VocCategoryNotFoundException e) {
         e.printStackTrace();
