@@ -1,8 +1,11 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
+import java.awt.TextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 
 public class EditCreateCategoryPageController implements Initializable {
@@ -19,6 +23,8 @@ public class EditCreateCategoryPageController implements Initializable {
 
   @FXML
   AnchorPane editCreateCategoryPagePane;
+  @FXML
+  TextField categoryNameTextField;
 
   /**
    * Called to initialize a controller after its root element has been
@@ -34,11 +40,24 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
+    // Test if VocEdit is set
+    try {
+      HomepageController.jbVocableTrainerService.addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
+    } catch (VocCategoryAlreadyExistException e) {
+      logger.error("Category already existent", e);
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Warning Dialog");
+      alert.setHeaderText("Category already existent");
+      alert.setContentText("Rename the category");
+      alert.showAndWait();
+    }
+    // clear VocEdit in Homepage
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    // clear VocEdit in Homepage
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
