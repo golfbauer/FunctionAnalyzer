@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!--        fx:controller="de.hhn.it.pp.javafx.controllers.typingtrainerfx.StartScreenController">-->
 
@@ -36,13 +43,11 @@
                 <Insets />
             </opaqueInsets>
         </VBox>
-        <ListView fx:id="list_TextSelection" layoutX="657.0" layoutY="173.0" prefHeight="561.0" prefWidth="314.0" style="-fx-background-color: d8315b;" />
         <Label fx:id="lbl_Title" alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="122.0" prefWidth="1005.0" text="Typing Trainer" textAlignment="CENTER" textFill="#d8315b">
             <font>
                 <Font name="System Bold Italic" size="64.0" />
             </font>
         </Label>
-        <ScrollBar fx:id="scrollbar_TextSelection" layoutX="971.0" layoutY="173.0" orientation="VERTICAL" prefHeight="561.0" prefWidth="23.0" style="-fx-background-color: d8315b;" />
         <Label fx:id="lbl_SelectAText" alignment="CENTER" layoutX="286.0" layoutY="122.0" prefHeight="27.0" prefWidth="452.0" text="Select a text..." textAlignment="CENTER" textFill="#d8315b">
             <font>
                 <Font size="18.0" />
@@ -69,6 +74,11 @@
                 </TableView>
             </children>
         </Pane>
+      <ScrollPane layoutX="639.0" layoutY="174.0" prefHeight="561.0" prefWidth="332.0">
+         <content>
+              <ListView fx:id="list_TextSelection" prefHeight="561.0" prefWidth="314.0" style="-fx-background-color: d8315b;" />
+         </content>
+      </ScrollPane>
     </children>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
