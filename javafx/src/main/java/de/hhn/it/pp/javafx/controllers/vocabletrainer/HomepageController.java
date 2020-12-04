@@ -1,15 +1,12 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
-import de.hhn.it.pp.components.vocabletrainer.Vocable;
-import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
-import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
+
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
-import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -27,7 +24,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class HomepageController implements Initializable {
-  public static JbVocableTrainerService jbVocableTrainerService = new JbVocableTrainerService();
   public static LearningState learningState = new LearningState();
   public static String cateSaver;
   public static int levenshtein;
@@ -48,17 +44,7 @@ public class HomepageController implements Initializable {
 
 
   public void initialize(URL location, ResourceBundle resources) {
-    List<Vocable> test2 = new ArrayList<>();
-    try {
-      test2.add(new Vocable("Auto",new String[]{"car"}));
-    } catch (TranslationIsEmptyException e) {
-      e.printStackTrace();
-    }
-    try {
-      jbVocableTrainerService.addVocCategory("test1", test2);
-    } catch (VocCategoryAlreadyExistException e) {
-      e.printStackTrace();
-    }
+
     List<String> categories = jbVocableTrainerService.getVocCategories();
     for (int i = 0; categories.size() > i; i++) {
       categoryListView.getItems().add(jbVocableTrainerService.getVocCategories().get(i));

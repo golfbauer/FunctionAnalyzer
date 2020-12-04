@@ -1,5 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
@@ -58,7 +60,7 @@ public class VocabularyViewController implements Initializable {
   public void removeVocable(ActionEvent event)
       throws VocCategoryNotFoundException, VocableNotFoundException {
     if (vocableListView.getSelectionModel().getSelectedItem() != null) {
-      HomepageController.jbVocableTrainerService
+      jbVocableTrainerService
           .removeVocable(vocableListView.getSelectionModel().getSelectedIndex(),
               HomepageController.cateSaver);
       vocableListView.getItems().clear();
@@ -129,12 +131,12 @@ public class VocabularyViewController implements Initializable {
 
   public void listLoader() throws VocCategoryNotFoundException {
     for (int i = 0; i
-        < HomepageController.jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+        < jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
         .size(); i++) {
       vocableListView.getItems().add(
-          HomepageController.jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
+          jbVocableTrainerService.getVocabulary(HomepageController.cateSaver)
               .get(i));
-      scoreVocList.setText("Scroe: " + HomepageController.jbVocableTrainerService.getScore());
+      scoreVocList.setText("Scroe: " + jbVocableTrainerService.getScore());
     }
   }
 }
