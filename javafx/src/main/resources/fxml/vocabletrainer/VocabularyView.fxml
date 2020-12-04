@@ -15,12 +15,12 @@
                 <Font size="25.0"/>
             </font>
         </Label>
-        <Label layoutX="251.0" layoutY="94.0" prefHeight="25.0" prefWidth="77.0" text="Category:">
+        <Label fx:id="cateLabel" layoutX="251.0" layoutY="94.0" prefHeight="25.0" prefWidth="77.0" text="Category:">
             <font>
                 <Font size="16.0"/>
             </font>
         </Label>
-        <ListView layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="825.0"/>
+        <ListView fx:id="vocableListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="825.0"/>
         <Button layoutX="290.0" layoutY="608.0" mnemonicParsing="false" onAction="#addVocable" prefHeight="27.0"
                 prefWidth="100.0" text="New">
             <font>

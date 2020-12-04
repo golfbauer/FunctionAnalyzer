@@ -3,6 +3,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
@@ -48,6 +49,11 @@ public class HomepageController implements Initializable {
 
   public void initialize(URL location, ResourceBundle resources) {
     List<Vocable> test2 = new ArrayList<>();
+    try {
+      test2.add(new Vocable("Auto",new String[]{"car"}));
+    } catch (TranslationIsEmptyException e) {
+      e.printStackTrace();
+    }
     try {
       jbVocableTrainerService.addVocCategory("test1", test2);
     } catch (VocCategoryAlreadyExistException e) {
