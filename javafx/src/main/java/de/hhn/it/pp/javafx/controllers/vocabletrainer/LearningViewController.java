@@ -163,10 +163,10 @@ public class LearningViewController implements Initializable {
     alert.showAndWait();
   }
 
-  private void canNotSkipAlert() {
+  private void endOfListAlert() {
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
-    alert.setHeaderText("Can not skip");
+    alert.setHeaderText("End of List reached");
     alert.setContentText("This is the last word");
     alert.showAndWait();
   }
@@ -214,7 +214,7 @@ public class LearningViewController implements Initializable {
     try {
       learnWord = toLearnList.get(vocPosInCategory).getLearningWord();
     } catch (IndexOutOfBoundsException e) {
-      canNotSkipAlert();
+      endOfListAlert();
       return;
     }
     textFieldInput.setText("");
