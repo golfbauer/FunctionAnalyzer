@@ -1,5 +1,13 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.levenshtein;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.skippedAndFailed;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.toLearnList;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class EndscreenController implements Initializable {
@@ -19,6 +28,12 @@ public class EndscreenController implements Initializable {
 
   @FXML
   AnchorPane scenePane;
+  @FXML
+  Label endScore;
+  @FXML
+  Label displayCorrectWords;
+  @FXML
+  Label displayWrongWords;
 
   public void learnIncorrectWords(ActionEvent event) throws IOException {
     loadPane(event);
@@ -69,6 +84,16 @@ public class EndscreenController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    endScore.setText("Score: " + jbVocableTrainerService.getScore());
+    int correctAmount = 0;
+    try {
+      correctAmount =
+          jbVocableTrainerService.getVocabulary(cateSaver).size() - skippedAndFailed.size();
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
 
+    displayCorrectWords.setText("Correct words: " + correctAmount);
+    displayWrongWords.setText("Incorrect words: " + skippedAndFailed.size());
   }
 }

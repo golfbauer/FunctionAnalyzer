@@ -37,7 +37,7 @@
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Label layoutX="795.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
+        <Label fx:id="endScore" layoutX="795.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
             <font>
                 <Font size="16.0"/>
             </font>
@@ -48,7 +48,7 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <Label layoutX="160.0" layoutY="200.0" prefHeight="25.0" prefWidth="160.0" text="Incorrect words:">
+        <Label fx:id="displayWrongWords" layoutX="160.0" layoutY="200.0" prefHeight="25.0" prefWidth="160.0" text="Incorrect words:">
             <font>
                 <Font size="16.0"/>
             </font>
