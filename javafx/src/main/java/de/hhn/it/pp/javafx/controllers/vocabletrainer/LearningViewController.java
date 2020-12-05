@@ -79,6 +79,9 @@ public class LearningViewController implements Initializable {
 
   public void checkVocable(ActionEvent event) throws IOException {
     if (notificationState){
+      if(isAtEndOfLearning()){
+        loadScene(event, "/vocabletrainer/Endscreen");
+      }
       initialize(null, null);
       return;
     }
@@ -107,22 +110,17 @@ public class LearningViewController implements Initializable {
       vocableNotFoundAlert();
       return;
     }
+    notificationState = true;
     if (isCorrect) {
-      successFail.setText("The word is correct after the Levenshtein distance!");
-      displayCorrectWord.setText("The correct word would be: " + vocable);
-      skipButton.setDisable(true);
       // Vocable is correct
-
+      successFail.setText("The word is correct after the Levenshtein distance!");
     } else {
       successFail.setText("The word is false!");
-      displayCorrectWord.setText("The correct word would be: " + vocable);
-      skipButton.setDisable(true);
-      // Vocable is false
-      // Add vocable to list of false words
+      // Vocable is false - Add vocable to list of false words
+      skippedAndFailed.add(vocable);
     }
-    if(isAtEndOfLearning()){
-      loadScene(event, "/vocabletrainer/Endscreen");
-    }
+    displayCorrectWord.setText("The correct word would be: " + vocable);
+    skipButton.setDisable(true);
   }
 
   public void cancel(ActionEvent event) throws IOException {
@@ -209,6 +207,7 @@ public class LearningViewController implements Initializable {
       canNotSkipAlert();
       return;
     }
+    textFieldInput.setText("");
     learningWordLabel.setText("What means " + learnWord);
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
     successFail.setText("");
