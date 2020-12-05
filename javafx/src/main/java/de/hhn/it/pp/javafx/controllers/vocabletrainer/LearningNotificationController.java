@@ -3,7 +3,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.checker;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.listPosition;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.vocPosInCategory;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.userText;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
 
@@ -86,7 +86,7 @@ public class LearningNotificationController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     try {
       labelAsk.setText("What means"
-          + jbVocableTrainerService.getVocable(listPosition, cateSaver).getLearningWord());
+          + jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getLearningWord());
     } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
@@ -96,15 +96,15 @@ public class LearningNotificationController implements Initializable {
       successFail.setText("Success!!!");
     } else {
       try {
-        if (jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations().length
+        if (jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations().length
             == 1) {
           successFail.setText("Failed you misspelled. The correct answer is"
               + Arrays.toString(
-                  jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations()));
+                  jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations()));
         } else {
           successFail.setText("Failed you misspelled. Right options are"
               + Arrays.toString(
-              jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations()));
+              jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations()));
         }
       } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
         e.printStackTrace();
