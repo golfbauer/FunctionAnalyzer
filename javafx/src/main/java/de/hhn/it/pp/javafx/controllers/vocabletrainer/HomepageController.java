@@ -6,6 +6,7 @@ import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jb
 
 import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.javafx.controllers.coffeemaker.CoffeeMakerController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -25,6 +26,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 public class HomepageController implements Initializable {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(HomepageController.class);
   public static LearningState learningState = new LearningState();
   public static String cateSaver;
   public static int levenshtein;
@@ -80,11 +83,13 @@ public class HomepageController implements Initializable {
   }
 
   public void newCategory(ActionEvent event) throws IOException {
+    logger.debug("New Category button is pressed.");
     loadPane(event);
     setScenePane("/vocabletrainer/EditCreateCategoryPage");
   }
 
   public void editCategory(ActionEvent event) throws IOException {
+    logger.debug("Edit Category button is pressed.");
     cateSaver = categoryListView.getSelectionModel().getSelectedItem();
     if (cateSaver != null) {
       loadPane(event);
@@ -95,6 +100,7 @@ public class HomepageController implements Initializable {
   }
 
   public void deleteCategory(ActionEvent event) throws VocCategoryNotFoundException {
+    logger.debug("Delete Category button is pressed.");
     try {
       jbVocableTrainerService
           .removeVocCategory(categoryListView.getSelectionModel().getSelectedItem());
@@ -115,6 +121,7 @@ public class HomepageController implements Initializable {
   }
 
   public void okClick(ActionEvent event) throws IOException {
+    logger.debug("OK button is pressed.");
     cateSaver = categoryListView.getSelectionModel().getSelectedItem();
     loadPane(event);
     setScenePane("/vocabletrainer/VocabularyView");
@@ -122,14 +129,17 @@ public class HomepageController implements Initializable {
 
   public void levenSet() {
     if (easyRadio.isSelected()) {
+      logger.debug("Radio button easy is pressed levenshtein set to 3");
       levenshtein = 3;
     }
 
     if (mediumRadio.isSelected()) {
+      logger.debug("Radio button medium is pressed levenshtein set to 2");
       levenshtein = 2;
     }
 
     if (hardRadio.isSelected()) {
+      logger.debug("Radio button hard is pressed levenshtein set to 0");
       levenshtein = 0;
     }
 
