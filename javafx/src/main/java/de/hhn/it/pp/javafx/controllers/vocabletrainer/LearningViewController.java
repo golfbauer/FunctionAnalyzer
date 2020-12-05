@@ -26,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 public class LearningViewController implements Initializable {
@@ -47,6 +48,8 @@ public class LearningViewController implements Initializable {
   Label displayCorrectWord;
   @FXML
   Button skipButton;
+  @FXML
+  Button okButton;
   private boolean notificationState;
 
   private boolean isAtEndOfLearning() {
@@ -210,6 +213,13 @@ public class LearningViewController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    okButton.setDefaultButton(true);
+    okButton.setOnKeyPressed(event -> {
+          if (event.getCode().equals(KeyCode.ENTER)) {
+            okButton.fire();
+          }
+        }
+    );
     String learnWord = "There is no learning word";
     try {
       learnWord = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getLearningWord();
