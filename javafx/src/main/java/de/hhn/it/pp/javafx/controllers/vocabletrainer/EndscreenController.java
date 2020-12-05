@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -38,6 +39,8 @@ public class EndscreenController implements Initializable {
   Label displayCorrectWords;
   @FXML
   Label displayWrongWords;
+  @FXML
+  Button learnIncorrectButton;
 
   public void learnIncorrectWords(ActionEvent event) {
     if (skippedAndFailed.size() <= 0) {
@@ -54,23 +57,23 @@ public class EndscreenController implements Initializable {
     try {
       jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
     } catch (VocCategoryNotFoundException e) {
-      e.printStackTrace();
+      logger.info("saveVocable: throws {}", "" + e);
     }
     try {
       jbVocableTrainerService.addVocCategory("SkippedAndFailed", tmp);
     } catch (VocCategoryAlreadyExistException e) {
-      e.printStackTrace();
+      logger.info("saveVocable: throws {}", "" + e);
     }
     cateSaver = "SkippedAndFailed";
     try {
       loadPane(event);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.info("saveVocable: throws {}", "" + e);
     }
     try {
       setScenePane("vocabletrainer/LearningView");
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.info("saveVocable: throws {}", "" + e);
     }
   }
 
@@ -143,5 +146,6 @@ public class EndscreenController implements Initializable {
     }
     displayCorrectWords.setText("Correct words: " + correctAmount);
     displayWrongWords.setText("Incorrect words: " + skippedAndFailed.size());
+    learnIncorrectButton.setDisable(skippedAndFailed.size() <= 0);
   }
 }
