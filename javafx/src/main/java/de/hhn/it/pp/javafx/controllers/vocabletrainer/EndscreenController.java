@@ -2,7 +2,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.levenshtein;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.listPosition;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.vocPosInCategory;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.skippedAndFailed;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.userText;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.toLearnList;
@@ -60,7 +60,7 @@ public class EndscreenController implements Initializable {
     skippedAndFailed.clear();
     toLearnList.clear();
     toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
-    listPosition = 0;
+    vocPosInCategory = 0;
     userText = null;
     loadPane(event);
     setScenePane("/vocabletrainer/LearningViewController");
@@ -70,7 +70,7 @@ public class EndscreenController implements Initializable {
     skippedAndFailed.clear();
     cateSaver = null;
     toLearnList.clear();
-    listPosition = 0;
+    vocPosInCategory = 0;
     userText = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
