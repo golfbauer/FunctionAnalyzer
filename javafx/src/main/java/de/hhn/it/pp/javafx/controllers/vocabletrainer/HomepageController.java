@@ -84,6 +84,7 @@ public class HomepageController implements Initializable {
   }
 
   public void editCategory(ActionEvent event) throws IOException {
+    cateSaver = categoryListView.getSelectionModel().getSelectedItem();
     loadPane(event);
     setScenePane("/vocabletrainer/EditCreateCategoryPage");
   }

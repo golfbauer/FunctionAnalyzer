@@ -29,14 +29,15 @@ import javafx.scene.layout.AnchorPane;
 public class LearningViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
-
+  public static List<Vocable> skippedAndFailed = new ArrayList<>();
   @FXML
   AnchorPane scenePane;
   @FXML
   Label learningWordLabel;
   @FXML
   TextField textFieldInput;
-  public static List<Vocable> skippedAndFailed = new ArrayList<>();
+  @FXML
+  Label scoreLabel;
 
 
   public void skipVocable(ActionEvent event) throws IOException {
@@ -48,17 +49,28 @@ public class LearningViewController implements Initializable {
 
   public void checkVocable(ActionEvent event)
       throws IOException, VocCategoryNotFoundException, VocableNotFoundException {
-    boolean checker =
-        jbVocableTrainerService.checkVocable(textFieldInput.getText(), 0, cateSaver, levenshtein);
-    if (checker) {
-      toLearnList.remove(0);
+    if (toLearnList.size() == 0) {
       loadPane(event);
-      setScenePane("/vocabletrainer/LearningNotificationController");
+      setScenePane("/vocabletrainer/EndscreenController");
     } else {
-      skippedAndFailed.add(toLearnList.get(0));
-      toLearnList.remove(0);
-      loadPane(event);
-      setScenePane("/vocabletrainer/LearningNotificationController");
+      for (int i = 0; i < jbVocableTrainerService.getVocabulary(cateSaver).size(); i++) {
+        if (jbVocableTrainerService.getVocable(i, cateSaver).getLearningWord()
+            .equals(toLearnList.get(0).getLearningWord())) {
+          boolean checker =
+              jbVocableTrainerService
+                  .checkVocable(textFieldInput.getText(), i, cateSaver, levenshtein);
+          if (checker) {
+            toLearnList.remove(0);
+            loadPane(event);
+            setScenePane("/vocabletrainer/LearningNotificationController");
+          } else {
+            skippedAndFailed.add(toLearnList.get(0));
+            toLearnList.remove(0);
+            loadPane(event);
+            setScenePane("/vocabletrainer/LearningNotificationController");
+          }
+        }
+      }
     }
   }
 
@@ -103,21 +115,9 @@ public class LearningViewController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    try {
-      learningWordLabel.setText(jbVocableTrainerService.getVocable(0, cateSaver).getLearningWord());
-    } catch (VocableNotFoundException e) {
-      try {
-        loadNotify();
-      } catch (IOException ioException) {
-        ioException.printStackTrace();
-      }
-    } catch (VocCategoryNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
 
-  private void loadNotify() throws IOException {
-    setScenePane("/vocabletrainer/LearningNotificationController");
-  }
+    learningWordLabel.setText(toLearnList.get(0).getLearningWord());
+    scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
 
+  }
 }
