@@ -29,6 +29,7 @@ public class VocabularyViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
   public static Vocable vocEdit;
+  public static int vocInt;
   public static List<Vocable> toLearnList = new ArrayList<>();
   @FXML
   AnchorPane scenePane;
@@ -49,6 +50,7 @@ public class VocabularyViewController implements Initializable {
 
     if (vocableListView.getSelectionModel().getSelectedItem() != null) {
       vocEdit = vocableListView.getSelectionModel().getSelectedItem();
+      vocInt = vocableListView.getSelectionModel().getSelectedIndex();
       loadPane(event);
       setScenePane("/vocabletrainer/EditVocablePage");
     } else {
