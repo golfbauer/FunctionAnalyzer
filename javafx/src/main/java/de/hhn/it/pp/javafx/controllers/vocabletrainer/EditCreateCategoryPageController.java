@@ -44,6 +44,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
+    logger.debug("Save button is pressed.");
     String categoryName = categoryNameTextField.getText().trim();
     if (categoryName == null || categoryName.equals("")) {
       vocCategoryCanNotBeEmptyAlert();
@@ -107,6 +108,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    logger.debug("cancel button is pressed.");
     // clear VocEdit in Homepage
     HomepageController.cateSaver = null;
     loadPane(event);
