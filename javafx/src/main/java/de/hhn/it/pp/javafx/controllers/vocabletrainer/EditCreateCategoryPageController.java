@@ -46,12 +46,17 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
+    String categoryName = categoryNameTextField.getText().trim();
+    if (categoryName == null || categoryName.equals("")) {
+      vocCategoryCanNotBeEmptyAlert();
+      return;
+    }
     boolean noException = false;
     if (HomepageController.cateSaver == null) {
       // Create Category
       try {
         jbVocableTrainerService
-            .addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
+            .addVocCategory(categoryName, new ArrayList<>());
         noException = true;
       } catch (VocCategoryAlreadyExistException e) {
         logger.info("saveVocable: throws {}", "" + e);
@@ -61,7 +66,7 @@ public class EditCreateCategoryPageController implements Initializable {
       // Edit Category
       try {
         jbVocableTrainerService
-            .editVocCategory(HomepageController.cateSaver, categoryNameTextField.getText());
+            .editVocCategory(HomepageController.cateSaver, categoryName);
         noException = true;
       } catch (VocCategoryNotFoundException e) {
         logger.info("saveVocable: throws {}", "" + e);
@@ -77,6 +82,14 @@ public class EditCreateCategoryPageController implements Initializable {
       loadPane(event);
       setScenePane("/vocabletrainer/Homepage");
     }
+  }
+
+  private void vocCategoryCanNotBeEmptyAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Category can not be empty");
+    alert.setContentText("Please enter a category name");
+    alert.showAndWait();
   }
 
   private void vocCategoryNotFoundAlert() {
