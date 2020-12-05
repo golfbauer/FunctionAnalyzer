@@ -5,60 +5,53 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="VocabularyViewPane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0"
-            prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController">
+
+<AnchorPane fx:id="VocabularyViewPane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0" prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController">
     <children>
         <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
             <font>
-                <Font size="25.0"/>
+                <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="cateLabel" layoutX="251.0" layoutY="94.0" prefHeight="25.0" prefWidth="77.0" text="Category:">
+        <Label fx:id="cateLabel" layoutX="251.0" layoutY="94.0" prefHeight="25.0" prefWidth="357.0" text="Category:">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Label>
-        <ListView fx:id="vocableListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="825.0"/>
-        <Button layoutX="290.0" layoutY="608.0" mnemonicParsing="false" onAction="#addVocable" prefHeight="27.0"
-                prefWidth="100.0" text="New">
+        <ListView fx:id="vocableListView" layoutX="37.0" layoutY="119.0" prefHeight="461.0" prefWidth="825.0" />
+        <Button layoutX="290.0" layoutY="608.0" mnemonicParsing="false" onAction="#addVocable" prefHeight="27.0" prefWidth="100.0" text="New">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button layoutX="410.0" layoutY="608.0" mnemonicParsing="false" onAction="#editVocable" prefHeight="27.0"
-                prefWidth="100.0" text="Edit">
+        <Button layoutX="410.0" layoutY="608.0" mnemonicParsing="false" onAction="#editVocable" prefHeight="27.0" prefWidth="100.0" text="Edit">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button layoutX="530.0" layoutY="608.0" mnemonicParsing="false" onAction="#removeVocable" prefHeight="27.0"
-                prefWidth="100.0" text="Delete">
+        <Button layoutX="530.0" layoutY="608.0" mnemonicParsing="false" onAction="#removeVocable" prefHeight="27.0" prefWidth="100.0" text="Delete">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Button>
-        <Button layoutX="650.0" layoutY="608.0" mnemonicParsing="false" onAction="#learnCategory" prefHeight="27.0"
-                prefWidth="100.0" text="Learn">
+        <Button layoutX="650.0" layoutY="608.0" mnemonicParsing="false" onAction="#learnCategory" prefHeight="27.0" prefWidth="100.0" text="Learn">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Button>
-        <Label fx:id="scoreVocList" layoutX="767.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
+        <Label fx:id="scoreVocList" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score:">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Label>
-        <Button layoutX="770.0" layoutY="608.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0"
-                prefWidth="100.0" text="Back">
+        <Button layoutX="770.0" layoutY="608.0" mnemonicParsing="false" onAction="#back" prefHeight="27.0" prefWidth="100.0" text="Back">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Button>
         <Label layoutX="37.0" layoutY="94.0" prefHeight="25.0" prefWidth="92.0" text="Vocabulary">
             <font>
-                <Font size="16.0"/>
+                <Font size="16.0" />
             </font>
         </Label>
     </children>
