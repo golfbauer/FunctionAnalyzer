@@ -69,6 +69,18 @@ public class LearningViewController implements Initializable {
   }
 
   public void skipVocable(ActionEvent event) throws IOException {
+    // Get vocable
+    Vocable vocable = null;
+    try {
+      vocable = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver);
+    } catch (VocCategoryNotFoundException e) {
+      vocCategoryNotFoundAlert();
+      return;
+    } catch (VocableNotFoundException e) {
+      vocableNotFoundAlert();
+      return;
+    }
+    skippedAndFailed.add(vocable);
     if(!isAtEndOfLearning()){
       // ToDo Add skipped vocable to list of false words
       initialize(null, null);
