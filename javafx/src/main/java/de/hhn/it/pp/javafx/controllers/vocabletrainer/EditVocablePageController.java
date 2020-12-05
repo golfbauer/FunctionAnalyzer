@@ -26,7 +26,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditVocablePageController implements Initializable {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
+      org.slf4j.LoggerFactory.getLogger(EditVocablePageController.class);
 
   @FXML
   AnchorPane scenePane;
@@ -36,6 +36,7 @@ public class EditVocablePageController implements Initializable {
   TextField translationWordsField;
 
   public void saveVocable(ActionEvent event) throws IOException {
+    logger.debug("Save button is pressed.");
     boolean noException = false;
     if (vocEdit == null) {
       // Create Vocable
@@ -117,6 +118,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    logger.debug("Cancel button is pressed.");
     vocEdit = null;
     loadPane(event);
     setScenePane("/vocabletrainer/VocabularyView");
