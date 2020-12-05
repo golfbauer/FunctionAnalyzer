@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -34,6 +35,7 @@ public class LearningViewController implements Initializable {
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
   public static List<Vocable> skippedAndFailed = new ArrayList<>();
   public static int vocPosInCategory;
+  private boolean notificationState;
   @FXML
   AnchorPane scenePane;
   @FXML
@@ -42,6 +44,12 @@ public class LearningViewController implements Initializable {
   TextField textFieldInput;
   @FXML
   Label scoreLabel;
+  @FXML
+  Label successFail;
+  @FXML
+  Label displayCorrectWord;
+  @FXML
+  Button skipButton;
 
   private boolean isAtEndOfLearning() {
     vocPosInCategory++;
@@ -70,6 +78,10 @@ public class LearningViewController implements Initializable {
   }
 
   public void checkVocable(ActionEvent event) throws IOException {
+    if (notificationState){
+      initialize(null, null);
+      return;
+    }
     // Get vocable
     Vocable vocable = null;
     try {
@@ -96,16 +108,35 @@ public class LearningViewController implements Initializable {
       return;
     }
     if (isCorrect) {
+      successFail.setText("The word is correct after the Levenshtein distance!");
+      displayCorrectWord.setText("The correct word would be: " + vocable);
+      skipButton.setDisable(true);
       // Vocable is correct
-      // Show correct word to compare if levenshtein was used
 
     } else {
+      successFail.setText("The word is false!");
+      displayCorrectWord.setText("The correct word would be: " + vocable);
+      skipButton.setDisable(true);
       // Vocable is false
       // Add vocable to list of false words
     }
     if(isAtEndOfLearning()){
       loadScene(event, "/vocabletrainer/Endscreen");
     }
+  }
+
+  public void cancel(ActionEvent event) throws IOException {
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+    cateSaver = null;
+    vocEdit = null;
+    vocPosInCategory = 0;
+    loadScene(event, "/vocabletrainer/Endscreen");
   }
 
   private void vocableNotFoundAlert() {
@@ -135,20 +166,6 @@ public class LearningViewController implements Initializable {
   private void loadScene(ActionEvent event, String sceneUrl) throws IOException {
     loadPane(event);
     setScenePane(sceneUrl);
-  }
-
-  public void cancel(ActionEvent event) throws IOException {
-    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
-      try {
-        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
-      } catch (VocCategoryNotFoundException e) {
-        e.printStackTrace();
-      }
-    }
-    cateSaver = null;
-    vocEdit = null;
-    vocPosInCategory = 0;
-    loadScene(event, "/vocabletrainer/Endscreen");
   }
 
   /**
@@ -194,8 +211,11 @@ public class LearningViewController implements Initializable {
     }
     learningWordLabel.setText("What means " + learnWord);
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
+    successFail.setText("");
+    displayCorrectWord.setText("");
+    skipButton.setDisable(false);
+    notificationState = false;
   }
-
 
 
   /*

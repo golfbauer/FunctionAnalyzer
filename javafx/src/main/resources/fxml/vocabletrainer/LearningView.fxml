@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="LearningViewPane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0" prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController">
     <children>
@@ -18,7 +16,7 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button layoutX="519.0" layoutY="600.0" mnemonicParsing="false" onAction="#skipVocable" prefHeight="27.0" prefWidth="100.0" text="Skip">
+        <Button fx:id="skipButton" layoutX="519.0" layoutY="600.0" mnemonicParsing="false" onAction="#skipVocable" prefHeight="27.0" prefWidth="100.0" text="Skip">
             <font>
                 <Font size="16.0" />
             </font>
