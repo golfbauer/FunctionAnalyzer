@@ -3,7 +3,6 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.levenshtein;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.toLearnList;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
 
 
@@ -91,8 +90,9 @@ public class LearningViewController implements Initializable {
     if (notificationState) {
       if (isAtEndOfLearning()) {
         loadScene(event, "/vocabletrainer/Endscreen");
+      } else {
+        initialize(null, null);
       }
-      initialize(null, null);
       return;
     }
     // Get vocable
@@ -212,13 +212,19 @@ public class LearningViewController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     String learnWord = "There is no learning word";
     try {
-      learnWord = toLearnList.get(vocPosInCategory).getLearningWord();
+      learnWord = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getLearningWord();
     } catch (IndexOutOfBoundsException e) {
       endOfListAlert();
       return;
+    } catch (VocCategoryNotFoundException e) {
+      vocCategoryNotFoundAlert();
+      return;
+    } catch (VocableNotFoundException e) {
+      vocableNotFoundAlert();
+      return;
     }
     textFieldInput.setText("");
-    learningWordLabel.setText("What means " + learnWord);
+    learningWordLabel.setText("What means " + learnWord + "?");
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
     successFail.setText("");
     displayCorrectWord.setText("");

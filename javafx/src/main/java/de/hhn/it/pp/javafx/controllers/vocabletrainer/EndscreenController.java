@@ -1,18 +1,19 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.levenshtein;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.vocPosInCategory;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.skippedAndFailed;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.toLearnList;
-import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.skippedAndFailed;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.vocPosInCategory;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.toLearnList;
 
+
+import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
-import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +39,33 @@ public class EndscreenController implements Initializable {
   @FXML
   Label displayWrongWords;
 
+  public void learnIncorrectWords(ActionEvent event) {
+    List<Vocable> tmp = skippedAndFailed;
+    skippedAndFailed = null;
+    skippedAndFailed = new ArrayList<>();
+    try {
+      jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
+    try {
+      jbVocableTrainerService.addVocCategory("SkippedAndFailed", tmp);
+    } catch (VocCategoryAlreadyExistException e) {
+      e.printStackTrace();
+    }
+    cateSaver = "SkippedAndFailed";
+    try {
+      loadPane(event);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      setScenePane("vocabletrainer/LearningView");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+/*
   public void learnIncorrectWords(ActionEvent event)
       throws IOException, VocCategoryAlreadyExistException {
     logger.debug("learnIncorrectWords button is pressed.");
@@ -64,7 +92,7 @@ public class EndscreenController implements Initializable {
 
       alert.showAndWait();
     }
-  }
+  }*/
 
   public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
     logger.debug("Repeat button is pressed.");
