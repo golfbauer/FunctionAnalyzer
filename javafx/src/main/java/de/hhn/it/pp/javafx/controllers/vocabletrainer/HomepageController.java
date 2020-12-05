@@ -2,8 +2,9 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
-import de.hhn.it.pp.components.vocabletrainer.LearningState;
 
+
+import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -85,8 +86,12 @@ public class HomepageController implements Initializable {
 
   public void editCategory(ActionEvent event) throws IOException {
     cateSaver = categoryListView.getSelectionModel().getSelectedItem();
-    loadPane(event);
-    setScenePane("/vocabletrainer/EditCreateCategoryPage");
+    if (cateSaver != null) {
+      loadPane(event);
+      setScenePane("/vocabletrainer/EditCreateCategoryPage");
+    } else {
+      vocCategoryNotFoundAlert();
+    }
   }
 
   public void deleteCategory(ActionEvent event) throws VocCategoryNotFoundException {
@@ -94,15 +99,19 @@ public class HomepageController implements Initializable {
       jbVocableTrainerService
           .removeVocCategory(categoryListView.getSelectionModel().getSelectedItem());
     } catch (VocCategoryNotFoundException e) {
-      Alert alert = new Alert(Alert.AlertType.WARNING);
-      alert.setTitle("Warning Dialog");
-      alert.setHeaderText("No Categories");
-      alert.setContentText("Create new a Category");
-      alert.showAndWait();
+      vocCategoryNotFoundAlert();
     }
 
     categoryListView.getItems().remove(categoryListView.getSelectionModel().getSelectedItem());
     categoryListView.refresh();
+  }
+
+  public void vocCategoryNotFoundAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("No categories");
+    alert.setContentText("Create new a category");
+    alert.showAndWait();
   }
 
   public void okClick(ActionEvent event) throws IOException {
