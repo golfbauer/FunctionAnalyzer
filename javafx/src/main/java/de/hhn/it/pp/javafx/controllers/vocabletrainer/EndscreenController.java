@@ -53,6 +53,7 @@ public class EndscreenController implements Initializable {
       toLearnList.clear();
       jbVocableTrainerService.addVocCategory("SkippedAndFailed", skippedAndFailed);
       cateSaver = "SkippedAndFailed";
+      toLearnList.addAll(skippedAndFailed);
       loadPane(event);
       setScenePane("vocabletrainer/LearningView");
     } else {
