@@ -278,7 +278,8 @@ public class BiKrMathTrainer implements MathTrainer {
       }*/
       Term current = this.createTerm();
       Watch stopwatch = new Watch();
-      OneQuestion asinglequestion = new OneQuestion(usersolution, current, current.getSolution(), stopwatch, userscore,this );
+      OneQuestion asinglequestion =
+          new OneQuestion(usersolution, current, current.getSolution(), stopwatch, userscore,this);
       new Thread(asinglequestion).start();
       boolean local = true;
       while (local) {
@@ -326,6 +327,9 @@ public class BiKrMathTrainer implements MathTrainer {
     }
   }
 
+  /**
+   * populate history list with a few entries for display in gui.
+   */
   public void createDemoHistoryData() {
     history.add("Matthew | 15 | EASY | MULTIPLICATION | countdown mode");
     history.add("Hammond | 21 | HARD | ADDITION | countdown mode");

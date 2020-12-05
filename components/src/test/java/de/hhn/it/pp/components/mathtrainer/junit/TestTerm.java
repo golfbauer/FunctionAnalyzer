@@ -25,7 +25,7 @@ public class TestTerm {
     @Test
     @DisplayName("Test if getSolution solves the term correctly")
     public void checkIfGetSolutionDeliversCorrectValue() throws IllegalParameterException {
-        assertEquals(new BigDecimal("2.00"), term.getSolution());
+        assertEquals(new BigDecimal("2"), term.getSolution());
     }
 
     @Test
