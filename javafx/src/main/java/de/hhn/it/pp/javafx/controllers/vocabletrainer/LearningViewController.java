@@ -87,6 +87,13 @@ public class LearningViewController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     cateSaver = null;
     vocEdit = null;
     listPosition = 0;

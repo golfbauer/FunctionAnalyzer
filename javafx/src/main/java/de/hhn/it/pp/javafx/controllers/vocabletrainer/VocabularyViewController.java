@@ -132,6 +132,13 @@ public class VocabularyViewController implements Initializable {
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     cateLabel.setText("Category: " + cateSaver);
 
   }
