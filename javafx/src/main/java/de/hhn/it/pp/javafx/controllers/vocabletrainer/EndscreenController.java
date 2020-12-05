@@ -41,11 +41,20 @@ public class EndscreenController implements Initializable {
   public void learnIncorrectWords(ActionEvent event)
       throws IOException, VocCategoryAlreadyExistException {
     logger.debug("learnIncorrectWords button is pressed.");
-    if (skippedAndFailed.size() != 0) {
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        toLearnList.clear();
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+    if (skippedAndFailed.size() > 0) {
+      toLearnList.clear();
       jbVocableTrainerService.addVocCategory("SkippedAndFailed", skippedAndFailed);
       cateSaver = "SkippedAndFailed";
       loadPane(event);
-      setScenePane("/vocabletrainer/LearningViewController");
+      setScenePane("vocabletrainer/LearningView");
     } else {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Information Dialog");
@@ -58,12 +67,19 @@ public class EndscreenController implements Initializable {
 
   public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
     logger.debug("Repeat button is pressed.");
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     skippedAndFailed.clear();
     toLearnList.clear();
     toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
     vocPosInCategory = 0;
     loadPane(event);
-    setScenePane("/vocabletrainer/LearningViewController");
+    setScenePane("vocabletrainer/LearningView");
   }
 
   public void finishLearning(ActionEvent event) throws IOException {

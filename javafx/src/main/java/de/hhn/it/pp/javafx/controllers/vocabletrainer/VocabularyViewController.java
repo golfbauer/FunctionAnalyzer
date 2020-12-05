@@ -155,7 +155,7 @@ public class VocabularyViewController implements Initializable {
       vocableListView.getItems().add(
           jbVocableTrainerService.getVocabulary(cateSaver)
               .get(i));
-      scoreVocList.setText("Scroe: " + jbVocableTrainerService.getScore());
+      scoreVocList.setText("Score: " + jbVocableTrainerService.getScore());
     }
   }
 }

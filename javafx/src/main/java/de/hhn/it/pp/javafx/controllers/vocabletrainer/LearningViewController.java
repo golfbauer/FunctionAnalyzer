@@ -81,17 +81,17 @@ public class LearningViewController implements Initializable {
       return;
     }
     skippedAndFailed.add(vocable);
-    if(!isAtEndOfLearning()){
+    if (!isAtEndOfLearning()) {
       // ToDo Add skipped vocable to list of false words
       initialize(null, null);
-    }else {
+    } else {
       loadScene(event, "/vocabletrainer/Endscreen");
     }
   }
 
   public void checkVocable(ActionEvent event) throws IOException {
-    if (notificationState){
-      if(isAtEndOfLearning()){
+    if (notificationState) {
+      if (isAtEndOfLearning()) {
         loadScene(event, "/vocabletrainer/Endscreen");
       }
       initialize(null, null);
