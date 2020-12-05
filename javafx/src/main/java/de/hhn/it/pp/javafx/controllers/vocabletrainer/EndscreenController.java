@@ -42,9 +42,14 @@ public class EndscreenController implements Initializable {
     setScenePane("/vocabletrainer/Homepage");
   }
 
-  public void repeatLearning(ActionEvent event) throws IOException {
+  public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
+    skippedAndFailed.clear();
+    toLearnList.clear();
+    toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
+    listPosition = 0;
+    userText = null;
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/LearningViewController");
   }
 
   public void finishLearning(ActionEvent event) throws IOException {
