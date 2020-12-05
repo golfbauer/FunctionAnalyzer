@@ -12,7 +12,6 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundExceptio
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +36,7 @@ public class EditVocablePageController implements Initializable {
   TextField translationWordsField;
 
   public void saveVocable(ActionEvent event) throws IOException {
+    boolean noException = false;
     if (vocEdit == null) {
       // Create Vocable
       String[] words = toArrayTranslations(translationWordsField.getText().trim());
@@ -44,34 +44,41 @@ public class EditVocablePageController implements Initializable {
       try {
         jbVocableTrainerService.addVocable(learningWordField.getText().trim(),
             words, cateSaver);
+        noException = true;
       } catch (VocCategoryNotFoundException e) {
-        e.printStackTrace();
+        logger.info("saveVocable: throws {}", e);
         vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
-        e.printStackTrace();
+        logger.info("saveVocable: throws {}", e);
         translationIsEmptyAlert();
       }
     } else {
       // Edit Vocable
       // jbVocableTrainerService.editVocable();
-      String[] translations = toArrayTranslations(learningWordField.getText().trim());
+      String[] translations = toArrayTranslations(translationWordsField.getText().trim());
       try {
         jbVocableTrainerService
             .editVocable(vocInt, learningWordField.getText().trim(), translations, cateSaver);
+        noException = true;
       } catch (VocableNotFoundException e) {
+        logger.info("saveVocable: throws {}", e);
         e.printStackTrace();
         vocableNotFoundAlert();
       } catch (VocCategoryNotFoundException e) {
+        logger.info("saveVocable: throws {}", e);
         e.printStackTrace();
         vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
+        logger.info("saveVocable: throws {}", e);
         e.printStackTrace();
         translationIsEmptyAlert();
       }
     }
-    vocEdit = null;
-    loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    if (noException) {
+      vocEdit = null;
+      loadPane(event);
+      setScenePane("/vocabletrainer/VocabularyView");
+    }
   }
 
   private String[] toArrayTranslations(String str) {
@@ -81,8 +88,9 @@ public class EditVocablePageController implements Initializable {
       return new String[0];
     }
     String[] words = str.split(",");
-    for (String s : words) {
-      s = s.trim();
+    for (int i = 0; i < words.length; i++) {
+      //String tmp = words[i]
+      words[i] = words[i].trim();
     }
     return words;
   }
@@ -114,7 +122,7 @@ public class EditVocablePageController implements Initializable {
   public void cancel(ActionEvent event) throws IOException {
     vocEdit = null;
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/VocabularyView");
   }
 
   /**
@@ -154,7 +162,11 @@ public class EditVocablePageController implements Initializable {
     if (vocEdit != null) {
       learningWordField.setText(vocEdit.getLearningWord());
       // ToDo display translation words with commas in the textbox
-      translationWordsField.setText(Arrays.toString(vocEdit.getTranslations()));
+      StringBuilder str = new StringBuilder();
+      for (String s : vocEdit.getTranslations()) {
+        str.append(s).append(", ");
+      }
+      translationWordsField.setText(str.toString());
     }
   }
 }
