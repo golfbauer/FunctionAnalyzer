@@ -27,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class VocabularyViewController implements Initializable {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
+      org.slf4j.LoggerFactory.getLogger(VocabularyViewController.class);
   public static Vocable vocEdit;
   public static int vocInt;
   public static List<Vocable> toLearnList = new ArrayList<>();
@@ -42,12 +42,13 @@ public class VocabularyViewController implements Initializable {
 
 
   public void addVocable(ActionEvent event) throws IOException {
+    logger.debug("Add button is pressed.");
     loadPane(event);
     setScenePane("/vocabletrainer/EditVocablePage");
   }
 
   public void editVocable(ActionEvent event) throws IOException {
-
+    logger.debug("Edit button is pressed.");
     if (vocableListView.getSelectionModel().getSelectedItem() != null) {
       vocEdit = vocableListView.getSelectionModel().getSelectedItem();
       vocInt = vocableListView.getSelectionModel().getSelectedIndex();
@@ -65,6 +66,7 @@ public class VocabularyViewController implements Initializable {
 
   public void removeVocable(ActionEvent event)
       throws VocCategoryNotFoundException, VocableNotFoundException {
+    logger.debug("Remove button is pressed.");
     if (vocableListView.getSelectionModel().getSelectedItem() != null) {
       jbVocableTrainerService
           .removeVocable(vocableListView.getSelectionModel().getSelectedIndex(),
@@ -83,12 +85,15 @@ public class VocabularyViewController implements Initializable {
   }
 
   public void learnCategory(ActionEvent event) throws IOException, VocCategoryNotFoundException {
-    toLearnList = jbVocableTrainerService.getVocabulary(cateSaver);
+    logger.debug("learn button is pressed.");
+    toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
     loadPane(event);
     setScenePane("/vocabletrainer/LearningView");
   }
 
   public void back(ActionEvent event) throws IOException {
+    logger.debug("back button is pressed.");
+    toLearnList.clear();
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }

@@ -1,8 +1,6 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
-
-
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
@@ -23,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditCreateCategoryPageController implements Initializable {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
+      org.slf4j.LoggerFactory.getLogger(EditCreateCategoryPageController.class);
 
   @FXML
   AnchorPane editCreateCategoryPagePane;
@@ -46,6 +44,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
+    logger.debug("Save button is pressed.");
     String categoryName = categoryNameTextField.getText().trim();
     if (categoryName == null || categoryName.equals("")) {
       vocCategoryCanNotBeEmptyAlert();
@@ -109,6 +108,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    logger.debug("cancel button is pressed.");
     // clear VocEdit in Homepage
     HomepageController.cateSaver = null;
     loadPane(event);

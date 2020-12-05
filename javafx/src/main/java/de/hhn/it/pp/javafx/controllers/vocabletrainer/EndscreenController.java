@@ -27,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class EndscreenController implements Initializable {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
+      org.slf4j.LoggerFactory.getLogger(EndscreenController.class);
 
   @FXML
   AnchorPane scenePane;
@@ -40,6 +40,7 @@ public class EndscreenController implements Initializable {
 
   public void learnIncorrectWords(ActionEvent event)
       throws IOException, VocCategoryAlreadyExistException {
+    logger.debug("learnIncorrectWords button is pressed.");
     if (skippedAndFailed.size() != 0) {
       jbVocableTrainerService.addVocCategory("SkippedAndFailed", skippedAndFailed);
       cateSaver = "SkippedAndFailed";
@@ -56,6 +57,7 @@ public class EndscreenController implements Initializable {
   }
 
   public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
+    logger.debug("Repeat button is pressed.");
     skippedAndFailed.clear();
     toLearnList.clear();
     toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
@@ -65,6 +67,7 @@ public class EndscreenController implements Initializable {
   }
 
   public void finishLearning(ActionEvent event) throws IOException {
+    logger.debug("Finish button is pressed.");
     skippedAndFailed.clear();
     cateSaver = null;
     toLearnList.clear();
