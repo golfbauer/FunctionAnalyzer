@@ -7,9 +7,11 @@ import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewContr
 
 import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,49 +31,83 @@ public class EditVocablePageController implements Initializable {
   @FXML
   AnchorPane scenePane;
   @FXML
-  TextField learningWord;
+  TextField learningWordField;
   @FXML
-  TextField translationWords;
+  TextField translationWordsField;
 
   public void saveVocable(ActionEvent event) throws IOException {
     if (vocEdit == null) {
       // Create Vocable
-      String str = translationWords.getText().trim();
-      String[] tWords;
-      //if string is empty or null, return empty array
-      if (str == null || str.equals("")) {
-        tWords = new String[0];
-      }
-      String[] words = str.split(",");
-      for (String s : words) {
-        s = s.trim();
-      }
+      String[] words = toArrayTranslations(translationWordsField.getText().trim());
+
       try {
-        jbVocableTrainerService.addVocable(learningWord.getText().trim(),
+        jbVocableTrainerService.addVocable(learningWordField.getText().trim(),
             words, cateSaver);
       } catch (VocCategoryNotFoundException e) {
         e.printStackTrace();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Category not found");
-        alert.setContentText("Please cancel");
-        alert.showAndWait();
+        vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
         e.printStackTrace();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Translations are empty");
-        alert.setContentText("Please add translation words");
-        alert.showAndWait();
+        translationIsEmptyAlert();
       }
     } else {
       // Edit Vocable
       // jbVocableTrainerService.editVocable();
-
+      String[] translations = toArrayTranslations(learningWordField.getText().trim());
+      try {
+        jbVocableTrainerService
+            .editVocable(0, learningWordField.getText().trim(), translations, cateSaver);
+      } catch (VocableNotFoundException e) {
+        e.printStackTrace();
+        vocableNotFoundAlert();
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+        vocCategoryNotFoundAlert();
+      } catch (TranslationIsEmptyException e) {
+        e.printStackTrace();
+        translationIsEmptyAlert();
+      }
     }
     vocEdit = null;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
+  }
+
+  private String[] toArrayTranslations(String str) {
+    String[] tWords;
+    //if string is empty or null, return empty array
+    if (str == null || str.equals("")) {
+      return new String[0];
+    }
+    String[] words = str.split(",");
+    for (String s : words) {
+      s = s.trim();
+    }
+    return words;
+  }
+
+  private void vocableNotFoundAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Vocable not found");
+    alert.setContentText("Please cancel");
+    alert.showAndWait();
+  }
+
+  private void vocCategoryNotFoundAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Category not found");
+    alert.setContentText("Please cancel");
+    alert.showAndWait();
+  }
+
+  private void translationIsEmptyAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Translations are empty");
+    alert.setContentText("Please add translation words");
+    alert.showAndWait();
   }
 
   public void cancel(ActionEvent event) throws IOException {
@@ -115,9 +151,9 @@ public class EditVocablePageController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     if (vocEdit != null) {
-      learningWord.setText(vocEdit.getLearningWord());
+      learningWordField.setText(vocEdit.getLearningWord());
       // ToDo display translation words with commas in the textbox
-      translationWords.setText(vocEdit.getTranslations().toString());
+      translationWordsField.setText(Arrays.toString(vocEdit.getTranslations()));
     }
   }
 }
