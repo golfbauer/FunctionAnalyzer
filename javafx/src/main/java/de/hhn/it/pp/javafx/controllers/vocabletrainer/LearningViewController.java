@@ -32,9 +32,7 @@ public class LearningViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
   public static List<Vocable> skippedAndFailed = new ArrayList<>();
-  public static boolean checker;
   public static int vocPosInCategory;
-  public static String userText;
   @FXML
   AnchorPane scenePane;
   @FXML
@@ -44,8 +42,7 @@ public class LearningViewController implements Initializable {
   @FXML
   Label scoreLabel;
 
-
-  public void skipVocable(ActionEvent event) throws IOException {
+  private boolean isAtEndOfLearning() {
     vocPosInCategory++;
     int categorySize = 0;
     try {
@@ -54,10 +51,20 @@ public class LearningViewController implements Initializable {
       e.printStackTrace();
     }
     if (vocPosInCategory >= categorySize) {
-      loadScene(event, "/vocabletrainer/Endscreen");
+      // End of category - Set vocPosInCategory to 0
+      vocPosInCategory = 0;
+      return true;
     } else {
+      return false;
+    }
+  }
+
+  public void skipVocable(ActionEvent event) throws IOException {
+    if(!isAtEndOfLearning()){
       // ToDo Add skipped vocable to list of false words
       initialize(null, null);
+    }else {
+      loadScene(event, "/vocabletrainer/Endscreen");
     }
   }
 
@@ -94,6 +101,9 @@ public class LearningViewController implements Initializable {
     } else {
       // Vocable is false
       // Add vocable to list of false words
+    }
+    if(isAtEndOfLearning()){
+      loadScene(event, "/vocabletrainer/Endscreen");
     }
   }
 
@@ -137,8 +147,7 @@ public class LearningViewController implements Initializable {
     cateSaver = null;
     vocEdit = null;
     vocPosInCategory = 0;
-    loadPane(event);
-    setScenePane("/vocabletrainer/Endscreen");
+    loadScene(event, "/vocabletrainer/Endscreen");
   }
 
   /**
