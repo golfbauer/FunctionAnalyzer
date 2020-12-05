@@ -9,6 +9,7 @@ import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewContr
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -37,9 +39,21 @@ public class EndscreenController implements Initializable {
   @FXML
   Label displayWrongWords;
 
-  public void learnIncorrectWords(ActionEvent event) throws IOException {
-    loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+  public void learnIncorrectWords(ActionEvent event)
+      throws IOException, VocCategoryAlreadyExistException {
+    if (skippedAndFailed.size() != 0) {
+      jbVocableTrainerService.addVocCategory("SkippedAndFailed", skippedAndFailed);
+      cateSaver = "SkippedAndFailed";
+      loadPane(event);
+      setScenePane("/vocabletrainer/LearningViewController");
+    } else {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText(null);
+      alert.setContentText("No IncorrectWords!");
+
+      alert.showAndWait();
+    }
   }
 
   public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
@@ -104,7 +118,13 @@ public class EndscreenController implements Initializable {
     } catch (VocCategoryNotFoundException e) {
       e.printStackTrace();
     }
-
+    if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
+      try {
+        jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
+      } catch (VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
     displayCorrectWords.setText("Correct words: " + correctAmount);
     displayWrongWords.setText("Incorrect words: " + skippedAndFailed.size());
   }
