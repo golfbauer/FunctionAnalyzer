@@ -14,6 +14,7 @@ import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -194,4 +195,37 @@ public class LearningViewController implements Initializable {
     learningWordLabel.setText("What means " + learnWord);
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
   }
+
+
+
+  /*
+  public void initialize() {
+    try {
+      labelAsk.setText("What means"
+          + jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getLearningWord());
+    } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
+    scoreNotify.setText("Score: " + jbVocableTrainerService.getScore());
+    oldInput.setText(userText);
+    if (checker) {
+      successFail.setText("Success!!!");
+    } else {
+      try {
+        if (jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations().length
+            == 1) {
+          successFail.setText("Failed you misspelled. The correct answer is"
+              + Arrays.toString(
+              jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations()));
+        } else {
+          successFail.setText("Failed you misspelled. Right options are"
+              + Arrays.toString(
+              jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getTranslations()));
+        }
+      } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  */
 }
