@@ -62,15 +62,12 @@ public class EditVocablePageController implements Initializable {
         noException = true;
       } catch (VocableNotFoundException e) {
         logger.info("saveVocable: throws {}", "" + e);
-        e.printStackTrace();
         vocableNotFoundAlert();
       } catch (VocCategoryNotFoundException e) {
         logger.info("saveVocable: throws {}", "" + e);
-        e.printStackTrace();
         vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
         logger.info("saveVocable: throws {}", "" + e);
-        e.printStackTrace();
         translationIsEmptyAlert();
       }
     }
