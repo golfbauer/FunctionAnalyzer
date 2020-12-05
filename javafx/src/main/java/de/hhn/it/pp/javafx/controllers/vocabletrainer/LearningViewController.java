@@ -46,15 +46,18 @@ public class LearningViewController implements Initializable {
 
 
   public void skipVocable(ActionEvent event) throws IOException {
-    if (toLearnList.size() == 0) {
-      loadPane(event);
-      setScenePane("/vocabletrainer/EndscreenController");
+    vocPosInCategory++;
+    int categorySize = 0;
+    try {
+      categorySize = jbVocableTrainerService.getVocabulary(cateSaver).size();
+    } catch (VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
+    if (vocPosInCategory >= categorySize) {
+      loadScene(event, "/vocabletrainer/Endscreen");
     } else {
-      skippedAndFailed.add(toLearnList.get(0));
-      toLearnList.remove(0);
-      checker = false;
-      loadPane(event);
-      setScenePane("/vocabletrainer/LearningViewController");
+      // ToDo Add skipped vocable to list of false words
+      initialize(null, null);
     }
   }
 
@@ -107,6 +110,14 @@ public class LearningViewController implements Initializable {
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category not found");
     alert.setContentText("Please cancel");
+    alert.showAndWait();
+  }
+
+  private void canNotSkipAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Can not skip");
+    alert.setContentText("This is the last word");
     alert.showAndWait();
   }
 
@@ -164,9 +175,14 @@ public class LearningViewController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
-    learningWordLabel.setText("What means " + toLearnList.get(0).getLearningWord());
+    String learnWord = "There is no learning word";
+    try {
+      learnWord = toLearnList.get(vocPosInCategory).getLearningWord();
+    } catch (IndexOutOfBoundsException e) {
+      canNotSkipAlert();
+      return;
+    }
+    learningWordLabel.setText("What means " + learnWord);
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
-
   }
 }
