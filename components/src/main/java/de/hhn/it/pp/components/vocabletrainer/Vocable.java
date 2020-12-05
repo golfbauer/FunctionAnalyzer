@@ -60,8 +60,9 @@ public class Vocable {
   public String toString() {
     StringBuilder tr = new StringBuilder();
     for (String st : translations) {
-      tr.append(st + " ");
+      tr.append(st + ", ");
     }
-    return learningWord + "(" + tr.toString() + ")";
+    String str = tr.toString();
+    return learningWord + " (" + str.substring(0, str.length() - 2) + ")";
   }
 }
