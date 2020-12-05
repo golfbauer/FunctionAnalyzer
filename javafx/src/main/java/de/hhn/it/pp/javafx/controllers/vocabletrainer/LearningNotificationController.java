@@ -1,8 +1,18 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
+import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.checker;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.listPosition;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController.userText;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
+
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
+import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +21,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class LearningNotificationController implements Initializable {
@@ -19,15 +31,23 @@ public class LearningNotificationController implements Initializable {
 
   @FXML
   AnchorPane scenePane;
+  @FXML
+  Label labelAsk;
+  @FXML
+  Label scoreNotify;
+  @FXML
+  Label successFail;
+  @FXML
+  TextField oldInput;
 
   public void nextVocable(ActionEvent event) throws IOException {
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/LearningViewController");
   }
 
-  public void cancle(ActionEvent event) throws IOException {
+  public void cancel(ActionEvent event) throws IOException {
     loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    setScenePane("/vocabletrainer/EndscreenController");
   }
 
   /**
@@ -64,6 +84,31 @@ public class LearningNotificationController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-
+    try {
+      labelAsk.setText("What means"
+          + jbVocableTrainerService.getVocable(listPosition, cateSaver).getLearningWord());
+    } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+      e.printStackTrace();
+    }
+    scoreNotify.setText("Score: " + jbVocableTrainerService.getScore());
+    oldInput.setText(userText);
+    if (checker) {
+      successFail.setText("Success!!!");
+    } else {
+      try {
+        if (jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations().length
+            == 1) {
+          successFail.setText("Failed you misspelled. The correct answer is"
+              + Arrays.toString(
+                  jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations()));
+        } else {
+          successFail.setText("Failed you misspelled. Right options are"
+              + Arrays.toString(
+              jbVocableTrainerService.getVocable(listPosition, cateSaver).getTranslations()));
+        }
+      } catch (VocableNotFoundException | VocCategoryNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }

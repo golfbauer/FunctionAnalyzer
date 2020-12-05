@@ -15,7 +15,7 @@
                 <Font size="25.0"/>
             </font>
         </Label>
-        <Label layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="491.0" text="What means &quot;example&quot;?">
+        <Label fx:id="labelAsk" layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="491.0" text="What means &quot;example&quot;?">
             <font>
                 <Font size="16.0"/>
             </font>
@@ -26,13 +26,13 @@
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Button layoutX="760.0" layoutY="608.0" mnemonicParsing="false" onAction="#cancle" prefHeight="27.0"
+        <Button layoutX="760.0" layoutY="608.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0"
                 prefWidth="100.0" text="Cancel">
             <font>
                 <Font size="16.0"/>
             </font>
         </Button>
-        <Label layoutX="760.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
+        <Label fx:id="scoreNotify" layoutX="760.0" layoutY="35.0" prefHeight="37.0" prefWidth="61.0" text="Score:">
             <font>
                 <Font size="16.0"/>
             </font>
@@ -42,8 +42,8 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <TextField layoutX="37.0" layoutY="156.0" prefHeight="30.0" prefWidth="550.0"/>
-        <Label layoutX="37.0" layoutY="202.0" prefHeight="25.0" prefWidth="226.0" text="You made a spelling mistake!">
+        <TextField fx:id="oldInput" layoutX="37.0" layoutY="156.0" prefHeight="30.0" prefWidth="550.0"/>
+        <Label fx:id="successFail" layoutX="37.0" layoutY="202.0" prefHeight="25.0" prefWidth="226.0" text="You made a spelling mistake!">
             <font>
                 <Font size="16.0"/>
             </font>

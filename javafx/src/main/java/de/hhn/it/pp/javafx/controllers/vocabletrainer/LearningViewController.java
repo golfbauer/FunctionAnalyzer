@@ -30,6 +30,9 @@ public class LearningViewController implements Initializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(VocableTrainerServiceController.class);
   public static List<Vocable> skippedAndFailed = new ArrayList<>();
+  public static boolean checker;
+  public static int listPosition;
+  public static String userText;
   @FXML
   AnchorPane scenePane;
   @FXML
@@ -41,10 +44,16 @@ public class LearningViewController implements Initializable {
 
 
   public void skipVocable(ActionEvent event) throws IOException {
-    skippedAndFailed.add(toLearnList.get(0));
-    toLearnList.remove(0);
-    loadPane(event);
-    setScenePane("/vocabletrainer/LearningViewController");
+    if (toLearnList.size() == 0) {
+      loadPane(event);
+      setScenePane("/vocabletrainer/EndscreenController");
+    } else {
+      skippedAndFailed.add(toLearnList.get(0));
+      toLearnList.remove(0);
+      checker = false;
+      loadPane(event);
+      setScenePane("/vocabletrainer/LearningViewController");
+    }
   }
 
   public void checkVocable(ActionEvent event)
@@ -53,12 +62,15 @@ public class LearningViewController implements Initializable {
       loadPane(event);
       setScenePane("/vocabletrainer/EndscreenController");
     } else {
-      for (int i = 0; i < jbVocableTrainerService.getVocabulary(cateSaver).size(); i++) {
-        if (jbVocableTrainerService.getVocable(i, cateSaver).getLearningWord()
+      for (listPosition = 0;
+           listPosition <= jbVocableTrainerService.getVocabulary(cateSaver).size();
+           listPosition++) {
+        if (jbVocableTrainerService.getVocable(listPosition, cateSaver).getLearningWord()
             .equals(toLearnList.get(0).getLearningWord())) {
-          boolean checker =
+          checker =
               jbVocableTrainerService
-                  .checkVocable(textFieldInput.getText(), i, cateSaver, levenshtein);
+                  .checkVocable(textFieldInput.getText(), listPosition, cateSaver, levenshtein);
+          userText = textFieldInput.getText();
           if (checker) {
             toLearnList.remove(0);
             loadPane(event);
@@ -77,6 +89,7 @@ public class LearningViewController implements Initializable {
   public void cancel(ActionEvent event) throws IOException {
     cateSaver = null;
     vocEdit = null;
+    listPosition = 0;
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }
@@ -116,7 +129,7 @@ public class LearningViewController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    learningWordLabel.setText(toLearnList.get(0).getLearningWord());
+    learningWordLabel.setText("What means " + toLearnList.get(0).getLearningWord());
     scoreLabel.setText("Score: " + jbVocableTrainerService.getScore());
 
   }
