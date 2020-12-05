@@ -122,9 +122,13 @@ public class HomepageController implements Initializable {
 
   public void okClick(ActionEvent event) throws IOException {
     logger.debug("OK button is pressed.");
-    cateSaver = categoryListView.getSelectionModel().getSelectedItem();
-    loadPane(event);
-    setScenePane("/vocabletrainer/VocabularyView");
+    if (categoryListView.getSelectionModel().isEmpty()) {
+      vocCategoryNotFoundAlert();
+    } else {
+      cateSaver = categoryListView.getSelectionModel().getSelectedItem();
+      loadPane(event);
+      setScenePane("/vocabletrainer/VocabularyView");
+    }
   }
 
   public void levenSet() {
