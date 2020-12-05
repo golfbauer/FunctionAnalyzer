@@ -3,6 +3,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController.cateSaver;
 import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocEdit;
+import static de.hhn.it.pp.javafx.controllers.vocabletrainer.VocabularyViewController.vocInt;
 
 
 import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
@@ -56,7 +57,7 @@ public class EditVocablePageController implements Initializable {
       String[] translations = toArrayTranslations(learningWordField.getText().trim());
       try {
         jbVocableTrainerService
-            .editVocable(0, learningWordField.getText().trim(), translations, cateSaver);
+            .editVocable(vocInt, learningWordField.getText().trim(), translations, cateSaver);
       } catch (VocableNotFoundException e) {
         e.printStackTrace();
         vocableNotFoundAlert();
