@@ -2,6 +2,7 @@ package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
 
+
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
@@ -45,13 +46,15 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
+    boolean noException = false;
     if (HomepageController.cateSaver == null) {
       // Create Category
       try {
         jbVocableTrainerService
             .addVocCategory(categoryNameTextField.getText(), new ArrayList<>());
+        noException = true;
       } catch (VocCategoryAlreadyExistException e) {
-        logger.error("Category already existent", e);
+        logger.info("saveVocable: throws {}", "" + e);
         categoryExistentAlert();
       }
     } else {
@@ -59,22 +62,29 @@ public class EditCreateCategoryPageController implements Initializable {
       try {
         jbVocableTrainerService
             .editVocCategory(HomepageController.cateSaver, categoryNameTextField.getText());
+        noException = true;
       } catch (VocCategoryNotFoundException e) {
-        e.printStackTrace();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Category to edit not found");
-        alert.setContentText("Please cancel");
-        alert.showAndWait();
+        logger.info("saveVocable: throws {}", "" + e);
+        vocCategoryNotFoundAlert();
       } catch (VocCategoryAlreadyExistException e) {
-        e.printStackTrace();
+        logger.info("saveVocable: throws {}", "" + e);
         categoryExistentAlert();
       }
     }
-    // clear VocEdit in Homepage
-    HomepageController.cateSaver = null;
-    loadPane(event);
-    setScenePane("/vocabletrainer/Homepage");
+    if (noException) {
+      // clear VocEdit in Homepage
+      HomepageController.cateSaver = null;
+      loadPane(event);
+      setScenePane("/vocabletrainer/Homepage");
+    }
+  }
+
+  private void vocCategoryNotFoundAlert() {
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning Dialog");
+    alert.setHeaderText("Category to edit not found");
+    alert.setContentText("Please cancel");
+    alert.showAndWait();
   }
 
   private void categoryExistentAlert() {

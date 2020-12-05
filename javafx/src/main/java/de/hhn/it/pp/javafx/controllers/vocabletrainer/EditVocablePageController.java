@@ -46,10 +46,10 @@ public class EditVocablePageController implements Initializable {
             words, cateSaver);
         noException = true;
       } catch (VocCategoryNotFoundException e) {
-        logger.info("saveVocable: throws {}", e);
+        logger.info("saveVocable: throws {}", "" + e);
         vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
-        logger.info("saveVocable: throws {}", e);
+        logger.info("saveVocable: throws {}", "" + e);
         translationIsEmptyAlert();
       }
     } else {
@@ -61,15 +61,15 @@ public class EditVocablePageController implements Initializable {
             .editVocable(vocInt, learningWordField.getText().trim(), translations, cateSaver);
         noException = true;
       } catch (VocableNotFoundException e) {
-        logger.info("saveVocable: throws {}", e);
+        logger.info("saveVocable: throws {}", "" + e);
         e.printStackTrace();
         vocableNotFoundAlert();
       } catch (VocCategoryNotFoundException e) {
-        logger.info("saveVocable: throws {}", e);
+        logger.info("saveVocable: throws {}", "" + e);
         e.printStackTrace();
         vocCategoryNotFoundAlert();
       } catch (TranslationIsEmptyException e) {
-        logger.info("saveVocable: throws {}", e);
+        logger.info("saveVocable: throws {}", "" + e);
         e.printStackTrace();
         translationIsEmptyAlert();
       }
