@@ -36,7 +36,6 @@ public class TestTypingTrainerBadCases {
   void initialize() throws IOException, WordNotFoundException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException{
   TypingTrainerService = new ProviderTypingTrainer();
   audioFile = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
-
   }
 
 }
