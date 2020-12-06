@@ -1,14 +1,13 @@
 package de.hhn.it.pp.components.functionanalyzer.provider;
 
-import java.util.ArrayList;
-import java.util.List;
 import de.hhn.it.pp.components.functionanalyzer.Function;
 import de.hhn.it.pp.components.functionanalyzer.FunctionAnalyserService;
 import de.hhn.it.pp.components.functionanalyzer.FunctionElement;
-import de.hhn.it.pp.components.functionanalyzer.FunctionElementComponent;
 import de.hhn.it.pp.components.functionanalyzer.Operator;
 import de.hhn.it.pp.components.functionanalyzer.Term;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FunctionAnalyzer implements FunctionAnalyserService {
 
@@ -16,12 +15,12 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
   public Function readFunction(String input) throws IllegalArgumentException {
     Function result = new Function();
     input = input.replaceAll("\\s", "");
-    ArrayList<String> functionString = getFEasString(input, '+');
+    ArrayList<String> functionString = getFunctionElementAsString(input, '+');
     ArrayList<String> temporary = new ArrayList<>();
     for (int i = 0; i < functionString.size(); i++) {
-      if (!functionString.get(i).equals("*") && !functionString.get(i).equals("/") &&
-          !functionString.get(i).equals("+") && !functionString.get(i).equals("-") &&
-              !functionString.get(i).equals("")) {
+      if (!functionString.get(i).equals("*") && !functionString.get(i).equals("/")
+          && !functionString.get(i).equals("+") && !functionString.get(i).equals("-")
+          && !functionString.get(i).equals("")) {
         if (functionString.get(i).equals("(")) {
           int j;
           int check = 1;
@@ -33,26 +32,107 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
             }
             temporary.add(functionString.get(j));
             if (check == 0) {
-              result.add(getFinalFe(temporary, functionString.get(i - 1).charAt(0)));
+              result.add(getFunctionElementBracket(temporary, functionString.get(i - 1).charAt(0)));
             }
           }
           i = j;
         } else {
           result.add(new FunctionElement(Operator.operatorFromSymbol(
-              functionString.get(0).charAt(0)), getTerm(functionString.get(i))));
+              functionString.get(0).charAt(0)), getTermFromString(functionString.get(i))));
         }
       }
     }
     return result;
   }
 
-  public FunctionElement getFinalFe(ArrayList<String> input, char operator) {
+  @Override
+  public List<Double> calculateMinima(Function f) throws ValueNotDefinedException {
+    List<Double> result = new ArrayList<>();
+    List<Double> temp;
+    temp = f.getDerivative().setFunctionEqualZero();
+    if (temp == null) {
+      return null;
+    }
+    Function secondDerivative = f.getDerivative().getDerivative();
+    for (int i = 0; i < temp.size(); i++) {
+      if (secondDerivative.calcFunctionValue(temp.get(i)) > 0) {
+        result.add(f.calcFunctionValue(temp.get(i)));
+      }
+    }
+    return result;
+  }
+
+  @Override
+  public List<Double> calculateMaxima(Function f) throws ValueNotDefinedException {
+    List<Double> result = new ArrayList<>();
+    List<Double> temp;
+    temp = f.getDerivative().setFunctionEqualZero();
+    if (temp == null) {
+      return null;
+    }
+    Function secondDerivative = f.getDerivative().getDerivative();
+    for (int i = 0; i < temp.size(); i++) {
+      if (secondDerivative.calcFunctionValue(temp.get(i)) < 0) {
+        result.add(f.calcFunctionValue(temp.get(i)));
+      }
+    }
+    return result;
+  }
+
+  @Override
+  public List<Double> calculateXIntersection(Function f) throws ValueNotDefinedException {
+    return f.setFunctionEqualZero();
+  }
+
+  @Override
+  public double calculateYIntersection(Function f) throws ValueNotDefinedException {
+    return f.calcFunctionValue(0);
+  }
+
+  @Override
+  public double calculateFunctionValue(Function f, double functionParameter)
+      throws ValueNotDefinedException {
+    return f.calcFunctionValue(functionParameter);
+  }
+
+  @Override
+  public List<Double> calculatePointIntersection(Function f, double functionValue)
+      throws ValueNotDefinedException {
+    List<Double> result;
+    FunctionElement functionElement = f.get(f.size() - 1);
+    Term smallestValue = (Term) functionElement.getComponents()
+        .get(functionElement.getComponents().size() - 1);
+    if (smallestValue.getExponent() == null) {
+      smallestValue.setValue(smallestValue.getValue() + (-1) * functionValue);
+      f.remove(f.size() - 1);
+      f.add(new FunctionElement(Operator.ADD, smallestValue));
+    } else {
+      f.add(new FunctionElement(Operator.ADD, new Term((-1) * functionValue)));
+    }
+    result = f.setFunctionEqualZero();
+    if (result == null) {
+      result = new ArrayList<>();
+      result.add(functionValue);
+    }
+    return result;
+  }
+
+
+  /**
+   * Takes in a ArrayList of Strings which are all inside a Bracket.
+   * In case another Bracket is inside this Bracket the method will call itself again until it gets
+   * down to the root.
+   * @param input ArrayList of Terms
+   * @param operator The operator which stands in front of the Bracket
+   * @return Returns a single FunctionElement which contains more FunctionElements
+   */
+  public FunctionElement getFunctionElementBracket(ArrayList<String> input, char operator) {
     FunctionElement functionElement = new FunctionElement(Operator.operatorFromSymbol(operator));
     ArrayList<String> temporary = new ArrayList<>();
     for (int i = 0; i < input.size(); i++) {
-      if (!input.get(i).equals("*") && !input.get(i).equals("/") &&
-          !input.get(i).equals("+") && !input.get(i).equals("-") &&
-          !input.get(i).equals("")) {
+      if (!input.get(i).equals("*") && !input.get(i).equals("/")
+          && !input.get(i).equals("+") && !input.get(i).equals("-")
+          && !input.get(i).equals("")) {
         if (input.get(i).equals("(")) {
           int check = 1;
           int j;
@@ -65,20 +145,27 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
             temporary.add(input.get(j));
             if (check == 0) {
               functionElement.addFunctionElementComponent(
-                  getFinalFe(temporary, input.get(i - 1).charAt(0)));
+                  getFunctionElementBracket(temporary, input.get(i - 1).charAt(0)));
             }
           }
           i = j + 1;
         } else {
           functionElement.addFunctionElementComponent(
-                  new FunctionElement(Operator.ADD, getTerm(input.get(i))));
+              new FunctionElement(Operator.ADD, getTermFromString(input.get(i))));
         }
       }
     }
     return functionElement;
   }
 
-  public ArrayList<String> getFEasString(String input, char operator) {
+  /**
+   * Takes in the entire String and separates it into different FunctionElement Strings into an
+   * ArrayList
+   * @param input The entire Function given from the ControllerClass
+   * @param operator The operator which stands in front of the first FunctionElement
+   * @return A ArrayList of Strings separated into FunctionElements
+   */
+  public ArrayList<String> getFunctionElementAsString(String input, char operator) {
     ArrayList<String> terms = new ArrayList<>();
     ArrayList<String> temporary = new ArrayList<>();
     terms.add(String.valueOf(operator));
@@ -96,8 +183,8 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
           buffer = "";
           if (!(temporary.isEmpty())) {
             buffer = terms.get(terms.size() - 1);
-            buffer = buffer.substring(0, buffer.length() - 1);    //Das ist sau unnötig und mein Fehler aber es wäre anstrengender den code umzuschreiben als das hier zu lassen sowwy uwu
-            terms.remove(terms.size() - 1);                 //Das muss ich noch umschreiben für den Fall (terme)*(terme)
+            buffer = buffer.substring(0, buffer.length() - 1);
+            terms.remove(terms.size() - 1);
             terms.add(buffer);
             buffer = "";
             temporary.add(1, "(");
@@ -125,7 +212,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
           innerTerm += input.charAt(j);
           if (check == 0) {
             input = input.substring(0, i - 1) + input.substring(j + 2);
-            temporary = getFEasString(innerTerm, op);
+            temporary = getFunctionElementAsString(innerTerm, op);
             i = i - 2;
             break;
           }
@@ -139,8 +226,8 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
         if (!(temporary.isEmpty())) {
           buffer = terms.get(terms.size() - 1);
-          buffer = buffer.substring(0, buffer.length() - 1);    //Das ist sau unnötig und mein Fehler aber es wäre anstrengender den code umzuschreiben als das hier zu lassen sowwy uwu
-          terms.remove(terms.size() - 1);                 //Das muss ich noch umschreiben für den Fall (terme)*(terme)
+          buffer = buffer.substring(0, buffer.length() - 1);
+          terms.remove(terms.size() - 1);
           terms.add(buffer);
           buffer = "";
           temporary.add(1, "(");
@@ -153,7 +240,12 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
     return terms;
   }
 
-  public Term getTerm(String input) {
+  /**
+   * Takes a single String which contains a Term and converts it into an actual Term
+   * @param input To be converted String
+   * @return Term out of String
+   */
+  public Term getTermFromString(String input) {
     String buffer = "";
     double factor = 1;
     double exponent = 1;
@@ -186,7 +278,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
               check = true;
             }
           }
-          if (nums.get(i - 1).equals("/")) {
+          if (i > 1 && nums.get(i - 1).equals("/")) {
             exponent = exponent * -1;
           }
           exponent = exponent * Double.parseDouble(buffer);
@@ -237,107 +329,8 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
       }
     }
     if (variable == null) {
-      return new Term(new Term(exponent), factor);
+      return new Term(factor);
     }
     return new Term(new Term(exponent), factor, variable);
-  }
-
-  @Override
-  public List<Double> calculateMinima(Function f) throws ValueNotDefinedException {
-    List<Double> result = new ArrayList<>();
-    List<Double> temp;
-    temp = f.getDerivative().setFunctionEqualZero();
-    if (temp == null) {
-      return null;
-    }
-    Function secondDerivative = f.getDerivative().getDerivative();
-    for (int i = 0; i < temp.size(); i++) {
-      if (getTermValueFromFunction(secondDerivative, temp.get(i)) > 0) {
-        result.add(getTermValueFromFunction(f, temp.get(i)));
-      }
-    }
-    return result;
-  }
-
-  @Override
-  public List<Double> calculateMaxima(Function f) throws ValueNotDefinedException {
-    List<Double> result = new ArrayList<>();
-    List<Double> temp;
-    temp = f.getDerivative().setFunctionEqualZero();
-    if (temp == null) {
-      return null;
-    }
-    Function secondDerivative = f.getDerivative().getDerivative();
-    for (int i = 0; i < temp.size(); i++) {
-      if (getTermValueFromFunction(secondDerivative, temp.get(i)) < 0) {
-        result.add(getTermValueFromFunction(f, temp.get(i)));
-      }
-    }
-    return result;
-  }
-
-  @Override
-  public List<Double> calculateXIntersection(Function f) throws ValueNotDefinedException {
-    return f.setFunctionEqualZero();
-  }
-
-  @Override
-  public double calculateYIntersection(Function f) throws ValueNotDefinedException {
-    return getTermValueFromFunction(f, 0);
-  }
-
-  @Override
-  public double calculateFunctionValue(Function f, double functionParameter)
-      throws ValueNotDefinedException {
-    return getTermValueFromFunction(f, functionParameter);
-  }
-
-  public double getTermValueFromFunction(Function function, double x) {
-    double result = getTermValueFromFunctionElement(function.get(0), x);
-    for (int i = 1; i < function.size(); i++) {
-      if (function.get(i).getOperator().getSymbol() == '*' || function.get(i).getOperator().getSymbol() == '/') {
-        throw new IllegalStateException();
-      } else if (function.get(i).getOperator().getSymbol() == '+') {
-        result += getTermValueFromFunctionElement(function.get(i), x);
-      } else {
-        result -= getTermValueFromFunctionElement(function.get(i), x);
-      }
-    }
-    return result;
-  }
-
-  public double getTermValueFromFunctionElement(FunctionElement fe, double x) {
-    double result = 0;
-    List<FunctionElementComponent> temp = fe.getComponents();
-    for (FunctionElementComponent functionElementComponent : temp) {
-      if (temp.get(0) instanceof FunctionElement) {
-        result += getTermValueFromFunctionElement((FunctionElement) functionElementComponent, x);
-      } else if (temp.get(0) instanceof Term) {
-        result += calcTerm((Term) functionElementComponent, x);
-      }
-    }
-    return result;
-  }
-
-  public double calcTerm(Term term, double x) {
-    if (term.getVariable() == null) {
-      return term.getValue();
-    } else {
-      if (term.getFactor() * Math.pow(
-          x, term.getExponent().getValue()) == Double.POSITIVE_INFINITY) {
-        try {
-          throw new Exception();
-        } catch (Exception exception) {
-          System.out.println("Y-Achse wird nie geschnitten!");
-        }
-      }
-      return term.getFactor() * Math.pow(x, term.getExponent().getValue());
-    }
-  }
-
-  @Override
-  public List<Double> calculatePointIntersection(Function f, double functionValue)
-      throws ValueNotDefinedException {
-    return null;
   }
 }
