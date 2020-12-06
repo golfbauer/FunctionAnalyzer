@@ -1,12 +1,15 @@
 package de.hhn.it.pp.components.functionanalyzer.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import de.hhn.it.pp.components.functionanalyzer.Function;
 import de.hhn.it.pp.components.functionanalyzer.FunctionElement;
 import de.hhn.it.pp.components.functionanalyzer.Operator;
 import de.hhn.it.pp.components.functionanalyzer.Term;
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +18,9 @@ public class FunctionSpec {
   Function normal;
   Function linear;
   Function simple;
+  Function simplifiableFunction;
+  Function simplifiableFunctionWithBrackets;
+
 
   @BeforeEach
   void init() {
@@ -30,6 +36,18 @@ public class FunctionSpec {
             new FunctionElement(Operator.ADD, new Term(new Term(1), -3, "x")),
             new FunctionElement(Operator.ADD, new Term(9))
     );
+    simplifiableFunction = new Function(
+        new FunctionElement(Operator.ADD, new Term(3)),
+        new FunctionElement(Operator.MULTIPLY, new Term(new Term(1), 2, "x")),
+        new FunctionElement(Operator.ADD, new Term(5))
+    );
+    simplifiableFunctionWithBrackets = new Function(
+        new FunctionElement(Operator.ADD, new Term(10)),
+        new FunctionElement(Operator.DIVIDE,
+            new FunctionElement(Operator.ADD, new Term(new Term(1), 5, "x")),
+            new FunctionElement(Operator.ADD, new Term(10))),
+        new FunctionElement(Operator.MULTIPLY, new Term(10))
+    );
   }
 
   @Test
@@ -44,8 +62,8 @@ public class FunctionSpec {
 
   @Test
   void getValueFromFunctionWithoutX() {
-    assertEquals(null, simple.setFunctionEqualZero(), "Should produce null since its never gonna" +
-            " Intercept with x Axis");
+    assertNull(simple.setFunctionEqualZero(),
+        "Should produce null since its never gonna" + " Intercept with x Axis");
   }
 
   @Test
@@ -102,5 +120,45 @@ public class FunctionSpec {
     expected.add(1.2649110640673518);
     expected.add(-1.2649110640673518);
     assertEquals(expected, actual, "Should get the x Values for Function equal to 0");
+  }
+
+  @Test
+  void simplifyAlreadySimpleFunctionWithOneTerm() throws ValueNotDefinedException {
+    Function actual = new Function(
+        new FunctionElement(Operator.ADD, new Term(5)));
+    Function expected = simple;
+    actual.simplify();
+    assertEquals(expected, actual, "Function should not have changed");
+  }
+
+  @Test
+  void simplifyAlreadySimpleFunctionWithMultipleElements() throws ValueNotDefinedException {
+    Function actual = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(1), -3, "x")),
+        new FunctionElement(Operator.ADD, new Term(9)));
+    actual.simplify();
+    Function expected = linear;
+    assertEquals(expected, actual, "Function should not have changed");
+  }
+
+  @Test
+  void simplifySimplifiableFunction() throws ValueNotDefinedException {
+    Function actual = simplifiableFunction;
+    Function expected = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(1), 6, "x")),
+        new FunctionElement(Operator.ADD, new Term(5)));
+    actual.simplify();
+    assertEquals(expected, actual, "Function should be simplified");
+  }
+
+  @Test
+  void simplifySimplifiableFunctionWithBrackets() throws ValueNotDefinedException {
+    Function actual = simplifiableFunctionWithBrackets;
+    actual.simplify();
+    Function expected = new Function(
+        new FunctionElement(Operator.ADD, new Term(new Term(-1), 20, "x")),
+        new FunctionElement(Operator.ADD, new Term(10))
+    );
+    assertEquals(expected, actual, "Function should be simplified");
   }
 }

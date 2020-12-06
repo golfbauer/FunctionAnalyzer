@@ -1,13 +1,12 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 
 public class FunctionElement implements FunctionElementComponent {
@@ -195,42 +194,43 @@ public class FunctionElement implements FunctionElementComponent {
            i++) { // remove multiplication and division
         FunctionElement previous = simplificationCandidates.get(i - 1);
         FunctionElement candidate = simplificationCandidates.get(i);
+        int replacementIndex = components.indexOf(previous);
+        ;
+        FunctionElement replacement;
+
         switch (candidate.getOperator()) {
           case MULTIPLY:
-            try {
-              int replacementIndex = components.indexOf(previous);
-              FunctionElement replacement = new FunctionElement(previous.getOperator(),
-                  ((Term) candidate.components.get(0)).multiply(
-                      ((Term) previous.components.get(0))));
-              components.add(replacementIndex, replacement);
-              components.remove(previous);
-              components.remove(candidate);
-              simplificationCandidates.remove(candidate);
-              removeBrackets();
-            } catch (ValueNotDefinedException ignored) {
-              continue;
-            }
+            replacement = new FunctionElement(previous.getOperator(),
+                previous.operator == Operator.MULTIPLY || previous.operator == Operator.ADD
+                    ? ((Term) candidate.components.get(0)).multiply(
+                    ((Term) previous.components.get(0))) :
+                    ((Term) candidate.components.get(0)).divide(
+                        ((Term) previous.components.get(0))));
+            break;
+          case DIVIDE:
+            replacement = new FunctionElement(previous.getOperator(),
+                previous.operator == Operator.MULTIPLY || previous.operator == Operator.ADD
+                    ? ((Term) previous.components.get(0)).divide(
+                    ((Term) candidate.components.get(0))) :
+                    ((Term) candidate.components.get(0)).multiply(
+                        ((Term) previous.components.get(0))));
             break;
 
-          case DIVIDE:
-            try {
-              int replacementIndex = components.indexOf(previous);
-              FunctionElement replacement = new FunctionElement(previous.getOperator(),
-                  ((Term) previous.components.get(0)).divide(
-                      ((Term) candidate.components.get(0))));
-              components.add(replacementIndex, replacement);
-              components.remove(previous);
-              components.remove(candidate);
-              simplificationCandidates.remove(candidate);
-              removeBrackets();
-            } catch (ValueNotDefinedException ignored) {
-              continue;
-            }
-            break;
+          case ADD:
+            continue;
+
           default:
-            break;
+            throw new IllegalStateException("Unexpected value: " + candidate.getOperator());
         }
+
+        components.add(replacementIndex, replacement);
+        components.remove(previous);
+        components.remove(candidate);
+        simplificationCandidates.remove(candidate);
+        removeBrackets();
       }
+
+      removeBrackets();
       resolveBrackets();
       simplificationCandidates.clear();
       if (components.size() > 1) {
@@ -350,6 +350,9 @@ public class FunctionElement implements FunctionElementComponent {
 
   public void removeBrackets() {
     if (isBracket()) {
+      if (components.get(0) instanceof FunctionElement) {
+        ((FunctionElement) components.get(0)).removeBrackets();
+      }
       if (components.size() > 1) {
         for (FunctionElementComponent component : components) {
           if (((FunctionElement) component).isBracket()) {

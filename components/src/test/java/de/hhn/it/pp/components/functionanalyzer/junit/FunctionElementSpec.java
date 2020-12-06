@@ -156,8 +156,6 @@ public class FunctionElementSpec {
   void simplifyElementWithNestedBracket() throws ValueNotDefinedException {
     FunctionElement actual = multipleFe;
     multipleFe.simplify();
-
-
   }
 
   @Test

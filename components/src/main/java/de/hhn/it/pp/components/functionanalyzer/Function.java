@@ -2,7 +2,9 @@ package de.hhn.it.pp.components.functionanalyzer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 
 /**
  * Represent a function as a combination of Terms
@@ -126,5 +128,17 @@ public class Function extends ArrayList<FunctionElement> {
     } else {
       return null;
     }
+  }
+
+  public void simplify() throws ValueNotDefinedException {
+    if (size() < 2) {
+      return;
+    }
+    FunctionElement functionAsFE = new FunctionElement(Operator.ADD, this);
+    functionAsFE.simplify();
+    clear();
+
+    functionAsFE.getComponents().forEach(functionElementComponent -> add(
+        (FunctionElement) functionElementComponent));
   }
 }
