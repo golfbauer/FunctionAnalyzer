@@ -42,7 +42,14 @@ public class Function extends ArrayList<FunctionElement> {
 
   }
 
+  /**
+   * Sets given Function equal to zero
+   * @return List of x values
+   */
   public List<Double> setFunctionEqualZero() {
+    if (this.size() == 0) {
+      return null;
+    }
     double maxExponent = 0;
     ArrayList<Double> result = new ArrayList<>();
     for (FunctionElement functionElement : this) {
@@ -66,6 +73,10 @@ public class Function extends ArrayList<FunctionElement> {
     return new ArrayList<>();
   }
 
+  /**
+   * Sets a linear Function equal to zero
+   * @return single x value
+   */
   public double setLinearFunctionEqualZero() {
     double result;
     if (this.size() == 2) {
@@ -78,6 +89,10 @@ public class Function extends ArrayList<FunctionElement> {
     }
   }
 
+  /**
+   * Sets quadratic Function equal to zero
+   * @return List of x values, two at max
+   */
   public ArrayList<Double> setSquareFunctionEqualZero() {
     ArrayList<Double> result = new ArrayList<>();
     double p;
@@ -87,12 +102,15 @@ public class Function extends ArrayList<FunctionElement> {
               / ((Term) this.get(0).getComponents().get(0)).getFactor();
       q = ((Term) this.get(2).getComponents().get(0)).getValue()
               / ((Term) this.get(0).getComponents().get(0)).getFactor();
-      return pqFormel(p, q);
+      return pqFormal(p, q);
+    } else if (this.size() == 1) {
+      result.add(0.0);
+      return result;
     } else if (((Term) this.get(1).getComponents().get(0)).getExponent() != null) {
       p = ((Term) this.get(1).getComponents().get(0)).getFactor()
               / ((Term) this.get(0).getComponents().get(0)).getFactor();
       q = 0;
-      return pqFormel(p, q);
+      return pqFormal(p, q);
     } else {
       q = ((Term) this.get(1).getComponents().get(0)).getValue()
               / ((Term) this.get(0).getComponents().get(0)).getFactor();
@@ -108,7 +126,14 @@ public class Function extends ArrayList<FunctionElement> {
     }
   }
 
-  public ArrayList<Double> pqFormel(double p, double q) {
+
+  /**
+   * Uses the PQFormal to calculate x values for square Function
+   * @param p p in PQFormal
+   * @param q q in PQFormal
+   * @return List of x values
+   */
+  public ArrayList<Double> pqFormal(double p, double q) {
     ArrayList<Double> result = new ArrayList<>();
     double discriminant;
     discriminant = (p / 2) * (p / 2) - q;
@@ -140,5 +165,25 @@ public class Function extends ArrayList<FunctionElement> {
 
     functionAsFE.getComponents().forEach(functionElementComponent -> add(
         (FunctionElement) functionElementComponent));
+  }
+
+  /**
+   * Calculates Function value for specific x value
+   * @param x Value to replace x variable
+   * @return One value
+   */
+  public double calcFunctionValue(double x) {
+    double result = this.get(0).calcFunctionElementValue(x);
+    for (int i = 1; i < this.size(); i++) {
+      if (this.get(i).getOperator().getSymbol() == '*'
+          || this.get(i).getOperator().getSymbol() == '/') {
+        throw new IllegalStateException();
+      } else if (this.get(i).getOperator().getSymbol() == '+') {
+        result += this.get(i).calcFunctionElementValue(x);
+      } else {
+        result -= this.get(i).calcFunctionElementValue(x);
+      }
+    }
+    return result;
   }
 }
