@@ -143,14 +143,14 @@ public class Card {
   /**
    * Sets status of the card to solved
    */
-  void setStatusToSolved() {
+ public void setStatusToSolved() {
     status = Status.SOLVED;
   }
 
   /**
    * Sets status of the card to unsolved
    */
-  void setStatusToUnSolved() {
+ public void setStatusToUnSolved() {
     status = Status.UNSOLVED;
   }
 }
