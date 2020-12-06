@@ -64,10 +64,15 @@ public class ResultPageController implements Initializable {
       int right = service.getDescriptor().getCounter("right");
       int wrong = service.getDescriptor().getCounter("wrong");
 
+      PieChart.Data rightData;
+      PieChart.Data wrongData;
       pieChart.setData(FXCollections.observableArrayList(
-          new PieChart.Data("Right", right),
-          new PieChart.Data("Wrong", wrong)
+          rightData = new PieChart.Data("Right", right),
+          wrongData = new PieChart.Data("Wrong", wrong)
       ));
+      rightData.getNode().setStyle("-fx-pie-color: #10e010");
+      wrongData.getNode().setStyle("-fx-pie-color: #ff2222");
+      pieChart.setLegendVisible(false);
     } catch (NoWordException e) {
       e.printStackTrace();
     }
