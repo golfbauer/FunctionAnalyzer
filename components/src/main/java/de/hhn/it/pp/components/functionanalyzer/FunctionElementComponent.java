@@ -4,9 +4,15 @@ import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedExcept
 
 public interface FunctionElementComponent {
 
+  /**
+   * Simplifys Function into a fixed structure
+   * @throws ValueNotDefinedException throw error
+   */
   void simplify() throws ValueNotDefinedException;
 
-  double evaluate(double variableValue);
-
+  /**
+   * Calculate the Derivative.
+   * @return Derivative
+   */
   FunctionElementComponent getDerivative();
 }

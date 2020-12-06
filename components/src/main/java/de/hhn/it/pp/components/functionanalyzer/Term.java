@@ -179,11 +179,6 @@ public class Term implements FunctionElementComponent {
     return variableInExponent;
   }
 
-  @Override
-  public double evaluate(double variableValue) {
-    return 0;
-  }
-
   /**
    * Calculate the Derivative of Term.
    * @return Derivative of the Term

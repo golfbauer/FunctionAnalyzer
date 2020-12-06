@@ -257,12 +257,6 @@ public class FunctionElement implements FunctionElementComponent {
     return components.get(0) instanceof FunctionElement;
   }
 
-  @Override
-  public double evaluate(double variableValue) {
-    return 0;
-  }
-
-
   public void resolveBrackets() throws ValueNotDefinedException {
     if (components.size() < 2) {
       removeBrackets();
