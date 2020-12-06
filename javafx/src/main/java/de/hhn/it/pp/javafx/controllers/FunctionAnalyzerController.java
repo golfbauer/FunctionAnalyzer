@@ -1,11 +1,12 @@
 package de.hhn.it.pp.javafx.controllers;
 
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
 import de.hhn.it.pp.components.functionanalyzer.Function;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import de.hhn.it.pp.components.functionanalyzer.provider.FunctionAnalyzer;
+import java.net.URL;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,6 +47,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
 
   }
 
+  /**
+   * Event opens new Window in which user is asked to enter a x Value.
+   * @param actionEvent Triggered when button pressed
+   */
   public void chooseXDialog(ActionEvent actionEvent) {
     currentF = currentFa.readFunction(functionInput.getText());
     TextInputDialog dialog = new TextInputDialog("");
@@ -55,10 +60,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
 
     Optional<String> result = dialog.showAndWait();
 
-    result.ifPresent(xValue -> {
+    result.ifPresent(value -> {
       try {
         xAndyValue.setText(currentFa.calculateFunctionValue(currentF,
-            Double.parseDouble(xValue)) + "");
+            Double.parseDouble(value)) + "");
         functionIdentifier.setText("X: " + result.get() + ", Y: ");
 
       } catch (ValueNotDefinedException e) {
@@ -67,6 +72,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
     });
   }
 
+  /**
+   * Event opens new Window in which user is asked to enter a y Value.
+   * @param actionEvent Triggered when button pressed
+   */
   public void chooseYDialog(ActionEvent actionEvent) {
     currentF = currentFa.readFunction(functionInput.getText());
     TextInputDialog dialog = new TextInputDialog("");
@@ -76,43 +85,93 @@ public class FunctionAnalyzerController extends Controller implements Initializa
 
     Optional<String> result = dialog.showAndWait();
 
-    result.ifPresent(xValue -> {
+    result.ifPresent(value -> {
       try {
-        xAndyValue.setText(currentFa.calculatePointIntersection(currentF,
-            Double.parseDouble(xValue)) + "");
+        xAndyValue.setText(checkReturnValue(currentFa.calculatePointIntersection(currentF,
+            Double.parseDouble(value))) + "");
         functionIdentifier.setText("Y: " + result.get() + ", X: ");
       } catch (ValueNotDefinedException e) {
-        xAndyValue.setText("Value is not defined.");
+        xAndyValue.setText("Value is not defined");
       }
     });
   }
 
+  /**
+   * Displays all result for the String that was typed into the TextField.
+   * @param actionEvent Triggered when button pressed
+   * @throws ValueNotDefinedException Throws Exception in case of illegal entry
+   */
   @FXML
   public void enterFunction(ActionEvent actionEvent) throws ValueNotDefinedException {
-    currentF = currentFa.readFunction(functionInput.getText());
-    Button currentFButton = new Button();
-    currentFButton.setText(functionInput.getText());
-    currentFButton.setPrefSize(600, 50);
-    currentFButton.setMinHeight(50);
-    currentFButton.setMnemonicParsing(false);
-    currentFButton.setOnAction(this::parseToText);
-    history.getChildren().add(currentFButton);
-    VBox.setMargin(currentFButton, new Insets(5, 15, 5, 15));
-    System.out.println(currentF);
-//  minima.setText(currentFa.calculateMinima(currentF).toString());
-//  maxima.setText(currentFa.calculateMaxima(currentF).toString());
-//  xIntersection.setText(currentFa.calculateXIntersection(currentF).toString());
-//  yIntersection.setText(currentFa.calculateYIntersection(currentF) + "");
+    String input = functionInput.getText();
+    input = input.replaceAll("\\s", "");
+    if (input.matches("[()x^+*\\/\\-.0-9]*") && !input.equals("")) {
+      currentF = currentFa.readFunction(input);
+      Button currentFButton = new Button();
+      currentFButton.setText(functionInput.getText());
+      currentFButton.setPrefSize(600, 50);
+      currentFButton.setMinHeight(50);
+      currentFButton.setMnemonicParsing(false);
+      currentFButton.setOnAction(this::parseToText);
+      history.getChildren().add(currentFButton);
+      VBox.setMargin(currentFButton, new Insets(5, 15, 5, 15));
+      minima.setText(checkReturnValue(currentFa.calculateMinima(currentF)));
+      maxima.setText(checkReturnValue(currentFa.calculateMaxima(currentF)));
+      xIntersection.setText(checkReturnValue(currentFa.calculateXIntersection(currentF)));
+      yIntersection.setText(currentFa.calculateYIntersection(currentF) + "");
+    }
 
   }
 
+  /**
+   * Checks if return Value is empty and returns empty Brackets instead.
+   * @param input List of x values
+   * @return Final values all rounded
+   */
+  public String checkReturnValue(List<Double> input) {
+    if (input == null) {
+      return "[]";
+    } else {
+      for (int i = 0; i < input.size(); i++) {
+        double temp = round(input.get(i), 3);
+        input.remove(i);
+        input.add(i, temp);
+      }
+      return input.toString();
+    }
+  }
+
+  /**
+   * Rounds given double.
+   * @param value To be rounded Value
+   * @param places Amount of digits it will be rounded to
+   * @return Rounded Variable
+   */
+  public double round(double value, int places) {
+    if (places < 0) {
+      throw new IllegalArgumentException();
+    }
+
+    long factor = (long) Math.pow(10, places);
+    value = value * factor;
+    long tmp = Math.round(value);
+    return (double) tmp / factor;
+  }
+
+  /**
+   * Takes text from button in History and parses it into the text field.
+   * @param actionEvent Triggered when button pressed
+   */
   @FXML
   public void parseToText(ActionEvent actionEvent) {
     functionInput.setText(((Button) actionEvent.getSource()).getText());
     history.getChildren().remove(actionEvent.getSource());
-
   }
 
+  /**
+   * Takes the text from the button and parses it into the text field.
+   * @param actionEvent Triggered when button pressed
+   */
   public void numberPadEntry(ActionEvent actionEvent) {
     switch (((Button) actionEvent.getSource()).getText()) {
       case ("0"):
@@ -188,6 +247,8 @@ public class FunctionAnalyzerController extends Controller implements Initializa
         break;
       case ("AC"):
         functionInput.setText("");
+        break;
+      default:
         break;
     }
   }

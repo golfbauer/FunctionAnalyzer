@@ -231,7 +231,7 @@
                               <Insets bottom="1.0" right="1.0" top="1.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="xIntersaction">
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="xIntersection">
                            <GridPane.margin>
                               <Insets bottom="1.0" left="1.0" top="1.0" />
                            </GridPane.margin>
@@ -253,7 +253,7 @@
                               <Insets bottom="1.0" right="1.0" top="1.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label fx:id="yIntersaction" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="yIntersection" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="1.0" left="1.0" top="1.0" />
                            </GridPane.margin>
