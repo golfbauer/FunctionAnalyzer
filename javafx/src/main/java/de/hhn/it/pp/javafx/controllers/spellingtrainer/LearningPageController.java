@@ -2,9 +2,14 @@ package de.hhn.it.pp.javafx.controllers.spellingtrainer;
 
 import static de.hhn.it.pp.javafx.controllers.spellingtrainer.SpellingTrainerServiceController.service;
 
+import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
+import de.hhn.it.pp.javafx.Main;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +21,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class LearningPageController implements Initializable {
   private static final org.slf4j.Logger logger =
@@ -40,7 +51,19 @@ public class LearningPageController implements Initializable {
   public StackPane scenePane;
   private int tries;
 
-  public void handlePlayAgainButtonClick() {
+  public void handlePlayAgainButtonClick()
+      throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
+
+    ArrayList<LearningEntry> entries= service.getDescriptor().getActiveLearningSet().getLearningEntries();
+    LearningEntry entry = entries.get(service.getDescriptor().getCurrentWordIndex());
+    mpl.present(entry.getMediaReference());
+  }
+
+  public void handlePressingEnterInTextField(KeyEvent event) throws NoWordException {
+    if(event.getCode().equals(KeyCode.ENTER)){
+      handleCheckSpellingButtonClick();
+    }
   }
 
   /**
@@ -110,6 +133,8 @@ public class LearningPageController implements Initializable {
       service.getDescriptor().updateCounter("remaining", -1);
       remainingWordsLabel
           .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
+      service.getDescriptor().updateCounter("wrong", 1);
+      wrongWordsLabel.setText("Words spelled wrong: " + service.getDescriptor().getCounter("wrong"));
     }
   }
 
@@ -181,5 +206,16 @@ public class LearningPageController implements Initializable {
     }
     tries = 1;
     progressBar.setProgress(0.0);
+
+    try {
+      handlePlayAgainButtonClick();
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (LineUnavailableException e) {
+      e.printStackTrace();
+    }
+
   }
 }

@@ -13,11 +13,10 @@ public class DemoSpellingTrainerUsage {
     SgdsSpellingTrainerService service = new SgdsSpellingTrainerService();
     //Not executed during runtime
     String word = "test";
-    File audioFile =
-        new File("src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav");
+    String audioFile =
+       "src/main/java/de/hhn/it/pp/components/spellingtrainer/audiofiles/Book.wav";
     service.createLearningSet("Test Set");
     service.addWord(word, audioFile, "Test Set");
-    service.registerMediaPresentationListener();
     //Starting learning session
     service.startLearning("Test Set");
     //Repeat execution for each word

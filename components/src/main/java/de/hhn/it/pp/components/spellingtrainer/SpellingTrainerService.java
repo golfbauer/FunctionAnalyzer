@@ -34,7 +34,7 @@ public interface SpellingTrainerService {
    * @param audio           audio that will be mapped to the word
    * @param learningSetName name of the set, that the word should be added to
    */
-  void addWord(String word, File audio, String learningSetName)
+  void addWord(String word, String audio, String learningSetName)
       throws WordAlreadyAddedException, FileNotFoundException, LearningSetCouldNotBeFoundException;
 
   /**
@@ -109,12 +109,8 @@ public interface SpellingTrainerService {
 
   /**
    * Method to play the current word.
-   *
-   * @throws UnsupportedAudioFileException
-   * @throws IOException
-   * @throws LineUnavailableException
    */
-  void playWord() throws UnsupportedAudioFileException, IOException, LineUnavailableException;
+  void playWord();
 
   /**
    * Method to register an media presentation listener.
