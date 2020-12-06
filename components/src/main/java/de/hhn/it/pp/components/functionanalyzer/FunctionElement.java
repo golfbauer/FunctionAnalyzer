@@ -37,6 +37,10 @@ public class FunctionElement implements FunctionElementComponent {
     this.operator = operator;
   }
 
+  /**
+   * Creates FunctionElement without being forced to enter a Term
+   * @param operator = its operator
+   */
   public FunctionElement(Operator operator) {
     this.operator = operator;
   }
@@ -382,6 +386,10 @@ public class FunctionElement implements FunctionElementComponent {
     return result;
   }
 
+  /**
+   * Gets the highest exponent as double in this FunctionElement
+   * @return exponent
+   */
   public double getMaxExponent() {
     double result = 0;
     for (int i = 0; i < components.size(); i++) {
@@ -446,6 +454,24 @@ public class FunctionElement implements FunctionElementComponent {
   @Override
   public int hashCode() {
     return Objects.hash(components, operator);
+  }
+
+  /**
+   * Calculates value for the entire FunctionElement with specific x
+   * @param x to be put into variable x
+   * @return result of FunctionElement
+   */
+  public double calcFunctionElementValue(double x) {
+    double result = 0;
+    List<FunctionElementComponent> temp = this.getComponents();
+    for (FunctionElementComponent functionElementComponent : temp) {
+      if (temp.get(0) instanceof FunctionElement) {
+        result += ((FunctionElement) functionElementComponent).calcFunctionElementValue(x);
+      } else if (temp.get(0) instanceof Term) {
+        result += ((Term) functionElementComponent).calcTermValue(x);
+      }
+    }
+    return result;
   }
 }
 

@@ -6,8 +6,8 @@ import de.hhn.it.pp.components.functionanalyzer.Operator;
 import de.hhn.it.pp.components.functionanalyzer.Term;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.css.CSSImportRule;
 
 public class FunctionElementSpec {
 
@@ -33,51 +33,75 @@ public class FunctionElementSpec {
             )));
   }
 
-  @Test
-  void getDerivativeForNormalFunctionElement() {
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new Term(new Term(1), -10, "x"));
-    FunctionElement actual = normal.getDerivative();
-    assertEquals(expected.toString(), actual.toString(), "Should get the Derivative -10*x^1");
+  @Nested
+  class GetDerivative {
+
+    @Test
+    void getDerivativeForNormalFunctionElement() {
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new Term(new Term(1), -10, "x"));
+      FunctionElement actual = normal.getDerivative();
+      assertEquals(expected.toString(), actual.toString(), "Should get the Derivative -10*x^1");
+    }
+
+    @Test
+    void getDerivativeForFunctionElementWithMultipleTerms() {
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 6, "x")),
+          new FunctionElement(Operator.ADD, new Term(-5)));
+      FunctionElement actual = multiple.getDerivative();
+      assertEquals(expected.toString(), actual.toString(), "Should get the derivative");
+    }
+
+    @Test
+    void getDerivativeForNullFunctionElement() {
+      FunctionElement actual = simple.getDerivative();
+      assertEquals(null, actual, "Derivative should be null");
+    }
   }
 
-  @Test
-  void getDerivativeForFunctionElementWithMultipleTerms() {
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 6, "x")),
-        new FunctionElement(Operator.ADD, new Term(-5)));
-    FunctionElement actual = multiple.getDerivative();
-    assertEquals(expected.toString(), actual.toString(), "Should get the derivative");
+  @Nested
+  class GetMaxExponent {
+
+    @Test
+    void getMaxExponentFromSquare() {
+      double actual = normal.getMaxExponent();
+      assertEquals(2, actual, "should get the highest exponent");
+    }
+
+    @Test
+    void getMaxExponentFromComplexSquare() {
+      double actual = multiple.getMaxExponent();
+      assertEquals(2, actual, "Should get the highest exponent");
+    }
+
+    @Test
+    void getMaxExponenetFromComplexHigherSquare() {
+      double actual = multipleFe.getMaxExponent();
+      assertEquals(2, actual, "Shoulg get the highest Exponent");
+    }
+
+    @Test
+    void getMaxExponentFromMostSimpleFunction() {
+      double actual = simple.getMaxExponent();
+      assertEquals(0, actual,"Should give back the highest exponent");
+    }
   }
 
-  @Test
-  void getDerivativeForNullFunctionElement() {
-    FunctionElement actual = simple.getDerivative();
-    assertEquals(null, actual, "Derivative should be null");
-  }
+  @Nested
+  class CalcFunctionValue {
 
-  @Test
-  void getMaxExponentFromSquare() {
-    double actual = normal.getMaxExponent();
-    assertEquals(2, actual, "should get the highest exponent");
-  }
+    @Test
+    void CalcValueForFunctionElementWithOneTerm() {
+      double actual = normal.calcFunctionElementValue(3);
+      assertEquals(-45, actual, "Should Calculate the Value for the FunctionElement");
+    }
 
-  @Test
-  void getMaxExponentFromComplexSquare() {
-    double actual = multiple.getMaxExponent();
-    assertEquals(2, actual, "Should get the highest exponent");
-  }
-
-  @Test
-  void getMaxExponenetFromComplexHigherSquare() {
-    double actual = multipleFe.getMaxExponent();
-    assertEquals(2, actual, "Shoulg get the highest Exponent");
-  }
-
-  @Test
-  void getMaxExponentFromMostSimpleFunction() {
-    double actual = simple.getMaxExponent();
-    assertEquals(0, actual,"Should give back the highest exponent");
+    @Test
+    void CalcValueForFunctionElementWithMultipleFunctionElements() {
+      double actual = multiple.calcFunctionElementValue(3);
+      assertEquals(19, actual, "Should Calculate the Value for the FunctionElement");
+    }
   }
 
   @Test
