@@ -9,11 +9,11 @@ import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedExcept
  * Represent a single term inside a function.
  */
 public class Term implements FunctionElementComponent {
+
+  private double value;
   public static final  Term ZERO = new Term(0);
   public static final Term E = new Term(Math.E);
   public static final Term PI = new Term(Math.PI);
-
-  private double value;
   private Term exponent;
   private double factor;
   private String variable;

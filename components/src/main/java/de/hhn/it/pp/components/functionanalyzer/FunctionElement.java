@@ -315,7 +315,9 @@ public class FunctionElement implements FunctionElementComponent {
               replacement =
                   new FunctionElement(component.operator, component.multiply(linked));
             }
-            components.add(i, replacement);
+            for (FunctionElementComponent replacementComponent : replacement.components) {
+              components.add(i, replacementComponent);
+            }
             components.remove(component);
             components.remove(linked);
             break;
@@ -331,6 +333,7 @@ public class FunctionElement implements FunctionElementComponent {
       }
 
     }
+    removeBrackets();
     List<FunctionElement> values = new ArrayList<>();
     for (FunctionElementComponent component : components) {
       values.add(((FunctionElement) component));
@@ -349,17 +352,8 @@ public class FunctionElement implements FunctionElementComponent {
             ((FunctionElement) component).removeBrackets();
           }
         }
-      } else if ((((FunctionElement) components
-          .get(0)).components //single component nested in multiple brackets
-          .get(0)) instanceof FunctionElement) {
-        ((FunctionElement) components.get(0))
-            .removeBrackets();
-      }
-      if (components.size() == 1) { //Bracket with only 1 element
-        Term replacement =
-            (((Term) ((FunctionElement) components.get(0)).components.get(0)).copy());
-        this.components.remove(0);
-        this.components.add(replacement);
+      } else {
+        components = ((FunctionElement) components.get(0)).components;
       }
 
 
@@ -413,7 +407,8 @@ public class FunctionElement implements FunctionElementComponent {
       final List<FunctionElement> componentList = new ArrayList<>();
       FunctionElement constant = null;
       for (FunctionElementComponent component : components) {
-        if (((FunctionElement) component).components.get(0) instanceof Term) {
+        if (((FunctionElement) component).components.get(0) instanceof Term
+            && ((Term) ((FunctionElement) component).components.get(0)).getVariable() == null) {
           constant = (FunctionElement) component;
         }
       }
@@ -430,7 +425,7 @@ public class FunctionElement implements FunctionElementComponent {
       }
       if (constant != null) {
         components.remove(constant);
-        components.add(components.size() - 1, constant);
+        components.add(components.size(), constant);
       }
     }
   }

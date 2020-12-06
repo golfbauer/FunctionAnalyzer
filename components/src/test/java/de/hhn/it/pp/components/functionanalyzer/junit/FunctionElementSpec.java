@@ -98,7 +98,7 @@ public class FunctionElementSpec {
     FunctionElement expected = new FunctionElement(Operator.ADD,
         new FunctionElement(Operator.ADD, new Term(new Term(2), 2, "x")),
         new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")));
-    actual.resolveBrackets();
+    actual.simplify();
     assertEquals(expected, actual);
 
   }
@@ -132,6 +132,8 @@ public class FunctionElementSpec {
   void simplifyElementWithNestedBracket() throws ValueNotDefinedException {
     FunctionElement actual = multipleFe;
     multipleFe.simplify();
+
+
   }
 
   @Test
