@@ -186,7 +186,6 @@ public class Term implements FunctionElementComponent {
 
   /**
    * Calculate the Derivative of Term.
-   *
    * @return Derivative of the Term
    */
   @Override
@@ -279,6 +278,27 @@ public class Term implements FunctionElementComponent {
       return this.exponent == that.exponent;
     } else {
       return false;
+    }
+  }
+
+  /**
+   * Returns the value of a Term for certain x Value
+   * @param x Value to be put into x variable
+   * @return Result of the Term
+   */
+  public double calcTermValue(double x) {
+    if (this.getVariable() == null) {
+      return this.getValue();
+    } else {
+      if (this.getFactor() * Math.pow(
+          x, this.getExponent().getValue()) == Double.POSITIVE_INFINITY) {
+        try {
+          throw new Exception();
+        } catch (Exception exception) {
+          System.out.println("Y-Achse wird nie geschnitten!");
+        }
+      }
+      return this.getFactor() * Math.pow(x, this.getExponent().getValue());
     }
   }
 }

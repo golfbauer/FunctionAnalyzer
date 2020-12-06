@@ -1,11 +1,13 @@
 package de.hhn.it.pp.components.functionanalyzer.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import de.hhn.it.pp.components.functionanalyzer.Term;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class TermSpec {
@@ -30,6 +32,46 @@ public class TermSpec {
     linear2 = new Term(new Term(1), 3, "x");
     cube = new Term(new Term(2), 2, "x");
     cube2 = new Term(new Term(2), 2, "x");
+  }
+
+
+  @Nested
+  class GetDerivative {
+    @Test
+    void derivativeOfTermWithVariableAndFactor() {
+      Term actual = linear.getDerivative();
+      Term expected = new Term(2);
+      assertEquals(expected, actual, "Term should be the derivative");
+    }
+
+    @Test
+    void derivativeOfTermWithNoVariable() {
+      Term actual = constant2.getDerivative();
+      assertNull(actual, "Term should be the derivative");
+    }
+
+    @Test
+    void derivativeOfTermWithComplexVariableAndFactor() {
+      Term actual = cube.getDerivative();
+      Term expected = new Term(new Term(1), 4, "x");
+      assertEquals(expected, actual, "Term should be the derivative");
+    }
+  }
+
+  @Nested
+  class CalcTermValue {
+
+    @Test
+    void calcTermValueForTermWithVariable() {
+      double actual = cube.calcTermValue(2);
+      assertEquals(8, actual, "Should calc the Term Value for specific x");
+    }
+
+    @Test
+    void calcTermValueForTermWithoutVariable() {
+      double actual = constant.calcTermValue(2);
+      assertEquals(4.5, actual, "Should calc the Term Value for specific x");
+    }
   }
 
   @Test
@@ -127,20 +169,6 @@ public class TermSpec {
     Term expected = new Term(2.0 / 3.0);
     assertEquals(expected, actual, "Terms should have been multiplied by factor "
         + "and added exponent");
-  }
-
-  @Test
-  void derivativeOfTermWithVariableAndFactor() {
-    Term actual = linear.getDerivative();
-    Term expected = new Term(2);
-    assertEquals(expected, actual, "Term should be the derivative");
-  }
-
-  @Test
-  void derivativeOfTermWithNoVariable() {
-    Term actual = constant2.getDerivative();
-    Term expected = null;
-    assertEquals(expected, actual, "Term should be the derivative");
   }
 
   @Test
