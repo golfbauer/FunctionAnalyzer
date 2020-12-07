@@ -10,7 +10,6 @@ import de.hhn.it.pp.components.functionanalyzer.provider.FunctionAnalyzer;
  * Represent a single term inside a function.
  */
 public class Term implements FunctionElementComponent {
-
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(Term.class);
 
@@ -31,6 +30,7 @@ public class Term implements FunctionElementComponent {
    * @param variable name of the variable eg. x,y...
    */
   public Term(Term exponent, double factor, String variable) {
+    logger.debug("Creating a Term with variable");
     this.exponent = exponent;
     this.factor = factor;
     this.variable = variable;
@@ -43,6 +43,7 @@ public class Term implements FunctionElementComponent {
    * @param value    Base value
    */
   public Term(Term exponent, double value) {
+    logger.debug("Creating a Term with exponent and without variable ");
     this.exponent = exponent;
     this.value = value;
   }
@@ -53,12 +54,12 @@ public class Term implements FunctionElementComponent {
    * @param value Value of constant
    */
   public Term(double value) {
+    logger.debug("Creating a Term without variable");
     this.value = value;
   }
 
   /**
    * Calculates the result of adding another Term to this Term.
-   *
    * @param that the term that will be added
    * @return result of the addition
    * @throws ValueNotDefinedException if the Terms are not equal

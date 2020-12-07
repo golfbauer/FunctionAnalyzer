@@ -13,6 +13,8 @@ public class FunctionElement implements FunctionElementComponent {
 
   private List<FunctionElementComponent> components = new ArrayList<>();
   private Operator operator;
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(FunctionElement.class);
 
   /**
    * Combines both the Term and the operator it belongs to.
@@ -21,6 +23,7 @@ public class FunctionElement implements FunctionElementComponent {
    * @param operator   = its operator
    */
   public FunctionElement(Operator operator, FunctionElementComponent... components) {
+    logger.debug("Creating a FunctionElement");
     this.components.addAll(Arrays.asList(components));
     this.operator = operator;
   }
@@ -32,6 +35,7 @@ public class FunctionElement implements FunctionElementComponent {
    * @param operator   = its operator
    */
   public FunctionElement(Operator operator, List<FunctionElement> components) {
+    logger.debug("Creating a FunctionElement with existing List of components");
     this.components.addAll(components);
     this.operator = operator;
   }
@@ -41,10 +45,12 @@ public class FunctionElement implements FunctionElementComponent {
    * @param operator = its operator
    */
   public FunctionElement(Operator operator) {
+    logger.debug("Creating a FunctionElement without a List of components");
     this.operator = operator;
   }
 
   private static FunctionElement sum(List<FunctionElement> functionElements) {
+    logger.debug("Summing: " + functionElements.toString());
     List<FunctionElement> sums = new ArrayList<>();
     sums.add(new FunctionElement(Operator.ADD, new Term(0)));
     for (FunctionElement functionElement :
@@ -95,6 +101,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   public FunctionElement multiply(FunctionElement that) throws ValueNotDefinedException {
+    logger.debug("Multiplying " + this.toString() + " with " + that.toString());
     FunctionElement result = new FunctionElement(this.operator);
     if (that.isBracket()) {
       that.resolveBrackets();
@@ -125,6 +132,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   public FunctionElement divide(FunctionElement that) throws ValueNotDefinedException {
+    logger.debug("Dividing " + this.toString() + " from " + that.toString());
     if (this.equals(that)) {
       return new FunctionElement(this.operator, new Term(1));
     }
@@ -180,6 +188,7 @@ public class FunctionElement implements FunctionElementComponent {
 
   @Override
   public void simplify() throws ValueNotDefinedException {
+    logger.debug("Simplifying " + this.toString());
     if (isBracket()) {
       List<FunctionElement> simplificationCandidates = new ArrayList<>();
       for (FunctionElementComponent component : components) {
@@ -248,6 +257,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   private boolean isBracket() {
+    logger.debug("Checks if " + this.toString() + " is a bracket");
     if (components.size() < 2 && components.get(0) instanceof Term) {
       return false;
     }
@@ -258,6 +268,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   public void resolveBrackets() throws ValueNotDefinedException {
+    logger.debug("Resolving internal brackets for " + this.toString());
     if (components.size() < 2) {
       removeBrackets();
       return;
@@ -343,6 +354,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   public void removeBrackets() {
+    logger.debug("Removing unnecessary brackets from " + this.toString());
     if (isBracket()) {
       if (components.get(0) instanceof FunctionElement) {
         ((FunctionElement) components.get(0)).removeBrackets();
@@ -363,6 +375,7 @@ public class FunctionElement implements FunctionElementComponent {
 
   @Override
   public FunctionElement getDerivative() {
+    logger.debug("Calculating derivative for " + this.toString());
     FunctionElement result = new FunctionElement(operator);
     for (int i = 0; i < components.size(); i++) {
       if (components.get(i) instanceof FunctionElement) {
@@ -388,6 +401,7 @@ public class FunctionElement implements FunctionElementComponent {
    * @return exponent
    */
   public double getMaxExponent() {
+    logger.debug("Getting the max Exponent in " + this.toString());
     double result = 0;
     for (int i = 0; i < components.size(); i++) {
       if (components.get(i) instanceof FunctionElement) {
@@ -408,6 +422,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   void sortByHighestExponent() {
+    logger.debug("Sorting " + this.toString() + " by Exponent size");
     if (components.size() > 1) {
       final List<FunctionElement> componentList = new ArrayList<>();
       FunctionElement constant = null;
@@ -459,6 +474,7 @@ public class FunctionElement implements FunctionElementComponent {
    * @return result of FunctionElement
    */
   public double calcFunctionElementValue(double x) {
+    logger.debug("Calculaing the Value of " + this.toString() + " for " + x);
     double result = 0;
     List<FunctionElementComponent> temp = this.getComponents();
     for (FunctionElementComponent functionElementComponent : temp) {
