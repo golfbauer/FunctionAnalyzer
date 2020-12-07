@@ -470,6 +470,7 @@ public class FunctionElement implements FunctionElementComponent {
       components.stream().filter(component -> ((Term) ((FunctionElement) component).components
           .get(0)).getExponent() != null).forEach(functionElementComponent ->
           componentList.add((FunctionElement) functionElementComponent));
+
       Comparator<FunctionElement> expComp = Comparator.comparing(functionElement ->
           ((Term) functionElement.components.get(0)).getExponent().getValue());
       expComp = expComp.reversed();
@@ -477,7 +478,7 @@ public class FunctionElement implements FunctionElementComponent {
           componentList.stream().sorted(expComp).collect(Collectors.toList());
       for (FunctionElement element : sortedList) {
         components.remove(element);
-        components.add(components.size() - 1, element);
+        components.add(element);
       }
       if (constant != null) {
         components.remove(constant);

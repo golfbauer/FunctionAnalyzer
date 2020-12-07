@@ -149,7 +149,11 @@ public class FunctionElementSpec {
     @Test
     void simplifyElementWithNestedBracket() throws ValueNotDefinedException {
       FunctionElement actual = multipleFe;
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(new Term(2), -28, "x")),
+          new FunctionElement(Operator.ADD, new Term(21)));
       multipleFe.simplify();
+      assertEquals(expected, actual);
     }
 
     @Test
