@@ -314,11 +314,13 @@ public class FunctionElement implements FunctionElementComponent {
         } else if (isLast) {
           linked = prev;
         } else {
-          if (prev.operator == Operator.ADD && next.operator == Operator.MULTIPLY) {
+          if (component.operator == Operator.ADD && next.operator == Operator.MULTIPLY
+                  || next.operator == Operator.DIVIDE) {
             linked = next;
-          } else if (next.operator == Operator.ADD && prev.operator == Operator.MULTIPLY) {
+          } else if (next.operator == Operator.ADD && component.operator == Operator.MULTIPLY
+                  || component.operator == Operator.DIVIDE) {
             linked = prev;
-          } else if (prev.operator == Operator.ADD && next.operator == Operator.ADD) {
+          } else if (component.operator == Operator.ADD && next.operator == Operator.ADD) {
             linked = next;
           } else {
             throw new IllegalStateException();
@@ -335,6 +337,7 @@ public class FunctionElement implements FunctionElementComponent {
               replacement =
                   new FunctionElement(component.operator, component.divide(linked));
             }
+            replacement.removeBrackets();
             components.add(i, replacement);
             components.remove(component);
             components.remove(linked);
@@ -342,11 +345,12 @@ public class FunctionElement implements FunctionElementComponent {
           case MULTIPLY:
             if (linked.equals(prev)) {
               replacement =
-                  new FunctionElement(component.operator, linked.multiply(component));
+                  new FunctionElement(prev.operator, linked.multiply(component));
             } else {
               replacement =
                   new FunctionElement(component.operator, component.multiply(linked));
             }
+            replacement.removeBrackets();
             for (FunctionElementComponent replacementComponent : replacement.components) {
               components.add(i, replacementComponent);
             }
@@ -468,6 +472,7 @@ public class FunctionElement implements FunctionElementComponent {
           componentList.add((FunctionElement) functionElementComponent));
       Comparator<FunctionElement> expComp = Comparator.comparing(functionElement ->
           ((Term) functionElement.components.get(0)).getExponent().getValue());
+      expComp = expComp.reversed();
       List<FunctionElement> sortedList =
           componentList.stream().sorted(expComp).collect(Collectors.toList());
       for (FunctionElement element : sortedList) {
