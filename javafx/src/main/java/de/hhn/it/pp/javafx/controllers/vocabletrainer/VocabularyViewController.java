@@ -85,10 +85,19 @@ public class VocabularyViewController implements Initializable {
   }
 
   public void learnCategory(ActionEvent event) throws IOException, VocCategoryNotFoundException {
-    logger.debug("learn button is pressed.");
-    toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
-    loadPane(event);
-    setScenePane("/vocabletrainer/LearningView");
+    if (vocableListView.getItems().isEmpty()) {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Information Dialog");
+      alert.setHeaderText(null);
+      alert.setContentText("No Vocab to learn!");
+
+      alert.showAndWait();
+    } else {
+      logger.debug("learn button is pressed.");
+      toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
+      loadPane(event);
+      setScenePane("/vocabletrainer/LearningView");
+    }
   }
 
   public void back(ActionEvent event) throws IOException {
