@@ -96,7 +96,7 @@ public class EndscreenController implements Initializable {
     try {
       jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
     } catch (VocCategoryNotFoundException e) {
-      e.printStackTrace();
+      logger.info("saveVocable: throws {}", "" + e);
     }
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
