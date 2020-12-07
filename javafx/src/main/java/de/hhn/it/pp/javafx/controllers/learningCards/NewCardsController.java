@@ -37,7 +37,7 @@ public class NewCardsController {
      * @throws IOException
      */
     @FXML
-    public void changeSceneToCards(ActionEvent e) throws IOException {
+    private void changeSceneToCards(ActionEvent e) throws IOException {
         Parent cards = FXMLLoader.load(getClass().getResource("/fxml/learningCards/cards.fxml"));
         Scene cardsScene = new Scene(cards);
 
@@ -47,11 +47,11 @@ public class NewCardsController {
         window.show();
     }
     @FXML
-    public void changeSceneToCardsets(ActionEvent e)throws IOException{
+    private void changeSceneToCardsets(ActionEvent e)throws IOException{
 
     }
     @FXML
-    public void changeSceneToHome(ActionEvent e)throws IOException{
+    private void changeSceneToHome(ActionEvent e)throws IOException{
         Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
         Scene homeScene = new Scene(home);
 
@@ -61,7 +61,7 @@ public class NewCardsController {
         window.show();
     }
     @FXML
-    public void addCard(ActionEvent e) throws IOException{
+    private void addCard(ActionEvent e) throws IOException{
         Data.mlcs.createCard(title.getText(),questiontext.getText(),answertext.getText());
         changeSceneToCards(e);
 

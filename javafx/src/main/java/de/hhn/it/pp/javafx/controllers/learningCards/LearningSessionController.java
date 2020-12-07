@@ -33,9 +33,9 @@ public class LearningSessionController implements Initializable {
     @FXML
     private CheckBox onlyUnsolved;
 
-    int maxCards = Data.mlcs.getNumberOfCards();
+    private int maxCards = Data.mlcs.getNumberOfCards();
 
-    int currentPos = 0;
+    private int currentPos = 0;
 
     @FXML
     private void changeSceneToCardsets(ActionEvent e){
