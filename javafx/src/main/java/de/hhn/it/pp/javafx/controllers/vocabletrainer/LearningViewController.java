@@ -134,6 +134,7 @@ public class LearningViewController implements Initializable {
     }
     displayCorrectWord.setText("The correct word: " + vocable);
     skipButton.setDisable(true);
+    textFieldInput.setDisable(true);
   }
 
   public void cancel(ActionEvent event) throws IOException {
@@ -239,6 +240,7 @@ public class LearningViewController implements Initializable {
     successFail.setText("");
     displayCorrectWord.setText("");
     skipButton.setDisable(false);
+    textFieldInput.setDisable(false);
     notificationState = false;
   }
 }
