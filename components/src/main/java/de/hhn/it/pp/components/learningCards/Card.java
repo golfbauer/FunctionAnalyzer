@@ -18,11 +18,11 @@ public class Card {
 
 
   /**
-   * Constructor of the Card class
-   * 
+   * Constructor of the Card class.
+   *
    * @param headline to classify the card topic
-   * @param textQ question text of the card
-   * @param textA answer to the card question
+   * @param textQ    question text of the card
+   * @param textA    answer to the card question
    */
   public Card(String headline, String textQ, String textA) {
     setHeadline(headline);
@@ -32,8 +32,8 @@ public class Card {
   }
 
   /**
-   * Sets the headline of the Card class
-   * 
+   * Sets the headline of the Card class.
+   *
    * @param headline to classify the card topic
    */
   public void setHeadline(String headline) {
@@ -42,13 +42,14 @@ public class Card {
   }
 
   /**
-   * Method not intended for the facade
+   * Method not intended for the facade.
    */
-  void addPicture() {}
+  void addPicture() {
+  }
 
   /**
-   * Sets the Questiontext of the Card class
-   * 
+   * Sets the Questiontext of the Card class.
+   *
    * @param question question text of the card
    */
   void setTextQ(String question) {
@@ -56,8 +57,8 @@ public class Card {
   }
 
   /**
-   * Sets the Answertext of the Card class
-   * 
+   * Sets the Answertext of the Card class.
+   *
    * @param answer answer text of the card
    */
   void setTextA(String answer) {
@@ -65,8 +66,8 @@ public class Card {
   }
 
   /**
-   * edits the questiontext of an existing card
-   * 
+   * edits the questiontext of an existing card.
+   *
    * @param changedQ the changed questiontext
    */
   public void editTextQ(String changedQ) {
@@ -74,8 +75,8 @@ public class Card {
   }
 
   /**
-   * edits the answertext of an existing card
-   * 
+   * edits the answertext of an existing card.
+   *
    * @param changedA the changed answertext
    */
   public void editTextA(String changedA) {
@@ -84,8 +85,8 @@ public class Card {
   }
 
   /**
-   * returns the id of the card
-   * 
+   * returns the id of the card.
+   *
    * @return id of card
    */
   public int getId() {
@@ -93,8 +94,8 @@ public class Card {
   }
 
   /**
-   * returns the questiontext of the card
-   * 
+   * returns the questiontext of the card.
+   *
    * @return questiontext
    */
   public String getTextQ() {
@@ -102,8 +103,8 @@ public class Card {
   }
 
   /**
-   * returns the answer text of the card
-   * 
+   * returns the answer text of the card.
+   *
    * @return textA of card
    */
   public String getTextA() {
@@ -111,8 +112,8 @@ public class Card {
   }
 
   /**
-   * returns the headline of card
-   * 
+   * returns the headline of card.
+   *
    * @return headline of card
    */
   public String getHeadline() {
@@ -120,11 +121,12 @@ public class Card {
   }
 
   /**
-   * returns the information of the card
-   * 
+   * returns the information of the card.
+   *
    * @return all information put into the card class (headline, questiontext, answertext) in an
-   *         combined String
+   * combined String
    */
+  @SuppressWarnings("checkstyle:JavadocTagContinuationIndentation")
   String getCardinfo() {
     String info;
     info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
@@ -132,8 +134,8 @@ public class Card {
   }
 
   /**
-   * returns the current status of the card
-   * 
+   * returns the current status of the card.
+   *
    * @return status of card
    */
   public Status getStatus() {
@@ -141,16 +143,16 @@ public class Card {
   }
 
   /**
-   * Sets status of the card to solved
+   * Sets status of the card to solved.
    */
- public void setStatusToSolved() {
+  public void setStatusToSolved() {
     status = Status.SOLVED;
   }
 
   /**
-   * Sets status of the card to unsolved
+   * Sets status of the card to unsolved.
    */
- public void setStatusToUnSolved() {
+  public void setStatusToUnSolved() {
     status = Status.UNSOLVED;
   }
 }

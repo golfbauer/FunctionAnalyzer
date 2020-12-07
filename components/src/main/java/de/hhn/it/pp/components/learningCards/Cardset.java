@@ -1,6 +1,13 @@
 package de.hhn.it.pp.components.learningCards;
 
-import java.util.*;
+import java.util.ArrayList;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 
 public class Cardset {
 
@@ -12,8 +19,8 @@ public class Cardset {
   static int idCounter = 0;
 
   /**
-   * Constructor of the Cardset class
-   * 
+   * Constructor of the Cardset class.
+   *
    * @param title title to indentify what the cardset is about
    */
   public Cardset(String title) {
@@ -22,8 +29,8 @@ public class Cardset {
   }
 
   /**
-   * Sets the title of the cardset
-   * 
+   * Sets the title of the cardset.
+   *
    * @param title title to indentify what the cardset is about
    */
   void setTitle(String title) {
@@ -31,8 +38,8 @@ public class Cardset {
   }
 
   /**
-   * Returns the title of the cardset
-   * 
+   * Returns the title of the cardset.
+   *
    * @return title of the cardset
    */
   public String getTitle() {
@@ -40,8 +47,8 @@ public class Cardset {
   }
 
   /**
-   * adds card to the cardset
-   * 
+   * adds card to the cardset.
+   *
    * @param card which gets added to the cardset
    */
   public void addCardtoSet(Card card) {
@@ -49,8 +56,8 @@ public class Cardset {
   }
 
   /**
-   * returns a card with the id i from the cardset
-   * 
+   * returns a card with the id i from the cardset.
+   *
    * @param i id to identify a card in cardset
    * @return the card with id i
    */
@@ -59,8 +66,8 @@ public class Cardset {
   }
 
   /**
-   * removes a card with the id i from the cardset
-   * 
+   * removes a card with the id i from the cardset.
+   *
    * @param i id to identify a card in cardset
    */
   public void removeCardfromSet(int i) {
@@ -68,8 +75,8 @@ public class Cardset {
   }
 
   /**
-   * returns the id of cardset
-   * 
+   * returns the id of cardset.
+   *
    * @return id of cardset
    */
   public int getId() {
@@ -77,8 +84,8 @@ public class Cardset {
   }
 
   /**
-   * returns a list of all card ids in the cardset
-   * 
+   * returns a list of all card ids in the cardset.
+   *
    * @return all ids of all cards in cardset in a list
    */
   public List<Integer> getCardIds() {
@@ -91,7 +98,7 @@ public class Cardset {
   }
 
   /**
-   * returns a list of all cards in the cardset
+   * returns a list of all cards in the cardset.
    *
    * @return all of the cards in cardset in a list
    */
@@ -103,7 +110,7 @@ public class Cardset {
     return cards;
   }
 
-  public int getNumberOfCard(){
+  public int getNumberOfCard() {
     return cardset.size();
   }
 
