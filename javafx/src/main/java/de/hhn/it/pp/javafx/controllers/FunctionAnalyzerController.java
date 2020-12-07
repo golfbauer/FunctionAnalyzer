@@ -52,6 +52,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    * @param actionEvent Triggered when button pressed
    */
   public void chooseXDialog(ActionEvent actionEvent) {
+    logger.info("Choose X Button pressed opening a new Dialog Window");
     currentF = currentFa.readFunction(functionInput.getText());
     TextInputDialog dialog = new TextInputDialog("");
     dialog.setTitle("Choose X");
@@ -65,9 +66,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
         xAndyValue.setText(currentFa.calculateFunctionValue(currentF,
             Double.parseDouble(value)) + "");
         functionIdentifier.setText("X: " + result.get() + ", Y: ");
-
+        logger.info("Setting Value of Y to " + functionIdentifier.toString());
       } catch (ValueNotDefinedException e) {
         xAndyValue.setText("Value is not defined.");
+        logger.debug("Entered Value " + value + " for X is not valid");
       }
     });
   }
@@ -77,6 +79,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    * @param actionEvent Triggered when button pressed
    */
   public void chooseYDialog(ActionEvent actionEvent) {
+    logger.info("Find x for f(x) = y Button pressed opening a new Dialog Window");
     currentF = currentFa.readFunction(functionInput.getText());
     TextInputDialog dialog = new TextInputDialog("");
     dialog.setTitle("Choose Y");
@@ -90,8 +93,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
         xAndyValue.setText(checkReturnValue(currentFa.calculatePointIntersection(currentF,
             Double.parseDouble(value))) + "");
         functionIdentifier.setText("Y: " + result.get() + ", X: ");
+        logger.info("Setting Value of X to " + functionIdentifier.toString());
       } catch (ValueNotDefinedException e) {
         xAndyValue.setText("Value is not defined");
+        logger.debug("Entered Value " + value + " for Y is not valid");
       }
     });
   }
@@ -103,9 +108,11 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    */
   @FXML
   public void enterFunction(ActionEvent actionEvent) throws ValueNotDefinedException {
+    logger.info("Enter Button pressed and String in text field is given on");
     String input = functionInput.getText();
     input = input.replaceAll("\\s", "");
     if (input.matches("[()x^+*\\/\\-.0-9]*") && !input.equals("")) {
+      logger.info("String " + input + " contains allowed characters");
       currentF = currentFa.readFunction(input);
       Button currentFButton = new Button();
       currentFButton.setText(functionInput.getText());
@@ -115,12 +122,18 @@ public class FunctionAnalyzerController extends Controller implements Initializa
       currentFButton.setOnAction(this::parseToText);
       history.getChildren().add(currentFButton);
       VBox.setMargin(currentFButton, new Insets(5, 15, 5, 15));
+      logger.info("Created Button " + currentFButton.toString() + " and added it to history");
       minima.setText(checkReturnValue(currentFa.calculateMinima(currentF)));
+      logger.info("Setting Label " + minima + " to " + minima.toString());
       maxima.setText(checkReturnValue(currentFa.calculateMaxima(currentF)));
+      logger.info("Setting Label " + maxima + " to " + maxima.toString());
       xIntersection.setText(checkReturnValue(currentFa.calculateXIntersection(currentF)));
+      logger.info("Setting Label " + xIntersection + " to " + xIntersection.toString());
       yIntersection.setText(currentFa.calculateYIntersection(currentF) + "");
+      logger.info("Setting Label " + yIntersection + " to " + yIntersection.toString());
+    } else {
+      logger.debug("String " + input + " contains non valid characters");
     }
-
   }
 
   /**
@@ -129,6 +142,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    * @return Final values all rounded
    */
   public String checkReturnValue(List<Double> input) {
+    logger.debug("Checking " + input);
     if (input == null) {
       return "[]";
     } else {
@@ -148,6 +162,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    * @return Rounded Variable
    */
   public double round(double value, int places) {
+    logger.debug("Rounding + " + value + ", " + places + " amount of places");
     if (places < 0) {
       throw new IllegalArgumentException();
     }
@@ -164,7 +179,9 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    */
   @FXML
   public void parseToText(ActionEvent actionEvent) {
+    logger.info("Button " + ((Button) actionEvent.getSource()).getText() + " in history pressed");
     functionInput.setText(((Button) actionEvent.getSource()).getText());
+    logger.info("Removing Button" + ((Button) actionEvent.getSource()).getText());
     history.getChildren().remove(actionEvent.getSource());
   }
 
@@ -173,6 +190,8 @@ public class FunctionAnalyzerController extends Controller implements Initializa
    * @param actionEvent Triggered when button pressed
    */
   public void numberPadEntry(ActionEvent actionEvent) {
+    logger.info("Button " + ((Button) actionEvent.getSource()).getText() + " pressed");
+    logger.info("Adding Text from Button to " + functionInput.getText());
     switch (((Button) actionEvent.getSource()).getText()) {
       case ("0"):
         functionInput.setText(functionInput.getText() + "0");
