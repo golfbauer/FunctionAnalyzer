@@ -19,12 +19,12 @@ public class CardsController implements Initializable {
 
     int cardsCreated = Data.mlcs.getNumberOfCards();
 
-    int valB1 = 1;
-    int valB2 = 2;
-    int valB3 = 3;
-    int valB4 = 4;
-    int valB5 = 5;
-    int valB6 = 6;
+    int valB1 = 0;
+    int valB2 = 1;
+    int valB3 = 2;
+    int valB4 = 3;
+    int valB5 = 4;
+    int valB6 = 5;
 
     @FXML
     private Button newCard;
@@ -58,7 +58,7 @@ public class CardsController implements Initializable {
     private Button del6;
     /**
      * changes the scene to main.fxml
-     * @param e
+     * @param e ActionEvent when Button is clicked
      * @throws IOException
      */
     @FXML
@@ -130,23 +130,23 @@ public class CardsController implements Initializable {
     @FXML
     private void buttonsUp(ActionEvent e){
         if(cardsCreated > 6){
-            if(valB1 == cardsCreated){
-                valB1 = 0;
+            if(valB1 == cardsCreated-1){
+                valB1 = -1;
             }
-            if(valB2 == cardsCreated){
-                valB2 = 0;
+            if(valB2 == cardsCreated-1){
+                valB2 = -1;
             }
-            if(valB3 == cardsCreated){
-                valB3 = 0;
+            if(valB3 == cardsCreated-1){
+                valB3 = -1;
             }
-            if(valB4 == cardsCreated){
-                valB4 = 0;
+            if(valB4 == cardsCreated-1){
+                valB4 = -1;
             }
-            if(valB5 == cardsCreated){
-                valB5 = 0;
+            if(valB5 == cardsCreated-1){
+                valB5 = -1;
             }
-            if(valB6 == cardsCreated){
-                valB6 = 0;
+            if(valB6 == cardsCreated-1){
+                valB6 = -1;
             }
             valB1++;
             valB2++;
@@ -165,23 +165,23 @@ public class CardsController implements Initializable {
     @FXML
     private void buttonsDown(ActionEvent e){
         if(cardsCreated > 6){
-            if(valB1 == 1){
-                valB1 = cardsCreated+1;
+            if(valB1 == 0){
+                valB1 = cardsCreated;
             }
-            if(valB2 == 1){
-                valB2 = cardsCreated+1;
+            if(valB2 == 0){
+                valB2 = cardsCreated;
             }
-            if(valB3 == 1){
-                valB3 = cardsCreated+1;
+            if(valB3 == 0){
+                valB3 = cardsCreated;
             }
-            if(valB4 == 1){
-                valB4 = cardsCreated+1;
+            if(valB4 == 0){
+                valB4 = cardsCreated;
             }
-            if(valB5 == 1){
-                valB5 = cardsCreated+1;
+            if(valB5 == 0){
+                valB5 = cardsCreated;
             }
-            if(valB6 == 1){
-                valB6 = cardsCreated+1;
+            if(valB6 == 0){
+                valB6 = cardsCreated;
             }
             valB1--;
             valB2--;
@@ -211,34 +211,35 @@ public class CardsController implements Initializable {
         }
     }
 
+
     /**
      * changes text of the buttons b1-b6
      */
     private void refreshButton(){
     if(Data.mlcs.getNumberOfCards() >0){
        if(Data.mlcs.getCards().size() >= 1) {
-           b1.setText(Data.mlcs.getCards().get(valB1 - 1).getHeadline());
-           b1.setId(Integer.toString(valB1));
+           b1.setText(Data.mlcs.getCards().get(valB1).getHeadline());
+           b1.setId(Integer.toString(Data.mlcs.getCards().get(valB1).getId()));
            if (Data.mlcs.getCards().size() >= 2) {
-               b2.setText(Data.mlcs.getCards().get(valB2 - 1).getHeadline());
-               b2.setId(Integer.toString(valB2));
+               b2.setText(Data.mlcs.getCards().get(valB2).getHeadline());
+               b2.setId(Integer.toString(Data.mlcs.getCards().get(valB2).getId()));
            }
            if (Data.mlcs.getCards().size() >= 3) {
-               b3.setText(Data.mlcs.getCards().get(valB3 - 1).getHeadline());
-               b3.setId(Integer.toString(valB3));
+               b3.setText(Data.mlcs.getCards().get(valB3).getHeadline());
+               b3.setId(Integer.toString(Data.mlcs.getCards().get(valB3).getId()));
            }
            if (Data.mlcs.getCards().size() >= 4) {
-               b4.setText(Data.mlcs.getCards().get(valB4 - 1).getHeadline());
-               b4.setId(Integer.toString(valB4));
+               b4.setText(Data.mlcs.getCards().get(valB4).getHeadline());
+               b4.setId(Integer.toString(Data.mlcs.getCards().get(valB4).getId()));
 
            }
            if (Data.mlcs.getCards().size() >= 5) {
-               b5.setText(Data.mlcs.getCards().get(valB5 - 1).getHeadline());
-               b5.setId(Integer.toString(valB5));
+               b5.setText(Data.mlcs.getCards().get(valB5).getHeadline());
+               b5.setId(Integer.toString(Data.mlcs.getCards().get(valB5).getId()));
            }
            if (Data.mlcs.getCards().size() >= 6) {
-               b6.setText(Data.mlcs.getCards().get(valB6 - 1).getHeadline());
-               b6.setId(Integer.toString(valB6));
+               b6.setText(Data.mlcs.getCards().get(valB6).getHeadline());
+               b6.setId(Integer.toString(Data.mlcs.getCards().get(valB6).getId()));
            }
        }
 

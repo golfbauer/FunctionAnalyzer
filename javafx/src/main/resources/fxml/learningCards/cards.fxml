@@ -136,27 +136,19 @@
                               <StackPane prefHeight="150.0" prefWidth="200.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="468.0" prefWidth="259.0" spacing="80.0">
+                        <VBox prefHeight="448.0" prefWidth="513.0" spacing="80.0">
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="200.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#changeSceneToNewCard" prefHeight="52.0" prefWidth="122.0" text="new Card" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0">
+                              <StackPane prefHeight="150.0" prefWidth="279.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#changeSceneToLearningSession" prefHeight="38.0" prefWidth="146.0" text="Start learning session" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="249.0" text="Continue learning session with unsolved cards">
-                                       <font>
-                                          <Font size="11.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" />
                            </children>
                            <HBox.margin>
                               <Insets top="150.0" />

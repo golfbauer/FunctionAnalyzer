@@ -1,5 +1,6 @@
 package de.hhn.it.pp.javafx.controllers.learningCards;
 
+import de.hhn.it.pp.components.learningCards.Status;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LearningSessionController implements Initializable {
+
+
     @FXML
     private TextField title;
     @FXML
@@ -27,7 +30,8 @@ public class LearningSessionController implements Initializable {
     private CheckBox solved;
     @FXML
     private Button qa;
-
+    @FXML
+    private CheckBox onlyUnsolved;
 
     int maxCards = Data.mlcs.getNumberOfCards();
 
@@ -99,43 +103,54 @@ public class LearningSessionController implements Initializable {
     private void goRight(ActionEvent e){
     if(currentPos < maxCards-1){
         currentPos++;
+
         setCard();
     }
     }
+    @FXML
+    private void onlyUnsolvedWasSelected(ActionEvent e){
+        currentPos =0;
+        setCard();
+    }
     private void setCard(){
-        title.setText(Data.mlcs.getCards().get(currentPos).getHeadline());
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
 
-        switch(Data.mlcs.getCards().get(currentPos).getStatus()){
 
-            case UNSOLVED:
-                solved.setSelected(false);
-                break;
-            case UNSEEN:
-                solved.setSelected(false);
-                break;
-            case SOLVED:
-                solved.setSelected(true);
-                break;
-        }
+     if(onlyUnsolved.isSelected()){
+         System.out.println("hu");
+         if(Data.mlcs.getCards().get(currentPos).getStatus() == Status.SOLVED && currentPos<maxCards-1){
+             currentPos++;
+             setCard();
+         }
+     }
+         title.setText(Data.mlcs.getCards().get(currentPos).getHeadline());
+         switch(Data.mlcs.getCards().get(currentPos).getStatus()){
+             case SOLVED:
+                 solved.setSelected(true);
+                 break;
+             case UNSOLVED:
+                 solved.setSelected(false);
+             case UNSEEN:
+                 solved.setSelected(false);
+         }
+         switch (qa.getText()) {
+             case "Answer":
+                 textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
+
+                 break;
+             case "Question":
+                 qa.setText("Answer");
+                 textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
+                 break;
+         }
+
+
+
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    title.setText(Data.mlcs.getCards().get(currentPos).getHeadline());
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
-        switch(Data.mlcs.getCards().get(currentPos).getStatus()){
 
-            case UNSOLVED:
-                solved.setSelected(false);
-                break;
-            case UNSEEN:
-                solved.setSelected(false);
-                break;
-            case SOLVED:
-                solved.setSelected(true);
-                break;
-        }
+    setCard();
     }
 }
