@@ -46,6 +46,11 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
         }
       }
     }
+    try {
+      result.simplify();
+    } catch (ValueNotDefinedException e) {
+      e.printStackTrace();
+    }
     return result;
   }
 
