@@ -56,6 +56,7 @@ public class Main extends Application {
     addModule("VocableTrainerService");
     addModule("typingtrainer/StartScreen");
     addModule("SpellingTrainerService");
+    addModule("learningCards/Main");
   }
 
   @Override
