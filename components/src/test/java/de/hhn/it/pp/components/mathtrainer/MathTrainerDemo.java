@@ -1,10 +1,8 @@
 package de.hhn.it.pp.components.mathtrainer;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
-import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
+import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class MathTrainerDemo {

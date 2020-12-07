@@ -2,7 +2,6 @@ package de.hhn.it.pp.components.mathtrainer.junit;
 
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import de.hhn.it.pp.components.mathtrainer.BiKrMathTrainer;
-import de.hhn.it.pp.components.mathtrainer.Difficulty;
 import de.hhn.it.pp.components.mathtrainer.Term;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

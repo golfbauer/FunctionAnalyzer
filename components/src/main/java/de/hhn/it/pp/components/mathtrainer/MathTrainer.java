@@ -100,7 +100,7 @@ public interface MathTrainer {
   boolean getTimeIsUp();
 
   /**
-   * set the integer value inside the MathTrainer class
+   * set the integer value inside the MathTrainer class.
    * @param inturn integer value
    */
   void setInTurn(int inturn);
@@ -137,6 +137,12 @@ public interface MathTrainer {
   Term createTerm();
 
   /**
+   * creates a new Term object and increments the inturn counter of this MathTrainer object.
+   * @return generated Term object
+   */
+  Term nextTerm();
+
+  /**
   * solveTerm to check if a term is equal with the solution that the user entered in.
   *
   * @param userInput solution input from user
@@ -144,6 +150,7 @@ public interface MathTrainer {
   * @return returns true or false depending on whether or not the term has been solved successfully.
   * @exception IllegalArgumentException if invalid solutions are entered by the user.
   */
+
   boolean solveTerm(String userInput, Term term);
 
   /**
@@ -154,7 +161,6 @@ public interface MathTrainer {
   * @param solvedInSeconds timestamp at which term was solved by user
   * @return returns true or false depending on whether or not the term has been solved successfully.
   * @exception IllegalArgumentException if invalid solutions are entered by user.
-  * @exception IllegalParameterException if secondary method addToUserScore() inside causes issues.
   */
   boolean solveTerm(String userInput, Term term, int solvedInSeconds);
 

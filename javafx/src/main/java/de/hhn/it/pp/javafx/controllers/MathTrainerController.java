@@ -8,8 +8,6 @@ import de.hhn.it.pp.components.mathtrainer.Term;
 import de.hhn.it.pp.javafx.controllers.mathtrainer.MathTrainerWatch;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,9 +29,9 @@ public class MathTrainerController extends Controller implements Initializable {
   @FXML
   TextField textfieldDecimal;
   @FXML
-  ChoiceBox choiceboxDifficulty;
+  ChoiceBox<Difficulty> choiceboxDifficulty;
   @FXML
-  ChoiceBox choiceboxMode;
+  ChoiceBox<Section> choiceboxMode;
   @FXML
   RadioButton radioButtonWarmup;
   @FXML

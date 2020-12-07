@@ -27,6 +27,7 @@ public class BiKrMathTrainer implements MathTrainer {
    * Constructor to instantiate the basic functions for MathTrainer.
    */
   public BiKrMathTrainer() {
+    logger.debug("Constructor is building MathTrainer object");
     section = Section.PLUS;
     difficulty = Difficulty.EASY;
     decimalPlace = 2;
@@ -42,6 +43,7 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public void setUsername(String username) throws IllegalParameterException {
+    logger.debug("Setting username to : " + username);
     if (username.length() > 0) {
       this.username = username;
     } else {
@@ -51,21 +53,25 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public String getUsername() {
+    logger.debug("Retrieving username with getter");
     return username;
   }
 
   @Override
   public Difficulty getDifficulty() {
+    logger.debug("Retrieving this objects difficulty with getter");
     return this.difficulty;
   }
 
   @Override
   public void setDifficulty(Difficulty difficulty) {
+    logger.debug("Setting difficulty to: " + difficulty);
     this.difficulty = difficulty;
   }
 
   @Override
   public void setDecimalPlace(int decimalPlace) throws IllegalParameterException {
+    logger.debug("Setting visible decimals after period to: " + decimalPlace);
     if (decimalPlace >= 0) {
       this.decimalPlace = decimalPlace;
     } else {
@@ -75,11 +81,13 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public int getDecimalPlace() {
+    logger.debug("Retrieving currently set decimal places after period");
     return this.decimalPlace;
   }
 
   @Override
   public void setUserScore(int number) throws IllegalParameterException {
+    logger.debug("Setting userscore to: " + number);
     if (number >= 0) {
       this.userscore = number;
     } else {
@@ -89,61 +97,73 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public int getUserScore() {
+    logger.debug("Retrieving current userscore");
     return this.userscore;
   }
 
   @Override
   public Section getSection() {
+    logger.debug("Retrieving currently set Section of the MathTrainer");
     return this.section;
   }
 
   @Override
   public void setSection(Section section) {
+    logger.debug("Setting section of the MathTrainer");
     this.section = section;
   }
 
   @Override
   public void setWantsToExit(boolean exitboolean) {
+    logger.debug("Setting wantstoexit boolean value to: " + exitboolean);
     this.wantstoexit = exitboolean;
   }
 
   @Override
   public boolean getWantsToExit() {
+    logger.debug("Retrieving wantstoexit boolean value");
     return this.wantstoexit;
   }
 
   @Override
   public void setTimeIsUp(boolean timeboolean) {
+    logger.debug("Setting timeisup boolean");
     this.timeisup = timeboolean;
   }
 
   @Override
   public boolean getTimeIsUp() {
+    logger.debug("Retrieving timeisup boolean value");
     return this.timeisup;
   }
 
   @Override
   public void setInTurn(int inturn) {
+    logger.debug("Setting inturn integer to: " + inturn);
     this.inturn = inturn;
   }
 
   @Override
   public int getInTurn() {
+    logger.debug("Retrieving inturn integer value");
     return this.inturn;
   }
 
   @Override
   public boolean getWarmup() {
+    logger.debug("Retrieving warmup boolean value");
     return this.warmup;
   }
 
   @Override
   public void setWarmup(boolean warmupboolean) {
+    logger.debug("Setting warmup boolean value to: " + warmupboolean);
     this.warmup = warmupboolean;
   }
 
   @Override
   public void addToUserScore(int timebonus) throws IllegalParameterException {
+    logger.debug("addToUserScore() call");
     if (timebonus >= 0) {
       int points =
                   difficulty == Difficulty.EASY ? 1 :
@@ -156,19 +176,23 @@ public class BiKrMathTrainer implements MathTrainer {
   }
 
   public Term getCurrentTerm() {
+    logger.debug("getCurrentTerm() call");
     return this.currentTerm;
   }
 
   public void setUsersolution(BigDecimal number) {
+    logger.debug("Setting Usersolution to: " + number);
     this.usersolution = number;
   }
 
   public BigDecimal getUsersolution() {
+    logger.debug("Retrieving usersolution value");
     return usersolution;
   }
 
   @Override
   public Term createTerm() {
+    logger.debug("createTerm() call");
     int maxNumberSize =
             difficulty == Difficulty.EASY ? 9 :
                 difficulty == Difficulty.MEDIUM ? 19 :
@@ -195,12 +219,14 @@ public class BiKrMathTrainer implements MathTrainer {
   }
 
   public Term nextTerm() {
+    logger.debug("nextTerm() call");
     inturn++;
     return createTerm();
   }
 
   @Override
   public boolean solveTerm(String userInput, Term term) throws IllegalArgumentException {
+    logger.debug("solveTerm() call ,without timer for fast solution");
     if (userInput.contains(",")) {
       userInput = userInput.replace(',', '.');
     }
@@ -215,6 +241,7 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public boolean solveTerm(String userInput, Term term, int solvedInSeconds) {
+    logger.debug("solveTerm() call, with timer for fast solution");
     if (userInput.contains(",")) {
       userInput = userInput.replace(',', '.');
     }
@@ -236,6 +263,7 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public void addToHistory() {
+    logger.debug("addToHistory() call, add momentary MathTrainer object data to the history list");
     String entry = "" + this.username + " | " + this.userscore
             + " | " + this.difficulty + " | " + this.section + " | Countdown mode";
     history.add(entry);
@@ -243,11 +271,13 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public List<String> getHistory() {
+    logger.debug("getHistory() call, retrieve the history list from the MathTrainer");
     return history;
   }
 
   @Override
   public BigDecimal helpUser(Term term) throws IllegalParameterException {
+    logger.debug("helpUser() call, return solution of the Term object");
     if (term != null) {
       return term.getSolution();
     } else {
@@ -257,8 +287,8 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public void startGame(boolean warmup) throws IllegalParameterException {
+    logger.debug("Start a game run (early implementation obsolete)");
     if (warmup) {
-      /*
       for (int i = 0; i < 20; i++) {
         inturn = i;
         Term current = this.createTerm();
@@ -275,19 +305,8 @@ public class BiKrMathTrainer implements MathTrainer {
         int finalScore = storeScore + userscore;
         this.setUserScore(finalScore);
         addToHistory();
-      }*/
-      Term current = this.createTerm();
-      Watch stopwatch = new Watch();
-      OneQuestion asinglequestion =
-          new OneQuestion(usersolution, current, current.getSolution(), stopwatch, userscore,this);
-      new Thread(asinglequestion).start();
-      boolean local = true;
-      while (local) {
-        if (asinglequestion.getSolved()) {
-          local = false;
-          logger.info("Question was solved.");
-        }
       }
+
     } else {
       for (int i = 0; i < 20; i++) {
         inturn = i;
@@ -317,6 +336,7 @@ public class BiKrMathTrainer implements MathTrainer {
 
   @Override
   public int exitGame(int loopCount, boolean exit) throws IllegalParameterException {
+    logger.debug("exit Game call with boolean " + exit + " at round" + loopCount);
     if (loopCount >= 0) {
       if (exit) {
         loopCount = 20;
@@ -331,6 +351,7 @@ public class BiKrMathTrainer implements MathTrainer {
    * populate history list with a few entries for display in gui.
    */
   public void createDemoHistoryData() {
+    logger.debug("createDemoHistoryData call to add test data.");
     history.add("Matthew | 15 | EASY | MULTIPLICATION | countdown mode");
     history.add("Hammond | 21 | HARD | ADDITION | countdown mode");
     history.add("Erika | 18 | MEDIUM | MIXED | countdown mode");
