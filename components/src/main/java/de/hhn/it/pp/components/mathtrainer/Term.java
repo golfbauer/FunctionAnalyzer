@@ -43,7 +43,8 @@ public class Term {
         break;
 
       case '/':
-        sum = firstNumber.divide(secondNumber, this.decimals, RoundingMode.CEILING).stripTrailingZeros();
+        sum = firstNumber.divide(secondNumber, this.decimals, RoundingMode.CEILING)
+                .stripTrailingZeros();
         break;
 
       case '+':
