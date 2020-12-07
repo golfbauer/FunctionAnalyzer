@@ -84,34 +84,6 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   /**
-   * Adds two FunctionElements by taking all FunctionElements contained in their components
-   * and summing them using {@link #sum}.
-   *
-   * @param that The function Element that is to be added.
-   * @return the result of the Addition
-   * @throws ValueNotDefinedException
-   */
-  private FunctionElement add(FunctionElement that) throws ValueNotDefinedException {
-    if (that.isBracket()) {
-      that.resolveBrackets();
-    }
-
-    List<FunctionElement> values = new ArrayList<>();
-    for (FunctionElementComponent component : this.components) {
-      values.add(((FunctionElement) component));
-    }
-    for (FunctionElementComponent component : that.components) {
-      values.add(((FunctionElement) component));
-    }
-
-    FunctionElement result = new FunctionElement(this.operator);
-    FunctionElement replacement = sum(values);
-    result.components = replacement.components;
-    result.removeBrackets();
-    return result;
-  }
-
-  /**
    * Multiplies two Function Elements.
    *
    * @param that The FunctionElement that the current element will be multiplied by
