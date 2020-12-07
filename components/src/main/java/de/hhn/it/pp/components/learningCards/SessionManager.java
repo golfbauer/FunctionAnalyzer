@@ -13,8 +13,8 @@ public class SessionManager {
   Scanner scanner = new Scanner(System.in);
 
   /**
-   * starts a learning session according to given card status
-   * @param cardSet
+   * starts a learning session according to given card status.
+   * @param cardSet cardset object where cards are stored
    * @param status the status of the cards, which will be showed
    */
   public void startLearningSession(Cardset cardSet, Status[] status) {
@@ -42,9 +42,9 @@ public class SessionManager {
 
 
   /**
-   * shows the card
-   * sets the card status
-   * @param card
+   * shows the card.
+   * sets the card status.
+   * @param card card object
    */
   public void askQuestion(Card card) {
     System.out.println(card.getTextQ());
@@ -60,7 +60,7 @@ public class SessionManager {
   }
 
   /**
-   * stops the learning session, if the user types 'q'
+   * stops the learning session, if the user types 'q'.
    * @return true if the user types 'q', otherwise false
    */
   public boolean stopLearningSession() {
