@@ -125,7 +125,7 @@ public class LearningSessionController implements Initializable {
 
 
     if (onlyUnsolved.isSelected()) {
-      System.out.println("hu");
+
       if (Data.mlcs.getCards().get(currentPos).getStatus()
             == Status.SOLVED && currentPos < maxCards - 1) {
         currentPos++;
