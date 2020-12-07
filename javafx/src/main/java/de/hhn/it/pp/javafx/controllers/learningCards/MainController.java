@@ -1,5 +1,6 @@
 package de.hhn.it.pp.javafx.controllers.learningCards;
 
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+
 
 public class MainController {
 
@@ -32,9 +33,9 @@ public class MainController {
   private TextArea mainT;
 
   /**
-   * Method changes the text in the textarea from mainT
+   * Method changes the text in the textarea from mainT.
    *
-   * @param e
+   * @param e ActionEvent when button was clicked
    */
   @FXML
   private void changeText(ActionEvent e) {
@@ -45,12 +46,13 @@ public class MainController {
 
       case "Answer":
         b.setText("Question");
-        mainT.setText("Cards--> new Cards\n" + "You can put your Cards in Sets, which is useful if\n you want to categorize them");
+        mainT.setText("Cards--> new Cards\n"
+              + "You can put your Cards in Sets, which is useful if\n you want to categorize them");
         break;
       case "Question":
         b.setText("Answer");
-        mainT.setText("- Where do you create cards?\n" +
-                "- What do I do with cardsets?");
+        mainT.setText("- Where do you create cards?\n"
+               + "- What do I do with cardsets?");
     }
 
   }
@@ -58,8 +60,8 @@ public class MainController {
   /**
    * changes the Scene to cards.fxml
    *
-   * @param e
-   * @throws IOException
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when errorcausing input accures
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
