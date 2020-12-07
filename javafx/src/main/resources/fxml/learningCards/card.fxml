@@ -58,19 +58,15 @@
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <CheckBox fx:id="solved" mnemonicParsing="false" onAction="#markAsSolved" prefHeight="17.0" prefWidth="750.0" text="Solved" />
-                              <StackPane prefHeight="25.0" prefWidth="102.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" onAction="#saveChanges" prefHeight="25.0" prefWidth="53.0" text="Save" />
-                                 </children>
-                              </StackPane>
+                              <StackPane prefHeight="25.0" prefWidth="102.0" />
                            </children>
                         </HBox>
-                        <TextField fx:id="title" alignment="CENTER" prefHeight="104.0" prefWidth="813.0">
+                        <TextField fx:id="title" alignment="CENTER" onMouseExited="#saveChanges" prefHeight="104.0" prefWidth="813.0">
                            <font>
                               <Font name="Comic Sans MS" size="30.0" />
                            </font>
                         </TextField>
-                        <TextArea fx:id="textbox" prefHeight="541.0" prefWidth="913.0">
+                        <TextArea fx:id="textbox" onMouseExited="#saveChanges" prefHeight="541.0" prefWidth="913.0">
                            <font>
                               <Font name="Comic Sans MS" size="25.0" />
                            </font>
