@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 
-
 public class MainController {
 
 
@@ -47,21 +46,21 @@ public class MainController {
       case "Answer":
         b.setText("Question");
         mainT.setText("Cards--> new Cards\n"
-              + "You can put your Cards in Sets, which is useful if\n you want to categorize them");
+             + "You can put your Cards in Sets, which is useful if\n you want to categorize them");
         break;
       case "Question":
         b.setText("Answer");
         mainT.setText("- Where do you create cards?\n"
-               + "- What do I do with cardsets?");
+             + "- What do I do with cardsets?");
     }
 
   }
 
   /**
-   * changes the Scene to cards.fxml
+   * changes the scene to cards.
    *
    * @param e ActionEvent when button was clicked
-   * @throws IOException when errorcausing input accures
+   * @throws IOException when input or output causes an error
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
@@ -77,9 +76,23 @@ public class MainController {
     window.show();
   }
 
+  /**
+   * changes scene to Cardsets scene.
+   *
+   * @param e ActionEvent when Button is clicked
+   * @throws IOException when input or output caused an  Error
+   */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
+    Parent cardsets = loader.load();
+    Scene cardsetsScene = new Scene(cardsets);
 
+    Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+    window.setScene(cardsetsScene);
+    window.show();
   }
 
 

@@ -64,7 +64,7 @@ public class CardsController implements Initializable {
 
 
   /**
-   * changes the scene to main.fxml
+   * changes the scene to main / home Scene.
    *
    * @param e ActionEvent when Button is clicked
    * @throws IOException when input or output caused an  Error
@@ -81,11 +81,22 @@ public class CardsController implements Initializable {
   }
 
   /**
-   * About to be added...
+   * changes scene to Cardsets scene.
+   *
+   * @param e ActionEvent when Button is clicked
+   * @throws IOException when input or output caused an  Error
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
+    Parent cardsets = loader.load();
+    Scene cardsetsScene = new Scene(cardsets);
 
+    Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+    window.setScene(cardsetsScene);
+    window.show();
   }
 
   /**

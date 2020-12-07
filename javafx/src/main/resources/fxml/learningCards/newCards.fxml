@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -54,6 +56,20 @@
                <children>
                   <VBox layoutX="397.0" layoutY="104.0" prefHeight="720.0" prefWidth="1080.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <StackPane alignment="TOP_LEFT" prefHeight="36.0" prefWidth="1158.0">
+                           <children>
+                              <HBox alignment="TOP_RIGHT" prefHeight="25.0" prefWidth="811.0">
+                                 <children>
+                                    <Label prefHeight="24.0" prefWidth="157.0" text="Add to cardsets... :">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="choisebox" prefHeight="25.0" prefWidth="182.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
                         <TextField fx:id="title" alignment="CENTER" prefHeight="134.0" prefWidth="913.0" promptText="Enter Cardtitle here">
                            <font>
                               <Font name="Comic Sans MS" size="20.0" />
@@ -80,10 +96,9 @@
                         </StackPane>
                      </children>
                      <padding>
-                        <Insets left="30.0" right="30.0" top="50.0" />
+                        <Insets left="30.0" right="30.0" />
                      </padding>
                   </VBox>
-                  <Spinner fx:id="spinner" layoutX="670.0" prefHeight="25.0" prefWidth="283.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

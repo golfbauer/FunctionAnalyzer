@@ -37,12 +37,31 @@ public class LearningSessionController implements Initializable {
 
   private int currentPos = 0;
 
+  /**
+   * changes Scene to Cardsets scene.
+   *
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when input or output causes an error
+   */
   @FXML
-  private void changeSceneToCardsets(ActionEvent e) {
+  private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
+    Parent cardsets = loader.load();
+    Scene cardsetsScene = new Scene(cardsets);
 
+    Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+    window.setScene(cardsetsScene);
+    window.show();
   }
 
-  @SuppressWarnings("checkstyle:Indentation")
+  /**
+   * changes the scene to Cards.
+   *
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when Input causes an Error
+   */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
 
@@ -58,6 +77,12 @@ public class LearningSessionController implements Initializable {
     window.show();
   }
 
+  /**
+   * changes scene to Cardsets scene.
+   *
+   * @param e ActionEvent when Button is clicked
+   * @throws IOException when input or output caused an  Error
+   */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
@@ -69,6 +94,11 @@ public class LearningSessionController implements Initializable {
     window.show();
   }
 
+  /**
+   * changes the textarea text.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void changeText(ActionEvent e) {
 
@@ -83,6 +113,11 @@ public class LearningSessionController implements Initializable {
     }
   }
 
+  /**
+   * marks the current card to solved and unsolved depending on the checkbox.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void markAsSolved(ActionEvent e) {
     switch (Data.mlcs.getCards().get(currentPos).getStatus()) {
@@ -97,6 +132,11 @@ public class LearningSessionController implements Initializable {
     }
   }
 
+  /**
+   * swaps the to the left card.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void goLeft(ActionEvent e) {
     if (currentPos > 0) {
@@ -106,6 +146,11 @@ public class LearningSessionController implements Initializable {
 
   }
 
+  /**
+   * swaps the to the right card.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void goRight(ActionEvent e) {
     if (currentPos < maxCards - 1) {
@@ -115,19 +160,27 @@ public class LearningSessionController implements Initializable {
     }
   }
 
+  /**
+   * resets the card pos to 0 and calls setcard() method.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void onlyUnsolvedWasSelected(ActionEvent e) {
     currentPos = 0;
     setCard();
   }
 
+  /**
+   * Setups the card depending if they are solved or not.
+   */
   private void setCard() {
 
 
     if (onlyUnsolved.isSelected()) {
 
       if (Data.mlcs.getCards().get(currentPos).getStatus()
-            == Status.SOLVED && currentPos < maxCards - 1) {
+           == Status.SOLVED && currentPos < maxCards - 1) {
         currentPos++;
         setCard();
       }
@@ -158,6 +211,12 @@ public class LearningSessionController implements Initializable {
 
   }
 
+  /**
+   * initilizes the scene values.
+   *
+   * @param url            location of resources
+   * @param resourceBundle bundle of resources
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 

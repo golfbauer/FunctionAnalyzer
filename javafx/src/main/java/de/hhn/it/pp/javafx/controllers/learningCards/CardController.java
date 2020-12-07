@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-
 public class CardController {
 
   private int id;
@@ -37,6 +36,11 @@ public class CardController {
   @FXML
   private CheckBox solved;
 
+  /**
+   * marks card as solved or unsolved.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void markAsSolved(ActionEvent e) {
 
@@ -51,6 +55,11 @@ public class CardController {
     System.out.println(Data.mlcs.getCardFromCol(id).getStatus());
   }
 
+  /**
+   * changes the textarea text.
+   *
+   * @param e ActionEvent when button was clicked
+   */
   @FXML
   private void changeText(ActionEvent e) {
     Button button = (Button) e.getSource();
@@ -70,6 +79,7 @@ public class CardController {
 
   /**
    * takes the value from cardsController.
+   *
    * @param ident cardButtonId
    */
   public void initData(String ident) {
@@ -87,11 +97,31 @@ public class CardController {
     }
   }
 
+  /**
+   * changes Scene to Cardsets scene.
+   *
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when input or output causes an error
+   */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
+    Parent cardsets = loader.load();
+    Scene cardsetsScene = new Scene(cardsets);
 
+    Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+    window.setScene(cardsetsScene);
+    window.show();
   }
 
+  /**
+   * changes Scene to Home / main scene.
+   *
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when input or output causes an error
+   */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
@@ -103,6 +133,12 @@ public class CardController {
     window.show();
   }
 
+  /**
+   * changes Scene to Cards scene.
+   *
+   * @param e ActionEvent when button was clicked
+   * @throws IOException when input or output causes an error
+   */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
 
@@ -118,6 +154,11 @@ public class CardController {
     window.show();
   }
 
+  /**
+   * saves changes made to the cardobject values.
+   *
+   * @param e MouseEvent when mouse left textarea
+   */
   @FXML
   private void saveChanges(MouseEvent e) {
 
