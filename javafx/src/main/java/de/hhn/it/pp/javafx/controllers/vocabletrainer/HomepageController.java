@@ -48,7 +48,7 @@ public class HomepageController implements Initializable {
 
 
   public void initialize(URL location, ResourceBundle resources) {
-
+    logger.info("Homepage is initializing");
     List<String> categories = jbVocableTrainerService.getVocCategories();
     for (int i = 0; categories.size() > i; i++) {
       categoryListView.getItems().add(jbVocableTrainerService.getVocCategories().get(i));
@@ -93,13 +93,13 @@ public class HomepageController implements Initializable {
   }
 
   public void newCategory(ActionEvent event) throws IOException {
-    logger.debug("New Category button is pressed.");
+    logger.info("New Category button is pressed.");
     loadPane(event);
     setScenePane("/vocabletrainer/EditCreateCategoryPage");
   }
 
   public void editCategory(ActionEvent event) throws IOException {
-    logger.debug("Edit Category button is pressed.");
+    logger.info("Edit Category button is pressed.");
     cateSaver = categoryListView.getSelectionModel().getSelectedItem();
     if (cateSaver != null) {
       loadPane(event);
@@ -110,7 +110,7 @@ public class HomepageController implements Initializable {
   }
 
   public void deleteCategory(ActionEvent event) throws VocCategoryNotFoundException {
-    logger.debug("Delete Category button is pressed.");
+    logger.info("Delete Category button is pressed.");
     try {
       jbVocableTrainerService
           .removeVocCategory(categoryListView.getSelectionModel().getSelectedItem());
@@ -123,6 +123,7 @@ public class HomepageController implements Initializable {
   }
 
   public void vocCategoryNotFoundAlert() {
+    logger.info("vocCategoryNotFoundAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("No categories");
@@ -131,7 +132,7 @@ public class HomepageController implements Initializable {
   }
 
   public void okClick(ActionEvent event) throws IOException {
-    logger.debug("OK button is pressed.");
+    logger.info("OK button is pressed.");
     if (categoryListView.getSelectionModel().isEmpty()) {
       vocCategoryNotFoundAlert();
     } else {
@@ -143,17 +144,17 @@ public class HomepageController implements Initializable {
 
   public void levenSet() {
     if (easyRadio.isSelected()) {
-      logger.debug("Radio button easy is pressed levenshtein set to 3");
+      logger.info("Radio button easy is pressed levenshtein set to 3");
       levenshtein = 3;
     }
 
     if (mediumRadio.isSelected()) {
-      logger.debug("Radio button medium is pressed levenshtein set to 2");
+      logger.info("Radio button medium is pressed levenshtein set to 2");
       levenshtein = 2;
     }
 
     if (hardRadio.isSelected()) {
-      logger.debug("Radio button hard is pressed levenshtein set to 0");
+      logger.info("Radio button hard is pressed levenshtein set to 0");
       levenshtein = 0;
     }
 

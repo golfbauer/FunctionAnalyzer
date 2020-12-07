@@ -43,6 +43,7 @@ public class EditCreateCategoryPageController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    logger.info("EditCreateCategoryPage is initializing");
     saveButton.setDefaultButton(true);
     saveButton.setOnKeyPressed(event -> {
           if (event.getCode().equals(KeyCode.ENTER)) {
@@ -56,7 +57,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   public void saveCategory(ActionEvent event) throws IOException {
-    logger.debug("Save button is pressed.");
+    logger.info("Save button is pressed.");
     String categoryName = categoryNameTextField.getText().trim();
     if (categoryName == null || categoryName.equals("")) {
       vocCategoryCanNotBeEmptyAlert();
@@ -96,6 +97,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   private void vocCategoryCanNotBeEmptyAlert() {
+    logger.info("vocCategoryCanNotBeEmptyAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category can not be empty");
@@ -104,6 +106,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   private void vocCategoryNotFoundAlert() {
+    logger.info("vocCategoryNotFoundAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category to edit not found");
@@ -112,6 +115,7 @@ public class EditCreateCategoryPageController implements Initializable {
   }
 
   private void categoryExistentAlert() {
+    logger.info("categoryExistentAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category already existent");

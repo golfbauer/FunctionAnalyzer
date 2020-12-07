@@ -43,6 +43,7 @@ public class EndscreenController implements Initializable {
   Button learnIncorrectButton;
 
   public void learnIncorrectWords(ActionEvent event) {
+    logger.info("Learn Incorrect button is pressed");
     if (skippedAndFailed.size() <= 0) {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Information Dialog");
@@ -78,7 +79,7 @@ public class EndscreenController implements Initializable {
   }
 
   public void repeatLearning(ActionEvent event) throws IOException, VocCategoryNotFoundException {
-    logger.debug("Repeat button is pressed.");
+    logger.info("Repeat button is pressed.");
     skippedAndFailed.clear();
     toLearnList.clear();
     toLearnList.addAll(jbVocableTrainerService.getVocabulary(cateSaver));
@@ -88,7 +89,7 @@ public class EndscreenController implements Initializable {
   }
 
   public void finishLearning(ActionEvent event) throws IOException {
-    logger.debug("Finish button is pressed.");
+    logger.info("Finish button is pressed.");
     cateSaver = null;
     toLearnList.clear();
     skippedAndFailed = null;
@@ -136,6 +137,7 @@ public class EndscreenController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    logger.info("EndScreen is initializing");
     endScore.setText("Score: " + jbVocableTrainerService.getScore());
     int correctAmount = 0;
     try {

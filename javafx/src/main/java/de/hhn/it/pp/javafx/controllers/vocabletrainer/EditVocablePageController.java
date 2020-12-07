@@ -40,7 +40,7 @@ public class EditVocablePageController implements Initializable {
   Button saveVocButton;
 
   public void saveVocable(ActionEvent event) throws IOException {
-    logger.debug("Save button is pressed.");
+    logger.info("Save button is pressed.");
     boolean noException = false;
     if (vocEdit == null) {
       // Create Vocable
@@ -84,6 +84,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   private String[] toArrayTranslations(String str) {
+    logger.info("Translation put in an array");
     String[] tWords;
     //if string is empty or null, return empty array
     if (str == null || str.equals("")) {
@@ -98,6 +99,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   private void vocableNotFoundAlert() {
+    logger.info("vocableNotFoundAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Vocable not found");
@@ -106,6 +108,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   private void vocCategoryNotFoundAlert() {
+    logger.info("vocCategoryNotFoundAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category not found");
@@ -114,6 +117,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   private void translationIsEmptyAlert() {
+    logger.info("translationIsEmptyAlert is showing");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Translations are empty");
@@ -122,7 +126,7 @@ public class EditVocablePageController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
-    logger.debug("Cancel button is pressed.");
+    logger.info("Cancel button is pressed.");
     vocEdit = null;
     loadPane(event);
     setScenePane("/vocabletrainer/VocabularyView");
@@ -162,6 +166,7 @@ public class EditVocablePageController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    logger.info("EditVocablePage is initializing");
     saveVocButton.setDefaultButton(true);
     saveVocButton.setOnKeyPressed(event -> {
           if (event.getCode().equals(KeyCode.ENTER)) {
