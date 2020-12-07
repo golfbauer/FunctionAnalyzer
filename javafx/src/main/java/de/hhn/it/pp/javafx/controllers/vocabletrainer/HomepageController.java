@@ -56,6 +56,16 @@ public class HomepageController implements Initializable {
     scoreButton.setText("Score: " + jbVocableTrainerService.getScore());
     categoryListView.getSelectionModel().select(0);
     mediumRadio.setSelected(true);
+    if (levenshtein == 0) {
+      hardRadio.setSelected(true);
+    }
+    if (levenshtein == 2) {
+      mediumRadio.setSelected(true);
+    }
+    if (levenshtein == 3) {
+      easyRadio.setSelected(true);
+    }
+
   }
 
   /**
