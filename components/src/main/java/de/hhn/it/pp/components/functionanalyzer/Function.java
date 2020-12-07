@@ -10,12 +10,15 @@ import java.util.List;
  * Represent a function as a combination of Terms.
  */
 public class Function extends ArrayList<FunctionElement> {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(Function.class);
 
   /**
    * Add FunctionElements into the function.
    * @param elements Contains all FunctionElements
    */
   public Function(FunctionElement... elements) {
+    logger.debug("Creating a Function");
     addAll(Arrays.asList(elements));
   }
 
@@ -24,6 +27,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return Derivative of the Function
    */
   public Function getDerivative() {
+    logger.debug("Getting the derivative for " + this.toString());
     Function derivative = new Function();
     for (int i = 0; i < this.size(); i++) {
       if (this.get(i).getDerivative() != null) {
@@ -47,6 +51,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return List of x values
    */
   public List<Double> setFunctionEqualZero() {
+    logger.debug("Setting " + this.toString() + " = 0");
     if (this.size() == 0) {
       return null;
     }
@@ -78,6 +83,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return single x value
    */
   public double setLinearFunctionEqualZero() {
+    logger.debug("Setting the linear Function: " + this.toString() + " = 0");
     double result;
     if (this.size() == 2) {
       result = ((Term) this.get(1).getComponents().get(0)).getValue()
@@ -94,6 +100,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return List of x values, two at max
    */
   public ArrayList<Double> setSquareFunctionEqualZero() {
+    logger.debug("Setting the square Function: " + this.toString() + " = 0");
     ArrayList<Double> result = new ArrayList<>();
     double p;
     double q;
@@ -134,6 +141,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return List of x values
    */
   public ArrayList<Double> pqFormal(double p, double q) {
+    logger.debug("Using the PQFormal on " + this.toString());
     ArrayList<Double> result = new ArrayList<>();
     double discriminant;
     discriminant = (p / 2) * (p / 2) - q;
@@ -160,6 +168,7 @@ public class Function extends ArrayList<FunctionElement> {
    * and simplifying that FunctionElement.
    */
   public void simplify() throws ValueNotDefinedException {
+    logger.debug("Simplifying " + this.toString());
     if (size() < 2) {
       return;
     }
@@ -177,6 +186,7 @@ public class Function extends ArrayList<FunctionElement> {
    * @return One value
    */
   public double calcFunctionValue(double x) {
+    logger.debug("Calculating the Value for " + this.toString() + " with X = " + x);
     double result = this.get(0).calcFunctionElementValue(x);
     for (int i = 1; i < this.size(); i++) {
       if (this.get(i).getOperator().getSymbol() == '*'

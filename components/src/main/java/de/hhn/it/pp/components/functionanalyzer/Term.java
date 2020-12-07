@@ -3,12 +3,16 @@ package de.hhn.it.pp.components.functionanalyzer;
 import java.awt.event.TextEvent;
 import java.util.Objects;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+import de.hhn.it.pp.components.functionanalyzer.provider.FunctionAnalyzer;
 
 
 /**
  * Represent a single term inside a function.
  */
 public class Term implements FunctionElementComponent {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(Term.class);
+
 
   private double value;
   public static final  Term ZERO = new Term(0);
@@ -26,6 +30,7 @@ public class Term implements FunctionElementComponent {
    * @param variable name of the variable eg. x,y...
    */
   public Term(Term exponent, double factor, String variable) {
+    logger.debug("Creating a Term with variable");
     this.exponent = exponent;
     this.factor = factor;
     this.variable = variable;
@@ -38,6 +43,7 @@ public class Term implements FunctionElementComponent {
    * @param value    Base value
    */
   public Term(Term exponent, double value) {
+    logger.debug("Creating a Term with exponent and without variable ");
     this.exponent = exponent;
     this.value = value;
   }
@@ -48,18 +54,19 @@ public class Term implements FunctionElementComponent {
    * @param value Value of constant
    */
   public Term(double value) {
+    logger.debug("Creating a Term without variable");
     this.value = value;
   }
 
   /**
    * Calculates the result of adding another Term to this Term.
-   *
    * @param that the term that will be added
    * @return result of the addition
    * @throws ValueNotDefinedException if the Terms are not equal
    *                                  according to {@link #structurallyEqual}
    */
   public Term add(Term that) throws ValueNotDefinedException {
+    logger.debug("Adding " + this.toString() + " with " + that.toString());
     if (!this.structurallyEqual(that) && !this.equals(Term.ZERO) && !that.equals(Term.ZERO)) {
       throw new ValueNotDefinedException("Cannot add Terms with different structure");
     }
@@ -84,6 +91,7 @@ public class Term implements FunctionElementComponent {
    *                                  according to {@link #structurallyEqual}
    */
   public Term subtract(Term that) throws ValueNotDefinedException {
+    logger.debug("Subtracting " + this.toString() + " from " + that.toString());
     return this.add(that.multiply(new Term(-1)));
   }
 
@@ -95,6 +103,7 @@ public class Term implements FunctionElementComponent {
    * @throws ValueNotDefinedException if the Terms do not have the same variable
    */
   public Term multiply(Term that) throws ValueNotDefinedException {
+    logger.debug("Multiplying " + this.toString() + " with " + that.toString());
     if (!Objects.equals(this.variable, that.variable)
         && (this.variable != null) == (that.variable != null)) {
       throw new ValueNotDefinedException("Cannot multiply Term with different variables");
@@ -119,6 +128,7 @@ public class Term implements FunctionElementComponent {
    * @throws ValueNotDefinedException if the Terms do not have the same variable
    */
   public Term divide(Term that) throws ValueNotDefinedException {
+    logger.debug("Dividing " + this.toString() + " from " + that.toString());
     if (this.variable == null && that.variable == null) {
       return new Term(this.value / that.value);
     } else if (this.variable != null && that.variable != null) {
@@ -143,6 +153,7 @@ public class Term implements FunctionElementComponent {
    * @return a copy of the Term
    */
   public Term copy() {
+    logger.debug("Copying " + this.toString());
     if (this.exponent != null) {
       return new Term(this.exponent.copy(), this.factor, this.variable);
     } else if (this.variable != null) {
@@ -154,6 +165,7 @@ public class Term implements FunctionElementComponent {
 
   @Override
   public void simplify() {
+    logger.debug("Simplifying + " + this.toString());
     if (exponent != null) {
       exponent.simplify();
     }
@@ -167,6 +179,7 @@ public class Term implements FunctionElementComponent {
   }
 
   private boolean exponentHasVariable() {
+    logger.debug("Checking if " + this.toString() + " has Exponent");
     boolean variableInExponent = false;
     Term temp = this.copy();
     while (temp.exponent != null) {
@@ -185,6 +198,7 @@ public class Term implements FunctionElementComponent {
    */
   @Override
   public Term getDerivative() {
+    logger.debug("Calculating derivative for " + this.toString());
     if (variable == null) {
       return null;
     } else {
@@ -267,6 +281,8 @@ public class Term implements FunctionElementComponent {
    * @return {@code true} if both variable and exponents are equal {@code false} if not
    */
   public boolean structurallyEqual(Term that) {
+    logger.debug("Checking if " + this.toString() + " and "
+            + that.toString() + " are structurally equal");
     if (this.variable != null && that.variable != null) {
       return this.variable.equals(that.variable) && this.exponent.equals(that.exponent);
     } else if (this.variable == null && that.variable == null) {
@@ -277,11 +293,12 @@ public class Term implements FunctionElementComponent {
   }
 
   /**
-   * Returns the value of a Term for certain x Value
+   * Returns the value of a Term for certain x Value.
    * @param x Value to be put into x variable
    * @return Result of the Term
    */
   public double calcTermValue(double x) {
+    logger.debug("Calculaing the Value of " + this.toString() + " for " + x);
     if (this.getVariable() == null) {
       return this.getValue();
     } else {
