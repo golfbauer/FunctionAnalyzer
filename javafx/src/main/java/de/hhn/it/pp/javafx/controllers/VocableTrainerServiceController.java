@@ -1,12 +1,13 @@
 package de.hhn.it.pp.javafx.controllers;
 
+import de.hhn.it.pp.components.vocabletrainer.LearningState;
 import de.hhn.it.pp.components.vocabletrainer.Vocable;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyException;
-import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -41,17 +42,29 @@ public class VocableTrainerServiceController extends Controller implements Initi
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    List<Vocable> test2 = new ArrayList<>();
+    List<Vocable> carList = new ArrayList<>();
+    List<Vocable> pcList = new ArrayList<>();
     try {
-      test2.add(new Vocable("Auto",new String[]{"car"}));
+      carList.add(
+          new Vocable("Auto", new String[] {"car", "vehicle", "motorcar", "automobile", "auto"}));
+      carList.add(new Vocable("Spiegel", new String[] {"mirror", "glass", "reflector"}));
+      carList.add(new Vocable("Reifen", new String[] {"tire", "hoop", "maturation"}));
+      carList.add(new Vocable("Lenkrad", new String[] {"wheel", "steering wheel"}));
+      carList.add(new Vocable("Autositz", new String[] {"car seat", "seat"}));
+      pcList.add(new Vocable("Hauptplatine", new String[] {"motherboard"}));
+      pcList.add(new Vocable("Arbeitsspeicher", new String[] {"RAM", "Random access memory"}));
+      pcList.add(new Vocable("Batterie", new String[] {"battery"}));
+      pcList.add(new Vocable("Netzteil", new String[] {"power supply"}));
     } catch (TranslationIsEmptyException e) {
       e.printStackTrace();
     }
-    try {
-      jbVocableTrainerService.addVocCategory("test1", test2);
-    } catch (VocCategoryAlreadyExistException e) {
-      e.printStackTrace();
-    }
+    HashMap<String, List<Vocable>> testMap = new HashMap<>();
+    testMap.put("Auto", carList);
+    testMap.put("PC", pcList);
+    LearningState learningState = new LearningState();
+    learningState.setScore(0);
+    learningState.setVocabularyList(testMap);
+    jbVocableTrainerService.loadData(learningState);
   }
 
   /**
