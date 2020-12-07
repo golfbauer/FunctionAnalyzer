@@ -1,18 +1,18 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+
 
 /**
- * Represent a function as a combination of Terms
+ * Represent a function as a combination of Terms.
  */
 public class Function extends ArrayList<FunctionElement> {
 
   /**
-   * Add FunctionElements into the function
+   * Add FunctionElements into the function.
    * @param elements Contains all FunctionElements
    */
   public Function(FunctionElement... elements) {
@@ -20,7 +20,7 @@ public class Function extends ArrayList<FunctionElement> {
   }
 
   /**
-   * Calculate the Derivative of Function
+   * Calculate the Derivative of Function.
    * @return Derivative of the Function
    */
   public Function getDerivative() {
@@ -43,7 +43,7 @@ public class Function extends ArrayList<FunctionElement> {
   }
 
   /**
-   * Sets given Function equal to zero
+   * Sets given Function equal to zero.
    * @return List of x values
    */
   public List<Double> setFunctionEqualZero() {
@@ -74,7 +74,7 @@ public class Function extends ArrayList<FunctionElement> {
   }
 
   /**
-   * Sets a linear Function equal to zero
+   * Sets a linear Function equal to zero.
    * @return single x value
    */
   public double setLinearFunctionEqualZero() {
@@ -90,7 +90,7 @@ public class Function extends ArrayList<FunctionElement> {
   }
 
   /**
-   * Sets quadratic Function equal to zero
+   * Sets quadratic Function equal to zero.
    * @return List of x values, two at max
    */
   public ArrayList<Double> setSquareFunctionEqualZero() {
@@ -128,7 +128,7 @@ public class Function extends ArrayList<FunctionElement> {
 
 
   /**
-   * Uses the PQFormal to calculate x values for square Function
+   * Uses the PQFormal to calculate x values for square Function.
    * @param p p in PQFormal
    * @param q q in PQFormal
    * @return List of x values
@@ -155,6 +155,10 @@ public class Function extends ArrayList<FunctionElement> {
     }
   }
 
+  /**
+   * Simplifies a Function by converting it to a FunctionElement
+   * and simplifying that FunctionElement.
+   */
   public void simplify() throws ValueNotDefinedException {
     if (size() < 2) {
       return;
@@ -168,7 +172,7 @@ public class Function extends ArrayList<FunctionElement> {
   }
 
   /**
-   * Calculates Function value for specific x value
+   * Calculates Function value for specific x value.
    * @param x Value to replace x variable
    * @return One value
    */

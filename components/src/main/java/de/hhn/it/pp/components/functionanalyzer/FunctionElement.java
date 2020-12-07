@@ -411,7 +411,7 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   /**
-   * Gets the highest exponent as double in this FunctionElement
+   * Gets the highest exponent as double in this FunctionElement.
    *
    * @return exponent
    */
