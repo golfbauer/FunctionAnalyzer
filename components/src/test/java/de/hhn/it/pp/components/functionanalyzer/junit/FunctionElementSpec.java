@@ -104,67 +104,70 @@ public class FunctionElementSpec {
     }
   }
 
-  @Test
-  void resolveBracketFollowedByAddition() throws ValueNotDefinedException {
-    FunctionElement actual = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD,
-            new FunctionElement(Operator.ADD, new Term(new Term(2), 2, "x")),
-            new FunctionElement(Operator.ADD, new Term(new Term(1), 1, "x"))),
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 1, "x")));
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(2), 2, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")));
-    actual.simplify();
-    assertEquals(expected, actual);
+  @Nested
+  class Simplify {
+    @Test
+    void simplificationResolvesBracketFollowedByAddition() throws ValueNotDefinedException {
+      FunctionElement actual = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD,
+              new FunctionElement(Operator.ADD, new Term(new Term(2), 2, "x")),
+              new FunctionElement(Operator.ADD, new Term(new Term(1), 1, "x"))),
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 1, "x")));
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(new Term(2), 2, "x")),
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 2, "x")));
+      actual.simplify();
+      assertEquals(expected, actual);
 
-  }
+    }
 
-  @Test
-  void simplificationRemovesMultiplicationAndDivisionFromNonBracketFunctionElements()
-      throws ValueNotDefinedException {
-    FunctionElement actual = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(5)),
-        new FunctionElement(Operator.MULTIPLY,
-            new Term(new Term(1), 3, "x")));
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new Term(new Term(1), 15, "x"));
-    actual.simplify();
-    assertEquals(expected, actual, "Multiplication should be removed");
-  }
+    @Test
+    void simplificationRemovesMultiplicationAndDivisionFromNonBracketFunctionElements()
+        throws ValueNotDefinedException {
+      FunctionElement actual = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(5)),
+          new FunctionElement(Operator.MULTIPLY,
+              new Term(new Term(1), 3, "x")));
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new Term(new Term(1), 15, "x"));
+      actual.simplify();
+      assertEquals(expected, actual, "Multiplication should be removed");
+    }
 
-  @Test
-  void simplificationMergesTermsOnSameLevelWithBracketsInBetweenComponents()
-      throws ValueNotDefinedException {
-    FunctionElement actual  = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD,
-            new FunctionElement(Operator.ADD, new Term(5)),
-            new FunctionElement(Operator.ADD, new Term(7))),
-        new FunctionElement(Operator.MULTIPLY, new Term(new Term(1), 2, "x")));
+    @Test
+    void simplificationMergesTermsOnSameLevelWithBracketsInBetweenComponents()
+        throws ValueNotDefinedException {
+      FunctionElement actual  = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD,
+              new FunctionElement(Operator.ADD, new Term(5)),
+              new FunctionElement(Operator.ADD, new Term(7))),
+          new FunctionElement(Operator.MULTIPLY, new Term(new Term(1), 2, "x")));
 
-    actual.simplify();
-  }
+      actual.simplify();
+    }
 
-  @Test
-  void simplifyElementWithNestedBracket() throws ValueNotDefinedException {
-    FunctionElement actual = multipleFe;
-    multipleFe.simplify();
-  }
+    @Test
+    void simplifyElementWithNestedBracket() throws ValueNotDefinedException {
+      FunctionElement actual = multipleFe;
+      multipleFe.simplify();
+    }
 
-  @Test
-  void simplificationSumsTermsInBracket() throws ValueNotDefinedException {
-    FunctionElement actual = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 5, "x")),
-        new FunctionElement(Operator.ADD, new Term(2)),
-        new FunctionElement(Operator.ADD,
-            new FunctionElement(Operator.ADD, new Term(4)),
-            new FunctionElement(Operator.ADD, new Term(new Term(1), 3, "x")),
-            new FunctionElement(Operator.ADD, new Term(2)),
-            new FunctionElement(Operator.MULTIPLY, new Term(2))));
+    @Test
+    void simplificationSumsTermsInBracket() throws ValueNotDefinedException {
+      FunctionElement actual = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 5, "x")),
+          new FunctionElement(Operator.ADD, new Term(2)),
+          new FunctionElement(Operator.ADD,
+              new FunctionElement(Operator.ADD, new Term(4)),
+              new FunctionElement(Operator.ADD, new Term(new Term(1), 3, "x")),
+              new FunctionElement(Operator.ADD, new Term(2)),
+              new FunctionElement(Operator.MULTIPLY, new Term(2))));
 
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 8, "x")),
-        new FunctionElement(Operator.ADD, new Term(10)));
-    actual.simplify();
-    assertEquals(expected, actual, "Elements should be summed");
+      FunctionElement expected = new FunctionElement(Operator.ADD,
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 8, "x")),
+          new FunctionElement(Operator.ADD, new Term(10)));
+      actual.simplify();
+      assertEquals(expected, actual, "Elements should be summed");
+    }
   }
 }
