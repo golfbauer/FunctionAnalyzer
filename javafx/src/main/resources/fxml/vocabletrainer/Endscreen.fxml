@@ -31,17 +31,17 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <Label fx:id="endScore" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score:">
+        <Label fx:id="endScore" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score: Error">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label fx:id="displayCorrectWords" layoutX="160.0" layoutY="170.0" prefHeight="25.0" prefWidth="160.0" text="Correct words:">
+        <Label fx:id="displayCorrectWords" layoutX="160.0" layoutY="170.0" prefHeight="25.0" prefWidth="160.0" text="Correct words: Error">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label fx:id="displayWrongWords" layoutX="160.0" layoutY="200.0" prefHeight="25.0" prefWidth="160.0" text="Incorrect words:">
+        <Label fx:id="displayWrongWords" layoutX="160.0" layoutY="200.0" prefHeight="25.0" prefWidth="267.0" text="Incorrect words: Error">
             <font>
                 <Font size="16.0" />
             </font>

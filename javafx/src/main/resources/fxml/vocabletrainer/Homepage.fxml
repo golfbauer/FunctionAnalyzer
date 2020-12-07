@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="HomepagePane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0" prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.HomepageController">
     <children>
@@ -64,7 +60,7 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <Label fx:id="scoreButton" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score:">
+        <Label fx:id="scoreButton" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score: Error">
             <font>
                 <Font size="16.0" />
             </font>

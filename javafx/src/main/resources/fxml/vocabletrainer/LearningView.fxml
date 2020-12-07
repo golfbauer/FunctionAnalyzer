@@ -11,7 +11,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label fx:id="learningWordLabel" layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="491.0" text="What means &quot;example&quot;?">
+        <Label fx:id="learningWordLabel" layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="491.0" text="There is no word to learn!">
             <font>
                 <Font size="16.0" />
             </font>
@@ -31,7 +31,7 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <Label fx:id="scoreLabel" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score:">
+        <Label fx:id="scoreLabel" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score: Error">
             <font>
                 <Font size="16.0" />
             </font>
@@ -42,12 +42,12 @@
             </font>
         </Label>
         <TextField fx:id="textFieldInput" layoutX="37.0" layoutY="156.0" prefHeight="30.0" prefWidth="550.0" />
-        <Label fx:id="successFail" layoutX="37.0" layoutY="202.0" prefHeight="25.0" prefWidth="550.0" text="You made a spelling mistake!">
+        <Label fx:id="successFail" layoutX="37.0" layoutY="202.0" prefHeight="25.0" prefWidth="550.0" text="Please cancel!">
             <font>
                 <Font size="16.0" />
             </font>
         </Label>
-        <Label fx:id="displayCorrectWord" layoutX="37.0" layoutY="235.0" prefHeight="25.0" prefWidth="550.0" text=" The correct word is: ">
+        <Label fx:id="displayCorrectWord" layoutX="37.0" layoutY="235.0" prefHeight="25.0" prefWidth="550.0" text=":(">
             <font>
                 <Font size="16.0" />
             </font>
