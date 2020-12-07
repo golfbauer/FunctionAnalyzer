@@ -105,14 +105,6 @@ public class FunctionElementSpec {
   }
 
   @Test
-  void removeBracketsDoesNotRemoveNecessaryBrackets() {
-    FunctionElement actual = multiple;
-    FunctionElement expected = multiple;
-    actual.removeBrackets();
-    assertEquals(expected, actual);
-  }
-
-  @Test
   void resolveBracketFollowedByAddition() throws ValueNotDefinedException {
     FunctionElement actual = new FunctionElement(Operator.ADD,
         new FunctionElement(Operator.ADD,
@@ -174,67 +166,5 @@ public class FunctionElementSpec {
         new FunctionElement(Operator.ADD, new Term(10)));
     actual.simplify();
     assertEquals(expected, actual, "Elements should be summed");
-  }
-
-  @Test
-  void multiplyNormalTerms() throws ValueNotDefinedException {
-    FunctionElement actual = normal.multiply(normal);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new Term(new Term(4), 25, "x"));
-    assertEquals(expected, actual, "Elements should have been multiplied");
-  }
-
-  @Test
-  void multiplyNormalTermWithBracket() throws ValueNotDefinedException {
-    FunctionElement actual = normal.multiply(multiple);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(4), -15, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(3), 25, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(2), -35, "x")));
-    assertEquals(expected, actual, "Elements should have been multiplied");
-  }
-
-  @Test
-  void multiplyBracketWithBracket() throws ValueNotDefinedException {
-    FunctionElement actual = multiple.multiply(multiple);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(new Term(4), 9, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(3), -30, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(2), 67, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(1), -70, "x")),
-        new FunctionElement(Operator.ADD, new Term(49)));
-    assertEquals(expected, actual, "Elements should have been multiplied");
-  }
-
-  @Test
-  void multiplyNormalWithNestedBracket() throws ValueNotDefinedException {
-    FunctionElement actual = normal.multiply(multipleFe);
-    FunctionElement expected;
-  }
-
-  @Test
-  void divideNormalTerms() throws ValueNotDefinedException {
-    FunctionElement actual = normal.divide(normal);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new Term(1));
-    assertEquals(expected, actual, "Elements should have been divided");
-  }
-
-  @Test
-  void divideNormalTermWithBracket() throws ValueNotDefinedException {
-    FunctionElement actual = normal.divide(multiple);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new FunctionElement(Operator.ADD, new Term(-5.0 / 3)),
-        new FunctionElement(Operator.ADD, new Term(new Term(1), 1, "x")),
-        new FunctionElement(Operator.ADD, new Term(new Term(2), -5.0 / 7, "x")));
-    assertEquals(expected, actual, "Elements should have been divided");
-  }
-
-  @Test
-  void divideBracketWithBracket() throws ValueNotDefinedException {
-    FunctionElement actual = multiple.divide(multiple);
-    FunctionElement expected = new FunctionElement(Operator.ADD,
-        new Term(1));
-    assertEquals(expected, actual, "Elements should have been divided");
   }
 }
