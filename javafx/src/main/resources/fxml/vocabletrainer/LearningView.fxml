@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="LearningViewPane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0" prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.LearningViewController">
+    <children>
+        <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="learningWordLabel" layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="491.0" text="There is no word to learn!">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Button fx:id="skipButton" layoutX="519.0" layoutY="600.0" mnemonicParsing="false" onAction="#skipVocable" prefHeight="27.0" prefWidth="100.0" text="Skip">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button fx:id="okButton" layoutX="639.0" layoutY="600.0" mnemonicParsing="false" onAction="#checkVocable" prefHeight="27.0" prefWidth="100.0" text="OK">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button layoutX="759.0" layoutY="600.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0" prefWidth="100.0" text="Cancel">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Label fx:id="scoreLabel" layoutX="628.0" layoutY="44.0" prefHeight="37.0" prefWidth="233.0" text="Score: Error">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="37.0" layoutY="131.0" prefHeight="17.0" prefWidth="157.0" text="Vocable:">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <TextField fx:id="textFieldInput" layoutX="37.0" layoutY="156.0" prefHeight="30.0" prefWidth="550.0" />
+        <Label fx:id="successFail" layoutX="37.0" layoutY="202.0" prefHeight="25.0" prefWidth="550.0" text="Please cancel!">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label fx:id="displayCorrectWord" layoutX="37.0" layoutY="235.0" prefHeight="25.0" prefWidth="550.0" text=":(">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
