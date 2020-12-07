@@ -1,12 +1,13 @@
 package de.hhn.it.pp.components.functionanalyzer;
 
+import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
+
 
 
 public class FunctionElement implements FunctionElementComponent {
@@ -41,7 +42,8 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   /**
-   * Creates FunctionElement without being forced to enter a Term
+   * Creates FunctionElement without being forced to enter a Term.
+   *
    * @param operator = its operator
    */
   public FunctionElement(Operator operator) {
@@ -49,6 +51,13 @@ public class FunctionElement implements FunctionElementComponent {
     this.operator = operator;
   }
 
+  /**
+   * Sums all FunctionElements in a List of FunctionElements.
+   *
+   * @param functionElements List of FunctionElements that are to be summed
+   * @return FunctionElement that contains the sum of all Elements that were entered with the
+   *         Operator Operator.ADD
+   */
   private static FunctionElement sum(List<FunctionElement> functionElements) {
     logger.debug("Summing: " + functionElements.toString());
     List<FunctionElement> sums = new ArrayList<>();
@@ -80,7 +89,15 @@ public class FunctionElement implements FunctionElementComponent {
     return new FunctionElement(Operator.ADD, sums);
   }
 
-  public FunctionElement add(FunctionElement that) throws ValueNotDefinedException {
+  /**
+   * Adds two FunctionElements by taking all FunctionElements contained in their components
+   * and summing them using {@link #sum}.
+   *
+   * @param that The function Element that is to be added.
+   * @return the result of the Addition
+   * @throws ValueNotDefinedException
+   */
+  private FunctionElement add(FunctionElement that) throws ValueNotDefinedException {
     if (that.isBracket()) {
       that.resolveBrackets();
     }
@@ -100,7 +117,14 @@ public class FunctionElement implements FunctionElementComponent {
     return result;
   }
 
-  public FunctionElement multiply(FunctionElement that) throws ValueNotDefinedException {
+  /**
+   * Multiplies two Function Elements.
+   *
+   * @param that The FunctionElement that the current element will be multiplied by
+   * @return FunctionElement containing the result of the multiplication with the Operator
+   *         from the object this method is being called on
+   */
+  private FunctionElement multiply(FunctionElement that) throws ValueNotDefinedException {
     logger.debug("Multiplying " + this.toString() + " with " + that.toString());
     FunctionElement result = new FunctionElement(this.operator);
     if (that.isBracket()) {
@@ -131,7 +155,14 @@ public class FunctionElement implements FunctionElementComponent {
     return result;
   }
 
-  public FunctionElement divide(FunctionElement that) throws ValueNotDefinedException {
+  /**
+   * Divides two Function Elements.
+   *
+   * @param that The FunctionElement that the current element will be divided by
+   * @return FunctionElement containing the result of the division with the Operator
+   *         from the object this method is being called on.
+   */
+  private FunctionElement divide(FunctionElement that) throws ValueNotDefinedException {
     logger.debug("Dividing " + this.toString() + " from " + that.toString());
     if (this.equals(that)) {
       return new FunctionElement(this.operator, new Term(1));
@@ -186,6 +217,18 @@ public class FunctionElement implements FunctionElementComponent {
     return builder.toString();
   }
 
+  /**
+   * Attempts to simplify a FunctionElement.
+   * A FunctionElement is considered simple if it meets the following conditions:
+   * {@code if} The FunctionElement only contains a single Term, that Term is not nested in other
+   * FunctionElements
+   * {@code if} The FunctionElement contains more than one Term:
+   * - all FunctionElements are contained directly in the components of the highest
+   * level FunctionElement(no nested FunctionElements)
+   * - there are only FunctionElements with the Operator {@link Operator#ADD}
+   * - all Terms of the same degree are summed into a single Term
+   * - the Terms are sorted by the highest degree descending
+   */
   @Override
   public void simplify() throws ValueNotDefinedException {
     logger.debug("Simplifying " + this.toString());
@@ -204,7 +247,6 @@ public class FunctionElement implements FunctionElementComponent {
         FunctionElement previous = simplificationCandidates.get(i - 1);
         FunctionElement candidate = simplificationCandidates.get(i);
         int replacementIndex = components.indexOf(previous);
-        ;
         FunctionElement replacement;
 
         switch (candidate.getOperator()) {
@@ -256,6 +298,11 @@ public class FunctionElement implements FunctionElementComponent {
     }
   }
 
+  /**
+   * Checks if a FunctionElement is a Bracket (contains one or more FunctionElements).
+   * @return {@code true} if the FunctionElement contains other FunctionElements
+   *         {@code false} if it only contains a Term
+   */
   private boolean isBracket() {
     logger.debug("Checks if " + this.toString() + " is a bracket");
     if (components.size() < 2 && components.get(0) instanceof Term) {
@@ -267,6 +314,10 @@ public class FunctionElement implements FunctionElementComponent {
     return components.get(0) instanceof FunctionElement;
   }
 
+
+  /**
+   * Resolves bracket inside a FunctionElement.
+   */
   public void resolveBrackets() throws ValueNotDefinedException {
     logger.debug("Resolving internal brackets for " + this.toString());
     if (components.size() < 2) {
@@ -353,7 +404,11 @@ public class FunctionElement implements FunctionElementComponent {
 
   }
 
-  public void removeBrackets() {
+
+  /**
+   * Removes unnecessary Brackets from a FunctionElement.
+   */
+  private void removeBrackets() {
     logger.debug("Removing unnecessary brackets from " + this.toString());
     if (isBracket()) {
       if (components.get(0) instanceof FunctionElement) {
@@ -398,6 +453,7 @@ public class FunctionElement implements FunctionElementComponent {
 
   /**
    * Gets the highest exponent as double in this FunctionElement
+   *
    * @return exponent
    */
   public double getMaxExponent() {
@@ -421,7 +477,10 @@ public class FunctionElement implements FunctionElementComponent {
     return result;
   }
 
-  void sortByHighestExponent() {
+  /**
+   * Sorts FunctionElements inside a FunctionElement by their highest exponent in descending order.
+   */
+  private void sortByHighestExponent() {
     logger.debug("Sorting " + this.toString() + " by Exponent size");
     if (components.size() > 1) {
       final List<FunctionElement> componentList = new ArrayList<>();
@@ -469,7 +528,8 @@ public class FunctionElement implements FunctionElementComponent {
   }
 
   /**
-   * Calculates value for the entire FunctionElement with specific x
+   * Calculates value for the entire FunctionElement with specific x.
+   *
    * @param x to be put into variable x
    * @return result of FunctionElement
    */
