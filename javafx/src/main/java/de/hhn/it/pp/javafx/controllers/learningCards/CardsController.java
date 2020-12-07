@@ -210,24 +210,52 @@ public class CardsController implements Initializable {
 
         switch (delButton.getId()) {
             case "del1":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB1).getId());
+                if(cardsCreated >= 1)
+                    Data.mlcs.deleteCard(Integer.parseInt(b1.getId()));
                 break;
             case "del2":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB2).getId());
+                if(cardsCreated >= 2)
+                    Data.mlcs.deleteCard(Integer.parseInt(b2.getId()));
                 break;
             case "del3":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB3).getId());
+                if(cardsCreated >= 3)
+                    Data.mlcs.deleteCard(Integer.parseInt(b3.getId()));
                 break;
             case "del4":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB4).getId());
+                if(cardsCreated >= 4)
+                    Data.mlcs.deleteCard(Integer.parseInt(b4.getId()));
                 break;
             case "del5":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB5).getId());
+                if(cardsCreated >= 5)
+                    Data.mlcs.deleteCard(Integer.parseInt(b5.getId()));
                 break;
             case "del6":
-                Data.mlcs.deleteCard(Data.mlcs.getCards().get(valB6).getId());
+                if(cardsCreated >= 6)
+                    Data.mlcs.deleteCard(Integer.parseInt(b6.getId()));
                 break;
         }
+
+        cardsCreated = Data.mlcs.getNumberOfCards();
+
+
+        if(cardsCreated == 0){
+            refreshButton();
+            return;
+        }
+
+        if(valB1>0)
+            valB1 = valB1 % cardsCreated;
+        if (valB2 <= cardsCreated)
+            valB2 = (valB1 + 1 ) % cardsCreated;
+        if(valB3 <= cardsCreated)
+            valB3 = (valB1 + 2 ) % cardsCreated;
+        if(valB4 <= cardsCreated)
+            valB4 = (valB1 + 3 ) % cardsCreated;
+        if(valB5 <= cardsCreated)
+            valB5 = (valB1 + 4 ) % cardsCreated;
+        if(valB6 <= cardsCreated)
+            valB6 = (valB1 + 5 ) % cardsCreated;
+
 
         refreshButton();
 
@@ -254,51 +282,51 @@ public class CardsController implements Initializable {
      * changes text of the buttons b1-b6.
      */
     private void refreshButton() {
-        if (Data.mlcs.getNumberOfCards() > 0) {
-            if (Data.mlcs.getCards().size() >= 1) {
-                b1.setText(Data.mlcs.getCards().get(valB1).getHeadline());
-                b1.setId(Integer.toString(Data.mlcs.getCards().get(valB1).getId()));
-            }
-            if (Data.mlcs.getCards().size() >= 2) {
-                b2.setText(Data.mlcs.getCards().get(valB2).getHeadline());
-                b2.setId(Integer.toString(Data.mlcs.getCards().get(valB2).getId()));
-            } else {
-                b2.setText("empty");
-                return;
-            }
-            if (Data.mlcs.getCards().size() >= 3) {
-                b3.setText(Data.mlcs.getCards().get(valB3).getHeadline());
-                b3.setId(Integer.toString(Data.mlcs.getCards().get(valB3).getId()));
-            } else {
-                b3.setText("empty");
-                return;
-            }
-            if (Data.mlcs.getCards().size() >= 4) {
-                b4.setText(Data.mlcs.getCards().get(valB4).getHeadline());
-                b4.setId(Integer.toString(Data.mlcs.getCards().get(valB4).getId()));
-            } else {
-                b4.setText("empty");
-                return;
-            }
-            if (Data.mlcs.getCards().size() >= 5) {
-                b5.setText(Data.mlcs.getCards().get(valB5).getHeadline());
-                b5.setId(Integer.toString(Data.mlcs.getCards().get(valB5).getId()));
-            } else {
-                b5.setText("empty");
-                return;
-            }
-            if (Data.mlcs.getCards().size() >= 6) {
-                b6.setText(Data.mlcs.getCards().get(valB6).getHeadline());
-                b6.setId(Integer.toString(Data.mlcs.getCards().get(valB6).getId()));
-            } else {
-                b6.setText("empty");
-                return;
-            }
+        if (Data.mlcs.getCards().size() >= 1 ) {
+            b1.setText(Data.mlcs.getCards().get(valB1).getHeadline());
+            b1.setId(Integer.toString(Data.mlcs.getCards().get(valB1).getId()));
         } else {
             b1.setText("empty");
-
-
+            return;
         }
+        if (Data.mlcs.getCards().size() >= 2 ) {
+            b2.setText(Data.mlcs.getCards().get(valB2).getHeadline());
+            b2.setId(Integer.toString(Data.mlcs.getCards().get(valB2).getId()));
+        } else {
+            b2.setText("empty");
+            return;
+        }
+        if (Data.mlcs.getCards().size() >= 3 ) {
+            b3.setText(Data.mlcs.getCards().get(valB3).getHeadline());
+            b3.setId(Integer.toString(Data.mlcs.getCards().get(valB3).getId()));
+        } else {
+            b3.setText("empty");
+            return;
+        }
+        if (Data.mlcs.getCards().size() >= 4 ) {
+            b4.setText(Data.mlcs.getCards().get(valB4).getHeadline());
+            b4.setId(Integer.toString(Data.mlcs.getCards().get(valB4).getId()));
+        } else {
+            b4.setText("empty");
+            return;
+        }
+        if (Data.mlcs.getCards().size() >= 5 ) {
+            b5.setText(Data.mlcs.getCards().get(valB5).getHeadline());
+            b5.setId(Integer.toString(Data.mlcs.getCards().get(valB5).getId()));
+        } else {
+            b5.setText("empty");
+            return;
+        }
+
+        if (Data.mlcs.getCards().size() >= 6 ) {
+            b6.setText(Data.mlcs.getCards().get(valB6).getHeadline());
+            b6.setId(Integer.toString(Data.mlcs.getCards().get(valB6).getId()));
+        } else {
+            b6.setText("empty");
+            return;
+        }
+
+
 
 
     }
