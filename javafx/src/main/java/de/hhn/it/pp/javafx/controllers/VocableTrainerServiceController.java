@@ -56,7 +56,7 @@ public class VocableTrainerServiceController extends Controller implements Initi
       pcList.add(new Vocable("Batterie", new String[] {"battery"}));
       pcList.add(new Vocable("Netzteil", new String[] {"power supply"}));
     } catch (TranslationIsEmptyException e) {
-      e.printStackTrace();
+      logger.info("initialize: throws {}", "" + e);
     }
     HashMap<String, List<Vocable>> testMap = new HashMap<>();
     testMap.put("Auto", carList);
@@ -80,6 +80,7 @@ public class VocableTrainerServiceController extends Controller implements Initi
   }
 
   public void startVocableTrainer(ActionEvent event) throws IOException {
+    logger.debug("Start button is pressed.");
     loadPane(event);
     setScenePane("/vocabletrainer/Homepage");
   }

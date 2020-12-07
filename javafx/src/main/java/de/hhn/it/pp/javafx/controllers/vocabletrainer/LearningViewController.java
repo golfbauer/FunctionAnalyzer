@@ -58,7 +58,7 @@ public class LearningViewController implements Initializable {
     try {
       categorySize = jbVocableTrainerService.getVocabulary(cateSaver).size();
     } catch (VocCategoryNotFoundException e) {
-      e.printStackTrace();
+      logger.info("isAtEndOfLearning: throws {}", "" + e);
     }
     if (vocPosInCategory >= categorySize) {
       // End of category - Set vocPosInCategory to 0
@@ -70,14 +70,17 @@ public class LearningViewController implements Initializable {
   }
 
   public void skipVocable(ActionEvent event) throws IOException {
+    logger.debug("Skip button is pressed.");
     // Get vocable
     Vocable vocable = null;
     try {
       vocable = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver);
     } catch (VocCategoryNotFoundException e) {
+      logger.info("skipVocable: throws {}", "" + e);
       vocCategoryNotFoundAlert();
       return;
     } catch (VocableNotFoundException e) {
+      logger.info("skipVocable: throws {}", "" + e);
       vocableNotFoundAlert();
       return;
     }
@@ -90,6 +93,7 @@ public class LearningViewController implements Initializable {
   }
 
   public void checkVocable(ActionEvent event) throws IOException {
+    logger.debug("ok button is pressed.");
     if (notificationState) {
       if (isAtEndOfLearning()) {
         loadScene(event, "/vocabletrainer/Endscreen");
@@ -103,9 +107,11 @@ public class LearningViewController implements Initializable {
     try {
       vocable = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver);
     } catch (VocCategoryNotFoundException e) {
+      logger.info("checkVocable: throws {}", "" + e);
       vocCategoryNotFoundAlert();
       return;
     } catch (VocableNotFoundException e) {
+      logger.info("checkVocable: throws {}", "" + e);
       vocableNotFoundAlert();
       return;
     }
@@ -117,9 +123,11 @@ public class LearningViewController implements Initializable {
       isCorrect = jbVocableTrainerService
           .checkVocable(wordToCompare, vocPosInCategory, cateSaver, levenshtein);
     } catch (VocCategoryNotFoundException e) {
+      logger.info("checkVocable: throws {}", "" + e);
       vocCategoryNotFoundAlert();
       return;
     } catch (VocableNotFoundException e) {
+      logger.info("checkVocable: throws {}", "" + e);
       vocableNotFoundAlert();
       return;
     }
@@ -138,10 +146,12 @@ public class LearningViewController implements Initializable {
   }
 
   public void cancel(ActionEvent event) throws IOException {
+    logger.debug("Skip button is pressed.");
     if (jbVocableTrainerService.getVocCategories().contains("SkippedAndFailed")) {
       try {
         jbVocableTrainerService.removeVocCategory("SkippedAndFailed");
       } catch (VocCategoryNotFoundException e) {
+        logger.info("cancel: throws {}", "" + e);
         e.printStackTrace();
       }
     }
@@ -152,6 +162,7 @@ public class LearningViewController implements Initializable {
   }
 
   private void vocableNotFoundAlert() {
+    logger.debug("vocableNotFoundAlert");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Vocable not found");
@@ -160,6 +171,7 @@ public class LearningViewController implements Initializable {
   }
 
   private void vocCategoryNotFoundAlert() {
+    logger.debug("vocCategoryNotFoundAlert");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("Category not found");
@@ -168,6 +180,7 @@ public class LearningViewController implements Initializable {
   }
 
   private void endOfListAlert() {
+    logger.debug("EndOfListAlert");
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle("Warning Dialog");
     alert.setHeaderText("End of List reached");
@@ -225,12 +238,15 @@ public class LearningViewController implements Initializable {
     try {
       learnWord = jbVocableTrainerService.getVocable(vocPosInCategory, cateSaver).getLearningWord();
     } catch (IndexOutOfBoundsException e) {
+      logger.info("initialize: throws {}", "" + e);
       endOfListAlert();
       return;
     } catch (VocCategoryNotFoundException e) {
+      logger.info("initialize: throws {}", "" + e);
       vocCategoryNotFoundAlert();
       return;
     } catch (VocableNotFoundException e) {
+      logger.info("initialize: throws {}", "" + e);
       vocableNotFoundAlert();
       return;
     }
