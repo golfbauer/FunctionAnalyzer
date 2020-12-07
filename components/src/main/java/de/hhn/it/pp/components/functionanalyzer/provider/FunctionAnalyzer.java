@@ -11,8 +11,12 @@ import java.util.List;
 
 public class FunctionAnalyzer implements FunctionAnalyserService {
 
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(FunctionAnalyzer.class);
+
   @Override
   public Function readFunction(String input) throws IllegalArgumentException {
+    logger.debug("Translating input: " + input + " into a Function");
     Function result = new Function();
     input = input.replaceAll("\\s", "");
     ArrayList<String> functionString = getFunctionElementAsString(input, '+');
@@ -47,6 +51,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
   @Override
   public List<Double> calculateMinima(Function f) throws ValueNotDefinedException {
+    logger.debug("Calculating the minima for function " + f.toString());
     List<Double> result = new ArrayList<>();
     List<Double> temp;
     temp = f.getDerivative().setFunctionEqualZero();
@@ -64,6 +69,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
   @Override
   public List<Double> calculateMaxima(Function f) throws ValueNotDefinedException {
+    logger.debug("Calculating the maxima for function " + f.toString());
     List<Double> result = new ArrayList<>();
     List<Double> temp;
     temp = f.getDerivative().setFunctionEqualZero();
@@ -81,23 +87,27 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
   @Override
   public List<Double> calculateXIntersection(Function f) throws ValueNotDefinedException {
+    logger.debug("Calculating the intersection with X Axis for function: " + f.toString());
     return f.setFunctionEqualZero();
   }
 
   @Override
   public double calculateYIntersection(Function f) throws ValueNotDefinedException {
+    logger.debug("Calculating the intersection with Y Axis for function: " + f.toString());
     return f.calcFunctionValue(0);
   }
 
   @Override
   public double calculateFunctionValue(Function f, double functionParameter)
       throws ValueNotDefinedException {
+    logger.debug("Calculating the Y Value for a specific X Value for Function: " + f.toString());
     return f.calcFunctionValue(functionParameter);
   }
 
   @Override
   public List<Double> calculatePointIntersection(Function f, double functionValue)
       throws ValueNotDefinedException {
+    logger.debug("Calculating the X Value for a specific Y Value for Function: " + f.toString());
     List<Double> result;
     FunctionElement functionElement = f.get(f.size() - 1);
     Term smallestValue = (Term) functionElement.getComponents()
@@ -127,6 +137,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
    * @return Returns a single FunctionElement which contains more FunctionElements
    */
   public FunctionElement getFunctionElementBracket(ArrayList<String> input, char operator) {
+    logger.debug("Converting a bracket from String: " + input + " into a FunctionElement");
     FunctionElement functionElement = new FunctionElement(Operator.operatorFromSymbol(operator));
     ArrayList<String> temporary = new ArrayList<>();
     for (int i = 0; i < input.size(); i++) {
@@ -166,6 +177,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
    * @return A ArrayList of Strings separated into FunctionElements
    */
   public ArrayList<String> getFunctionElementAsString(String input, char operator) {
+    logger.debug("Converting the String: " + input + " into a FunctionElement");
     ArrayList<String> terms = new ArrayList<>();
     ArrayList<String> temporary = new ArrayList<>();
     terms.add(String.valueOf(operator));
@@ -246,6 +258,7 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
    * @return Term out of String
    */
   public Term getTermFromString(String input) {
+    logger.debug("Converting the String: " + input + " into a Term");
     String buffer = "";
     double factor = 1;
     double exponent = 1;
