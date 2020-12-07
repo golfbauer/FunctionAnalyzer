@@ -37,12 +37,13 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
             temporary.add(functionString.get(j));
             if (check == 0) {
               result.add(getFunctionElementBracket(temporary, functionString.get(i - 1).charAt(0)));
+              temporary.clear();
             }
           }
           i = j;
         } else {
           result.add(new FunctionElement(Operator.operatorFromSymbol(
-              functionString.get(0).charAt(0)), getTermFromString(functionString.get(i))));
+              functionString.get(i).charAt(0)), getTermFromString(functionString.get(i))));
         }
       }
     }
@@ -164,10 +165,11 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
                   getFunctionElementBracket(temporary, input.get(i - 1).charAt(0)));
             }
           }
-          i = j + 1;
+          i = j;
         } else {
           functionElement.addFunctionElementComponent(
-              new FunctionElement(Operator.ADD, getTermFromString(input.get(i))));
+              new FunctionElement(Operator.operatorFromSymbol(input.get(i).charAt(0)),
+                      getTermFromString(input.get(i))));
         }
       }
     }
@@ -182,33 +184,34 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
    * @return A ArrayList of Strings separated into FunctionElements
    */
   public ArrayList<String> getFunctionElementAsString(String input, char operator) {
-    logger.debug("Converting the String: " + input + " into a FunctionElement");
-    ArrayList<String> terms = new ArrayList<>();
-    ArrayList<String> temporary = new ArrayList<>();
-    terms.add(String.valueOf(operator));
     String buffer = "";
+    ArrayList<String> result = new ArrayList<>();
+    result.add(String.valueOf(operator));
+    ArrayList<String> temporary = new ArrayList<>();
 
     for (int i = 0; i < input.length(); i++) {
-      if (i > 0 && !buffer.equals("")) {
-        if ((input.charAt(i) == '+' || input.charAt(i) == '-') && (input.charAt(i - 1) != '*'
-            && input.charAt(i - 1) != '/' && input.charAt(i - 1) != '^')) {
-          if (buffer.charAt(0) != '+' && buffer.charAt(0) != '-' && buffer.charAt(0) != '*'
-              && buffer.charAt(0) != '/') {
-            buffer = "+" + buffer;
-          }
-          terms.add(buffer);
+      if (i > 0 && (input.charAt(i) == '+' || input.charAt(i) == '-') && !buffer.equals("")) {
+        if (input.charAt(i - 1) != '*' && input.charAt(i - 1) != '/' && input.charAt(i - 1) != '^') {
+          buffer = checkForOperator(buffer);
+          result.add(buffer);
           buffer = "";
-          if (!(temporary.isEmpty())) {
-            buffer = terms.get(terms.size() - 1);
-            buffer = buffer.substring(0, buffer.length() - 1);
-            terms.remove(terms.size() - 1);
-            terms.add(buffer);
-            buffer = "";
-            temporary.add(1, "(");
-            terms.addAll(temporary);
-            terms.add(")");
-            temporary.clear();
+        }
+      }
+      if ((input.charAt(i) == '*' || input.charAt(i) == '/') && !buffer.equals("") && buffer.contains("x")
+              && input.charAt(i + 1) != '(') {
+        boolean check = false;
+        for (int j = i + 1; j < input.length(); j++) {
+          if (input.charAt(j) == '+' || input.charAt(j) == '-') {
+            break;
+          } else if (input.charAt(j) == '*' || input.charAt(j) == '/') {
+            check = true;
+            break;
           }
+        }
+        if (check) {
+          buffer = checkForOperator(buffer);
+          result.add(buffer);
+          buffer = "";
         }
       }
       if (input.charAt(i) == '(') {
@@ -228,33 +231,39 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
           }
           innerTerm += input.charAt(j);
           if (check == 0) {
-            input = input.substring(0, i - 1) + input.substring(j + 2);
             temporary = getFunctionElementAsString(innerTerm, op);
-            i = i - 2;
+            i = j + 1;
             break;
           }
         }
+        if (buffer.length() > 1) {
+          buffer = checkForOperator(buffer);
+          buffer = buffer.substring(0,buffer.length() - 1);
+          result.add(buffer);
+        }
+        buffer = "";
+        temporary.add(1, "(");
+        result.addAll(temporary);
+        result.add(")");
+        temporary.clear();
       } else {
         buffer += input.charAt(i);
       }
-      if (i == input.length() - 1 && !buffer.equals("")) {
-        terms.add(buffer);
-        buffer = "";
 
-        if (!(temporary.isEmpty())) {
-          buffer = terms.get(terms.size() - 1);
-          buffer = buffer.substring(0, buffer.length() - 1);
-          terms.remove(terms.size() - 1);
-          terms.add(buffer);
-          buffer = "";
-          temporary.add(1, "(");
-          terms.addAll(temporary);
-          terms.add(")");
-          temporary.clear();
-        }
+      if (i == input.length() - 1 && !buffer.equals("")) {
+        buffer = checkForOperator(buffer);
+        result.add(buffer);
+        buffer = "";
       }
     }
-    return terms;
+    return result;
+  }
+
+  public String checkForOperator(String input) {
+    if (input.charAt(0) != '+' && input.charAt(0) != '*' && input.charAt(0) != '/') {
+      input = "+" + input;
+    }
+    return input;
   }
 
   /**
@@ -263,6 +272,10 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
    * @return Term out of String
    */
   public Term getTermFromString(String input) {
+    input = input.replaceAll("\\s", "");
+    if (input.charAt(0) != '-') {
+      input = input.substring(1);
+    }
     logger.debug("Converting the String: " + input + " into a Term");
     String buffer = "";
     double factor = 1;
@@ -325,13 +338,16 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
             if (nums.get(i - 1).equals("*")) {
               factor = factor * Math.pow(Double.parseDouble(buffer1),
                   Double.parseDouble(buffer));
+              buffer  = "";
             } else {
               factor = (1) * factor / Math.pow(Double.parseDouble(buffer1),
                   Double.parseDouble(buffer));
+              buffer = "";
             }
           } else {
             factor = Math.pow(Double.parseDouble(buffer1),
                 Double.parseDouble(buffer));
+            buffer = "";
           }
         } else {
           if (i > 0) {
