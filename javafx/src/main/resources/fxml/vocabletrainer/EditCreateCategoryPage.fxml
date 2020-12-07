@@ -20,7 +20,7 @@
                 <Font size="16.0"/>
             </font>
         </Label>
-        <Button layoutX="626.0" layoutY="598.0" mnemonicParsing="false" onAction="#saveCategory" prefHeight="27.0"
+        <Button fx:id="saveButton" layoutX="626.0" layoutY="598.0" mnemonicParsing="false" onAction="#saveCategory" prefHeight="27.0"
                 prefWidth="100.0" text="Save">
             <font>
                 <Font size="16.0"/>

@@ -1,6 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.vocabletrainer;
 
 import static de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController.jbVocableTrainerService;
+
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.javafx.controllers.VocableTrainerServiceController;
@@ -16,7 +17,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 public class EditCreateCategoryPageController implements Initializable {
@@ -27,6 +30,8 @@ public class EditCreateCategoryPageController implements Initializable {
   AnchorPane editCreateCategoryPagePane;
   @FXML
   TextField categoryNameTextField;
+  @FXML
+  Button saveButton;
 
   /**
    * Called to initialize a controller after its root element has been
@@ -38,6 +43,13 @@ public class EditCreateCategoryPageController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    saveButton.setDefaultButton(true);
+    saveButton.setOnKeyPressed(event -> {
+          if (event.getCode().equals(KeyCode.ENTER)) {
+            saveButton.fire();
+          }
+        }
+    );
     if (HomepageController.cateSaver != null) {
       categoryNameTextField.setText(HomepageController.cateSaver);
     }
