@@ -261,8 +261,10 @@ public class FunctionAnalyzerController extends Controller implements Initializa
         break;
 
       case ("DEL"):
-        functionInput.setText(functionInput.getText()
-            .substring(0, functionInput.getText().length() - 1));
+        if (functionInput.getText().length() > 0) {
+          functionInput.setText(functionInput.getText()
+              .substring(0, functionInput.getText().length() - 1));
+        }
         break;
       case ("AC"):
         functionInput.setText("");

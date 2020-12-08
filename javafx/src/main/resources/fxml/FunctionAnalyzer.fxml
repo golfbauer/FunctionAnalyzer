@@ -220,7 +220,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #bfbfbf; -fx-border-color: black; -fx-border-width: 1;" text="X-Intersaction:" GridPane.rowIndex="2">
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #bfbfbf; -fx-border-color: black; -fx-border-width: 1;" text="X-Intersection:" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -242,7 +242,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #bfbfbf; -fx-border-color: black; -fx-border-width: 1;" text="Y-Intersaction:" GridPane.rowIndex="3">
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #bfbfbf; -fx-border-color: black; -fx-border-width: 1;" text="Y-Intersection:" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
                            </font>
