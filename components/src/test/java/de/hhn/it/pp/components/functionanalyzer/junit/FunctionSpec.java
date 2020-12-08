@@ -82,8 +82,8 @@ public class FunctionSpec {
 
     @Test
     void getValueFromFunctionWithoutX() {
-      assertNull(simple.setFunctionEqualZero(), "Should produce null since its never gonna"+
-          " Intercept with x Axis");
+      assertNull(simple.setFunctionEqualZero(), "Should produce null since its never gonna"
+          + " Intercept with x Axis");
     }
 
     @Test
