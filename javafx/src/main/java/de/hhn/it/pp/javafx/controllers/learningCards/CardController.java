@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
@@ -21,12 +23,6 @@ import javafx.stage.Stage;
 public class CardController {
 
   private int id;
-  @FXML
-  private Button cardsetsB;
-  @FXML
-  private Button cardsB;
-  @FXML
-  private Button homeB;
   @FXML
   private TextField title;
   @FXML
@@ -162,6 +158,21 @@ public class CardController {
   @FXML
   private void saveChanges(MouseEvent e) {
 
+    if (title.getText().trim().equalsIgnoreCase("")
+         || textbox.getText().trim().equalsIgnoreCase("")) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Alert");
+      alert.setHeaderText("The textbox needs to be filled :)");
+      alert.showAndWait();
+      title.setText(Data.mlcs.getCardFromCol(id).getHeadline());
+      if (qa.getText().equalsIgnoreCase("Question")) {
+        textbox.setText(Data.mlcs.getCardFromCol(id).getTextA());
+      }
+      if (qa.getText().equalsIgnoreCase("Answer")) {
+        textbox.setText(Data.mlcs.getCardFromCol(id).getTextQ());
+      }
+    }
+
     Data.mlcs.getCardFromCol(id).setHeadline(title.getText());
 
     switch (qa.getText()) {
@@ -173,6 +184,5 @@ public class CardController {
     }
 
   }
-
 
 }
