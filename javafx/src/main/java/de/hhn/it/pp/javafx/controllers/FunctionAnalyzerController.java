@@ -41,6 +41,8 @@ public class FunctionAnalyzerController extends Controller implements Initializa
   VBox history;
   @FXML
   Label functionIdentifier;
+  @FXML
+  Label errorLabel;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -112,6 +114,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
     String input = functionInput.getText();
     input = input.replaceAll("\\s", "");
     if (input.matches("[()x^+*\\/\\-.0-9]*") && !input.equals("")) {
+      errorLabel.setVisible(false);
       logger.info("String " + input + " contains allowed characters");
       currentF = currentFa.readFunction(input);
       Button currentFButton = new Button();
@@ -132,6 +135,7 @@ public class FunctionAnalyzerController extends Controller implements Initializa
       yIntersection.setText(currentFa.calculateYIntersection(currentF) + "");
       logger.info("Setting Label " + yIntersection + " to " + yIntersection.toString());
     } else {
+      errorLabel.setVisible(true);
       logger.debug("String " + input + " contains non valid characters");
     }
   }
