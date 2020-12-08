@@ -4,7 +4,7 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
-import de.hhn.it.pp.components.vocabletrainer.provider.JBVocableTrainerService;
+import de.hhn.it.pp.components.vocabletrainer.provider.JbVocableTrainerService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,18 +14,21 @@ public class DemoVocableTrainerUsage {
       org.slf4j.LoggerFactory.getLogger(DemoVocableTrainerUsage.class);
 
   public static void main(String[] args) {
-    JBVocableTrainerService jbVocableTrainerService =
-        new JBVocableTrainerService(); // new vocableTrainer instance
+    JbVocableTrainerService jbVocableTrainerService =
+        new JbVocableTrainerService(); // new vocableTrainer instance
     LearningState learningState = new LearningState();
     List<Vocable> carVocabulary =
         new ArrayList<>(); // new vocabulary list for the car category
-    carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
-    carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
-    carVocabulary.add(new Vocable("tire", new String[] {"Reifen", "Bereifung"}));
-    carVocabulary.add(new Vocable("drive", new String[] {"fahren", "lenken"}));
-    carVocabulary
-        .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
-
+    try {
+      carVocabulary.add(new Vocable("car", new String[] {"Auto", "Wagen", "Fahrzeug"}));
+      carVocabulary.add(new Vocable("mirror", new String[] {"Spiegel", "Reflektor"}));
+      carVocabulary.add(new Vocable("tire", new String[] {"Reifen", "Bereifung"}));
+      carVocabulary.add(new Vocable("drive", new String[] {"fahren", "lenken"}));
+      carVocabulary
+          .add(new Vocable("license plate", new String[] {"Kennzeichenschild", "Nummernschild"}));
+    } catch (TranslationIsEmptyException e) {
+      e.printStackTrace();
+    }
     HashMap<String, List<Vocable>> data =
         new HashMap<>(); // new HashMap for categories and their vocabulary lists
     data.put("car",
@@ -53,7 +56,7 @@ public class DemoVocableTrainerUsage {
     try {
       jbVocableTrainerService.editVocCategory("Computer", "VocCategory");
       logger.debug("Category successfully edited");
-    } catch (VocCategoryNotFoundException e) {
+    } catch (VocCategoryNotFoundException | VocCategoryAlreadyExistException e) {
       logger.debug("Category failed to edit");
       e.printStackTrace();
     }

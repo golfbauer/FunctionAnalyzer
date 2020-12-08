@@ -7,9 +7,17 @@ import de.hhn.it.pp.components.vocabletrainer.exceptions.TranslationIsEmptyExcep
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryAlreadyExistException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocCategoryNotFoundException;
 import de.hhn.it.pp.components.vocabletrainer.exceptions.VocableNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class JBVocableTrainerService implements VocableTrainerService {
+public class JbVocableTrainerService implements VocableTrainerService {
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(JbVocableTrainerService.class);
+  private JbVocableTrainer trainer = new JbVocableTrainer();
+
+  public JbVocableTrainerService() {
+  }
 
   /**
    * Returns the current score.
@@ -18,7 +26,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public int getScore() {
-    return 0;
+    logger.info("getScore: no params");
+    return trainer.getScore();
   }
 
   /**
@@ -28,7 +37,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public List<String> getVocCategories() {
-    return null;
+    logger.info("getVocCategories: no params");
+    return new ArrayList<>(trainer.getVocCategories());
   }
 
   /**
@@ -41,7 +51,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void addVocCategory(String category, List<Vocable> vocabularyList)
       throws VocCategoryAlreadyExistException {
-
+    logger.info("addVocCategory: category = {}, vocabularyList = {}", category, vocabularyList);
+    trainer.addVocCategory(category, vocabularyList);
   }
 
   /**
@@ -52,7 +63,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public void removeVocCategory(String category) throws VocCategoryNotFoundException {
-
+    logger.info("removeVocCategory: category = {}", category);
+    trainer.removeVocCategory(category);
   }
 
   /**
@@ -67,7 +79,14 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public Vocable getVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
-    return null;
+    logger.info("getVocable: id = {}, category = {}", id, category);
+    Vocable voc;
+    try {
+      voc = trainer.getVocableList(category).get(id);
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
+    return voc;
   }
 
   /**
@@ -79,7 +98,8 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public List<Vocable> getVocabulary(String category) throws VocCategoryNotFoundException {
-    return null;
+    logger.info("getVocabulary: category = {}", category);
+    return trainer.getVocableList(category);
   }
 
   /**
@@ -94,7 +114,9 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void addVocable(String learningWord, String[] translations, String category)
       throws VocCategoryNotFoundException, TranslationIsEmptyException {
-
+    logger.info("addVocable: learningWord = {}, translations = {}, category = {}", learningWord,
+        translations, category);
+    trainer.getVocableList(category).add(new Vocable(learningWord, translations));
   }
 
   /**
@@ -108,7 +130,12 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void removeVocable(int id, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException {
-
+    logger.info("removeVocable: id = {}, category = {}", id, category);
+    try {
+      trainer.removeVocable(category, trainer.getVocableList(category).get(id));
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
   }
 
   /**
@@ -120,7 +147,12 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public void editVocCategory(String oldCategoryName, String newCategoryName)
-      throws VocCategoryNotFoundException {
+      throws VocCategoryNotFoundException, VocCategoryAlreadyExistException {
+    logger.info("editVocCategory: oldCategoryName = {}, newCategoryName = {}", oldCategoryName,
+        newCategoryName);
+
+    trainer.addVocCategory(newCategoryName, trainer.getVocableList(oldCategoryName));
+    trainer.removeVocCategory(oldCategoryName);
 
   }
 
@@ -136,8 +168,31 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public boolean checkVocable(String word, int id, String category, int levenshteinDistance)
-      throws VocCategoryNotFoundException {
-    return false;
+      throws VocCategoryNotFoundException, VocableNotFoundException {
+    logger.info("checkVocable: word = {}, category = {}, levenshteinDistance = {}", id, category,
+        levenshteinDistance);
+    Vocable vocable;
+    try {
+      vocable = trainer.getVocableList(category).get(id);
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
+    int lev = Integer.MAX_VALUE;
+    for (String translation : vocable.getTranslations()) {
+      lev = Math.min(lev, levenshteinDistance(word, translation));
+    }
+    if (lev > levenshteinDistance) {
+      return false;
+    } else if (lev == 0) {
+      trainer.setScore(trainer.getScore() + 10);
+      return true;
+    } else if (lev <= 2) {
+      trainer.setScore(trainer.getScore() + 5);
+      return true;
+    } else {
+      trainer.setScore(trainer.getScore() + 2);
+      return true;
+    }
   }
 
   /**
@@ -154,7 +209,18 @@ public class JBVocableTrainerService implements VocableTrainerService {
   @Override
   public void editVocable(int id, String learningWord, String[] translations, String category)
       throws VocableNotFoundException, VocCategoryNotFoundException, TranslationIsEmptyException {
-
+    logger.info("editVocable: id = {}, learningWord = {}, translations = {}, category = {}", id,
+        learningWord, translations, category);
+    if (translations.length == 0) {
+      throw new TranslationIsEmptyException("Translation is Empty!");
+    }
+    Vocable vocEdit = new Vocable(learningWord, translations);
+    trainer.addVocable(category, vocEdit);
+    try {
+      trainer.removeVocable(category, trainer.getVocableList(category).get(id));
+    } catch (IndexOutOfBoundsException e) {
+      throw new VocableNotFoundException();
+    }
   }
 
   /**
@@ -165,6 +231,51 @@ public class JBVocableTrainerService implements VocableTrainerService {
    */
   @Override
   public boolean loadData(LearningState learningState) {
-    return false;
+    logger.info("loadData: learningState = {}", learningState);
+    trainer.setScore(learningState.getScore());
+
+    for (HashMap.Entry<String, List<Vocable>> entry : learningState.getVocabularyList()
+        .entrySet()) {
+      String key = entry.getKey();
+      List<Vocable> value = entry.getValue();
+
+      try {
+        trainer.addVocCategory(key, value);
+      } catch (VocCategoryAlreadyExistException e) {
+        e.printStackTrace();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * An algorithm for measuring the difference between two character sequences.
+   *
+   * @param userInput     word which should be compared with the original word
+   * @param checkingVocab original word to be compared with
+   * @return Integer distance between both words
+   */
+  public int levenshteinDistance(String userInput, String checkingVocab) {
+    logger.info("levenshteinDistance: userInput= {}, checkingVocab = {}", userInput, checkingVocab);
+    userInput = userInput.toLowerCase();
+    checkingVocab = checkingVocab.toLowerCase();
+    // i == 0
+    int[] costs = new int[checkingVocab.length() + 1];
+    for (int j = 0; j < costs.length; j++) {
+      costs[j] = j;
+    }
+    for (int i = 1; i <= userInput.length(); i++) {
+      // j == 0; nw = lev(i - 1, j)
+      costs[0] = i;
+      int nw = i - 1;
+      for (int j = 1; j <= checkingVocab.length(); j++) {
+        int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]),
+            userInput.charAt(i - 1) == checkingVocab.charAt(j - 1) ? nw : nw + 1);
+        nw = costs[j];
+        costs[j] = cj;
+      }
+    }
+    return costs[checkingVocab.length()];
   }
 }

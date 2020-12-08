@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer;
+package de.hhn.it.pp.components.spellingtrainer.Provider;
 
 import java.io.File;
 
@@ -6,18 +6,18 @@ import java.io.File;
  * Class MediaReference contains an constructor which references an media file.
  */
 public class MediaReference {
-  private File mediaFile;
+  private String mediaFile;
 
   /**
    * Constructor to reference an audio file.
    *
    * @param mediaFile File to be referenced
    */
-  public MediaReference(File mediaFile) {
+  public MediaReference(String mediaFile) {
     this.mediaFile = mediaFile;
   }
 
-  public File getMediaFile() {
+  public String getMediaFile() {
     return this.mediaFile;
   }
 }

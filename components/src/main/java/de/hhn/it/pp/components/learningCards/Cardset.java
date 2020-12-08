@@ -1,6 +1,13 @@
 package de.hhn.it.pp.components.learningCards;
 
-import java.util.*;
+import java.util.ArrayList;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 
 public class Cardset {
 
@@ -12,8 +19,8 @@ public class Cardset {
   static int idCounter = 0;
 
   /**
-   * Constructor of the Cardset class
-   * 
+   * Constructor of the Cardset class.
+   *
    * @param title title to indentify what the cardset is about
    */
   public Cardset(String title) {
@@ -22,8 +29,8 @@ public class Cardset {
   }
 
   /**
-   * Sets the title of the cardset
-   * 
+   * Sets the title of the cardset.
+   *
    * @param title title to indentify what the cardset is about
    */
   void setTitle(String title) {
@@ -31,26 +38,26 @@ public class Cardset {
   }
 
   /**
-   * Returns the title of the cardset
-   * 
+   * Returns the title of the cardset.
+   *
    * @return title of the cardset
    */
-  String getTitle() {
+  public String getTitle() {
     return title;
   }
 
   /**
-   * adds card to the cardset
-   * 
+   * adds card to the cardset.
+   *
    * @param card which gets added to the cardset
    */
-  void addCardtoSet(Card card) {
+  public void addCardtoSet(Card card) {
     cardset.put(card.getId(), card);
   }
 
   /**
-   * returns a card with the id i from the cardset
-   * 
+   * returns a card with the id i from the cardset.
+   *
    * @param i id to identify a card in cardset
    * @return the card with id i
    */
@@ -59,35 +66,52 @@ public class Cardset {
   }
 
   /**
-   * removes a card with the id i from the cardset
-   * 
+   * removes a card with the id i from the cardset.
+   *
    * @param i id to identify a card in cardset
    */
-  void removeCardfromSet(int i) {
+  public void removeCardfromSet(int i) {
     cardset.remove(i);
   }
 
   /**
-   * returns the id of cardset
-   * 
+   * returns the id of cardset.
+   *
    * @return id of cardset
    */
-  int getId() {
+  public int getId() {
     return id;
   }
 
   /**
-   * returns a list of all card ids in the cardset
-   * 
+   * returns a list of all card ids in the cardset.
+   *
    * @return all ids of all cards in cardset in a list
    */
-  List<Integer> getCardIds() {
+  public List<Integer> getCardIds() {
     List<Integer> results = new ArrayList<Integer>();
     Collection<Card> cards = cardset.values();
     for (Card card : cards) {
       results.add(card.getId());
     }
     return results;
+  }
+
+  /**
+   * returns a list of all cards in the cardset.
+   *
+   * @return all of the cards in cardset in a list
+   */
+  public List<Card> getCards() {
+
+    //List<Value> list = new ArrayList<Value>(map.values());
+    List<Card> cards = new ArrayList<Card>(cardset.values());
+
+    return cards;
+  }
+
+  public int getNumberOfCard() {
+    return cardset.size();
   }
 
 

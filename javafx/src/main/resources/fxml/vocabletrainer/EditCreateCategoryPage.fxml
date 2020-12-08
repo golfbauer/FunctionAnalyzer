@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="EditCreateCategoryPagePane" maxHeight="680.0" maxWidth="1080.0" minHeight="663.0" minWidth="886.0"
+            prefHeight="663.0" prefWidth="886.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.hhn.it.pp.javafx.controllers.vocabletrainer.EditCreateCategoryPageController">
+    <children>
+        <Label layoutX="37.0" layoutY="35.0" prefHeight="54.0" prefWidth="245.0" text="Vocable Trainer">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <Label layoutX="37.0" layoutY="96.0" prefHeight="25.0" prefWidth="193.0" text="Category Name">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Button fx:id="saveButton" layoutX="626.0" layoutY="598.0" mnemonicParsing="false" onAction="#saveCategory" prefHeight="27.0"
+                prefWidth="100.0" text="Save">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+        <Button layoutX="746.0" layoutY="598.0" mnemonicParsing="false" onAction="#cancel" prefHeight="27.0"
+                prefWidth="100.0" text="Cancel">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+        <TextField fx:id="categoryNameTextField" layoutX="37.0" layoutY="134.0" prefHeight="30.0" prefWidth="550.0"/>
+    </children>
+</AnchorPane>
