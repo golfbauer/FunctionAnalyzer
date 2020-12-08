@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,7 +23,6 @@ public class NewCardsController {
   private TextArea questiontext;
   @FXML
   private TextArea answertext;
-
 
 
   /**
@@ -86,9 +86,20 @@ public class NewCardsController {
    */
   @FXML
   private void addCard(ActionEvent e) throws IOException {
-    Data.mlcs.createCard(title.getText(), questiontext.getText(), answertext.getText());
-    changeSceneToCards(e);
+    if (!title.getText().trim().equalsIgnoreCase("") && !questiontext.getText().trim()
+         .equalsIgnoreCase("") && !answertext.getText().trim().equalsIgnoreCase("")) {
+      Data.mlcs.createCard(title.getText(), questiontext.getText(), answertext.getText());
+      changeSceneToCards(e);
 
+    } else {
+
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Alert");
+      alert.setHeaderText("You need to fill every Textbox :)");
+
+      alert.showAndWait();
+
+    }
   }
 
 

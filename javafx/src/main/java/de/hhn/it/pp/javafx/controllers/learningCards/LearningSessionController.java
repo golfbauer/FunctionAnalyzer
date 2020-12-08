@@ -37,6 +37,8 @@ public class LearningSessionController implements Initializable {
 
   private int currentPos = 0;
 
+  private int unsolved = 0;
+
   /**
    * changes Scene to Cardsets scene.
    *
@@ -130,6 +132,8 @@ public class LearningSessionController implements Initializable {
       case UNSEEN:
         Data.mlcs.getCards().get(currentPos).setStatusToSolved();
     }
+    checkIfUnsolvedIsLeft();
+    System.out.println(unsolved);
   }
 
   /**
@@ -169,45 +173,60 @@ public class LearningSessionController implements Initializable {
   private void onlyUnsolvedWasSelected(ActionEvent e) {
     currentPos = 0;
     setCard();
+    checkIfUnsolvedIsLeft();
+  }
+
+  private void checkIfUnsolvedIsLeft() {
+    int notSolved = 0;
+    for (int i = 0; i < Data.mlcs.getNumberOfCards(); i++) {
+      if (Data.mlcs.getCards().get(i).getStatus() == Status.UNSOLVED
+           || Data.mlcs.getCards().get(i).getStatus() == Status.UNSEEN) {
+        notSolved++;
+      }
+      unsolved = notSolved;
+    }
   }
 
   /**
    * Setups the card depending if they are solved or not.
    */
   private void setCard() {
+    if (unsolved == 0 && onlyUnsolved.isSelected()) {
+      title.setText("You did it!");
+      textbox.setText("You solved every card!");
+    } else {
 
+      if (onlyUnsolved.isSelected()) {
 
-    if (onlyUnsolved.isSelected()) {
+        if (Data.mlcs.getCards().get(currentPos).getStatus()
+             == Status.SOLVED && currentPos < maxCards - 1) {
+          currentPos++;
+          setCard();
+        }
+      }
+      title.setText(Data.mlcs.getCards().get(currentPos).getHeadline());
+      switch (Data.mlcs.getCards().get(currentPos).getStatus()) {
+        case SOLVED:
+          solved.setSelected(true);
+          break;
+        case UNSOLVED:
+          solved.setSelected(false);
+          break;
+        case UNSEEN:
+          solved.setSelected(false);
+          break;
+      }
+      switch (qa.getText()) {
+        case "Answer":
+          textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
 
-      if (Data.mlcs.getCards().get(currentPos).getStatus()
-           == Status.SOLVED && currentPos < maxCards - 1) {
-        currentPos++;
-        setCard();
+          break;
+        case "Question":
+          qa.setText("Answer");
+          textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
+          break;
       }
     }
-    title.setText(Data.mlcs.getCards().get(currentPos).getHeadline());
-    switch (Data.mlcs.getCards().get(currentPos).getStatus()) {
-      case SOLVED:
-        solved.setSelected(true);
-        break;
-      case UNSOLVED:
-        solved.setSelected(false);
-        break;
-      case UNSEEN:
-        solved.setSelected(false);
-        break;
-    }
-    switch (qa.getText()) {
-      case "Answer":
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
-
-        break;
-      case "Question":
-        qa.setText("Answer");
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
-        break;
-    }
-
 
   }
 
@@ -219,7 +238,8 @@ public class LearningSessionController implements Initializable {
    */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    checkIfUnsolvedIsLeft();
+    System.out.println(unsolved);
     setCard();
   }
 }
