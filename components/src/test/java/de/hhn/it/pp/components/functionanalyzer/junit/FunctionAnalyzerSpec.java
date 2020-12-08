@@ -11,6 +11,7 @@ import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedExcept
 import de.hhn.it.pp.components.functionanalyzer.provider.FunctionAnalyzer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Spliterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,43 @@ public class FunctionAnalyzerSpec {
 
   @Nested
   class ReadFunction {
+
+    @Test
+    void functionCreatedFromSimpleString() {
+      Function actual = functionAnalyzer.readFunction("x^2 +2x- 4");
+      assertEquals(quadraticFunction, actual, "Should get the Function");
+    }
+
+    @Test
+    void functionCreatedFromFourDegreeFunction() {
+      Function actual = functionAnalyzer.readFunction("-9*x^4-3*x+4");
+      Function expected = new Function(
+          new FunctionElement(Operator.ADD, new Term(new Term(4), -9, "x")),
+          new FunctionElement(Operator.ADD, new Term(new Term(1), -3, "x")),
+          new FunctionElement(Operator.ADD, new Term(4))
+      );
+      assertEquals(expected, actual, "Should give the Function out of a String");
+    }
+
+    @Test
+    void functionCreatedFromStringWithBackwardsBracket() {
+      Function actual = functionAnalyzer.readFunction("((2x+4)*3*x)+9");
+      Function expected = new Function(
+          new FunctionElement(Operator.ADD, new Term(new Term(2), 6, "x")),
+          new FunctionElement(Operator.ADD, new Term(new Term(1), 12, "x")),
+          new FunctionElement(Operator.ADD, new Term(9))
+      );
+      assertEquals(expected, actual, "Should give the Function out of a String");
+    }
+
+    @Test
+    void functionCreatedFromStringWithOnlyMultiplication() {
+      Function actual = functionAnalyzer.readFunction("7x*7*x");
+      Function expected = new Function(
+          new FunctionElement(Operator.ADD, new Term(new Term(2), 49, "x"))
+      );
+          assertEquals(expected, actual, "Should give the Function out of a String");
+    }
 
     @Test
     void functionCreatedFromWorkingString() {

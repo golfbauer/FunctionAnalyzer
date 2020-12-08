@@ -19,6 +19,12 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
     logger.debug("Translating input: " + input + " into a Function");
     Function result = new Function();
     input = input.replaceAll("\\s", "");
+    for (int i = 0; i < input.length(); i++) {
+      if(i > 0 && input.charAt(i) == 'x' && input.charAt(i - 1) != '*' && input.charAt(i - 1) != '/'
+          && input.charAt(i - 1) != '+' && input.charAt(i - 1) != '-') {
+        input = input.substring(0,i) + "*" + input.substring(i);
+      }
+    }
     ArrayList<String> functionString = getFunctionElementAsString(input, '+');
     ArrayList<String> temporary = new ArrayList<>();
     for (int i = 0; i < functionString.size(); i++) {
@@ -191,13 +197,15 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
 
     for (int i = 0; i < input.length(); i++) {
       if (i > 0 && (input.charAt(i) == '+' || input.charAt(i) == '-') && !buffer.equals("")) {
-        if (input.charAt(i - 1) != '*' && input.charAt(i - 1) != '/' && input.charAt(i - 1) != '^') {
+        if (input.charAt(i - 1) != '*' && input.charAt(i - 1) != '/'
+            && input.charAt(i - 1) != '^') {
           buffer = checkForOperator(buffer);
           result.add(buffer);
           buffer = "";
         }
       }
-      if ((input.charAt(i) == '*' || input.charAt(i) == '/') && !buffer.equals("") && buffer.contains("x")
+      if ((input.charAt(i) == '*' || input.charAt(i) == '/') && !buffer.equals("")
+          && buffer.contains("x")
               && input.charAt(i + 1) != '(') {
         boolean check = false;
         for (int j = i + 1; j < input.length(); j++) {
@@ -259,6 +267,11 @@ public class FunctionAnalyzer implements FunctionAnalyserService {
     return result;
   }
 
+  /**
+   * Checks if input contains an operator and adds one.
+   * @param input Term as String
+   * @return Term as String wih operator
+   */
   public String checkForOperator(String input) {
     if (input.charAt(0) != '+' && input.charAt(0) != '*' && input.charAt(0) != '/') {
       input = "+" + input;

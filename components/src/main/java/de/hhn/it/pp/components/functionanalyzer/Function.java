@@ -176,8 +176,12 @@ public class Function extends ArrayList<FunctionElement> {
     functionAsFE.simplify();
     clear();
 
-    functionAsFE.getComponents().forEach(functionElementComponent -> add(
-        (FunctionElement) functionElementComponent));
+    if (functionAsFE.getComponents().get(0) instanceof Term) {
+      add(functionAsFE);
+    } else {
+      functionAsFE.getComponents().forEach(functionElementComponent -> add(
+          (FunctionElement) functionElementComponent));
+    }
   }
 
   /**
