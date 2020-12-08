@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
 import de.hhn.it.pp.components.functionanalyzer.Term;
 import de.hhn.it.pp.components.functionanalyzer.exceptions.ValueNotDefinedException;
 import org.junit.jupiter.api.BeforeEach;
