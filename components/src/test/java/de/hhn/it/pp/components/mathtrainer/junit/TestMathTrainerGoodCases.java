@@ -89,6 +89,13 @@ public class TestMathTrainerGoodCases {
     }
 
     @Test
+    @DisplayName("Test if difficulty is handled correctly")
+    public void createTermBasedOnCurrentDifficulty() {
+        Term local = mt.createTerm();
+
+    }
+
+    @Test
     @DisplayName("Test checking user input with good cases")
     public void checkUserInputToSolveATerm() {
         boolean b = mt.solveTerm("0", term);
@@ -116,9 +123,4 @@ public class TestMathTrainerGoodCases {
         assertEquals(term.getSolution(), mt.helpUser(term));
     }
 
-    @Test
-    @DisplayName("Test if exit game succeeds")
-    public void checkIfExitGameSucceeds() throws IllegalParameterException {
-        assertEquals(20, mt.exitGame(0, true));
-    }
 }

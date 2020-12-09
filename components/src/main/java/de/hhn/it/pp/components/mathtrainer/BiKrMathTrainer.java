@@ -16,12 +16,10 @@ public class BiKrMathTrainer implements MathTrainer {
   private Difficulty difficulty;
   private int decimalPlace;
   private List<String> history;
-  private boolean wantstoexit;
   private boolean timeisup;
   private int inturn;
   private boolean warmup;
   private Term currentTerm;
-  private BigDecimal usersolution;
 
   /**
    * Constructor to instantiate the basic functions for MathTrainer.
@@ -33,11 +31,9 @@ public class BiKrMathTrainer implements MathTrainer {
     decimalPlace = 2;
     userscore = 0;
     history = new ArrayList<>();
-    wantstoexit = false;
     timeisup = false;
     inturn = 0;
     warmup = true;
-    usersolution = new BigDecimal("10000");
     createDemoHistoryData();
   }
 
@@ -114,18 +110,6 @@ public class BiKrMathTrainer implements MathTrainer {
   }
 
   @Override
-  public void setWantsToExit(boolean exitboolean) {
-    logger.debug("Setting wantstoexit boolean value to: " + exitboolean);
-    this.wantstoexit = exitboolean;
-  }
-
-  @Override
-  public boolean getWantsToExit() {
-    logger.debug("Retrieving wantstoexit boolean value");
-    return this.wantstoexit;
-  }
-
-  @Override
   public void setTimeIsUp(boolean timeboolean) {
     logger.debug("Setting timeisup boolean");
     this.timeisup = timeboolean;
@@ -178,16 +162,6 @@ public class BiKrMathTrainer implements MathTrainer {
   public Term getCurrentTerm() {
     logger.debug("getCurrentTerm() call");
     return this.currentTerm;
-  }
-
-  public void setUsersolution(BigDecimal number) {
-    logger.debug("Setting Usersolution to: " + number);
-    this.usersolution = number;
-  }
-
-  public BigDecimal getUsersolution() {
-    logger.debug("Retrieving usersolution value");
-    return usersolution;
   }
 
   @Override
@@ -282,68 +256,6 @@ public class BiKrMathTrainer implements MathTrainer {
       return term.getSolution();
     } else {
       throw new IllegalParameterException("Kein gueltiger Term oder ein null Objekt uebergeben.");
-    }
-  }
-
-  @Override
-  public void startGame(boolean warmup) throws IllegalParameterException {
-    logger.debug("Start a game run (early implementation obsolete)");
-    if (warmup) {
-      for (int i = 0; i < 20; i++) {
-        inturn = i;
-        Term current = this.createTerm();
-        String userinput = "10000";
-        boolean solved = solveTerm(userinput, current);
-        if (solved) {
-          this.addToUserScore(0);
-        }
-        i = exitGame(i, wantstoexit);
-      }
-      if (!wantstoexit) {
-        int storeScore = this.getUserScore();
-        this.setUserScore(1);
-        int finalScore = storeScore + userscore;
-        this.setUserScore(finalScore);
-        addToHistory();
-      }
-
-    } else {
-      for (int i = 0; i < 20; i++) {
-        inturn = i;
-        Term current = this.createTerm();
-        String userinput = "10000";
-        boolean solved = solveTerm(userinput, current);
-        if (!timeisup) {
-          if (solved) {
-            this.addToUserScore(0);
-          }
-        }
-
-        i = exitGame(i, wantstoexit);
-
-      }
-      if (!wantstoexit) {
-        int storeScore = this.getUserScore();
-        this.setUserScore(1);
-        int finalScore = storeScore + userscore;
-        this.setUserScore(finalScore);
-        addToHistory();
-      }
-      inturn = 0;
-    }
-  }
-
-
-  @Override
-  public int exitGame(int loopCount, boolean exit) throws IllegalParameterException {
-    logger.debug("exit Game call with boolean " + exit + " at round" + loopCount);
-    if (loopCount >= 0) {
-      if (exit) {
-        loopCount = 20;
-      }
-      return loopCount;
-    } else {
-      throw new IllegalParameterException("Der uebergebene LoopCount darf nicht negativ sein.");
     }
   }
 

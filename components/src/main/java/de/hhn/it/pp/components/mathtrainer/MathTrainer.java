@@ -76,18 +76,6 @@ public interface MathTrainer {
   void setUserScore(int number) throws IllegalParameterException;
 
   /**
-  * changes the boolean value of wantstoexit.
-  * @param exitboolean boolean value true if user wants to exit
-  */
-  void setWantsToExit(boolean exitboolean);
-
-  /**
-  * returns the boolean value of wantstoexit.
-  * @return wantstoexit
-  */
-  boolean getWantsToExit();
-
-  /**
   * changes the boolean value of timeisup.
   * @param timeboolean boolean value true when time is up
   */
@@ -182,22 +170,6 @@ public interface MathTrainer {
   * @throws IllegalParameterException if the term is somehow invalid
   */
   BigDecimal helpUser(Term term) throws IllegalParameterException;
-
-  /**
-  * starts a game in which the user has to solve 20 random math questions.
-  * @param warmup boolean to decide which mode is selected
-  * @throws IllegalParameterException if addToUserScore or setUserScore methods cause any problems.
-  */
-  void startGame(boolean warmup) throws IllegalParameterException;
-
-  /**
-  * uses the loopCount and a boolean to know when the game was exited and signal exit is true.
-  * @param loopCount number of the current question e.g. 5
-  * @param exit boolean value
-  * @return loopcount is set to 20 so the for loop ends on the next attempt to run.
-  * @throws IllegalParameterException if loopcount has negative values
-  */
-  int exitGame(int loopCount, boolean exit) throws IllegalParameterException;
 
   /**
   * creates a few demo string entries to be used in the GUI interface later.

@@ -75,9 +75,4 @@ public class TestMathTrainerBadCases {
         assertThrows(IllegalParameterException.class, () -> mt.helpUser(null));
     }
 
-    @Test
-    @DisplayName("Test if exit game fails")
-    public void checkIfExitGameFails() {
-        assertThrows(IllegalParameterException.class, () -> mt.exitGame(-1, false));
-    }
 }

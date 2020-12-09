@@ -73,41 +73,6 @@ public class MathTrainerDemo {
         logger.debug("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
         logger.debug("");
 
-        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        logger.debug("Im Warmup mode: ");
-        tr.startGame(true);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        logger.debug("");
-
-        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
-        tr.setWantsToExit(true);
-        tr.startGame(true);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        logger.debug("");
-
-        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        logger.debug("Im Countdown mode: ");
-        tr.startGame(false);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        logger.debug("");
-
-        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
-        tr.setWantsToExit(true);
-        tr.startGame(false);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        logger.debug("");
-
-
-
-
     }
 
     private static void testRandomTerms() {
