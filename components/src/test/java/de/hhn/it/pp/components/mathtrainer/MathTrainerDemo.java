@@ -73,6 +73,10 @@ public class MathTrainerDemo {
         logger.debug("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
         logger.debug("");
 
+        logger.debug("Neuen Zufallsterm erstellen und die \"inturn\" um 1 erhöhen.");
+        for(int i = 0; i < 3; i++) {
+            logger.debug(""+tr.nextTerm() + ", inturn: "+tr.getInTurn());
+        }
     }
 
     private static void testRandomTerms() {

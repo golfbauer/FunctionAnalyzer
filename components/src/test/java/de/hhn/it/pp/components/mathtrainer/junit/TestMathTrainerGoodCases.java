@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.mathtrainer.junit;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import de.hhn.it.pp.components.mathtrainer.BiKrMathTrainer;
 import de.hhn.it.pp.components.mathtrainer.Difficulty;
+import de.hhn.it.pp.components.mathtrainer.Section;
 import de.hhn.it.pp.components.mathtrainer.Term;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -91,15 +92,51 @@ public class TestMathTrainerGoodCases {
     @Test
     @DisplayName("Test if difficulty is handled correctly")
     public void createTermBasedOnCurrentDifficulty() {
+        mt.setDifficulty(Difficulty.MEDIUM);
         Term local = mt.createTerm();
+        assertEquals(true, local != null);
+        mt.setDifficulty(Difficulty.HARD);
+        local = mt.createTerm();
+        assertEquals(true, local != null);
+    }
 
+    @Test
+    @DisplayName("Test if difficulty is handled correctly")
+    public void createTermBasedOnCurrentSection() {
+        mt.setSection(Section.MINUS);
+        Term t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '-');
+
+        mt.setSection(Section.MULTIPLICATION);
+        t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '*');
+
+        mt.setSection(Section.DIVISION);
+        t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '/');
+
+        mt.setSection(Section.MIXED);
+        t = mt.createTerm();
+        String helper = ""+t.operator;
+        boolean b = helper.contains("*") || helper.contains("/") || helper.contains("+") || helper.contains("-");
+        assertTrue(b);
+
+        mt.setSection(Section.DIVISION);
+        while(true) {
+            t = mt.createTerm();
+
+            if(t.secondNumber.equals(BigDecimal.ONE) && t.operator.equals('/')) {
+                assertTrue(true);
+                break;
+            }
+        }
     }
 
     @Test
     @DisplayName("Test checking user input with good cases")
     public void checkUserInputToSolveATerm() {
         boolean b = mt.solveTerm("0", term);
-        assertEquals(true, b);
+        assertTrue(b);
     }
 
     @Test

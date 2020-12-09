@@ -54,7 +54,7 @@ public class TestMathTrainerBadCases {
     @DisplayName("Test checking user input with bad cases")
     public void checkUserInputToSolveATerm() {
         boolean b = mt.solveTerm("1", term);
-        assertEquals(false, b);
+        assertFalse(b);
 
         assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
     }
@@ -63,10 +63,13 @@ public class TestMathTrainerBadCases {
     @DisplayName("Test checking user input with bad cases + Timebonus")
     public void checkUserInputToSolveATermWithTimebonus() {
         boolean b = mt.solveTerm("1", term, 4);
-        assertEquals(false, b);
+        assertFalse(b);
         assertEquals(0, mt.getUserScore());
 
-        assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
+        b = mt.solveTerm("ABC", term, 4);
+        assertFalse(b);
+
+        //assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
     }
 
     @Test

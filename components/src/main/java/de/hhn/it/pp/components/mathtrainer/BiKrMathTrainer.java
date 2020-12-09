@@ -192,6 +192,7 @@ public class BiKrMathTrainer implements MathTrainer {
     return term;
   }
 
+  @Override
   public Term nextTerm() {
     logger.debug("nextTerm() call");
     inturn++;
