@@ -103,15 +103,16 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeText(ActionEvent e) {
-
-    switch (qa.getText()) {
-      case "Answer":
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextA());
-        qa.setText("Question");
-        break;
-      case "Question":
-        textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
-        qa.setText("Answer");
+    if (unsolved > 0) {
+      switch (qa.getText()) {
+        case "Answer":
+          textbox.setText(Data.mlcs.getCards().get(currentPos).getTextA());
+          qa.setText("Question");
+          break;
+        case "Question":
+          textbox.setText(Data.mlcs.getCards().get(currentPos).getTextQ());
+          qa.setText("Answer");
+      }
     }
   }
 
@@ -131,9 +132,10 @@ public class LearningSessionController implements Initializable {
         break;
       case UNSEEN:
         Data.mlcs.getCards().get(currentPos).setStatusToSolved();
+        break;
     }
     checkIfUnsolvedIsLeft();
-    System.out.println(unsolved);
+    setCard();
   }
 
   /**
@@ -172,6 +174,7 @@ public class LearningSessionController implements Initializable {
   @FXML
   private void onlyUnsolvedWasSelected(ActionEvent e) {
     currentPos = 0;
+
     setCard();
     checkIfUnsolvedIsLeft();
   }
@@ -191,7 +194,8 @@ public class LearningSessionController implements Initializable {
    * Setups the card depending if they are solved or not.
    */
   private void setCard() {
-    if (unsolved == 0 && onlyUnsolved.isSelected()) {
+
+    if (unsolved == 0 && onlyUnsolved.isSelected() == true) {
       title.setText("You did it!");
       textbox.setText("You solved every card!");
     } else {
