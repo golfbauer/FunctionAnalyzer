@@ -1,9 +1,11 @@
 package de.hhn.it.pp.javafx.controllers.learningCards;
 
+import de.hhn.it.pp.components.learningCards.Card;
 import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -129,10 +131,10 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToCard(ActionEvent e) throws IOException {
-    logger.info("Scene switched to: Card");
     Button button = (Button) e.getSource();
     if (!button.getText().equalsIgnoreCase("empty")) {
 
+      logger.info("Scene switched to: Card");
 
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/learningCards/card.fxml"));
       Parent card = loader.load();
@@ -330,40 +332,42 @@ public class CardsController implements Initializable {
    * changes text of the buttons b1-b6.
    */
   private void refreshButton() {
-    if (Data.mlcs.getCards().size() >= 1) {
-      b1.setText(Data.mlcs.getCards().get(valB1).getHeadline());
-      b1.setId(Integer.toString(Data.mlcs.getCards().get(valB1).getId()));
+    List<Card> cards = Data.mlcs.getCards();
+
+    if (cards.size() >= 1) {
+      b1.setText(cards.get(valB1).getHeadline());
+      b1.setId(Integer.toString(cards.get(valB1).getId()));
     } else {
       b1.setText("empty");
     }
-    if (Data.mlcs.getCards().size() >= 2) {
-      b2.setText(Data.mlcs.getCards().get(valB2).getHeadline());
-      b2.setId(Integer.toString(Data.mlcs.getCards().get(valB2).getId()));
+    if (cards.size() >= 2) {
+      b2.setText(cards.get(valB2).getHeadline());
+      b2.setId(Integer.toString(cards.get(valB2).getId()));
     } else {
       b2.setText("empty");
     }
-    if (Data.mlcs.getCards().size() >= 3) {
-      b3.setText(Data.mlcs.getCards().get(valB3).getHeadline());
-      b3.setId(Integer.toString(Data.mlcs.getCards().get(valB3).getId()));
+    if (cards.size() >= 3) {
+      b3.setText(cards.get(valB3).getHeadline());
+      b3.setId(Integer.toString(cards.get(valB3).getId()));
     } else {
       b3.setText("empty");
     }
-    if (Data.mlcs.getCards().size() >= 4) {
-      b4.setText(Data.mlcs.getCards().get(valB4).getHeadline());
-      b4.setId(Integer.toString(Data.mlcs.getCards().get(valB4).getId()));
+    if (cards.size() >= 4) {
+      b4.setText(cards.get(valB4).getHeadline());
+      b4.setId(Integer.toString(cards.get(valB4).getId()));
     } else {
       b4.setText("empty");
     }
-    if (Data.mlcs.getCards().size() >= 5) {
-      b5.setText(Data.mlcs.getCards().get(valB5).getHeadline());
-      b5.setId(Integer.toString(Data.mlcs.getCards().get(valB5).getId()));
+    if (cards.size() >= 5) {
+      b5.setText(cards.get(valB5).getHeadline());
+      b5.setId(Integer.toString(cards.get(valB5).getId()));
     } else {
       b5.setText("empty");
     }
 
-    if (Data.mlcs.getCards().size() >= 6) {
-      b6.setText(Data.mlcs.getCards().get(valB6).getHeadline());
-      b6.setId(Integer.toString(Data.mlcs.getCards().get(valB6).getId()));
+    if (cards.size() >= 6) {
+      b6.setText(cards.get(valB6).getHeadline());
+      b6.setId(Integer.toString(cards.get(valB6).getId()));
     } else {
       b6.setText("empty");
     }
