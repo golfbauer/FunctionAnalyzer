@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(de.hhn.it.pp.javafx.controllers.learningCards.Main.class);
+
   private final int width = 1080;
 
   private final int height = 720;
@@ -22,6 +25,8 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws IOException {
+    logger.info("LearningCards window is loading...");
+
     Parent root = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
 
     Scene scene = new Scene(root, width, height);

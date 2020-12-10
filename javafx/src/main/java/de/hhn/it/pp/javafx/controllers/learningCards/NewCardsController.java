@@ -15,7 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class NewCardsController {
-
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(NewCardsController.class);
 
   @FXML
   private TextField title;
@@ -33,6 +34,7 @@ public class NewCardsController {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cards");
     Parent cards = FXMLLoader.load(getClass().getResource("/fxml/learningCards/cards.fxml"));
     Scene cardsScene = new Scene(cards);
 
@@ -50,6 +52,7 @@ public class NewCardsController {
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cardsets");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
     Parent cardsets = loader.load();
@@ -69,6 +72,7 @@ public class NewCardsController {
    */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Home");
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
     Scene homeScene = new Scene(home);
 
