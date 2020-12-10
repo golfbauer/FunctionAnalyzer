@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 
 public class CardsController implements Initializable {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(CardsController.class);
 
   int cardsCreated = Data.mlcs.getNumberOfCards();
 
@@ -71,6 +73,7 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Home");
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
     Scene homeScene = new Scene(home);
 
@@ -88,6 +91,7 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cardsets");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
     Parent cardsets = loader.load();
@@ -107,7 +111,7 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToNewCard(ActionEvent e) throws IOException {
-
+    logger.info("Scene switched to: NewCard");
     Parent newCard = FXMLLoader.load(getClass().getResource("/fxml/learningCards/newCards.fxml"));
     Scene newCardScene = new Scene(newCard);
 
@@ -125,6 +129,7 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToCard(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Card");
     Button button = (Button) e.getSource();
     if (!button.getText().equalsIgnoreCase("empty")) {
 
@@ -307,6 +312,7 @@ public class CardsController implements Initializable {
    */
   @FXML
   private void changeSceneToLearningSession(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: LearningSession");
     if (Data.mlcs.getNumberOfCards() > 0) {
       Parent ls =
            FXMLLoader.load(getClass().getResource("/fxml/learningCards/LearningSession.fxml"));

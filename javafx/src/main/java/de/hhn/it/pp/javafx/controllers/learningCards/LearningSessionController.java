@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 
 public class LearningSessionController implements Initializable {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(LearningSessionController.class);
 
   @FXML
   private TextField title;
@@ -45,6 +47,7 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cardsets");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
     Parent cardsets = loader.load();
@@ -64,7 +67,7 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
-
+    logger.info("Scene switched to: Cards");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cards.fxml"));
 
@@ -85,6 +88,7 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Home");
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
     Scene homeScene = new Scene(home);
 
@@ -101,7 +105,6 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeText(ActionEvent e) {
-
     switch (qa.getText()) {
       case "Answer":
         textbox.setText(Data.mlcs.getCards().get(currentPos).getTextA());

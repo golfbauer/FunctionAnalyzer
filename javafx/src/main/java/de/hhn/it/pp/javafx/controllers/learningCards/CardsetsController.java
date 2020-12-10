@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 
 public class CardsetsController {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(CardsetsController.class);
+
   /**
    * changes the scene to main.fxml
    *
@@ -20,6 +23,7 @@ public class CardsetsController {
    */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Home");
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
     Scene homeScene = new Scene(home);
 
@@ -37,6 +41,7 @@ public class CardsetsController {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cards");
     Parent cards = FXMLLoader.load(getClass().getResource("/fxml/learningCards/cards.fxml"));
     Scene cardsScene = new Scene(cards);
 
