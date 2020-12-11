@@ -1,12 +1,18 @@
 package de.hhn.it.pp.components.learningCards;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
 import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
 import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
+import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
 
+import java.util.Arrays;
 import java.util.List;
 
 
 public class DemoLearningCardsUsage {
+
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(DemoLearningCardsUsage.class);
 
   public static void main(String[] args) throws CardsetNotFoundException, CardNotFoundException {
 

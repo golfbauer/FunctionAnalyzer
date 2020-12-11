@@ -1,5 +1,7 @@
 package de.hhn.it.pp.components.learningCards;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
+
 import java.util.ArrayList;
 
 import java.util.Collection;
@@ -8,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class LearningCardManager {
+
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(LearningCardManager.class);
 
   Map<Integer, Card> cardCol = new HashMap<Integer, Card>();
   // Map for all created Cardsets

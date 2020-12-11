@@ -1,5 +1,7 @@
 package de.hhn.it.pp.components.learningCards;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
+
 import java.util.ArrayList;
 
 import java.util.Collection;
@@ -10,6 +12,9 @@ import java.util.Map;
 
 
 public class Cardset {
+
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(Cardset.class);
 
   String title;
 

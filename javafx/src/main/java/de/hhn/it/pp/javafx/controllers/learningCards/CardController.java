@@ -21,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CardController {
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(CardController.class);
 
   private int id;
   @FXML
@@ -101,6 +103,7 @@ public class CardController {
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cardsets");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
     Parent cardsets = loader.load();
@@ -120,6 +123,7 @@ public class CardController {
    */
   @FXML
   private void changeSceneToHome(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Home");
     Parent home = FXMLLoader.load(getClass().getResource("/fxml/learningCards/main.fxml"));
     Scene homeScene = new Scene(home);
 
@@ -137,7 +141,7 @@ public class CardController {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
-
+    logger.info("Scene switched to: Cards");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cards.fxml"));
 
@@ -173,16 +177,20 @@ public class CardController {
       }
     }
 
+
     Data.mlcs.getCardFromCol(id).setHeadline(title.getText());
 
     switch (qa.getText()) {
       case "Answer":
         Data.mlcs.getCardFromCol(id).editTextQ(textbox.getText());
+        logger.info("saved changes");
         break;
       case "Question":
         Data.mlcs.getCardFromCol(id).editTextA(textbox.getText());
+        logger.info("saved changes");
     }
 
   }
+
 
 }

@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 
 
 public class MainController {
-
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(MainController.class);
 
   @FXML
   private Button mainQA;
@@ -64,6 +65,7 @@ public class MainController {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cards");
 
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cards.fxml"));
@@ -84,6 +86,7 @@ public class MainController {
    */
   @FXML
   private void changeSceneToCardsets(ActionEvent e) throws IOException {
+    logger.info("Scene switched to: Cardsets");
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cardsets.fxml"));
     Parent cardsets = loader.load();

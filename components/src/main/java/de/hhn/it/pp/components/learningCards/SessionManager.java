@@ -1,10 +1,15 @@
 package de.hhn.it.pp.components.learningCards;
 
+import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class SessionManager {
+
+  private static final org.slf4j.Logger logger =
+          org.slf4j.LoggerFactory.getLogger(SessionManager.class);
 
   LearningProgress progress = new LearningProgress();
   Cardset cardSet = null;
