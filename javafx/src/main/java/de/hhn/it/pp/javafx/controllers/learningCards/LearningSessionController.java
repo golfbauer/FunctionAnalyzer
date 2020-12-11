@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 public class LearningSessionController implements Initializable {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(LearningSessionController.class);
+       org.slf4j.LoggerFactory.getLogger(LearningSessionController.class);
 
   @FXML
   private TextField title;

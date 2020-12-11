@@ -17,7 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
 @ExtendWith(LearningCardsParameterResolver.class)
 public class LearningCardsSpec {
 
@@ -31,7 +30,7 @@ public class LearningCardsSpec {
   static void showNumberOfCardsOfCardsets(Map<String, Cardset> cardsets) {
     for (Cardset cardset : cardsets.values()) {
       System.out.println("Cartset '" + cardset.getTitle() + "' has "
-            + cardset.getNumberOfCard() + " cards");
+           + cardset.getNumberOfCard() + " cards");
     }
   }
 
@@ -57,7 +56,7 @@ public class LearningCardsSpec {
   @DisplayName("There is no cardset when no cardsets is added to it")
   void thereIsNoCardsetsWhenNoCardsetAdded() {
     assertEquals(0, learningCardsService.getNumberOfCardsets(),
-          () -> "it should have no cardset");
+         () -> "it should have no cardset");
   }
 
   @Test
@@ -65,7 +64,7 @@ public class LearningCardsSpec {
   void thereAreThreeCardsetsWhenThreeCardsetsAdded() {
     learningCardsService.addCardsets(emptyCardset, populationsCardset, capitalsCardset);
     assertEquals(3, learningCardsService.getNumberOfCardsets(),
-          () -> "it should have 3 cardsets");
+         () -> "it should have 3 cardsets");
   }
 
   @Test
@@ -79,7 +78,7 @@ public class LearningCardsSpec {
   @DisplayName("There is no card when no card is added to it")
   void thereIsNoCardWhenNoCardAdded() {
     assertEquals(0, learningCardsService.getNumberOfCards(),
-          () -> "it should have no card");
+         () -> "it should have no card");
   }
 
   @Test
@@ -88,7 +87,7 @@ public class LearningCardsSpec {
     learningCardsService.createCard("", "");
     learningCardsService.createCard("", "");
     assertEquals(2, learningCardsService.getNumberOfCards(),
-          () -> "it should have 2 cards");
+         () -> "it should have 2 cards");
   }
 
   @Test
@@ -114,7 +113,7 @@ public class LearningCardsSpec {
     int cardId = learningCardsService.createCard("Headline", "Question", "Answer");
     learningCardsService.addCardToCardset(cardsetId, cardId);
     assertEquals(1 + numberOfCardsOfEmptyCardset,
-          learningCardsService.getCardset(cardsetId).getNumberOfCard());
+         learningCardsService.getCardset(cardsetId).getNumberOfCard());
   }
 
   @Test
@@ -124,7 +123,7 @@ public class LearningCardsSpec {
     learningCardsService.addCardsets(populationsCardset);
     learningCardsService.addCardToCardset(cardsetId, "Card 1", "Question 1", "Answer 1");
     learningCardsService.addCardToCardset(cardsetId, "Card 2", "Question 2",
-          "Answer 2");
+         "Answer 2");
     assertEquals(2 + numberOfCardsOfPopulations, learningCardsService.getCardset(cardsetId).getNumberOfCard());
   }
 
@@ -135,7 +134,7 @@ public class LearningCardsSpec {
     learningCardsService.addCardsets(capitalsCardset);
     try {
       learningCardsService.addCardToCardset(cardsetIDPlusOne
-            , "Headline", "Question", "Answer");
+           , "Headline", "Question", "Answer");
       fail("cardset ID doesn't exist, last intruction should throw an exception");
     } catch (CardsetNotFoundException e) {
 
@@ -186,7 +185,7 @@ public class LearningCardsSpec {
   @Test
   @DisplayName("Card doesn't exist in cardset when it removed from cardset")
   void cardNotExistInCardsetWhenItRemovedFromCardset()
-        throws CardsetNotFoundException, CardNotFoundException {
+       throws CardsetNotFoundException, CardNotFoundException {
     int cardsetID = learningCardsService.createCardset("Cardset");
     int cardID = learningCardsService.addCardToCardset(cardsetID, "Headline", "Question", "Answer");
     assertTrue(learningCardsService.getCardset(cardsetID).getCardIds().contains(cardID));
@@ -197,7 +196,7 @@ public class LearningCardsSpec {
   @Test
   @DisplayName("Throw exception if the cardset ID cannot be found")
   void throwExceptionWhenCardsetIDNotExistWhileCardWasRemovingFromCardset()
-        throws CardNotFoundException, CardsetNotFoundException {
+       throws CardNotFoundException, CardsetNotFoundException {
     int cardsetID = learningCardsService.createCardset("Cardset");
     int cardID = learningCardsService.addCardToCardset(cardsetID, "Headline", "Question", "Answer");
     cardsetID += 1;
@@ -213,7 +212,7 @@ public class LearningCardsSpec {
   @Test
   @DisplayName("Throw exception if card doesn't exist in Cardset")
   void throwExceptionWhenCardIDNotExistWhileCardWasRemovingFromCardset()
-        throws CardsetNotFoundException {
+       throws CardsetNotFoundException {
     int cardsetID = learningCardsService.createCardset("Cardset");
     int cardID = learningCardsService.addCardToCardset(cardsetID, "Headline", "Question", "Answer");
     cardID += 1;
@@ -232,16 +231,16 @@ public class LearningCardsSpec {
     learningCardsService.addCardsets(populationsCardset, emptyCardset, capitalsCardset);
     int populationsCardsetID = populationsCardset.getId();
     int firstCardIDOfPopulations =
-          learningCardsService.getCardset(populationsCardsetID).getCardIds().get(0);
+         learningCardsService.getCardset(populationsCardsetID).getCardIds().get(0);
     String cardQuestionText =
-          learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ();
+         learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ();
     assertEquals(cardQuestionText,
-          learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ());
+         learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ());
     String changedCardQuestionText = "(changed )" + cardQuestionText;
     learningCardsService.editCardQuestionTextFromCardset(firstCardIDOfPopulations,
-          changedCardQuestionText);
+         changedCardQuestionText);
     assertEquals(changedCardQuestionText,
-          learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ());
+         learningCardsService.getCardFromCol(firstCardIDOfPopulations).getTextQ());
   }
 
   @Test
@@ -250,9 +249,9 @@ public class LearningCardsSpec {
     int cardID = learningCardsService.createCard("Headline", "Question", "Antwort");
     String cardAnswerText = learningCardsService.getCardFromCol(cardID).getTextA();
     assertEquals(cardAnswerText,
-          learningCardsService.getCardFromCol(cardID).getTextA());
+         learningCardsService.getCardFromCol(cardID).getTextA());
     String editedCardAnswerText = ("edited")
-          + learningCardsService.getCardFromCol(cardID).getTextA();
+         + learningCardsService.getCardFromCol(cardID).getTextA();
     learningCardsService.editCardAnswerTextFromCardset(cardID, editedCardAnswerText);
     assertEquals(editedCardAnswerText, learningCardsService.getCardFromCol(cardID).getTextA());
   }

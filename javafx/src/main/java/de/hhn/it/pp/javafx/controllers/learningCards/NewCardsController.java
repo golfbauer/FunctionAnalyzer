@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class NewCardsController {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(NewCardsController.class);
+       org.slf4j.LoggerFactory.getLogger(NewCardsController.class);
 
   @FXML
   private TextField title;

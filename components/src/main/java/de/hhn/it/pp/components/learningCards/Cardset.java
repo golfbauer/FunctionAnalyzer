@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 
-
 public class Cardset {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(Cardset.class);
+       org.slf4j.LoggerFactory.getLogger(Cardset.class);
 
   String title;
 

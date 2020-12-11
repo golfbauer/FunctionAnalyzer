@@ -12,8 +12,15 @@ import java.util.List;
 public class DemoLearningCardsUsage {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(DemoLearningCardsUsage.class);
+       org.slf4j.LoggerFactory.getLogger(DemoLearningCardsUsage.class);
 
+  /**
+   * main methode.
+   *
+   * @param args String array for main method
+   * @throws CardsetNotFoundException when a cardset was not found
+   * @throws CardNotFoundException    when a card was not found
+   */
   public static void main(String[] args) throws CardsetNotFoundException, CardNotFoundException {
 
     LearningCardsService service = new LearningCardsService() {
@@ -54,7 +61,7 @@ public class DemoLearningCardsUsage {
 
       @Override
       public void addCardToCardset(int cardsetId, int cardId)
-            throws CardsetNotFoundException, CardNotFoundException {
+           throws CardsetNotFoundException, CardNotFoundException {
 
       }
 
@@ -66,7 +73,7 @@ public class DemoLearningCardsUsage {
 
       @Override
       public int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA)
-            throws CardsetNotFoundException {
+           throws CardsetNotFoundException {
         return 0;
       }
 
@@ -77,13 +84,13 @@ public class DemoLearningCardsUsage {
 
       @Override
       public void removeCardFromCardset(int cardsetId, int cardId)
-            throws CardsetNotFoundException, CardNotFoundException {
+           throws CardsetNotFoundException, CardNotFoundException {
 
       }
 
       @Override
       public void editCardQuestionTextFromCardset(int cardId, String newCardTextQ)
-            throws CardNotFoundException {
+           throws CardNotFoundException {
 
       }
 
@@ -143,16 +150,16 @@ public class DemoLearningCardsUsage {
     // create a cardset
     int cardsetPopulationId = service.createCardset("Populations");
     // create a card and puts it directly into a cardset
-    service.addCardToCardset
-          (cardsetPopulationId, "Whats the population of Berlin?",
-                "The population of Berlin is 3,562,000");
+    service.addCardToCardset(cardsetPopulationId,
+         "Whats the population of Berlin?",
+              "The population of Berlin is 3,562,000");
 
     // create 2. cardset
     int cardsetCapitalsId = service.createCardset("Capitals");
 
     // create a card and puts it into a cardset
     int cardId = service.createCard("Whats the Capital of Germany?",
-          "Berlin is the capital of Germany");
+         "Berlin is the capital of Germany");
     service.addCardToCardset(cardsetCapitalsId, cardId);
     service.addCardToCardset(cardsetCapitalsId, cardId);
 
@@ -161,22 +168,22 @@ public class DemoLearningCardsUsage {
 
     // create cards and put them directly into a cardset
     service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of Germany?",
-          "Berlin is the capital of Germany");
+         "Berlin is the capital of Germany");
     service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of France?",
-          "Paris is the capital of France");
+         "Paris is the capital of France");
     service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of United Kingdom?",
-          "London is the capital of United Kingdom");
+         "London is the capital of United Kingdom");
     service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of China?",
-          "Beijing is the capital of China");
+         "Beijing is the capital of China");
 
     cardId = service.addCardToCardset(cardsetCapitalsId, "Whats the Capital of Russia?",
-          "Heilbronn is the capital of Russia");
+         "Heilbronn is the capital of Russia");
     // last added card is edited
     service.editCardAnswerTextFromCardset(cardId,
-          "Moscow is the capital of Russia");
+         "Moscow is the capital of Russia");
 
     cardId = service.addCardToCardset(cardsetPopulationId, "Whats the population of Heilbronn?",
-          "The population of Heilbronn is 120,000");
+         "The population of Heilbronn is 120,000");
     // the card is completely deleted
     service.deleteCard(cardId);
 

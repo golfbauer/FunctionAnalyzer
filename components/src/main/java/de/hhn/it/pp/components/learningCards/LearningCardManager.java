@@ -12,7 +12,7 @@ import java.util.Map;
 public class LearningCardManager {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(LearningCardManager.class);
+       org.slf4j.LoggerFactory.getLogger(LearningCardManager.class);
 
   Map<Integer, Card> cardCol = new HashMap<Integer, Card>();
   // Map for all created Cardsets

@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 public class CardController {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardController.class);
+       org.slf4j.LoggerFactory.getLogger(CardController.class);
 
   private int id;
   @FXML
