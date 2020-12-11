@@ -21,10 +21,8 @@ import javafx.stage.Stage;
 
 
 public class LearningSessionController implements Initializable {
-
   private static final org.slf4j.Logger logger =
                     org.slf4j.LoggerFactory.getLogger(LearningSessionController.class);
-
 
   @FXML
   private TextField title;
@@ -71,9 +69,7 @@ public class LearningSessionController implements Initializable {
    */
   @FXML
   private void changeSceneToCards(ActionEvent e) throws IOException {
-
     logger.info("Scene switched to: Cards");
-
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource("/fxml/learningCards/cards.fxml"));
 
@@ -191,7 +187,7 @@ public class LearningSessionController implements Initializable {
     int notSolved = 0;
     for (int i = 0; i < Data.mlcs.getNumberOfCards(); i++) {
       if (Data.mlcs.getCards().get(i).getStatus() == Status.UNSOLVED
-              || Data.mlcs.getCards().get(i).getStatus() == Status.UNSEEN) {
+           || Data.mlcs.getCards().get(i).getStatus() == Status.UNSEEN) {
         notSolved++;
       }
       unsolved = notSolved;
@@ -211,7 +207,7 @@ public class LearningSessionController implements Initializable {
       if (onlyUnsolved.isSelected()) {
 
         if (Data.mlcs.getCards().get(currentPos).getStatus()
-                == Status.SOLVED && currentPos < maxCards - 1) {
+             == Status.SOLVED && currentPos < maxCards - 1) {
           currentPos++;
           setCard();
         }

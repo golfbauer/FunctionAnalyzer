@@ -17,6 +17,7 @@ public interface LearningCardsService {
 
   /**
    * returns number of cardsets.
+   *
    * @return the number of added cardsets
    */
   int getNumberOfCardsets();
@@ -58,7 +59,8 @@ public interface LearningCardsService {
   int createCard(String cardTextQ, String cardTextA);
 
   /**
-   *  returns the number of cards.
+   * returns the number of cards.
+   *
    * @return the number of added cards
    */
   int getNumberOfCards();
@@ -69,10 +71,10 @@ public interface LearningCardsService {
    * @param cardsetId the id of the carset in which the card is added
    * @param cardId    id of the card
    * @throws CardsetNotFoundException if no cardset was found
-   * @throws CardNotFoundException if no card was found
+   * @throws CardNotFoundException    if no card was found
    */
   void addCardToCardset(int cardsetId, int cardId)
-        throws CardsetNotFoundException, CardNotFoundException;
+       throws CardsetNotFoundException, CardNotFoundException;
 
   /**
    * creates a card with headline, answer and question text.
@@ -86,7 +88,7 @@ public interface LearningCardsService {
    * @throws CardsetNotFoundException if the given cardset id does not exist
    */
   int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ, String cardTextA)
-        throws CardsetNotFoundException;
+       throws CardsetNotFoundException;
 
   /**
    * creates a card with answer and question text.
@@ -99,7 +101,7 @@ public interface LearningCardsService {
    * @throws CardsetNotFoundException if the given cardset id does not exist
    */
   int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA)
-        throws CardsetNotFoundException;
+       throws CardsetNotFoundException;
 
   /**
    * deletes the card completely.
@@ -117,7 +119,7 @@ public interface LearningCardsService {
    * @throws CardNotFoundException    if card id does not exist
    */
   void removeCardFromCardset(int cardsetId, int cardId)
-        throws CardsetNotFoundException, CardNotFoundException;
+       throws CardsetNotFoundException, CardNotFoundException;
 
   /**
    * Changes the question text of a card.
@@ -128,7 +130,7 @@ public interface LearningCardsService {
    * @throws CardNotFoundException    if card id cannot be found
    */
   void editCardQuestionTextFromCardset(int cardId, String newCardTextQ)
-        throws CardNotFoundException;
+       throws CardNotFoundException;
 
   /**
    * Changes the answer text of a card.
@@ -139,7 +141,7 @@ public interface LearningCardsService {
    * @throws CardNotFoundException    if card id cannot be found
    */
   void editCardAnswerTextFromCardset(int cardId, String newCardTextA)
-        throws CardNotFoundException;
+       throws CardNotFoundException;
 
   /**
    * Shows the cards within a cardset.

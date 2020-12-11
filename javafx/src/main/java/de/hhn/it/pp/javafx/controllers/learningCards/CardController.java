@@ -4,6 +4,7 @@ import de.hhn.it.pp.components.learningCards.Status;
 
 import java.io.IOException;
 
+import de.hhn.it.pp.javafx.controllers.TemplateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class CardController {
-
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardController.class);
-
+       org.slf4j.LoggerFactory.getLogger(CardController.class);
 
   private int id;
   @FXML
@@ -165,7 +164,7 @@ public class CardController {
   private void saveChanges(MouseEvent e) {
 
     if (title.getText().trim().equalsIgnoreCase("")
-            || textbox.getText().trim().equalsIgnoreCase("")) {
+         || textbox.getText().trim().equalsIgnoreCase("")) {
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Alert");
       alert.setHeaderText("The textbox needs to be filled :)");
@@ -178,6 +177,8 @@ public class CardController {
         textbox.setText(Data.mlcs.getCardFromCol(id).getTextQ());
       }
     }
+
+    logger.info("saved changes");
 
     Data.mlcs.getCardFromCol(id).setHeadline(title.getText());
 

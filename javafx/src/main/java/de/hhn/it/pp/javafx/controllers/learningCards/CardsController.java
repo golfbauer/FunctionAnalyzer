@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class CardsController implements Initializable {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardsController.class);
+       org.slf4j.LoggerFactory.getLogger(CardsController.class);
 
   int cardsCreated = Data.mlcs.getNumberOfCards();
 

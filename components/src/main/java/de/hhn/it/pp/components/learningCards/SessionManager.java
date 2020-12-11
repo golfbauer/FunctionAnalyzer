@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class SessionManager {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(SessionManager.class);
+       org.slf4j.LoggerFactory.getLogger(SessionManager.class);
 
   LearningProgress progress = new LearningProgress();
   Cardset cardSet = null;
@@ -19,8 +19,9 @@ public class SessionManager {
 
   /**
    * starts a learning session according to given card status.
+   *
    * @param cardSet cardset object where cards are stored
-   * @param status the status of the cards, which will be showed
+   * @param status  the status of the cards, which will be showed
    */
   public void startLearningSession(Cardset cardSet, Status[] status) {
     this.cardSet = cardSet;
@@ -49,6 +50,7 @@ public class SessionManager {
   /**
    * shows the card.
    * sets the card status.
+   *
    * @param card card object
    */
   public void askQuestion(Card card) {
@@ -66,11 +68,12 @@ public class SessionManager {
 
   /**
    * stops the learning session, if the user types 'q'.
+   *
    * @return true if the user types 'q', otherwise false
    */
   public boolean stopLearningSession() {
     System.out.println(
-        "If you want to quit, enter 'q'. If you want to see next Question, enter something else:");
+         "If you want to quit, enter 'q'. If you want to see next Question, enter something else:");
     String input = scanner.nextLine();
     if (input.equals("q")) {
       this.cardSet = null;

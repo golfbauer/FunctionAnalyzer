@@ -5,7 +5,7 @@ import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMak
 public class CardsetNotFoundException extends Exception {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardsetNotFoundException.class);
+       org.slf4j.LoggerFactory.getLogger(CardsetNotFoundException.class);
 
   public CardsetNotFoundException() {
   }

@@ -5,7 +5,7 @@ import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMak
 public class LearningProgress {
 
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(LearningProgress.class);
+       org.slf4j.LoggerFactory.getLogger(LearningProgress.class);
 
   // number of right answered questions
   int right = 0;

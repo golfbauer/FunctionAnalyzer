@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 public class MainController {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(MainController.class);
+       org.slf4j.LoggerFactory.getLogger(MainController.class);
 
   @FXML
   private Button mainQA;
