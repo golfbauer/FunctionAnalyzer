@@ -1,13 +1,9 @@
 package de.hhn.it.pp.components.typingtrainer.provider;
 
 import de.hhn.it.pp.components.typingtrainer.Feedback;
-import de.hhn.it.pp.components.typingtrainer.SaveData;
 import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
-import de.hhn.it.pp.components.typingtrainer.PracticeText;
-import de.hhn.it.pp.components.typingtrainer.FileReader;
-import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalTime;
@@ -41,7 +37,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
       throws IOException, UnsupportedAudioFileException, LineUnavailableException {
     String path = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
 
-    logger.debug("play media from path: "+path);
+    logger.debug("play media from path: " + path);
 
   }
 
@@ -60,17 +56,18 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException {
-    logger.debug("Time: "+feedback.getTime());
-    logger.debug("WPM: "+feedback.getWordsPerMinute());
+    logger.debug("Time: " + feedback.getTime());
+    logger.debug("WPM: " + feedback.getWordsPerMinute());
 
     feedback.setStartTime(10);
     feedback.setEndTime(20);
 
     feedback.calculateTime();
-    feedback.calculateWordsPerMinute(descriptor.getTypedWords(), descriptor.getPracticeText().getText());
+    feedback.calculateWordsPerMinute(descriptor.getTypedWords(),
+        descriptor.getPracticeText().getText());
 
-    logger.debug("calculated time: "+feedback.getTime());
-    logger.debug("wpm: "+feedback.getWordsPerMinute());
+    logger.debug("calculated time: " + feedback.getTime());
+    logger.debug("wpm: " + feedback.getWordsPerMinute());
   }
 
   /**
@@ -109,12 +106,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
 
     descriptor.addTypedWords("typed word", currentIndex);
 
-    if(checkWord(descriptor.getTypedWordsAtIndex(currentIndex), currentIndex))
-    {
+    if (checkWord(descriptor.getTypedWordsAtIndex(currentIndex), currentIndex)) {
       markWord(currentIndex, Color.GREEN);
-    }
-    else
-    {
+    } else {
       markWord(currentIndex, Color.RED);
     }
 
@@ -144,13 +138,10 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void markWord(int index, Color color) throws IOException {
-    if(color.equals(Color.GREEN))
-    {
-      logger.debug("Mark: "+descriptor.getTypedWordsAtIndex(index)+" green");
-    }
-    else
-    {
-      logger.debug("Mark: "+descriptor.getTypedWordsAtIndex(index)+" red");
+    if (color.equals(Color.GREEN)) {
+      logger.debug("Mark: " + descriptor.getTypedWordsAtIndex(index) + " green");
+    } else {
+      logger.debug("Mark: " + descriptor.getTypedWordsAtIndex(index) + " red");
       try {
         audioOutput();
       } catch (UnsupportedAudioFileException e) {

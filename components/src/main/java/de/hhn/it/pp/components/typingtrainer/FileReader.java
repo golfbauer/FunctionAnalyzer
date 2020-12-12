@@ -36,7 +36,7 @@ public class FileReader {
 
   public FileReader(String fileName) throws FileNotFoundException {
 
-    String path = "components/src/main/resources/"+fileName;
+    String path = "components/src/main/resources/"+fileName; // <- Hier hat Tobi was geändert
     System.out.println("PFAD:"+path);
 
     File file = new File(path);
@@ -48,6 +48,16 @@ public class FileReader {
     }
 
     //System.out.println(fileContent);
+  }
+
+  public FileReader(File file) throws FileNotFoundException {
+    Scanner scan = new Scanner(file, StandardCharsets.UTF_8.name());
+
+    fileContent = "";
+
+    while(scan.hasNextLine()){
+      fileContent = fileContent.concat(scan.nextLine()+"\n");
+    }
   }
 
   /**

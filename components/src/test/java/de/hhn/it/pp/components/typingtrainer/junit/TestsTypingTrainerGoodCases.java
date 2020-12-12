@@ -10,10 +10,12 @@ import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
+import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.List;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -28,62 +30,50 @@ public class TestsTypingTrainerGoodCases {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(TestsTypingTrainerGoodCases.class);
 
-  ProviderTypingTrainer TypingTrainerService;
-  FileReader testFileReader;
+  ProviderTypingTrainer typingTrainerService;
+/*  FileReader testFileReader;
   File testAudioFile;
   String[] testPractice;
   String[] testTyped;
   Feedback testFeedback;
   String testSelectedText;
   PracticeText testPracticeText;
-  TypingTrainerDescriptor testDescriptor;
+  TypingTrainerDescriptor testDescriptor;*/
+  TypingTrainerDescriptor descriptor;
+  File audioWrongWord;
+  Feedback feedback;
+  FileReader fileReader;
+  String[] selectedText;
+  PracticeText practiceText;
 
   @BeforeEach
   void initialize() throws IOException, WordNotFoundException, LineUnavailableException,
       UnsupportedAudioFileException, InterruptedException{
-    TypingTrainerService = new ProviderTypingTrainer();
+    audioWrongWord = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
 
-    testAudioFile = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
+    feedback = new Feedback(0,0);
 
-    testFeedback = new Feedback(0,0);
+    ClassLoader classLoader;
+    classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource("practiceText-3.txt").getFile());
 
-    testSelectedText ="practiceText-3.txt";
-    testFileReader = new FileReader(testSelectedText);
-    testPractice = testFileReader.getPracticeText();
-    testPracticeText = new PracticeText(testPractice);
+    fileReader = new FileReader(file);
+    selectedText = fileReader.getPracticeText();
+    practiceText = new PracticeText(selectedText);
 
-    testDescriptor = new TypingTrainerDescriptor(testAudioFile, testFeedback, testPracticeText);
+    descriptor = new TypingTrainerDescriptor(audioWrongWord, feedback, practiceText);
 
-  }
+    typingTrainerService = new ProviderTypingTrainer();
+    typingTrainerService.descriptor = descriptor;
 
-  //Rausnehmen
-  //region Tutorial
-  @Test
-  @DisplayName("Should demonstrate a simple assertion")
-  void shouldShowGoodAssertion() {
-    Assertions.assertEquals(1,1);
   }
 
   @Test
-  void shouldShowWorstAssertion() {
-    Assertions.assertEquals(1,2);
-  }
+  @DisplayName("Checks if written word matches with word from practice text.")
+  void testCheckWord() {
+    String wordToCheck = "Die";
+    int wordFromPracticeText = 1;
 
-  @Test
-  @DisplayName("Should check all items in the list")
-  void shouldCheckAllItemsInTheList() {
-    List<Integer> numbers = List.of(2,3,5,7);
-
-    Assertions.assertEquals(java.util.Optional.of(1), numbers.get(0));
-    Assertions.assertEquals(java.util.Optional.of(3),numbers.get(1));
-    Assertions.assertEquals(java.util.Optional.of(5),numbers.get(2));
-    Assertions.assertEquals(java.util.Optional.of(7),numbers.get(3));
+    assertTrue(typingTrainerService.checkWord(wordToCheck, wordFromPracticeText));
   }
-
-  @Test
-  void shouldOnlyRunTheTestIfSomeCriteriaAreMet() {
-    Assumptions.assumeTrue(11 > 10);
-    assertEquals(1,1);
-  }
-  //endregion
 }
