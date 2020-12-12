@@ -15,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Test the TypingTrainerService with bad cases")
 public class TestTypingTrainerBadCases {
@@ -31,6 +32,7 @@ public class TestTypingTrainerBadCases {
   PracticeText testPracticeText;
   TypingTrainerDescriptor testDescriptor;
 
+
   @BeforeEach
   void initialize() throws IOException, WordNotFoundException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException{
   TypingTrainerService = new ProviderTypingTrainer();
@@ -39,13 +41,36 @@ public class TestTypingTrainerBadCases {
 
   testFeedback = new Feedback(0,0);
 
-  testSelectedText ="practiceText-3.txt";
-  testFileReader = new FileReader(testSelectedText);
-  testPractice = testFileReader.getPracticeText();
-  testPracticeText = new PracticeText(testPractice);
+  FileReader testFileReader = new FileReader();
+  String[] testSelectedText = testFileReader.getPracticeText(); //for later: depends on what button was clicked (use other constructor)
+  testPracticeText = new PracticeText(testSelectedText);
+
+//  testSelectedText ="practiceText-3.txt";
+//  testFileReader = new FileReader(testSelectedText);
+//  testPractice = testFileReader.getPracticeText();
+//  testPracticeText = new PracticeText(testPractice);
 
   testDescriptor = new TypingTrainerDescriptor(testAudioFile, testFeedback, testPracticeText);
 
   }
+
+//  @Test
+//  @DisplayName("Checks how checkWord handles wrong Spelling")
+//  void wrongCheckWord(){
+//    assertFalse(TypingTrainerService.checkWord("Dee", 0));
+//  }
+
+//  @Test
+//  @DisplayName("Checks if there is a viable AudioFile")
+//  void audioFileNotFound() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
+//    assertThrows(UnsupportedAudioFileException.class, () -> TypingTrainerService.audioOutput());
+//  }
+
+//  @Test
+//  @DisplayName("Checks how Feedback handles wrong Input")
+//  void falseFeedback() {
+//    assertThrows(IOException.class, () -> TypingTrainerService.showFeedback(new Feedback(0, 9));
+//  }
+
 
 }

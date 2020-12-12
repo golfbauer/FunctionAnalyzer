@@ -21,7 +21,7 @@ public class FileReader {
   public String fileContent = "";//String where text from file gets saved
 
   public FileReader() throws FileNotFoundException {
-    String path = FileReader.class.getResource("/practiceText-1.txt").toString();
+    String path = FileReader.class.getResource("/practiceText-3.txt").toString();
     path = path.substring(6); //to make the path usable
 
     File file = new File(path);
@@ -36,7 +36,7 @@ public class FileReader {
 
   public FileReader(String fileName) throws FileNotFoundException {
 
-    String path = "components/src/main/resources/"+fileName;
+    String path = "/java/components/src/main/resources/"+fileName;
     System.out.println("PFAD:"+path);
 
     File file = new File(path);

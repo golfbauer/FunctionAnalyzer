@@ -39,9 +39,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void audioOutput()
       throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-    String path = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
+    String pathAudio = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
 
-    logger.debug("play media from path: "+path);
+    logger.debug("play media from path: "+pathAudio);
 
   }
 
