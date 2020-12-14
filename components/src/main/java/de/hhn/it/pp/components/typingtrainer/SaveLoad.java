@@ -18,12 +18,14 @@ public class SaveLoad {
 
   /**
    * Appends new text in the existing highscores.txt (adds new scores)
+   *
    * @param sessionText
    * @param time
    * @param wpm
    * @throws IOException
    */
-  public void save(String sessionText, String time, String wpm) throws IOException { //   "components/src/main/resources/highscores.txt"
+  public void save(String sessionText, String time, String wpm)
+      throws IOException { //   "components/src/main/resources/highscores.txt"
 
     FileWriter fw = null;
     BufferedWriter bw = null;
@@ -34,7 +36,7 @@ public class SaveLoad {
       bw = new BufferedWriter(fw);
       pw = new PrintWriter(bw);
 
-      pw.print(sessionText+" "+time+" "+wpm+" "); //Schreibt in highscores.txt
+      pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
 
       System.out.println("Data Successfully appended into file");
 
@@ -50,20 +52,63 @@ public class SaveLoad {
 
   }
 
+  public void save(String path) throws IOException { //JUnit
+
+    FileWriter fw = null;
+    BufferedWriter bw = null;
+    PrintWriter pw = null;
+
+    try {
+      String sessionText = "selectedtext";
+      String time = "1.54";
+      String wpm = "2";
+
+      fw = new FileWriter(path, true);
+      bw = new BufferedWriter(fw);
+      pw = new PrintWriter(bw);
+
+      pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
+
+      System.out.println("Data Successfully appended into file");
+
+      pw.flush();
+    } finally {
+//      try {
+//        pw.close();
+//        bw.close();
+//        fw.close();
+//      } catch (IOException io) {// can't do anything }
+//      }
+    }
+
+  }
+
   /**
    * Reads the content of highscores.txt and returns for further use in the gui
+   *
    * @return content of highscores.txt
    */
-  public String load()
-  {
+  public String load() {
     String filePath = "components/src/main/resources/saveData/highscores.txt";
     String content = "empty";
 
-    try
-    {
-      content = new String (Files.readAllBytes(Paths.get(filePath)));
-    } catch (IOException e)
-    {
+    try {
+      content = new String(Files.readAllBytes(Paths.get(filePath)));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return content;
+  }
+
+  public String load(String path) //JUnit
+  {
+    String filePath = path;
+    String content = "empty";
+
+    try {
+      content = new String(Files.readAllBytes(Paths.get(filePath)));
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
