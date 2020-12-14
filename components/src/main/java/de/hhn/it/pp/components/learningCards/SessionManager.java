@@ -13,9 +13,10 @@ public class SessionManager {
 
   LearningProgress progress = new LearningProgress();
   Cardset cardSet = null;
+  ArrayList<Card> cards = null;
+  boolean isRunning = false;
 
   int cardIndex = 0;
-  Scanner scanner = new Scanner(System.in);
 
   /**
    * starts a learning session according to given card status.
@@ -23,60 +24,78 @@ public class SessionManager {
    * @param status the status of the cards, which will be showed
    */
   public void startLearningSession(Cardset cardSet, Status[] status) {
+    if(isRunning)
+      return;
+    isRunning = true;
     this.cardSet = cardSet;
-    ArrayList<Card> cards = new ArrayList<Card>();
+    cards = new ArrayList<Card>();
     for (int cardId : cardSet.getCardIds()) {
       Card card = cardSet.getCardfromSet(cardId);
       if (Arrays.asList(status).contains(card.getStatus())) {
         cards.add(card);
       }
     }
-    while (cards.size() > cardIndex) {
-      askQuestion(cards.get(cardIndex));
-      cardIndex++;
-      if (stopLearningSession()) {
-        break;
-      }
-    }
     cardIndex = 0;
-    System.out.println("Result: " + progress.toString());
-    System.out.println("******************************");
-    progress.reset();
+
 
   }
 
+  public Card getCard(){
+    if(isRunning)
+      return cards.get(cardIndex);
+    return null;
+  }
 
-  /**
-   * shows the card.
-   * sets the card status.
-   * @param card card object
-   */
-  public void askQuestion(Card card) {
-    System.out.println(card.getTextQ());
-    System.out.println("If it is solved correctly, enter 1.\nOtherwise enter something else:");
-    String input = scanner.nextLine();
-    if (input.equals("1")) {
-      card.setStatusToSolved();
-      progress.updateRight();
-    } else {
-      card.setStatusToUnSolved();
-      progress.updateWrong();
+  public Card getNextCard(){
+    if(isRunning && cards.size() > cardIndex + 1)
+      return cards.get(++cardIndex);
+    return null;
+  }
+
+  public Card getPreviousCard(){
+    if(isRunning && cardIndex > 0)
+      return cards.get(--cardIndex);
+    return null;
+  }
+
+  public void answerRight(){
+    if(isRunning){
+      cards.get(cardIndex).setStatusToSolved();
     }
   }
+
+  public void answerWrong(){
+    if(isRunning){
+      cards.get(cardIndex).setStatusToUnSolved();
+    }
+  }
+
+
 
   /**
    * stops the learning session, if the user types 'q'.
-   * @return true if the user types 'q', otherwise false
    */
-  public boolean stopLearningSession() {
-    System.out.println(
-        "If you want to quit, enter 'q'. If you want to see next Question, enter something else:");
-    String input = scanner.nextLine();
-    if (input.equals("q")) {
-      this.cardSet = null;
-      cardIndex = 0;
-      return true;
+  public int[] stopLearningSession() {
+    if(!isRunning){
+      return null;
     }
-    return false;
+    int solved = 0;
+    int unsolved = 0;
+    int unseen = 0;
+
+    for(Card card : cards){
+      if(card.getStatus() == Status.SOLVED){
+        solved++;
+      }
+      else if (card.getStatus() == Status.SOLVED){
+        unsolved++;
+      }
+      else{
+        unseen++;
+      }
+    }
+
+    isRunning = false;
+    return new int[]{solved, unsolved, unseen};
   }
 }
