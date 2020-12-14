@@ -40,4 +40,11 @@ public class LearningProgress {
     wrong = 0;
   }
 
+  public int getRight(){
+    return right;
+  }
+  public int getWrong(){
+    return wrong;
+  }
+
 }

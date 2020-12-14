@@ -206,4 +206,15 @@ public interface LearningCardsService {
    */
   Card getCardFromCol(int cardId);
 
+  /**
+   * Changes the headline of a card according its ID
+   */
+  void setCardHeadline(int cardId, String newHeadline) throws CardNotFoundException;
+
+  /**
+   * Returns the headline of a card according its ID
+   *
+   * @return  card headline
+   */
+  String getCardHeadline(int cardId) throws CardNotFoundException;
 }

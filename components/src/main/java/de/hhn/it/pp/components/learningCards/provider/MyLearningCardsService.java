@@ -236,5 +236,23 @@ public class MyLearningCardsService implements LearningCardsService {
     return learningCardManager.getCardFromCol(i);
   }
 
+  @Override
+  public void setCardHeadline(int cardId, String newHeadline) throws CardNotFoundException {
+    logger.info("getCardFromCol, cardID = {}", cardId);
+    if (!learningCardManager.getAllCardsIds().contains(cardId)) {
+      throw new CardNotFoundException("there is no Card with ID " + cardId);
+    }
+    learningCardManager.getCardFromCol(cardId).setHeadline(newHeadline);
+  }
+
+  @Override
+  public String getCardHeadline(int cardId) throws CardNotFoundException {
+    logger.info("getCardFromCol, cardID = {}", cardId);
+    if (!learningCardManager.getAllCardsIds().contains(cardId)) {
+      throw new CardNotFoundException("there is no Card with ID " + cardId);
+    }
+    return learningCardManager.getCardFromCol(cardId).getHeadline();
+  }
+
 
 }

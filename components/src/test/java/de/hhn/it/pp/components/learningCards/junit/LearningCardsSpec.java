@@ -1,11 +1,14 @@
 package de.hhn.it.pp.components.learningCards.junit;
 
+import de.hhn.it.pp.components.learningCards.Card;
 import de.hhn.it.pp.components.learningCards.Cardset;
 import de.hhn.it.pp.components.learningCards.LearningCardsService;
+import de.hhn.it.pp.components.learningCards.Status;
 import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
 import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
 import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
 
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -215,7 +218,7 @@ public class LearningCardsSpec {
   void throwExceptionWhenCardIDNotExistWhileCardWasRemovingFromCardset()
         throws CardsetNotFoundException {
     int cardsetID = learningCardsService.createCardset("Cardset");
-    int cardID = learningCardsService.addCardToCardset(cardsetID, "Headline", "Question", "Answer");
+    int cardID = learningCardsService.addCardToCardset(cardsetID, "Question", "Answer");
     cardID += 1;
 
     try {
@@ -277,4 +280,89 @@ public class LearningCardsSpec {
     }
   }
 
+  @Test
+  void getAllAddedCardsBack(){
+    learningCardsService.createCard("Question 1", "Answer 1");
+    learningCardsService.createCard("Question 1", "Answer 1");
+    learningCardsService.createCard("Question 1", "Answer 1");
+    for(Card card : learningCardsService.getCards()){
+      assertTrue(learningCardsService.getCardsIds().contains(card.getId()));
+    }
+  }
+
+  @Test
+  void getAllAddedCardsetsBack(){
+    learningCardsService.addCardsets(emptyCardset, populationsCardset);
+    assertTrue(learningCardsService.getCardsets().contains(emptyCardset));
+    assertTrue(learningCardsService.getCardsets().contains(populationsCardset));
+    assertFalse(learningCardsService.getCardsets().contains(capitalsCardset));
+  }
+
+  @Test
+  void getAllAddedCardsetIds(){
+    learningCardsService.addCardsets(emptyCardset, populationsCardset);
+    assertTrue(learningCardsService.getCardsetIds().contains(emptyCardset.getId()));
+    assertTrue(learningCardsService.getCardsetIds().contains(populationsCardset.getId()));
+    assertFalse(learningCardsService.getCardsetIds().contains(capitalsCardset.getId()));
+  }
+
+  @Test
+  void throwExceptionIfCardsetIdOfStartingLearningSessionNotExist(){
+    learningCardsService.addCardsets(emptyCardset, populationsCardset);
+    try {
+      learningCardsService.startLearningSession(capitalsCardset.getId(),
+              new Status[]{Status.UNSOLVED, Status.UNSEEN, Status.SOLVED});
+      fail("Cardset ID should not exist in map");
+    } catch (CardsetNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  @Test
+  void throwExceptionIfCardsetIdOfRepeatingLearningSessionNotExist(){
+    learningCardsService.addCardsets(emptyCardset, populationsCardset);
+    try {
+      learningCardsService.repeatUnsolvedAndUnseenCards(capitalsCardset.getId());
+      fail("Cardset ID should not exist in map");
+    } catch (CardsetNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void getHeadlineOfCard() throws CardNotFoundException {
+    int cardID = learningCardsService.createCard("headline", "question", "answer");
+    assertEquals("headline", learningCardsService.getCardHeadline(cardID));
+
+  }
+
+  @Test
+  void throwExceptionOfIdOfCardNotExistWhileGettingItsHeadline(){
+    try {
+      learningCardsService.getCardHeadline(999);
+      fail("Card ID should not exist in map");
+    } catch (CardNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  @Test
+  void setHeadlineOfCard() throws CardNotFoundException {
+    int cardID = learningCardsService.createCard("headline", "question", "answer");
+    learningCardsService.setCardHeadline(cardID, "New Headline");
+    assertEquals("New Headline", learningCardsService.getCardHeadline(cardID));
+
+  }
+
+  @Test
+  void throwExceptionOfIdOfCardNotExistWhileChangingItsHeadline(){
+    try {
+      learningCardsService.setCardHeadline(999, "new Headline");
+      fail("Card ID should not exist in map");
+    } catch (CardNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 }

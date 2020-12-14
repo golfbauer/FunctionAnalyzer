@@ -45,11 +45,6 @@ public class Card {
     this.headline = headline;
   }
 
-  /**
-   * Method not intended for the facade.
-   */
-  void addPicture() {
-  }
 
   /**
    * Sets the Questiontext of the Card class.
@@ -124,18 +119,7 @@ public class Card {
     return headline;
   }
 
-  /**
-   * returns the information of the card.
-   *
-   * @return all information put into the card class (headline, questiontext, answertext) in an
-   * combined String
-   */
-  @SuppressWarnings("checkstyle:JavadocTagContinuationIndentation")
-  String getCardinfo() {
-    String info;
-    info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
-    return info;
-  }
+
 
   /**
    * returns the current status of the card.

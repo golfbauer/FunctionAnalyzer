@@ -138,6 +138,16 @@ public class DemoLearningCardsUsage {
       public Card getCardFromCol(int cardId) {
         return null;
       }
+
+      @Override
+      public void setCardHeadline(int cardId, String newHeadline) throws CardNotFoundException {
+
+      }
+
+      @Override
+      public String getCardHeadline(int cardId) throws CardNotFoundException {
+        return null;
+      }
     };
 
     // create a cardset
