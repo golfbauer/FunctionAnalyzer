@@ -1,6 +1,6 @@
-package de.hhn.it.pp.components.learningCards.junit;
+package de.hhn.it.pp.components.learningcards.junit;
 
-import de.hhn.it.pp.components.learningCards.LearningProgress;
+import de.hhn.it.pp.components.learningcards.LearningProgress;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

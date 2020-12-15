@@ -1,4 +1,4 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 public class CardsetsController {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardsetsController.class);
+       org.slf4j.LoggerFactory.getLogger(CardsetsController.class);
 
   /**
    * changes the scene to main.fxml

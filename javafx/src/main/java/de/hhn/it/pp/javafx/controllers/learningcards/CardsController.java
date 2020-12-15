@@ -1,7 +1,7 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
-import de.hhn.it.pp.components.learningCards.Card;
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.Card;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 public class CardsController implements Initializable {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardsController.class);
+       org.slf4j.LoggerFactory.getLogger(CardsController.class);
 
   int cardsCreated = Data.mlcs.getNumberOfCards();
 

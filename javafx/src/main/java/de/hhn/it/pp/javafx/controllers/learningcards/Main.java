@@ -1,4 +1,4 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(de.hhn.it.pp.javafx.controllers.learningCards.Main.class);
+       org.slf4j.LoggerFactory.getLogger(de.hhn.it.pp.javafx.controllers.learningcards.Main.class);
 
   private final int width = 1080;
 

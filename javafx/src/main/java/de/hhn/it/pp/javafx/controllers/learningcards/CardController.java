@@ -1,10 +1,9 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
-import de.hhn.it.pp.components.learningCards.Status;
+import de.hhn.it.pp.components.learningcards.Status;
 
 import java.io.IOException;
 
-import de.hhn.it.pp.javafx.controllers.TemplateController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
@@ -21,15 +22,9 @@ import javafx.stage.Stage;
 
 public class CardController {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(CardController.class);
+       org.slf4j.LoggerFactory.getLogger(CardController.class);
 
   private int id;
-  @FXML
-  private Button cardsetsB;
-  @FXML
-  private Button cardsB;
-  @FXML
-  private Button homeB;
   @FXML
   private TextField title;
   @FXML
@@ -166,15 +161,33 @@ public class CardController {
    */
   @FXML
   private void saveChanges(MouseEvent e) {
-    logger.info("saved changes");
+
+    if (title.getText().trim().equalsIgnoreCase("")
+         || textbox.getText().trim().equalsIgnoreCase("")) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Alert");
+      alert.setHeaderText("The textbox needs to be filled :)");
+      alert.showAndWait();
+      title.setText(Data.mlcs.getCardFromCol(id).getHeadline());
+      if (qa.getText().equalsIgnoreCase("Question")) {
+        textbox.setText(Data.mlcs.getCardFromCol(id).getTextA());
+      }
+      if (qa.getText().equalsIgnoreCase("Answer")) {
+        textbox.setText(Data.mlcs.getCardFromCol(id).getTextQ());
+      }
+    }
+
+
     Data.mlcs.getCardFromCol(id).setHeadline(title.getText());
 
     switch (qa.getText()) {
       case "Answer":
         Data.mlcs.getCardFromCol(id).editTextQ(textbox.getText());
+        logger.info("saved changes");
         break;
       case "Question":
         Data.mlcs.getCardFromCol(id).editTextA(textbox.getText());
+        logger.info("saved changes");
     }
 
   }

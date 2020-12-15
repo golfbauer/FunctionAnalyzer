@@ -1,7 +1,7 @@
-package de.hhn.it.pp.components.learningCards.junit;
+package de.hhn.it.pp.components.learningcards.junit;
 
-import de.hhn.it.pp.components.learningCards.Card;
-import de.hhn.it.pp.components.learningCards.Cardset;
+import de.hhn.it.pp.components.learningcards.Card;
+import de.hhn.it.pp.components.learningcards.Cardset;
 
 import java.lang.reflect.Parameter;
 import java.util.HashMap;

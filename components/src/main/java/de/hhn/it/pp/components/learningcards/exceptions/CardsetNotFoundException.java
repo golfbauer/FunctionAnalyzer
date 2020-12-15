@@ -1,6 +1,4 @@
-package de.hhn.it.pp.components.learningCards.exceptions;
-
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
+package de.hhn.it.pp.components.learningcards.exceptions;
 
 public class CardsetNotFoundException extends Exception {
 

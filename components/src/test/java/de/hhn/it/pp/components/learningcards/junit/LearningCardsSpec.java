@@ -1,14 +1,13 @@
-package de.hhn.it.pp.components.learningCards.junit;
+package de.hhn.it.pp.components.learningcards.junit;
 
-import de.hhn.it.pp.components.learningCards.Card;
-import de.hhn.it.pp.components.learningCards.Cardset;
-import de.hhn.it.pp.components.learningCards.LearningCardsService;
-import de.hhn.it.pp.components.learningCards.Status;
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
-import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
-import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
+import de.hhn.it.pp.components.learningcards.Card;
+import de.hhn.it.pp.components.learningcards.Cardset;
+import de.hhn.it.pp.components.learningcards.LearningCardsService;
+import de.hhn.it.pp.components.learningcards.Status;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.exceptions.CardsetNotFoundException;
+import de.hhn.it.pp.components.learningcards.provider.MyLearningCardsService;
 
-import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;

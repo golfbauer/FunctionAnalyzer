@@ -1,11 +1,8 @@
-package de.hhn.it.pp.components.learningCards;
+package de.hhn.it.pp.components.learningcards;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
-import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
-import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.exceptions.CardsetNotFoundException;
 
-import java.util.Arrays;
 import java.util.List;
 
 

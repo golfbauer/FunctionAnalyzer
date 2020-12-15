@@ -1,7 +1,5 @@
-package de.hhn.it.pp.components.learningCards;
+package de.hhn.it.pp.components.learningcards;
 
-
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
 
 public class Card {
 

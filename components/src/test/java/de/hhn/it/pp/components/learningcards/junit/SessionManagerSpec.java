@@ -1,8 +1,8 @@
-package de.hhn.it.pp.components.learningCards.junit;
+package de.hhn.it.pp.components.learningcards.junit;
 
-import de.hhn.it.pp.components.learningCards.Cardset;
-import de.hhn.it.pp.components.learningCards.SessionManager;
-import de.hhn.it.pp.components.learningCards.Status;
+import de.hhn.it.pp.components.learningcards.Cardset;
+import de.hhn.it.pp.components.learningcards.SessionManager;
+import de.hhn.it.pp.components.learningcards.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
