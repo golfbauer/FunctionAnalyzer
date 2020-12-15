@@ -29,7 +29,8 @@ public class MyLearningCardsService implements LearningCardsService {
 
   @Override
   public void addCardsets(Cardset... newCardsets) {
-    String cardsettitles = Arrays.stream(newCardsets).map(e -> e.getTitle() + " ").collect(Collectors.joining());
+    String cardsettitles = Arrays.stream(newCardsets).map(e -> e.getTitle() + " ")
+         .collect(Collectors.joining());
     logger.info("addCardsets, newCardsets = {}",cardsettitles);
     for (Cardset cardset : newCardsets) {
       learningCardManager.addCardset(cardset);
@@ -62,7 +63,8 @@ public class MyLearningCardsService implements LearningCardsService {
 
   @Override
   public int createCard(String cardHeadline, String cardTextQ, String cardTextA) {
-    logger.info("createCard, cardHeadline = {}, cardTextQ = {}, cardTextA = {}", cardHeadline, cardTextQ, cardTextA);
+    logger.info("createCard, cardHeadline = {}, cardTextQ = {}, cardTextA = {}",
+         cardHeadline, cardTextQ, cardTextA);
     Card card = new Card(cardHeadline, cardTextQ, cardTextA);
     learningCardManager.addCard(card);
     return card.getId();
@@ -99,8 +101,9 @@ public class MyLearningCardsService implements LearningCardsService {
   @Override
   public int addCardToCardset(int cardsetId, String cardHeadline, String cardTextQ,
                               String cardTextA) throws CardsetNotFoundException {
-    logger.info("addCardToCardset, cardsetId = {}, cardHeadline = {}, cardTextQ = {}, cardTextA = {}"
-            , cardsetId, cardHeadline, cardTextQ, cardTextA);
+    logger.info("addCardToCardset, cardsetId = {}, cardHeadline = {},"
+             + " cardTextQ = {}, cardTextA = {}",
+         cardsetId, cardHeadline, cardTextQ, cardTextA);
     if (!learningCardManager.getCardsetIds().contains(cardsetId)) {
       throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
     }
@@ -110,8 +113,8 @@ public class MyLearningCardsService implements LearningCardsService {
   @Override
   public int addCardToCardset(int cardsetId, String cardTextQ, String cardTextA)
         throws CardsetNotFoundException {
-    logger.info("addCardToCardset, cardsetId = {}, cardTextQ = {}, cardTextA = {}"
-            , cardsetId, cardTextQ, cardTextA);
+    logger.info("addCardToCardset, cardsetId = {}, cardTextQ = {}, cardTextA = {}",
+             cardsetId, cardTextQ, cardTextA);
     if (!learningCardManager.getCardsetIds().contains(cardsetId)) {
       throw new CardsetNotFoundException("there is no Cardset with ID " + cardsetId);
     }
@@ -146,7 +149,8 @@ public class MyLearningCardsService implements LearningCardsService {
   @Override
   public void editCardQuestionTextFromCardset(int cardId, String newCardTextQ)
         throws CardNotFoundException {
-    logger.info("editCardQuestionTextFromCardset, cardId = {}, newCardTextQ = {}", cardId, newCardTextQ);
+    logger.info("editCardQuestionTextFromCardset, cardId = {}, newCardTextQ = {}",
+         cardId, newCardTextQ);
 
     if (!learningCardManager.getAllCardsIds().contains(cardId)) {
       throw new CardNotFoundException("there is no Card with ID " + cardId);
@@ -157,7 +161,8 @@ public class MyLearningCardsService implements LearningCardsService {
   @Override
   public void editCardAnswerTextFromCardset(int cardId, String newCardTextA)
         throws CardNotFoundException {
-    logger.info("editCardAnswerTextFromCardset, cardId = {}, newCardTextA = {}", cardId, newCardTextA);
+    logger.info("editCardAnswerTextFromCardset, cardId = {}, newCardTextA = {}",
+         cardId, newCardTextA);
     if (!learningCardManager.getAllCardsIds().contains(cardId)) {
       throw new CardNotFoundException("there is no Card with ID " + cardId);
     }
