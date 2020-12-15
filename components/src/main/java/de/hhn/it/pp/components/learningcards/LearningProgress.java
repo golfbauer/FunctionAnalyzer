@@ -1,6 +1,4 @@
-package de.hhn.it.pp.components.learningCards;
-
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
+package de.hhn.it.pp.components.learningcards;
 
 public class LearningProgress {
 
@@ -38,6 +36,13 @@ public class LearningProgress {
   public void reset() {
     right = 0;
     wrong = 0;
+  }
+
+  public int getRight(){
+    return right;
+  }
+  public int getWrong(){
+    return wrong;
   }
 
 }

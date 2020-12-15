@@ -1,7 +1,7 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
-import de.hhn.it.pp.components.learningCards.Card;
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.Card;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
 
 import java.io.IOException;
 import java.net.URL;

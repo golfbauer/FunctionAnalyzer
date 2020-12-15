@@ -1,6 +1,6 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
-import de.hhn.it.pp.components.learningCards.Status;
+import de.hhn.it.pp.components.learningcards.Status;
 
 import java.io.IOException;
 import java.net.URL;

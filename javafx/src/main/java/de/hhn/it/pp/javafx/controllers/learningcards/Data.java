@@ -1,6 +1,6 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
-import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
+import de.hhn.it.pp.components.learningcards.provider.MyLearningCardsService;
 
 /**
  * To have an MYLearingCardsService class initilized and accessable to the other classes.

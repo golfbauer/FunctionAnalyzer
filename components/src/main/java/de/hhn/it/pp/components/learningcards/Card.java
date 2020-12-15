@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.learningCards;
+package de.hhn.it.pp.components.learningcards;
 
 public class Card {
 

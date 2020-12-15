@@ -1,11 +1,8 @@
-package de.hhn.it.pp.components.learningCards;
+package de.hhn.it.pp.components.learningcards;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
-import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
-import de.hhn.it.pp.components.learningCards.provider.MyLearningCardsService;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.exceptions.CardsetNotFoundException;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -143,6 +140,16 @@ public class DemoLearningCardsUsage {
 
       @Override
       public Card getCardFromCol(int cardId) {
+        return null;
+      }
+
+      @Override
+      public void setCardHeadline(int cardId, String newHeadline) throws CardNotFoundException {
+
+      }
+
+      @Override
+      public String getCardHeadline(int cardId) throws CardNotFoundException {
         return null;
       }
     };

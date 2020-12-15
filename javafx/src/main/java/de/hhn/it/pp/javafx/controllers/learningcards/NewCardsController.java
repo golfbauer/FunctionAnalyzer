@@ -1,4 +1,4 @@
-package de.hhn.it.pp.javafx.controllers.learningCards;
+package de.hhn.it.pp.javafx.controllers.learningcards;
 
 import java.io.IOException;
 

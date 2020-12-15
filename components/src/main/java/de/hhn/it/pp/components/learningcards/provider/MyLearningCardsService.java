@@ -1,15 +1,14 @@
-package de.hhn.it.pp.components.learningCards.provider;
+package de.hhn.it.pp.components.learningcards.provider;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMakerService;
-import de.hhn.it.pp.components.learningCards.Card;
-import de.hhn.it.pp.components.learningCards.Cardset;
-import de.hhn.it.pp.components.learningCards.LearningCardManager;
-import de.hhn.it.pp.components.learningCards.LearningCardsService;
-import de.hhn.it.pp.components.learningCards.SessionManager;
-import de.hhn.it.pp.components.learningCards.Status;
+import de.hhn.it.pp.components.learningcards.Card;
+import de.hhn.it.pp.components.learningcards.Cardset;
+import de.hhn.it.pp.components.learningcards.LearningCardManager;
+import de.hhn.it.pp.components.learningcards.LearningCardsService;
+import de.hhn.it.pp.components.learningcards.SessionManager;
+import de.hhn.it.pp.components.learningcards.Status;
 
-import de.hhn.it.pp.components.learningCards.exceptions.CardNotFoundException;
-import de.hhn.it.pp.components.learningCards.exceptions.CardsetNotFoundException;
+import de.hhn.it.pp.components.learningcards.exceptions.CardNotFoundException;
+import de.hhn.it.pp.components.learningcards.exceptions.CardsetNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -239,6 +238,24 @@ public class MyLearningCardsService implements LearningCardsService {
   public Card getCardFromCol(int i) {
     logger.info("getCardFromCol, id = {}", i);
     return learningCardManager.getCardFromCol(i);
+  }
+
+  @Override
+  public void setCardHeadline(int cardId, String newHeadline) throws CardNotFoundException {
+    logger.info("getCardFromCol, cardID = {}", cardId);
+    if (!learningCardManager.getAllCardsIds().contains(cardId)) {
+      throw new CardNotFoundException("there is no Card with ID " + cardId);
+    }
+    learningCardManager.getCardFromCol(cardId).setHeadline(newHeadline);
+  }
+
+  @Override
+  public String getCardHeadline(int cardId) throws CardNotFoundException {
+    logger.info("getCardFromCol, cardID = {}", cardId);
+    if (!learningCardManager.getAllCardsIds().contains(cardId)) {
+      throw new CardNotFoundException("there is no Card with ID " + cardId);
+    }
+    return learningCardManager.getCardFromCol(cardId).getHeadline();
   }
 
 
