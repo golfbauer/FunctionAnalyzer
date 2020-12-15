@@ -22,7 +22,7 @@ public class LearningCardsParameterResolver implements ParameterResolver {
     Parameter parameter = parameterContext.getParameter();
 
     return Objects.equals(parameter.getParameterizedType().getTypeName(),
-         "java.util.Map<java.lang.String, de.hhn.it.pp.components.learningCards.Cardset>");
+         "java.util.Map<java.lang.String, de.hhn.it.pp.components.learningcards.Cardset>");
   }
 
   @Override
