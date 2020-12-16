@@ -1,16 +1,24 @@
 package de.hhn.it.pp.components.typingtrainer.junit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.hhn.it.pp.components.typingtrainer.AudioNotFound;
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFound;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
+import de.hhn.it.pp.components.typingtrainer.SaveData;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
@@ -49,10 +57,10 @@ public class TestTypingTrainerBadCases {
 
     typingTrainerService = new ProviderTypingTrainer();
     typingTrainerService.descriptor = descriptor;
-  }
 
-  static void foo() throws IOException {
-    throw new IOException("This is an IOException");
+    typingTrainerService.countdown(11);
+    typingTrainerService.countdown(66);
+
   }
 
   @Test
@@ -61,18 +69,42 @@ public class TestTypingTrainerBadCases {
     assertFalse(typingTrainerService.checkWord("Dee", 0));
   }
 
+  @Test
+  @DisplayName("Checks how markWord handles faulty checkWord")
+  void wrongMarkWord(){
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> typingTrainerService.markWord(1000, Color.red));
+  }
+
+
+//  @Test
+//  @DisplayName("Checks how countdown handles faulty input")
+//  void wrongCountdown() throws InterruptedException {
+//    assertFalse(Objects.equals(feedback.getEndTime(), feedback.getStartTime()));
+//  }
+
+//  @Test
+//  @DisplayName("Test SaveLoad if it saves and load correctly")
+//  void wrongSaveLoad() throws IOException {
+//    SaveLoad saveLoad = new SaveLoad();
+//    assertThrows(IOException.class, () -> saveLoad.foo());
+//  }
+
 //  @Test
 //  @DisplayName("Checks how Feedback handles wrong Input")
 //  void falseFeedback(){
-//    assertThrows(IOException.class, () -> foo());
+//    assertThrows(FeedbackNotFound.class, () -> typingTrainerService.showFeedback());
 //  }
-//
+
 //  @Test
 //  @DisplayName("Checks how SaveScore handles exceptions")
 //  void falseSaveScore(){
-//    assertThrows(IOException.class, () -> foo());
+//    assertThrows(IOException.class, () -> typingTrainerService.foo());
 //  }
 
-
+//  @Test
+//  @DisplayName("Checks how SaveScore handles exceptions")
+//  void falseAudioOutput(){
+//    assertThrows(AudioNotFound.class, () -> typingTrainerService.audioOutput());
+//  }
 
 }

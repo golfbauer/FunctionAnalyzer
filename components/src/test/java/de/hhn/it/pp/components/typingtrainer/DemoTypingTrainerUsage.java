@@ -18,7 +18,8 @@ public class DemoTypingTrainerUsage {
 
   private static TypingTrainerDescriptor descriptor;
 
-  public static void main(String[] args) throws IOException, InterruptedException {
+  public static void main(String[] args) throws IOException, InterruptedException,
+      FeedbackNotFound {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
       public boolean checkWord(String word, int index) {

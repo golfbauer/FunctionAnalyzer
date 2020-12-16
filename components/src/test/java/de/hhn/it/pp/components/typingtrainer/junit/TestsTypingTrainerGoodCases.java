@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.typingtrainer.Feedback;
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFound;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.SaveData;
@@ -82,7 +83,7 @@ public class TestsTypingTrainerGoodCases {
 
   @Test
   @DisplayName("Checks if showFeedback gives the correct output.")
-  void testShowFeedback() throws IOException {
+  void testShowFeedback() throws IOException, FeedbackNotFound {
     typingTrainerService.showFeedback(typingTrainerService.descriptor.getFeedback());
     typingTrainerService.descriptor.getFeedback().setStartTime(10);
     typingTrainerService.descriptor.getFeedback().setEndTime(20);

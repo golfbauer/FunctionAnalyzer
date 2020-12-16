@@ -1,5 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import java.io.IOException;
+
 /***
  * @author Tobias Maraci, Robert Pistea
  * @version 1.3

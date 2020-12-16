@@ -1,6 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer.provider;
 
 import de.hhn.it.pp.components.typingtrainer.Feedback;
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFound;
 import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
@@ -56,7 +57,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    * @param feedback feedback to show
    */
   @Override
-  public void showFeedback(Feedback feedback) throws IOException {
+  public void showFeedback(Feedback feedback) throws IOException, FeedbackNotFound {
     logger.debug("Time: " + feedback.getTime());
     logger.debug("WPM: " + feedback.getWordsPerMinute());
 

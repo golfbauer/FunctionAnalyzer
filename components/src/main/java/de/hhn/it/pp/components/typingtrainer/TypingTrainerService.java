@@ -37,7 +37,7 @@ public interface TypingTrainerService {
    * Shows feedback
    * @param feedback feedback to show
    */
-  void showFeedback(Feedback feedback) throws IOException;
+  void showFeedback(Feedback feedback) throws IOException, FeedbackNotFound;
 
   /**
    * saves feedback (score)
