@@ -1,8 +1,9 @@
-package de.hhn.it.pp.components.learningCards;
+package de.hhn.it.pp.components.learningcards;
 
+public class Card {
 
-class Card {
-
+  private static final org.slf4j.Logger logger =
+       org.slf4j.LoggerFactory.getLogger(Card.class);
 
   Status status = Status.UNSEEN;
 
@@ -18,13 +19,13 @@ class Card {
 
 
   /**
-   * Constructor of the Card class
-   * 
+   * Constructor of the Card class.
+   *
    * @param headline to classify the card topic
-   * @param textQ question text of the card
-   * @param textA answer to the card question
+   * @param textQ    question text of the card
+   * @param textA    answer to the card question
    */
-  Card(String headline, String textQ, String textA) {
+  public Card(String headline, String textQ, String textA) {
     setHeadline(headline);
     setTextQ(textQ);
     setTextA(textA);
@@ -32,23 +33,24 @@ class Card {
   }
 
   /**
-   * Sets the headline of the Card class
-   * 
+   * Sets the headline of the Card class.
+   *
    * @param headline to classify the card topic
    */
-  void setHeadline(String headline) {
+  public void setHeadline(String headline) {
 
     this.headline = headline;
   }
 
   /**
-   * Method not intended for the facade
+   * Method not intended for the facade.
    */
-  void addPicture() {}
+  void addPicture() {
+  }
 
   /**
-   * Sets the Questiontext of the Card class
-   * 
+   * Sets the Questiontext of the Card class.
+   *
    * @param question question text of the card
    */
   void setTextQ(String question) {
@@ -56,8 +58,8 @@ class Card {
   }
 
   /**
-   * Sets the Answertext of the Card class
-   * 
+   * Sets the Answertext of the Card class.
+   *
    * @param answer answer text of the card
    */
   void setTextA(String answer) {
@@ -65,66 +67,67 @@ class Card {
   }
 
   /**
-   * edits the questiontext of an existing card
-   * 
+   * edits the questiontext of an existing card.
+   *
    * @param changedQ the changed questiontext
    */
-  void editTextQ(String changedQ) {
+  public void editTextQ(String changedQ) {
     setTextQ(changedQ);
   }
 
   /**
-   * edits the answertext of an existing card
-   * 
+   * edits the answertext of an existing card.
+   *
    * @param changedA the changed answertext
    */
-  void editTextA(String changedA) {
+  public void editTextA(String changedA) {
 
     setTextA(changedA);
   }
 
   /**
-   * returns the id of the card
-   * 
+   * returns the id of the card.
+   *
    * @return id of card
    */
-  int getId() {
+  public int getId() {
     return id;
   }
 
   /**
-   * returns the questiontext of the card
-   * 
+   * returns the questiontext of the card.
+   *
    * @return questiontext
    */
-  String getTextQ() {
+  public String getTextQ() {
     return textQ;
   }
 
   /**
-   * returns the answer text of the card
-   * 
+   * returns the answer text of the card.
+   *
    * @return textA of card
    */
-  String getTextA() {
+  public String getTextA() {
     return textA;
   }
 
   /**
-   * returns the headline of card
-   * 
+   * returns the headline of card.
+   *
    * @return headline of card
    */
-  String getHeadline() {
+  public String getHeadline() {
     return headline;
   }
 
   /**
-   * returns the information of the card
-   * 
+   * returns the information of the card.
+   *
    * @return all information put into the card class (headline, questiontext, answertext) in an
-   *         combined String
+   * combined String
    */
+  @SuppressWarnings("checkstyle:JavadocTagContinuationIndentation")
   String getCardinfo() {
     String info;
     info = "Headline: " + getHeadline() + "\n Question: " + getTextQ() + "\n Answer: " + getTextA();
@@ -132,25 +135,25 @@ class Card {
   }
 
   /**
-   * returns the current status of the card
-   * 
+   * returns the current status of the card.
+   *
    * @return status of card
    */
-  Status getStatus() {
+  public Status getStatus() {
     return status;
   }
 
   /**
-   * Sets status of the card to solved
+   * Sets status of the card to solved.
    */
-  void setStatusToSolved() {
+  public void setStatusToSolved() {
     status = Status.SOLVED;
   }
 
   /**
-   * Sets status of the card to unsolved
+   * Sets status of the card to unsolved.
    */
-  void setStatusToUnSolved() {
+  public void setStatusToUnSolved() {
     status = Status.UNSOLVED;
   }
 }

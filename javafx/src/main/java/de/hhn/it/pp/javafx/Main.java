@@ -53,8 +53,11 @@ public class Main extends Application {
 
     addModule("Template");
     addModule("CoffeeMakerService");
+    addModule("VocableTrainerService");
     addModule("typingtrainer/StartScreen");
     addModule("SpellingTrainerService");
+    addModule("learningCards/Main");
+    addModule("FunctionAnalyzer");
   }
 
   @Override

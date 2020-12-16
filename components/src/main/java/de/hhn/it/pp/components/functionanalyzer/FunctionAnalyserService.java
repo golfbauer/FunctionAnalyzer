@@ -44,7 +44,7 @@ public interface FunctionAnalyserService {
    *     empty List if none are found
    * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateYIntersection(Function f) throws ValueNotDefinedException;
+  double calculateYIntersection(Function f) throws ValueNotDefinedException;
 
   /**
    * Calculates the function values for a specific x Value.
@@ -55,7 +55,7 @@ public interface FunctionAnalyserService {
    *     eg. divide by 0
    * @throws IllegalStateException If operation can not be performed with current object state
    */
-  List<Double> calculateFunctionValue(Function f, double functionParameter)
+  double calculateFunctionValue(Function f, double functionParameter)
       throws ValueNotDefinedException;
 
   /**
