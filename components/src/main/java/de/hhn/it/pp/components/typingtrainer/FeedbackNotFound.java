@@ -2,7 +2,7 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.security.PrivilegedActionException;
 
-public class FeedbackNotFound extends Exception{
+public class FeedbackNotFound extends Exception {
   /**
    * Constructs a new exception with {@code null} as its detail message.
    * The cause is not initialized, and may subsequently be initialized by a

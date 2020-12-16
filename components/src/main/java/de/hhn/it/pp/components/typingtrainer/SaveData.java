@@ -2,7 +2,9 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.IOException;
 
-/***
+/**
+ * Data saved to later use for Highscore and Feedback.
+ *
  * @author Tobias Maraci, Robert Pistea
  * @version 1.0
  * @since 1.1
@@ -16,13 +18,13 @@ public class SaveData {
   private String wpm;
 
   /**
-   * SaveData Constructor sets text, time and wpm to be used in tableview gui
+   * SaveData Constructor sets text, time and wpm to be used in tableview gui.
+   *
    * @param text PracticeText that was used
    * @param time Time needed for completion
    * @param wpm Words Per Minute in that round of training
    */
-  public SaveData(String text, String time, String wpm)
-  {
+  public SaveData(String text, String time, String wpm) {
     this.text = text;
     this.time = time;
     this.wpm = wpm;

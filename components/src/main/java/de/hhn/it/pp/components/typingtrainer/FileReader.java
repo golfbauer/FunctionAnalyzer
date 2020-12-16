@@ -20,6 +20,10 @@ public class FileReader {
 
   public String fileContent = "";//String where text from file gets saved
 
+  /**
+   * Reads practiceText and provides content.
+   * @throws FileNotFoundException Exception if given File is not Found
+   */
   public FileReader() throws FileNotFoundException {
     String path = FileReader.class.getResource("/practiceText-3.txt").toString();
     path = path.substring(6); //to make the path usable
@@ -34,10 +38,15 @@ public class FileReader {
 
   }
 
+  /**
+   * Same as normal FileReader with a fileName as input.
+   * @param fileName name of file to read
+   * @throws FileNotFoundException Exception if given File is not Found
+   */
   public FileReader(String fileName) throws FileNotFoundException {
 
-    String path = "components/src/main/resources/"+fileName; // <- Hier hat Tobi was geändert
-    System.out.println("PFAD:"+path);
+    String path = "components/src/main/resources/" + fileName; // <- Hier hat Tobi was geändert
+    System.out.println("PFAD:" + path);
 
     File file = new File(path);
     Scanner scan = new Scanner(file, StandardCharsets.UTF_8.name());
@@ -50,18 +59,23 @@ public class FileReader {
     //System.out.println(fileContent);
   }
 
+  /**
+   * Reads file as other two method via files.
+   * @param file given file to read
+   * @throws FileNotFoundException Exception if given File is not Found
+   */
   public FileReader(File file) throws FileNotFoundException {
     Scanner scan = new Scanner(file, StandardCharsets.UTF_8.name());
 
     fileContent = "";
 
-    while(scan.hasNextLine()){
-      fileContent = fileContent.concat(scan.nextLine()+"\n");
+    while (scan.hasNextLine()) {
+      fileContent = fileContent.concat(scan.nextLine() + "\n");
     }
   }
 
   /**
-   * Splits fileContent in different words
+   * Splits fileContent in different words.
    * @return fileContent as String[]
    */
   public String[] getPracticeText() {

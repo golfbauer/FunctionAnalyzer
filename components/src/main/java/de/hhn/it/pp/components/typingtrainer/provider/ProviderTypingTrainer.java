@@ -20,16 +20,17 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   public String data;
 
   /**
-   * Checks if a word is written correctly and calls markWord to either mark the current Word or marks the correct Word
+   * Checks if a word is written correctly and calls
+   * markWord to either mark the current Word or marks the correct Word.
    *
    * @param word  word to check
-   * @param index
+   * @param index index of word to check
    * @return true when word is correct
    */
   @Override
   public boolean checkWord(String word, int index) {
-    String wordPT = descriptor.getPracticeText().getWordAtIndex(index).trim();
-    return word.equals(wordPT) ? true : false;
+    String wordPt = descriptor.getPracticeText().getWordAtIndex(index).trim();
+    return word.equals(wordPt) ? true : false;
   }
 
   /**
@@ -44,7 +45,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * Quits learning session and return to main menu
+   * Quits learning session and return to main menu.
    */
   @Override
   public void quitSession() {
@@ -52,7 +53,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * Shows feedback
+   * Shows feedback.
    *
    * @param feedback feedback to show
    */
@@ -73,15 +74,15 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * saves feedback (score)
+   * saves feedback (score).
    *
    * @param score feedback to save
    */
   @Override
   public void saveScore(Feedback score) throws IOException {
     SaveLoad save = new SaveLoad();
-//    save.save("selected text", String.valueOf(score.getTime()),
-//        String.valueOf(score.getWordsPerMinute()));
+    //    save.save("selected text", String.valueOf(score.getTime()),
+    //     String.valueOf(score.getWordsPerMinute()));
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();
     String filePath = classLoader.getResource("highscores.txt").getFile();
@@ -89,7 +90,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * loads saved feedbacks (scores)
+   * loads saved feedbacks (scores).
    */
   @Override
   public void loadScore() {
@@ -107,7 +108,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * Gets the userinput aka keystrokes through a scanner and is potentially used for Feedback, CheckWord etc
+   * Gets the userinput aka keystrokes through a scanner
+   * and is potentially used for Feedback, CheckWord etc.
    */
   @Override
   public void userInput() throws IOException {
@@ -125,7 +127,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * Print a countdown
+   * Print a countdown.
    *
    * @param seconds seconds from where to start counting down
    * @throws InterruptedException If an interruption exception occurred
@@ -142,8 +144,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   /**
    * Marks either the currentWord or if the word is written correctly depending on checkWord.
    *
-   * @param index
-   * @param color
+   * @param index index of word to check
+   * @param color Color of supposed word to get marked
    */
   @Override
   public void markWord(int index, Color color) throws IOException {
@@ -162,7 +164,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   }
 
   /**
-   * Selecting the text you want to train your typing in(preset texts not individual texts from User)
+   * Selecting the text you want to train
+   * your typing in(preset texts not individual texts from User).
    */
   @Override
   public void selectionOfText() {

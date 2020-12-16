@@ -2,7 +2,10 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.File;
 
-/***
+/**
+ * Descriptor class with constructor to be used for
+ * getting all the needed feedback, typedWords and practiceText.
+ *
  * @author Tobias Maraci, Robert Pistea
  * @version 1.3
  * @since 1.0
@@ -17,6 +20,12 @@ public class TypingTrainerDescriptor {
   private PracticeText practiceText;
   private String[] typedWords; //words that user typed
 
+  /**
+   * Constructor for a basic typingTrainer Model.
+   * @param audioWrongWord audio used for output when a word is wrong
+   * @param feedback feedback from a session
+   * @param selectedText the text used for practice
+   */
   public TypingTrainerDescriptor(File audioWrongWord, Feedback feedback,
                                  PracticeText selectedText) {
     this.audioWrongWord = new File("components/src/main/resources/8BIT RETRO Beep.mp3");
@@ -38,7 +47,7 @@ public class TypingTrainerDescriptor {
   }
 
   /**
-   * Adds a word to typedWords at index
+   * Adds a word to typedWords at index.
    *
    * @param word  word to write in typedWords Array
    * @param index index where the word should be added

@@ -2,7 +2,9 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.IOException;
 
-/***
+/**
+ * Feedback used to represent Scores reached in a Session of TypingTrainer.
+ *
  * @author Tobias Maraci, Robert Pistea
  * @version 1.3
  * @since 1.1
@@ -12,7 +14,9 @@ public class Feedback {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(Feedback.class);
 
-  private double time, startTime, endTime;
+  private double time;
+  private double startTime;
+  private double endTime;
   private int wordsPerMinute;
   private int counterRightWords;
   private int avgWordLength = 5; //durchschnittliche Wortlänge englischer Wörter
@@ -57,8 +61,7 @@ public class Feedback {
   /**
    * Increases counterRightWords by one.
    */
-  public void increaseCounterRightWords()
-  {
+  public void increaseCounterRightWords() {
     this.counterRightWords++;
   }
 
@@ -80,9 +83,8 @@ public class Feedback {
 
   /**
    * Checks how much words are written correctly and
-   * calculates a value for wordsPerMinute with:
-   *
-   * WordsPerMinute = ((writtenWords / averageWordLength) / time to complete text) * 60
+   * calculates a value for wordsPerMinute with.
+   * WordsPerMinute = ((writtenWords / averageWordLength) / time to complete text) * 60.
    *
    * @param typedWords typed words
    */
@@ -105,7 +107,7 @@ public class Feedback {
   }
 
   /**
-   * Calculates time that was needed to write the text
+   * Calculates time that was needed to write the text.
    */
   public void calculateTime() {
     double elapsedTime = endTime - startTime;

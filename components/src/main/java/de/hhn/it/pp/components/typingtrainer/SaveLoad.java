@@ -7,7 +7,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/***
+/**
+ * Class used to to save and load highscores.
+ *
  * @author Tobias Maraci, Robert Pistea
  * @version 1.0
  * @since 1.1
@@ -17,12 +19,12 @@ public class SaveLoad {
       org.slf4j.LoggerFactory.getLogger(SaveLoad.class);
 
   /**
-   * Appends new text in the existing highscores.txt (adds new scores)
+   * Appends new text in the existing highscores.txt (adds new scores).
    *
-   * @param sessionText
-   * @param time
-   * @param wpm
-   * @throws IOException
+   * @param sessionText text used for practice
+   * @param time time needed for completion
+   * @param wpm words per minute
+   * @throws IOException IOException
    */
   public void save(String sessionText, String time, String wpm)
       throws IOException { //   "components/src/main/resources/highscores.txt"
@@ -46,12 +48,17 @@ public class SaveLoad {
         pw.close();
         bw.close();
         fw.close();
-      } catch (IOException io) {// can't do anything }
+      } catch (IOException io) { // can't do anything
       }
     }
 
   }
 
+  /**
+   * Saves data to highscores.txt.
+   * @param path path where highscore is
+   * @throws IOException Exception
+   */
   public void save(String path) throws IOException { //JUnit
 
     FileWriter fw = null;
@@ -59,13 +66,13 @@ public class SaveLoad {
     PrintWriter pw = null;
 
     try {
-      String sessionText = "selectedtext";
-      String time = "1.54";
-      String wpm = "2";
-
       fw = new FileWriter(path, true);
       bw = new BufferedWriter(fw);
       pw = new PrintWriter(bw);
+
+      String sessionText = "selectedtext";
+      String time = "1.54";
+      String wpm = "2";
 
       pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
 
@@ -73,18 +80,18 @@ public class SaveLoad {
 
       pw.flush();
     } finally {
-//      try {
-//        pw.close();
-//        bw.close();
-//        fw.close();
-//      } catch (IOException io) {// can't do anything }
-//      }
+    //      try {
+    //        pw.close();
+    //        bw.close();
+    //        fw.close();
+    //      } catch (IOException io) {// can't do anything }
+    //      }
     }
 
   }
 
   /**
-   * Reads the content of highscores.txt and returns for further use in the gui
+   * Reads the content of highscores.txt and returns for further use in the gui.
    *
    * @return content of highscores.txt
    */
@@ -101,8 +108,12 @@ public class SaveLoad {
     return content;
   }
 
-  public String load(String path) //JUnit
-  {
+  /**
+   * Loads highscores from given path.
+   * @param path path of highscores.txt
+   * @return content of highscores
+   */
+  public String load(String path) { //JUnit
     String filePath = path;
     String content = "empty";
 
