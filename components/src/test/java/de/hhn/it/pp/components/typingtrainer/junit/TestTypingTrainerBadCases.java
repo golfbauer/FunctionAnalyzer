@@ -22,55 +22,57 @@ public class TestTypingTrainerBadCases {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(TestTypingTrainerBadCases.class);
 
-  ProviderTypingTrainer TypingTrainerService;
-  FileReader testFileReader;
-  File testAudioFile;
-  String[] testPractice;
-  String[] testTyped;
-  Feedback testFeedback;
-  String testSelectedText;
-  PracticeText testPracticeText;
-  TypingTrainerDescriptor testDescriptor;
+  TypingTrainerDescriptor descriptor;
+  File audioWrongWord;
+  Feedback feedback;
+  FileReader fileReader;
+  String[] selectedText;
+  PracticeText practiceText;
+  ProviderTypingTrainer typingTrainerService;
 
 
   @BeforeEach
   void initialize() throws IOException, WordNotFoundException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException{
-  TypingTrainerService = new ProviderTypingTrainer();
+    audioWrongWord = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
 
-  testAudioFile = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
+    feedback = new Feedback(0,0);
 
-  testFeedback = new Feedback(0,0);
+    ClassLoader classLoader;
+    classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource("practiceText-3.txt").getFile());
 
-  FileReader testFileReader = new FileReader();
-  String[] testSelectedText = testFileReader.getPracticeText(); //for later: depends on what button was clicked (use other constructor)
-  testPracticeText = new PracticeText(testSelectedText);
+    fileReader = new FileReader(file);
+    selectedText = fileReader.getPracticeText();
+    practiceText = new PracticeText(selectedText);
 
-//  testSelectedText ="practiceText-3.txt";
-//  testFileReader = new FileReader(testSelectedText);
-//  testPractice = testFileReader.getPracticeText();
-//  testPracticeText = new PracticeText(testPractice);
+    descriptor = new TypingTrainerDescriptor(audioWrongWord, feedback, practiceText);
 
-  testDescriptor = new TypingTrainerDescriptor(testAudioFile, testFeedback, testPracticeText);
+    typingTrainerService = new ProviderTypingTrainer();
+    typingTrainerService.descriptor = descriptor;
+  }
 
+  static void foo() throws IOException {
+    throw new IOException("This is an IOException");
+  }
+
+  @Test
+  @DisplayName("Checks how checkWord handles wrong Spelling")
+  void wrongCheckWord(){
+    assertFalse(typingTrainerService.checkWord("Dee", 0));
   }
 
 //  @Test
-//  @DisplayName("Checks how checkWord handles wrong Spelling")
-//  void wrongCheckWord(){
-//    assertFalse(TypingTrainerService.checkWord("Dee", 0));
-//  }
-
-//  @Test
-//  @DisplayName("Checks if there is a viable AudioFile")
-//  void audioFileNotFound() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
-//    assertThrows(UnsupportedAudioFileException.class, () -> TypingTrainerService.audioOutput());
-//  }
-
-//  @Test
 //  @DisplayName("Checks how Feedback handles wrong Input")
-//  void falseFeedback() {
-//    assertThrows(IOException.class, () -> TypingTrainerService.showFeedback(new Feedback(0, 9));
+//  void falseFeedback(){
+//    assertThrows(IOException.class, () -> foo());
 //  }
+//
+//  @Test
+//  @DisplayName("Checks how SaveScore handles exceptions")
+//  void falseSaveScore(){
+//    assertThrows(IOException.class, () -> foo());
+//  }
+
 
 
 }
