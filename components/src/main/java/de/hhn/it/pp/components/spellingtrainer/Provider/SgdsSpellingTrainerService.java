@@ -17,6 +17,13 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   private SpellingTrainerDescriptor descriptor;
   private ArrayList<MediaPresentationListener> mplisteners;
 
+  /**
+   * Constructor that initializes the whole spellingtrainer service implementation.
+   *
+   * @throws LearningSetNameAlreadyAssignedException is thrown, when the learning set name ist already assigned
+   * @throws LearningSetCouldNotBeFoundException     is thrown, when the learning set couldn't be found
+   * @throws WordAlreadyAddedException               is thrown, when the referenced word is already added
+   */
   public SgdsSpellingTrainerService()
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException,
       WordAlreadyAddedException {
