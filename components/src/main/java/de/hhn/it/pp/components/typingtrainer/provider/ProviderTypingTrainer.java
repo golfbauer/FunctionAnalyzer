@@ -5,6 +5,7 @@ import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
 import javax.sound.sampled.LineUnavailableException;
@@ -15,6 +16,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
       org.slf4j.LoggerFactory.getLogger(ProviderTypingTrainer.class);
 
   public TypingTrainerDescriptor descriptor;
+  public String data;
 
   /**
    * Checks if a word is written correctly and calls markWord to either mark the current Word or marks the correct Word
@@ -77,8 +79,12 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void saveScore(Feedback score) throws IOException {
     SaveLoad save = new SaveLoad();
-    save.save("selected text", String.valueOf(score.getTime()),
-        String.valueOf(score.getWordsPerMinute()));
+//    save.save("selected text", String.valueOf(score.getTime()),
+//        String.valueOf(score.getWordsPerMinute()));
+    ClassLoader classLoader;
+    classLoader = getClass().getClassLoader();
+    String filePath = classLoader.getResource("highscores.txt").getFile();
+    save.save(filePath);
   }
 
   /**
@@ -87,7 +93,10 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void loadScore() {
     SaveLoad load = new SaveLoad();
-    String data = load.load();
+    ClassLoader classLoader;
+    classLoader = getClass().getClassLoader();
+    String filePath = classLoader.getResource("highscores.txt").getFile();
+    data = load.load(filePath);
 
     String[] datas = data.split(" ");
 
