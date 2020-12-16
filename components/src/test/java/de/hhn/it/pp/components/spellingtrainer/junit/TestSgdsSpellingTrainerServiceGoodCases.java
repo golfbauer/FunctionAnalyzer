@@ -8,13 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
 import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-import java.io.File;
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -140,5 +141,30 @@ public class TestSgdsSpellingTrainerServiceGoodCases {
     service.endLearning();
     assertAll(() -> assertNull(service.getDescriptor().getActiveLearningSet()),
         () -> assertFalse(service.getDescriptor().getIsLearning()));
+  }
+
+  @Test
+  @DisplayName("Register a media presentation listener")
+  void registerAMediaPresentationListener() {
+    MediaPresentationListener mpl = new MediaPresentationListener() {
+      @Override
+      public void present(MediaReference mediaReference) {
+      }
+    };
+    service.registerMediaPresentationListener(mpl);
+    assertTrue(service.getMediaPresentationListeners().get(0) == mpl);
+  }
+
+  @Test
+  @DisplayName("Deregister a media media presentation listener")
+  void deregisterAMediaPresentationListener() {
+    MediaPresentationListener mpl = new MediaPresentationListener() {
+      @Override
+      public void present(MediaReference mediaReference) {
+      }
+    };
+    service.registerMediaPresentationListener(mpl);
+    service.deregisterMediaPresentationListener(0);
+    assertTrue(service.getMediaPresentationListeners().isEmpty());
   }
 }
