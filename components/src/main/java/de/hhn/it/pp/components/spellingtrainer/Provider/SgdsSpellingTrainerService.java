@@ -7,10 +7,7 @@ import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlready
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class SgdsSpellingTrainerService implements SpellingTrainerService {
@@ -148,6 +145,7 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    */
   @Override
   public void removeLearningSet(String learningSetName) throws LearningSetCouldNotBeFoundException {
+    logger.info("Learning set {} successfully removed.", learningSetName);
     descriptor.removeLearningSet(getLearningSet(learningSetName));
   }
 
