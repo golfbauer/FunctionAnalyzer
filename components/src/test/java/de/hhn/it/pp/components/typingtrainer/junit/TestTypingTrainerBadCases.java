@@ -92,7 +92,7 @@ public class TestTypingTrainerBadCases {
 //  @Test
 //  @DisplayName("Checks how Feedback handles wrong Input")
 //  void falseFeedback(){
-//    assertThrows(FeedbackNotFound.class, () -> typingTrainerService.showFeedback());
+//    assertThrows(FeedbackNotFound.class, () -> typingTrainerService.showFeedback(new Feedback(-1 ,0)));
 //  }
 
 //  @Test
