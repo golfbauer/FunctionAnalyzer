@@ -2,7 +2,6 @@ package de.hhn.it.pp.components.typingtrainer;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -19,7 +18,7 @@ public class DemoTypingTrainerUsage {
   private static TypingTrainerDescriptor descriptor;
 
   public static void main(String[] args) throws IOException, InterruptedException,
-      FeedbackNotFound {
+      FeedbackNotFoundException {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
       public boolean checkWord(String word, int index) {

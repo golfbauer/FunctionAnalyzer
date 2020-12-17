@@ -7,23 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.hhn.it.pp.components.typingtrainer.Feedback;
-import de.hhn.it.pp.components.typingtrainer.FeedbackNotFound;
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.SaveData;
-import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
-import de.hhn.it.pp.components.typingtrainer.TypingTrainerService;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.List;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,7 +77,7 @@ public class TestsTypingTrainerGoodCases {
 
   @Test
   @DisplayName("Checks if showFeedback gives the correct output.")
-  void testShowFeedback() throws IOException, FeedbackNotFound {
+  void testShowFeedback() throws IOException, FeedbackNotFoundException {
     typingTrainerService.showFeedback(typingTrainerService.descriptor.getFeedback());
     typingTrainerService.descriptor.getFeedback().setStartTime(10);
     typingTrainerService.descriptor.getFeedback().setEndTime(20);
