@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
@@ -12,6 +13,7 @@ import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -70,6 +72,12 @@ public class TestTypingTrainerBadCases {
   }
 
 //  @Test
+//  @DisplayName("Checks if saveScores throws the given exception")
+//  void wrongSaveScores(){
+//    assertThrows(FileNotFoundException.class, () -> typingTrainerService.saveScore(feedback));
+//  }
+
+//  @Test
 //  @DisplayName("Checks how countdown handles faulty input")
 //  void wrongCountdown() throws InterruptedException {
 //    assertFalse(Objects.equals(feedback.getEndTime(), feedback.getStartTime()));
@@ -82,22 +90,15 @@ public class TestTypingTrainerBadCases {
 //    assertThrows(IOException.class, () -> saveLoad.foo());
 //  }
 
-//  @Test
-//  @DisplayName("Checks how Feedback handles wrong Input")
-//  void falseFeedback(){
-//    assertThrows(FeedbackNotFound.class, () -> typingTrainerService.showFeedback(new Feedback(-1 ,0)));
-//  }
+  @Test
+  @DisplayName("Checks how Feedback handles wrong Input")
+  void falseFeedback(){
+    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(null));
+  }
 
 //  @Test
 //  @DisplayName("Checks how SaveScore handles exceptions")
 //  void falseSaveScore(){
 //    assertThrows(IOException.class, () -> typingTrainerService.foo());
 //  }
-
-//  @Test
-//  @DisplayName("Checks how SaveScore handles exceptions")
-//  void falseAudioOutput(){
-//    assertThrows(AudioNotFound.class, () -> typingTrainerService.audioOutput());
-//  }
-
 }

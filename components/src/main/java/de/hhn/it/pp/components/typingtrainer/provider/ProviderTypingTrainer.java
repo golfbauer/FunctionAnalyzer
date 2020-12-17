@@ -59,9 +59,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void showFeedback(Feedback feedback) throws IOException, FeedbackNotFoundException {
 
-    if(feedback == null)
+    if (feedback == null) {
       throw new FeedbackNotFoundException("feedback == null");
-
+    }
 
     logger.debug("Time: " + feedback.getTime());
     logger.debug("WPM: " + feedback.getWordsPerMinute());
@@ -73,9 +73,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     feedback.calculateWordsPerMinute(descriptor.getTypedWords(),
         descriptor.getPracticeText().getText());
 
-    if(feedback.getTime() < 0)
+    if (feedback.getTime() < 0) {
       throw new FeedbackNotFoundException("time is < 0");
-
+    }
     logger.debug("calculated time: " + feedback.getTime());
     logger.debug("wpm: " + feedback.getWordsPerMinute());
   }
