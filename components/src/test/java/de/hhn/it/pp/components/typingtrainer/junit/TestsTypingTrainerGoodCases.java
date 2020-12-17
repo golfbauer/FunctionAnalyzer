@@ -11,6 +11,7 @@ import de.hhn.it.pp.components.typingtrainer.FeedbackNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.SaveData;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
@@ -255,20 +256,25 @@ public class TestsTypingTrainerGoodCases {
   //endregion
   //region SaveLoad
 
-/*  @Test
+  @Test
   @DisplayName("SaveLoad save() and load()")
   void testSaveLoad() throws IOException {
-    String path = "/highscores.txt";
+    String path = "highscores.txt";
     SaveLoad saveLoad = new SaveLoad();
+
+    String preloadedData = saveLoad.load(path);
 
     saveLoad.save(path);
 
     String loadedData = saveLoad.load(path);
 
-    String expected = "practiceText-2.txt 2.63 0.0 selectedtext 1.54 2";
+    String expected = preloadedData.concat("selectedtext 1.54 2 ");
+
+    System.out.println(expected);
+    System.out.println(loadedData);
 
     assertTrue(expected.equals(loadedData));
-  }*/
+  }
 
   //endregion
 }
