@@ -1,10 +1,8 @@
 package de.hhn.it.pp.components.mathtrainer;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.CoffeeMakerServiceUsageDemo;
-import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
+import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class MathTrainerDemo {
@@ -75,41 +73,10 @@ public class MathTrainerDemo {
         logger.debug("Das vom Programm generierte Ergebnis der Gleichung "+ gradedTerm.toString() + " ist "+ tr.helpUser(gradedTerm));
         logger.debug("");
 
-        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        logger.debug("Im Warmup mode: ");
-        tr.startGame(true);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        logger.debug("");
-
-        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
-        tr.setWantsToExit(true);
-        tr.startGame(true);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        logger.debug("");
-
-        logger.debug("Testen eines Spieldurchlaufs mit 20 Rechnungen");
-        logger.debug("Bei diesem Test werden alle 20 Fragen bewusst falsch beantwortet.");
-        logger.debug("Im Countdown mode: ");
-        tr.startGame(false);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 1, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        logger.debug("");
-
-        logger.debug("Spieldurchlauf abbrechen testen (Spiel wird in der 1. Runde abgebrochen)");
-        tr.setWantsToExit(true);
-        tr.startGame(false);
-        logger.debug("Erwartetes Ergebnis fuer Userscore = 0, tatsaechlicher Userscore: "+tr.getUserScore());
-        tr.setUserScore(0); //UserScore nach Test auf Ausgangszustand zuruecksetzen.
-        tr.setWantsToExit(false); //Ausgangszustand wiederherstellen
-        logger.debug("");
-
-
-
-
+        logger.debug("Neuen Zufallsterm erstellen und die \"inturn\" um 1 erhöhen.");
+        for(int i = 0; i < 3; i++) {
+            logger.debug(""+tr.nextTerm() + ", inturn: "+tr.getInTurn());
+        }
     }
 
     private static void testRandomTerms() {
