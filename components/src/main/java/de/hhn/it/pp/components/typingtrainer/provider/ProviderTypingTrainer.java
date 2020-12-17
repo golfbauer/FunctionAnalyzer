@@ -17,6 +17,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
 
   public TypingTrainerDescriptor descriptor;
   public String data;
+  public String path = "highscores.txt";
 
   /**
    * Checks if a word is written correctly and calls
@@ -92,7 +93,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
       //     String.valueOf(score.getWordsPerMinute()));
       ClassLoader classLoader;
       classLoader = getClass().getClassLoader();
-      String filePath = classLoader.getResource("highscores.txt").getFile();
+      String filePath = classLoader.getResource(path).getFile();
       save.save(filePath);
   }
 
@@ -104,7 +105,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     SaveLoad load = new SaveLoad();
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();
-    String filePath = classLoader.getResource("highscores.txt").getFile();
+    String filePath = classLoader.getResource(path).getFile();
     data = load.load(filePath);
 
     String[] datas = data.split(" ");

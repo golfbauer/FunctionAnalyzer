@@ -106,8 +106,24 @@ public class TestTypingTrainerBadCases {
   }
 
 //  @Test
-//  @DisplayName("Checks how SaveScore handles exceptions")
-//  void falseSaveScore(){
-//    assertThrows(IOException.class, () -> typingTrainerService.saveScore(null));
+//  @DisplayName("Checks how Feedback handles wrong Input")
+//  void falseFeedbackSecond(){
+//    feedback.setTime(-1);
+//    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(feedback));
 //  }
+
+  @Test
+  @DisplayName("Checks how SaveScore handles exceptions")
+  void falseSaveScore(){
+    typingTrainerService.path = "failtest.txt";
+    assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
+  }
+
+  @Test
+  @DisplayName("Checks how LoadScore handles exceptions")
+  void falseLoadScore(){
+    typingTrainerService.path = "failtest.txt";
+    assertThrows(NullPointerException.class, () -> typingTrainerService.loadScore());
+  }
+
 }
