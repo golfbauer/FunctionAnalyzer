@@ -153,7 +153,7 @@ public class StartScreenController implements Initializable {
   /**
    * Reads all data from highscores.txt and adds it to the corresponding cell
    */
-  public void btnClick_Highscore() throws FileNotFoundException {
+  public void btnClick_Highscore() throws IOException {
     SaveLoad load = new SaveLoad();
     String data = load.load();
 
