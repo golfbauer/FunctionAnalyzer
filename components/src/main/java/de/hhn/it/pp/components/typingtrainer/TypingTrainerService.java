@@ -1,10 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -40,7 +37,7 @@ public interface TypingTrainerService {
    * Shows feedback.
    * @param feedback feedback to show
    */
-  void showFeedback(Feedback feedback) throws IOException, FeedbackNotFound;
+  void showFeedback(Feedback feedback) throws IOException, FeedbackNotFoundException;
 
   /**
    * saves feedback (score).

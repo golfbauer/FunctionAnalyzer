@@ -4,21 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import de.hhn.it.pp.components.typingtrainer.AudioNotFound;
-import de.hhn.it.pp.components.typingtrainer.FeedbackNotFound;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
-import de.hhn.it.pp.components.typingtrainer.SaveData;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
-import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
@@ -74,7 +68,6 @@ public class TestTypingTrainerBadCases {
   void wrongMarkWord(){
     assertThrows(ArrayIndexOutOfBoundsException.class, () -> typingTrainerService.markWord(1000, Color.red));
   }
-
 
 //  @Test
 //  @DisplayName("Checks how countdown handles faulty input")
