@@ -22,31 +22,32 @@ public class TestMathTrainerBadCases {
 
     @BeforeEach
     public void init() {
+        logger.info("Before each initialisation");
         mt = new BiKrMathTrainer();
         term = new Term(new BigDecimal(2), new BigDecimal(2), '-', 2);
     }
 
     @Test
     @DisplayName("Test entering username with bad cases")
-    public void checkIfUserEnteredAName() throws IllegalParameterException {
+    public void checkIfUserEnteredAName() {
         assertThrows(IllegalParameterException.class, () -> mt.setUsername("")); //Check if exception is thrown
     }
 
     @Test
     @DisplayName("Test entering decimal place with bad cases")
-    public void checkEnteringDecimalPlace() throws IllegalParameterException {
+    public void checkEnteringDecimalPlace() {
         assertThrows(IllegalParameterException.class, () -> mt.setDecimalPlace(-1));
     }
 
     @Test
     @DisplayName("Test changing userscore with bad cases")
-    public void checkChangingUserscore() throws IllegalParameterException {
+    public void checkChangingUserscore() {
         assertThrows(IllegalParameterException.class, () -> mt.setUserScore(-1));
     }
 
     @Test
     @DisplayName("Test checking userscore with bad cases")
-    public void checkUserScoreAddificationWithAllDifficulties() throws IllegalParameterException {
+    public void checkUserScoreAddificationWithAllDifficulties() {
         assertThrows(IllegalParameterException.class, () -> mt.addToUserScore(-1));
     }
 

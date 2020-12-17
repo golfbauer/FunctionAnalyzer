@@ -24,6 +24,7 @@ public class TestMathTrainerGoodCases {
 
     @BeforeEach
     public void init() {
+        logger.info("Before each initialisation");
         mt = new BiKrMathTrainer();
         term = new Term(new BigDecimal(2), new BigDecimal(2), '-', 2);
     }
@@ -80,13 +81,9 @@ public class TestMathTrainerGoodCases {
         boolean exists;
         Term t = mt.createTerm();
 
-        if(t == null) {
-            exists = false;
-        } else {
-            exists = true;
-        }
+        exists = t != null;
 
-        assertEquals(true, exists);
+        assertTrue(exists);
     }
 
     @Test
@@ -94,10 +91,10 @@ public class TestMathTrainerGoodCases {
     public void createTermBasedOnCurrentDifficulty() {
         mt.setDifficulty(Difficulty.MEDIUM);
         Term local = mt.createTerm();
-        assertEquals(true, local != null);
+        assertNotNull(local);
         mt.setDifficulty(Difficulty.HARD);
         local = mt.createTerm();
-        assertEquals(true, local != null);
+        assertNotNull(local);
     }
 
     @Test
@@ -143,7 +140,7 @@ public class TestMathTrainerGoodCases {
     @DisplayName("Test checking user input with good cases + Timebonus")
     public void checkUserInputToSolveATermWithTimebonus() {
         boolean b = mt.solveTerm("0", term, 4);
-        assertEquals(true, b);
+        assertTrue(b);
         assertEquals(5, mt.getUserScore());
     }
 
@@ -151,7 +148,7 @@ public class TestMathTrainerGoodCases {
     @DisplayName("Test adding new entry to history list")
     public void checkAddingNewEntryToHistoryList() {
         mt.addToHistory();
-        assertEquals(true, mt.getHistory().size()>0);
+        assertTrue(mt.getHistory().size() > 0);
     }
 
     @Test

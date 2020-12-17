@@ -11,7 +11,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -52,7 +58,7 @@ public class MathTrainerController extends Controller implements Initializable {
   @FXML
   Label labelYourPoints;
 
-  private MathTrainerWatch watch;
+  private final MathTrainerWatch watch;
 
 
   //------- Scene: History -------------
@@ -63,7 +69,7 @@ public class MathTrainerController extends Controller implements Initializable {
   @FXML
   Button buttonPlayAgain;
 
-  private BiKrMathTrainer biKrMathTrainer;
+  private final BiKrMathTrainer biKrMathTrainer;
 
   public MathTrainerController() {
     biKrMathTrainer = new BiKrMathTrainer();
@@ -171,11 +177,7 @@ public class MathTrainerController extends Controller implements Initializable {
         });
 
     radioButtonWarmup.selectedProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue) {
-        biKrMathTrainer.setWarmup(true);
-      } else {
-        biKrMathTrainer.setWarmup(false);
-      }
+      biKrMathTrainer.setWarmup(newValue);
       logger.info("Warmupmode selected: " + biKrMathTrainer.getWarmup());
     });
   }
@@ -187,6 +189,7 @@ public class MathTrainerController extends Controller implements Initializable {
   * @param actionEvent button press
   * @throws IllegalParameterException throw exception of internal method call
   */
+  @SuppressWarnings("unused")
   public void startGame(ActionEvent actionEvent) throws IllegalParameterException {
     logger.info("Play button pressed, game started as " + biKrMathTrainer.getUsername() + " with "
                 + biKrMathTrainer.getDecimalPlace() + " decimals on "
@@ -204,12 +207,14 @@ public class MathTrainerController extends Controller implements Initializable {
     nextQuestion(null);
   }
 
+  @SuppressWarnings("unused")
   public void showHistoryFromMainMenu(ActionEvent actionEvent) {
     switchScene(borderPaneHistory);
     buttonPlayAgain.setVisible(false);
   }
 
   //---------- Scene: Question Run ----------
+  @SuppressWarnings("unused")
   public void stopPlaying(ActionEvent actionEvent) {
     switchScene(borderPaneMainMenu);
   }
@@ -226,6 +231,7 @@ public class MathTrainerController extends Controller implements Initializable {
   * starts a counter thread and operates a question run session.
   * @param actionEvent does nothing
   */
+  @SuppressWarnings("unused")
   public void nextQuestion(ActionEvent actionEvent) {
     if (!biKrMathTrainer.getWarmup()) { //Im Countdown Mode
       runWatch();
@@ -283,16 +289,19 @@ public class MathTrainerController extends Controller implements Initializable {
     }
   }
 
+  @SuppressWarnings("unused")
   public void showSolution(ActionEvent actionEvent) {
     textfieldActualSolution.setText(biKrMathTrainer.getCurrentTerm().getSolution().toString());
     biKrMathTrainer.setTimeIsUp(true);
   }
 
   //-------- Scene: History -----------
+  @SuppressWarnings("unused")
   public void playAgain(ActionEvent actionEvent) throws IllegalParameterException {
     startGame(null);
   }
 
+  @SuppressWarnings("unused")
   public void exitToMenu(ActionEvent actionEvent) {
     switchScene(borderPaneMainMenu);
   }
