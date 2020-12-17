@@ -3,6 +3,7 @@ package de.hhn.it.pp.javafx.controllers.typingtrainerfx;
 import de.hhn.it.pp.components.typingtrainer.SaveData;
 import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -152,7 +153,7 @@ public class StartScreenController implements Initializable {
   /**
    * Reads all data from highscores.txt and adds it to the corresponding cell
    */
-  public void btnClick_Highscore() {
+  public void btnClick_Highscore() throws FileNotFoundException {
     SaveLoad load = new SaveLoad();
     String data = load.load();
 

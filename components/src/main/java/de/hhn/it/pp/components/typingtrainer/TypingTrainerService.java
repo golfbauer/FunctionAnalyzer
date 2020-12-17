@@ -48,7 +48,7 @@ public interface TypingTrainerService {
   /**
    * loads saved feedbacks (scores).
    */
-  void loadScore();
+  void loadScore() throws IOException;
 
   /**
    * Gets the userinput aka keystrokes through a

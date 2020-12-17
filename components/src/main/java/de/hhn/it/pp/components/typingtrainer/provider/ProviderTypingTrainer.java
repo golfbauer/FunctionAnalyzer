@@ -100,7 +100,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    * loads saved feedbacks (scores).
    */
   @Override
-  public void loadScore() {
+  public void loadScore() throws IOException {
     SaveLoad load = new SaveLoad();
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();

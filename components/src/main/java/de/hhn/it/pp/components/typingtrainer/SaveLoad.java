@@ -1,6 +1,7 @@
 package de.hhn.it.pp.components.typingtrainer;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,12 +23,13 @@ public class SaveLoad {
    * Appends new text in the existing highscores.txt (adds new scores).
    *
    * @param sessionText text used for practice
-   * @param time time needed for completion
-   * @param wpm words per minute
+   * @param time        time needed for completion
+   * @param wpm         words per minute
    * @throws IOException IOException
    */
   public void save(String sessionText, String time, String wpm)
-      throws IOException { //   "components/src/main/resources/highscores.txt"
+      throws IOException,
+      FileNotFoundException { //   "components/src/main/resources/highscores.txt"
 
     FileWriter fw = null;
     BufferedWriter bw = null;
@@ -48,6 +50,7 @@ public class SaveLoad {
         pw.close();
         bw.close();
         fw.close();
+      } catch (FileNotFoundException fe) {
       } catch (IOException io) { // can't do anything
       }
     }
@@ -56,10 +59,11 @@ public class SaveLoad {
 
   /**
    * Saves data to highscores.txt.
+   *
    * @param path path where highscore is
    * @throws IOException Exception
    */
-  public void save(String path) throws IOException { //JUnit
+  public void save(String path) throws IOException, FileNotFoundException { //JUnit
 
     FileWriter fw = null;
     BufferedWriter bw = null;
@@ -79,13 +83,15 @@ public class SaveLoad {
       System.out.println("Data Successfully appended into file");
 
       pw.flush();
+    } catch (FileNotFoundException fe) {
+
     } finally {
-    //      try {
-    //        pw.close();
-    //        bw.close();
-    //        fw.close();
-    //      } catch (IOException io) {// can't do anything }
-    //      }
+      //      try {
+      //        pw.close();
+      //        bw.close();
+      //        fw.close();
+      //      } catch (IOException io) {// can't do anything }
+      //      }
     }
 
   }
@@ -95,12 +101,14 @@ public class SaveLoad {
    *
    * @return content of highscores.txt
    */
-  public String load() {
+  public String load() throws FileNotFoundException {
     String filePath = "components/src/main/resources/saveData/highscores.txt";
     String content = "empty";
 
     try {
       content = new String(Files.readAllBytes(Paths.get(filePath)));
+    } catch (FileNotFoundException fe) {
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -110,15 +118,18 @@ public class SaveLoad {
 
   /**
    * Loads highscores from given path.
+   *
    * @param path path of highscores.txt
    * @return content of highscores
    */
-  public String load(String path) { //JUnit
+  public String load(String path) throws FileNotFoundException, IOException { //JUnit
     String filePath = path;
     String content = "empty";
 
     try {
       content = new String(Files.readAllBytes(Paths.get(filePath)));
+    } catch (FileNotFoundException e) {
+
     } catch (IOException e) {
       e.printStackTrace();
     }
