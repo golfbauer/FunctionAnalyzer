@@ -45,12 +45,9 @@ public class SaveLoad {
       System.out.println("Data Successfully appended into file");
 
       pw.flush();
-    } catch (FileNotFoundException fe){
-
-    } catch (IOException io){
-
-    }
-    finally {
+    } catch (FileNotFoundException fe) {
+    } catch (IOException io) {
+    } finally {
       try {
         pw.close();
         bw.close();
@@ -115,9 +112,7 @@ public class SaveLoad {
     try {
       content = new String(Files.readAllBytes(Paths.get(filePath)));
     } catch (FileNotFoundException fe) {
-
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
 
