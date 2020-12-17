@@ -87,13 +87,13 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void saveScore(Feedback score) throws IOException {
-    SaveLoad save = new SaveLoad();
-    //    save.save("selected text", String.valueOf(score.getTime()),
-    //     String.valueOf(score.getWordsPerMinute()));
-    ClassLoader classLoader;
-    classLoader = getClass().getClassLoader();
-    String filePath = classLoader.getResource("highscores.txt").getFile();
-    save.save(filePath);
+      SaveLoad save = new SaveLoad();
+      //    save.save("selected text", String.valueOf(score.getTime()),
+      //     String.valueOf(score.getWordsPerMinute()));
+      ClassLoader classLoader;
+      classLoader = getClass().getClassLoader();
+      String filePath = classLoader.getResource("highscores.txt").getFile();
+      save.save(filePath);
   }
 
   /**

@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
@@ -107,6 +108,6 @@ public class TestTypingTrainerBadCases {
 //  @Test
 //  @DisplayName("Checks how SaveScore handles exceptions")
 //  void falseSaveScore(){
-//    assertThrows(IOException.class, () -> typingTrainerService.foo());
+//    assertThrows(IOException.class, () -> typingTrainerService.saveScore(null));
 //  }
 }
