@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import de.hhn.it.pp.components.typingtrainer.FeedbackNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
@@ -74,7 +75,7 @@ public class TestTypingTrainerBadCases {
 //  @Test
 //  @DisplayName("Checks if saveScores throws the given exception")
 //  void wrongSaveScores(){
-//    assertThrows(FileNotFoundException.class, () -> typingTrainerService.saveScore(feedback));
+//    assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
 //  }
 
 //  @Test
@@ -83,12 +84,19 @@ public class TestTypingTrainerBadCases {
 //    assertFalse(Objects.equals(feedback.getEndTime(), feedback.getStartTime()));
 //  }
 
-//  @Test
-//  @DisplayName("Test SaveLoad if it saves and load correctly")
-//  void wrongSaveLoad() throws IOException {
-//    SaveLoad saveLoad = new SaveLoad();
-//    assertThrows(IOException.class, () -> saveLoad.foo());
-//  }
+  @Test
+  @DisplayName("Test SaveLoad if it saves and load correctly")
+  void wrongSaveLoad() {
+    SaveLoad saveLoad = new SaveLoad();
+    assertThrows(NullPointerException.class, () -> saveLoad.save(null));
+  }
+
+  @Test
+  @DisplayName("Test SaveLoad if it saves and load correctly")
+  void wrongLoadLoad() {
+    SaveLoad saveLoad = new SaveLoad();
+    assertThrows(NullPointerException.class, () -> saveLoad.load(null));
+  }
 
   @Test
   @DisplayName("Checks how Feedback handles wrong Input")
