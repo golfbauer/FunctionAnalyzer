@@ -45,7 +45,12 @@ public class SaveLoad {
       System.out.println("Data Successfully appended into file");
 
       pw.flush();
-    } finally {
+    } catch (FileNotFoundException fe){
+
+    } catch (IOException io){
+
+    }
+    finally {
       try {
         pw.close();
         bw.close();
@@ -85,7 +90,12 @@ public class SaveLoad {
       pw.flush();
     } catch (FileNotFoundException fe) {
 
-    } finally {
+    } catch (IOException io)
+    {
+
+    }
+
+    finally {
       //      try {
       //        pw.close();
       //        bw.close();
@@ -101,7 +111,7 @@ public class SaveLoad {
    *
    * @return content of highscores.txt
    */
-  public String load() throws FileNotFoundException {
+  public String load() throws FileNotFoundException, IOException {
     String filePath = "components/src/main/resources/saveData/highscores.txt";
     String content = "empty";
 
@@ -109,7 +119,8 @@ public class SaveLoad {
       content = new String(Files.readAllBytes(Paths.get(filePath)));
     } catch (FileNotFoundException fe) {
 
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
 
