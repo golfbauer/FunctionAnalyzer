@@ -45,6 +45,8 @@ public class TestTypingTrainerBadCases {
 
   @BeforeEach
   void initialize() throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException{
+    logger.debug("Initialize Test");
+
     audioWrongWord = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
 
     feedback = new Feedback(0,0);
@@ -85,18 +87,6 @@ public class TestTypingTrainerBadCases {
     assertThrows(ArrayIndexOutOfBoundsException.class, () -> typingTrainerService.markWord(1000, Color.green));
   }
 
-//  @Test
-//  @DisplayName("Checks if saveScores throws the given exception")
-//  void wrongSaveScores(){
-//    assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
-//  }
-
-//  @Test
-//  @DisplayName("Checks how countdown handles faulty input")
-//  void wrongCountdown() throws InterruptedException {
-//    assertFalse(Objects.equals(feedback.getEndTime(), feedback.getStartTime()));
-//  }
-
   @Test
   @DisplayName("Test SaveLoad if it saves and load correctly")
   void wrongSaveLoad() {
@@ -131,14 +121,6 @@ public class TestTypingTrainerBadCases {
     typingTrainerService.path = "failtest.txt";
     assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
   }
-
-//  @Test
-//  @DisplayName("Checks first save score") //aus SaveLoad
-//  void falseSave() {
-//    SaveLoad saveLoad = new SaveLoad();
-//    saveLoad.path = "weizenclown654";
-//    assertThrows(FileNotFoundException.class, () -> saveLoad.save("asd", "13.32", "12"));
-//  }
 
   @Test
   @DisplayName("Checks how LoadScore handles exceptions")

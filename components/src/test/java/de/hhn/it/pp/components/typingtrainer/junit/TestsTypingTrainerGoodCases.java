@@ -55,6 +55,9 @@ public class TestsTypingTrainerGoodCases {
   @BeforeEach
   void initialize() throws IOException, LineUnavailableException,
       UnsupportedAudioFileException, InterruptedException{
+
+    logger.debug("Initialize Test");
+
     audioWrongWord = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
 
     feedback = new Feedback(0,0);
