@@ -102,12 +102,13 @@ public class TestTypingTrainerBadCases {
     assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(null));
   }
 
-//  @Test
-//  @DisplayName("Checks how Feedback handles wrong Input")
-//  void falseFeedbackSecond(){
-//    feedback.setTime(-1);
-//    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(feedback));
-//  }
+  @Test
+  @DisplayName("Checks how Feedback handles wrong Input")
+  void falseFeedbackSecond(){
+    feedback.setStartTime(-1);
+    feedback.setEndTime(-500);
+    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(feedback));
+  }
 
   @Test
   @DisplayName("Checks how SaveScore handles exceptions")

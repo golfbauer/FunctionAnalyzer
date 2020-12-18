@@ -67,9 +67,6 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     logger.debug("Time: " + feedback.getTime());
     logger.debug("WPM: " + feedback.getWordsPerMinute());
 
-    feedback.setStartTime(10);
-    feedback.setEndTime(20);
-
     feedback.calculateTime();
     feedback.calculateWordsPerMinute(descriptor.getTypedWords(),
         descriptor.getPracticeText().getText());
