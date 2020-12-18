@@ -1,8 +1,7 @@
 package de.hhn.it.pp.javafx.controllers.spellingtrainer;
 
-
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaReference;
 import de.hhn.it.pp.javafx.Main;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

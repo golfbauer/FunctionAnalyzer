@@ -1,9 +1,9 @@
 package de.hhn.it.pp.javafx.controllers.spellingtrainer;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
+import de.hhn.it.pp.components.spellingtrainer.provider.SgdsSpellingTrainerService;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

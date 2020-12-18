@@ -2,9 +2,9 @@ package de.hhn.it.pp.javafx.controllers.spellingtrainer;
 
 import static de.hhn.it.pp.javafx.controllers.spellingtrainer.SpellingTrainerServiceController.service;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
+import de.hhn.it.pp.components.spellingtrainer.provider.LearningEntry;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaPresentationListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
