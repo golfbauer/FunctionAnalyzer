@@ -128,6 +128,14 @@ public class TestsTypingTrainerGoodCases {
   }
 
   @Test
+  @DisplayName("Test setWordsPerMinute()")
+  void testFeedbackSetWPM()
+  {
+    feedback.setWordsPerMinute(54);
+    assertTrue(54 == feedback.getWordsPerMinute());
+  }
+
+  @Test
   @DisplayName("Tests set & get for time in Feedback")
   void testFeedbackSetGetTime()
   {
@@ -267,6 +275,28 @@ public class TestsTypingTrainerGoodCases {
     saveLoad.save(path);
 
     String loadedData = saveLoad.load(path);
+
+    String expected = preloadedData.concat("selectedtext 1.54 2 ");
+
+    System.out.println(expected);
+    System.out.println(loadedData);
+
+    assertTrue(expected.equals(loadedData));
+  }
+
+  @Test
+  @DisplayName("Other save method from SaveLoad")
+  void testSaveLoadSaveWithArgs() throws IOException {
+    String path = "highscores.txt";
+    SaveLoad saveLoad = new SaveLoad();
+    saveLoad.path = path;
+
+    saveLoad.loadPath = path;
+    String preloadedData = saveLoad.load();
+
+    saveLoad.save("selectedtext", "1.54", "2");
+
+    String loadedData = saveLoad.load();
 
     String expected = preloadedData.concat("selectedtext 1.54 2 ");
 

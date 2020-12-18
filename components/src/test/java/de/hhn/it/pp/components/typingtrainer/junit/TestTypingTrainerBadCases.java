@@ -119,6 +119,14 @@ public class TestTypingTrainerBadCases {
     assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
   }
 
+//  @Test
+//  @DisplayName("Checks first save score") //aus SaveLoad
+//  void falseSave() {
+//    SaveLoad saveLoad = new SaveLoad();
+//    saveLoad.path = "weizenclown654";
+//    assertThrows(FileNotFoundException.class, () -> saveLoad.save("asd", "13.32", "12"));
+//  }
+
   @Test
   @DisplayName("Checks how LoadScore handles exceptions")
   void falseLoadScore(){

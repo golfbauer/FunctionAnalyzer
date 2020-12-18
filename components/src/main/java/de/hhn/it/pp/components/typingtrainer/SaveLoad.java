@@ -19,6 +19,9 @@ public class SaveLoad {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SaveLoad.class);
 
+  public String path = "components/src/main/resources/saveData/highscores.txt";
+  public String loadPath = "components/src/main/resources/saveData/highscores.txt";
+
   /**
    * Appends new text in the existing highscores.txt (adds new scores).
    *
@@ -36,7 +39,7 @@ public class SaveLoad {
     PrintWriter pw = null;
 
     try {
-      fw = new FileWriter("components/src/main/resources/saveData/highscores.txt", true);
+      fw = new FileWriter(path, true);
       bw = new BufferedWriter(fw);
       pw = new PrintWriter(bw);
 
@@ -106,7 +109,7 @@ public class SaveLoad {
    * @return content of highscores.txt
    */
   public String load() throws FileNotFoundException, IOException {
-    String filePath = "components/src/main/resources/saveData/highscores.txt";
+    String filePath = loadPath;
     String content = "empty";
 
     try {
