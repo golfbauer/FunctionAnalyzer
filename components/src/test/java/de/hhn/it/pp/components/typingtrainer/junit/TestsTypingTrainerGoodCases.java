@@ -13,7 +13,6 @@ import de.hhn.it.pp.components.typingtrainer.PracticeText;
 import de.hhn.it.pp.components.typingtrainer.SaveData;
 import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
-import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class TestsTypingTrainerGoodCases {
   PracticeText practiceText;
 
   @BeforeEach
-  void initialize() throws IOException, WordNotFoundException, LineUnavailableException,
+  void initialize() throws IOException, LineUnavailableException,
       UnsupportedAudioFileException, InterruptedException{
     audioWrongWord = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
 
