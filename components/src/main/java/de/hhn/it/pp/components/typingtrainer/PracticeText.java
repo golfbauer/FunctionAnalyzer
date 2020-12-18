@@ -1,5 +1,8 @@
 package de.hhn.it.pp.components.typingtrainer;
-/***
+
+/**
+ * The text used for Practice and its needed methods.
+ *
  * @author Tobias Maraci, Robert Pistea
  * @version 1.3
  * @since 1.1
@@ -24,6 +27,9 @@ public class PracticeText {
     this.text = text;
   }
 
+  /**
+   * Prints out practiceText.
+   */
   public void printPracticeText() {
     for (int i = 0; i < text.length; i++) {
       System.out.print(text[i] + " ");
@@ -39,13 +45,11 @@ public class PracticeText {
     this.currentWordIndex = currentWordIndex;
   }
 
-  public void increaseCurrentWordIndex()
-  {
+  public void increaseCurrentWordIndex() {
     ++currentWordIndex;
   }
 
-  public String getWordAtIndex(int index)
-  {
+  public String getWordAtIndex(int index) {
     return text[index];
   }
 }
