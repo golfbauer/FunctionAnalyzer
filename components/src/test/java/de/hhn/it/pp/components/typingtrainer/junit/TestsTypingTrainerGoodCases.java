@@ -15,6 +15,7 @@ import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -293,6 +294,24 @@ public class TestsTypingTrainerGoodCases {
   }
 
   //endregion
+
+  @Test
+  @DisplayName("FileReader test 2")
+  void testFileReader2() throws FileNotFoundException {
+    fileReader = new FileReader();
+    String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
+    assertEquals(expectedFileContent, fileReader.fileContent);
+  }
+
+  @Test
+  @DisplayName("FileReader test 3") //mach raus wenn du fertig bist
+  void testFileReader3() throws FileNotFoundException {
+    fileReader.pathfr2 = "";
+    fileReader = new FileReader("practiceText-3.txt");
+    String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
+    assertEquals(expectedFileContent, fileReader.fileContent);
+  }
+
   //region SaveLoad
 
   @Test

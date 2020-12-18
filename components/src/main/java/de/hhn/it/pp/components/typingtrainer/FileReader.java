@@ -38,6 +38,8 @@ public class FileReader {
 
   }
 
+  public String pathfr2 = "components/src/main/resources/";
+
   /**
    * Same as normal FileReader with a fileName as input.
    * @param fileName name of file to read
@@ -45,7 +47,7 @@ public class FileReader {
    */
   public FileReader(String fileName) throws FileNotFoundException {
 
-    String path = "components/src/main/resources/" + fileName;
+    String path = pathfr2 + fileName;
     System.out.println("PFAD:" + path);
 
     File file = new File(path);
