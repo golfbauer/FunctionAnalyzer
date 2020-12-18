@@ -23,6 +23,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Goodcase Tests.
+ *
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.1
+ * @since 1.0
+ */
+
 @DisplayName("Typing Trainer Tests")
 public class TestsTypingTrainerGoodCases {
   private static final org.slf4j.Logger logger =
@@ -299,15 +307,6 @@ public class TestsTypingTrainerGoodCases {
   @DisplayName("FileReader test 2")
   void testFileReader2() throws FileNotFoundException {
     fileReader = new FileReader();
-    String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
-    assertEquals(expectedFileContent, fileReader.fileContent);
-  }
-
-  @Test
-  @DisplayName("FileReader test 3") //mach raus wenn du fertig bist
-  void testFileReader3() throws FileNotFoundException {
-    fileReader.pathfr2 = "";
-    fileReader = new FileReader("practiceText-3.txt");
     String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
     assertEquals(expectedFileContent, fileReader.fileContent);
   }

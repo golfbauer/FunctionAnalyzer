@@ -21,6 +21,14 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Badcase Tests.
+ *
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.1
+ * @since 1.0
+ */
+
 @DisplayName("Test the TypingTrainerService with bad cases")
 public class TestTypingTrainerBadCases {
   private static final org.slf4j.Logger logger =
@@ -138,13 +146,4 @@ public class TestTypingTrainerBadCases {
     typingTrainerService.path = "failtest.txt";
     assertThrows(NullPointerException.class, () -> typingTrainerService.loadScore());
   }
-
-  @Test
-  @DisplayName("FileReader test")
-  void wrongFileReader() throws FileNotFoundException {
-    fileReader = new FileReader("practiceText-3.txt");
-
-    assertThrows(FileNotFoundException.class, () -> );
-  }
-
 }
