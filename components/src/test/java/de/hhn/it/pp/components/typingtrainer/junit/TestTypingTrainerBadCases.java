@@ -13,12 +13,21 @@ import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import org.junit.jupiter.api.Test;
+
+/**
+ * Badcase Tests.
+ *
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.1
+ * @since 1.0
+ */
 
 @DisplayName("Test the TypingTrainerService with bad cases")
 public class TestTypingTrainerBadCases {
@@ -137,5 +146,4 @@ public class TestTypingTrainerBadCases {
     typingTrainerService.path = "failtest.txt";
     assertThrows(NullPointerException.class, () -> typingTrainerService.loadScore());
   }
-
 }

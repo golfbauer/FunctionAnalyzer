@@ -23,6 +23,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Goodcase Tests.
+ *
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.1
+ * @since 1.0
+ */
+
 @DisplayName("Typing Trainer Tests")
 public class TestsTypingTrainerGoodCases {
   private static final org.slf4j.Logger logger =
@@ -302,7 +310,6 @@ public class TestsTypingTrainerGoodCases {
     String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
     assertEquals(expectedFileContent, fileReader.fileContent);
   }
-
 
   //region SaveLoad
 

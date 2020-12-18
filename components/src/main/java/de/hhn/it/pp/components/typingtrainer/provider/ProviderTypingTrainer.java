@@ -11,6 +11,14 @@ import java.time.LocalTime;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * Provider Interface to be filled with content(methods).
+ *
+ * @author Tobias Maraci, Robert Pistea
+ * @version 1.1
+ * @since 1.0
+ */
+
 public class ProviderTypingTrainer implements TypingTrainerService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(ProviderTypingTrainer.class);
