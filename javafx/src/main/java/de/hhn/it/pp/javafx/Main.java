@@ -58,6 +58,7 @@ public class Main extends Application {
     addModule("SpellingTrainerService");
     addModule("learningCards/Main");
     addModule("FunctionAnalyzer");
+    addModule("MathTrainer");
   }
 
   @Override

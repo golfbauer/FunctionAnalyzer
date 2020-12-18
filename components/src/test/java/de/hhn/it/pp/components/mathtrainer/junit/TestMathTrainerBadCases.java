@@ -2,7 +2,6 @@ package de.hhn.it.pp.components.mathtrainer.junit;
 
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import de.hhn.it.pp.components.mathtrainer.BiKrMathTrainer;
-import de.hhn.it.pp.components.mathtrainer.Difficulty;
 import de.hhn.it.pp.components.mathtrainer.Term;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,31 +22,32 @@ public class TestMathTrainerBadCases {
 
     @BeforeEach
     public void init() {
+        logger.info("Before each initialisation");
         mt = new BiKrMathTrainer();
         term = new Term(new BigDecimal(2), new BigDecimal(2), '-', 2);
     }
 
     @Test
     @DisplayName("Test entering username with bad cases")
-    public void checkIfUserEnteredAName() throws IllegalParameterException {
+    public void checkIfUserEnteredAName() {
         assertThrows(IllegalParameterException.class, () -> mt.setUsername("")); //Check if exception is thrown
     }
 
     @Test
     @DisplayName("Test entering decimal place with bad cases")
-    public void checkEnteringDecimalPlace() throws IllegalParameterException {
+    public void checkEnteringDecimalPlace() {
         assertThrows(IllegalParameterException.class, () -> mt.setDecimalPlace(-1));
     }
 
     @Test
     @DisplayName("Test changing userscore with bad cases")
-    public void checkChangingUserscore() throws IllegalParameterException {
+    public void checkChangingUserscore() {
         assertThrows(IllegalParameterException.class, () -> mt.setUserScore(-1));
     }
 
     @Test
     @DisplayName("Test checking userscore with bad cases")
-    public void checkUserScoreAddificationWithAllDifficulties() throws IllegalParameterException {
+    public void checkUserScoreAddificationWithAllDifficulties() {
         assertThrows(IllegalParameterException.class, () -> mt.addToUserScore(-1));
     }
 
@@ -55,7 +55,7 @@ public class TestMathTrainerBadCases {
     @DisplayName("Test checking user input with bad cases")
     public void checkUserInputToSolveATerm() {
         boolean b = mt.solveTerm("1", term);
-        assertEquals(false, b);
+        assertFalse(b);
 
         assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
     }
@@ -64,10 +64,13 @@ public class TestMathTrainerBadCases {
     @DisplayName("Test checking user input with bad cases + Timebonus")
     public void checkUserInputToSolveATermWithTimebonus() {
         boolean b = mt.solveTerm("1", term, 4);
-        assertEquals(false, b);
+        assertFalse(b);
         assertEquals(0, mt.getUserScore());
 
-        assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
+        b = mt.solveTerm("ABC", term, 4);
+        assertFalse(b);
+
+        //assertThrows(IllegalArgumentException.class, () -> mt.solveTerm("ABC", term));
     }
 
     @Test
@@ -76,9 +79,4 @@ public class TestMathTrainerBadCases {
         assertThrows(IllegalParameterException.class, () -> mt.helpUser(null));
     }
 
-    @Test
-    @DisplayName("Test if exit game fails")
-    public void checkIfExitGameFails() {
-        assertThrows(IllegalParameterException.class, () -> mt.exitGame(-1, false));
-    }
 }

@@ -3,6 +3,7 @@ package de.hhn.it.pp.components.mathtrainer.junit;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 import de.hhn.it.pp.components.mathtrainer.BiKrMathTrainer;
 import de.hhn.it.pp.components.mathtrainer.Difficulty;
+import de.hhn.it.pp.components.mathtrainer.Section;
 import de.hhn.it.pp.components.mathtrainer.Term;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,6 +24,7 @@ public class TestMathTrainerGoodCases {
 
     @BeforeEach
     public void init() {
+        logger.info("Before each initialisation");
         mt = new BiKrMathTrainer();
         term = new Term(new BigDecimal(2), new BigDecimal(2), '-', 2);
     }
@@ -79,27 +81,66 @@ public class TestMathTrainerGoodCases {
         boolean exists;
         Term t = mt.createTerm();
 
-        if(t == null) {
-            exists = false;
-        } else {
-            exists = true;
-        }
+        exists = t != null;
 
-        assertEquals(true, exists);
+        assertTrue(exists);
+    }
+
+    @Test
+    @DisplayName("Test if difficulty is handled correctly")
+    public void createTermBasedOnCurrentDifficulty() {
+        mt.setDifficulty(Difficulty.MEDIUM);
+        Term local = mt.createTerm();
+        assertNotNull(local);
+        mt.setDifficulty(Difficulty.HARD);
+        local = mt.createTerm();
+        assertNotNull(local);
+    }
+
+    @Test
+    @DisplayName("Test if difficulty is handled correctly")
+    public void createTermBasedOnCurrentSection() {
+        mt.setSection(Section.MINUS);
+        Term t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '-');
+
+        mt.setSection(Section.MULTIPLICATION);
+        t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '*');
+
+        mt.setSection(Section.DIVISION);
+        t = mt.createTerm();
+        assertEquals(t.operator.charValue(), '/');
+
+        mt.setSection(Section.MIXED);
+        t = mt.createTerm();
+        String helper = ""+t.operator;
+        boolean b = helper.contains("*") || helper.contains("/") || helper.contains("+") || helper.contains("-");
+        assertTrue(b);
+
+        mt.setSection(Section.DIVISION);
+        while(true) {
+            t = mt.createTerm();
+
+            if(t.secondNumber.equals(BigDecimal.ONE) && t.operator.equals('/')) {
+                assertTrue(true);
+                break;
+            }
+        }
     }
 
     @Test
     @DisplayName("Test checking user input with good cases")
     public void checkUserInputToSolveATerm() {
         boolean b = mt.solveTerm("0", term);
-        assertEquals(true, b);
+        assertTrue(b);
     }
 
     @Test
     @DisplayName("Test checking user input with good cases + Timebonus")
     public void checkUserInputToSolveATermWithTimebonus() {
         boolean b = mt.solveTerm("0", term, 4);
-        assertEquals(true, b);
+        assertTrue(b);
         assertEquals(5, mt.getUserScore());
     }
 
@@ -107,7 +148,7 @@ public class TestMathTrainerGoodCases {
     @DisplayName("Test adding new entry to history list")
     public void checkAddingNewEntryToHistoryList() {
         mt.addToHistory();
-        assertEquals(true, mt.getHistory().size()>0);
+        assertTrue(mt.getHistory().size() > 0);
     }
 
     @Test
@@ -116,9 +157,4 @@ public class TestMathTrainerGoodCases {
         assertEquals(term.getSolution(), mt.helpUser(term));
     }
 
-    @Test
-    @DisplayName("Test if exit game succeeds")
-    public void checkIfExitGameSucceeds() throws IllegalParameterException {
-        assertEquals(20, mt.exitGame(0, true));
-    }
 }

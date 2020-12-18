@@ -1,6 +1,5 @@
 package de.hhn.it.pp.components.mathtrainer;
 
-import de.hhn.it.pp.components.example.coffeemakerservice.provider.WnckCoffeeMaker;
 import de.hhn.it.pp.components.exceptions.IllegalParameterException;
 
 import java.math.BigDecimal;
@@ -8,261 +7,266 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BiKrMathTrainer implements MathTrainer {
-    private static final org.slf4j.Logger logger =
+  private static final org.slf4j.Logger logger =
             org.slf4j.LoggerFactory.getLogger(BiKrMathTrainer.class);
 
-    private String username;
-    private int userscore;
-    private Section section;
-    private Difficulty difficulty;
-    private int decimalPlace;
-    private List<String> history;
-    private boolean wantstoexit;
-    private boolean timeisup;
-    private int inturn;
+  private String username;
+  private int userscore;
+  private Section section;
+  private Difficulty difficulty;
+  private int decimalPlace;
+  private List<String> history;
+  private boolean timeisup;
+  private int inturn;
+  private boolean warmup;
+  private Term currentTerm;
 
-    /**
-     * Constructor to instantiate the basic functions for MathTrainer.
-     */
-    public BiKrMathTrainer() {
-        section = Section.MIXED;
-        difficulty = Difficulty.EASY;
-        decimalPlace = 0;
-        userscore = 0;
-        history = new ArrayList<>();
-        wantstoexit = false;
-        timeisup = false;
-        inturn = 0;
-        createDemoHistoryData();
-    }
+  /**
+   * Constructor to instantiate the basic functions for MathTrainer.
+   */
+  public BiKrMathTrainer() {
+    logger.debug("Constructor is building MathTrainer object");
+    section = Section.PLUS;
+    difficulty = Difficulty.EASY;
+    decimalPlace = 2;
+    userscore = 0;
+    history = new ArrayList<>();
+    timeisup = false;
+    inturn = 0;
+    warmup = true;
+    createDemoHistoryData();
+  }
 
-    @Override
-    public void setUsername(String username) throws IllegalParameterException{
-        if(username.length() > 0){
-            this.username = username;
-        } else throw new IllegalParameterException("Bitte einen Namen mit mindestens einem Zeichen festlegen.");
+  @Override
+  public void setUsername(String username) throws IllegalParameterException {
+    logger.debug("Setting username to : " + username);
+    if (username.length() > 0) {
+      this.username = username;
+    } else {
+      throw new IllegalParameterException("Bitte einen Namen mit mind. einem Zeichen festlegen.");
     }
+  }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+  @Override
+  public String getUsername() {
+    logger.debug("Retrieving username with getter");
+    return username;
+  }
 
-    @Override
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
+  @Override
+  public Difficulty getDifficulty() {
+    logger.debug("Retrieving this objects difficulty with getter");
+    return this.difficulty;
+  }
 
-    @Override
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
+  @Override
+  public void setDifficulty(Difficulty difficulty) {
+    logger.debug("Setting difficulty to: " + difficulty);
+    this.difficulty = difficulty;
+  }
 
-    @Override
-    public void setDecimalPlace(int decimalPlace) throws IllegalParameterException {
-        if(decimalPlace >= 0){
-            this.decimalPlace = decimalPlace;
-        } else throw new IllegalParameterException("Bitte nur positive Werte fuer die Nachkommastellenanzahl eingeben.");
+  @Override
+  public void setDecimalPlace(int decimalPlace) throws IllegalParameterException {
+    logger.debug("Setting visible decimals after period to: " + decimalPlace);
+    if (decimalPlace >= 0) {
+      this.decimalPlace = decimalPlace;
+    } else {
+      throw new IllegalParameterException("Nur positive Werte fuer die Nachkommastellen eingeben.");
     }
-    @Override
-    public int getDecimalPlace() {
-        return this.decimalPlace;
-    }
-    @Override
-    public void setUserScore(int number) throws IllegalParameterException{
-        if(number >= 0){
-            this.userscore = number;
-        } else throw new IllegalParameterException("Bitte den UserScore nicht auf negative Werte setzen.");
-    }
-    @Override
-    public int getUserScore(){
-        return this.userscore;
-    }
-    @Override
-    public void setWantsToExit(boolean exitboolean){
-        this.wantstoexit = exitboolean;
-    }
-    @Override
-    public boolean getWantsToExit(){
-        return this.wantstoexit;
-    }
-    @Override
-    public void setTimeIsUp(boolean timeboolean){
-        this.timeisup = timeboolean;
-    }
-    @Override
-    public boolean getTimeIsUp(){
-        return this.timeisup;
-    }
-    @Override
-    public int getInTurn(){
-        return this.inturn;
-    }
-    @Override
-    public void addToUserScore(int timebonus) throws IllegalParameterException{
-        if(timebonus >=0){
-            int points =
-                difficulty == Difficulty.EASY ? 1 :
-                        difficulty == Difficulty.MEDIUM ? 2 :
-                                3;
-            this.userscore = userscore + points+ timebonus;
-        } else throw new IllegalParameterException("Der Zeitbonus kann nicht negativ sein.");
-    }
+  }
 
-    @Override
-    public Term createTerm() {
-        int maxNumberSize =
+  @Override
+  public int getDecimalPlace() {
+    logger.debug("Retrieving currently set decimal places after period");
+    return this.decimalPlace;
+  }
+
+  @Override
+  public void setUserScore(int number) throws IllegalParameterException {
+    logger.debug("Setting userscore to: " + number);
+    if (number >= 0) {
+      this.userscore = number;
+    } else {
+      throw new IllegalParameterException("Bitte den UserScore nicht auf negative Werte setzen.");
+    }
+  }
+
+  @Override
+  public int getUserScore() {
+    logger.debug("Retrieving current userscore");
+    return this.userscore;
+  }
+
+  @Override
+  public Section getSection() {
+    logger.debug("Retrieving currently set Section of the MathTrainer");
+    return this.section;
+  }
+
+  @Override
+  public void setSection(Section section) {
+    logger.debug("Setting section of the MathTrainer");
+    this.section = section;
+  }
+
+  @Override
+  public void setTimeIsUp(boolean timeboolean) {
+    logger.debug("Setting timeisup boolean");
+    this.timeisup = timeboolean;
+  }
+
+  @Override
+  public boolean getTimeIsUp() {
+    logger.debug("Retrieving timeisup boolean value");
+    return this.timeisup;
+  }
+
+  @Override
+  public void setInTurn(int inturn) {
+    logger.debug("Setting inturn integer to: " + inturn);
+    this.inturn = inturn;
+  }
+
+  @Override
+  public int getInTurn() {
+    logger.debug("Retrieving inturn integer value");
+    return this.inturn;
+  }
+
+  @Override
+  public boolean getWarmup() {
+    logger.debug("Retrieving warmup boolean value");
+    return this.warmup;
+  }
+
+  @Override
+  public void setWarmup(boolean warmupboolean) {
+    logger.debug("Setting warmup boolean value to: " + warmupboolean);
+    this.warmup = warmupboolean;
+  }
+
+  @Override
+  public void addToUserScore(int timebonus) throws IllegalParameterException {
+    logger.debug("addToUserScore() call");
+    if (timebonus >= 0) {
+      int points =
+                  difficulty == Difficulty.EASY ? 1 :
+                          difficulty == Difficulty.MEDIUM ? 2 :
+                                  3;
+      this.userscore = userscore + points + timebonus;
+    } else {
+      throw new IllegalParameterException("Der Zeitbonus kann nicht negativ sein.");
+    }
+  }
+
+  public Term getCurrentTerm() {
+    logger.debug("getCurrentTerm() call");
+    return this.currentTerm;
+  }
+
+  @Override
+  public Term createTerm() {
+    logger.debug("createTerm() call");
+    int maxNumberSize =
             difficulty == Difficulty.EASY ? 9 :
                 difficulty == Difficulty.MEDIUM ? 19 :
                     29;
 
-        BigDecimal firstNumber = BigDecimal.valueOf((long)(Math.random()*maxNumberSize));
-        BigDecimal secondNumber = BigDecimal.valueOf((long)(Math.random()*maxNumberSize));
+    BigDecimal firstNumber = BigDecimal.valueOf((long)(Math.random() * maxNumberSize));
+    BigDecimal secondNumber = BigDecimal.valueOf((long)(Math.random() * maxNumberSize));
 
-        char [] operands = {'+','-','*','/'};
-        Character operator =
+    char [] operands = {'+','-','*','/'};
+    Character operator =
             section == Section.PLUS ? operands[0] :
                 section == Section.MINUS ? operands[1] :
                     section == Section.MULTIPLICATION ? operands[2] :
                         section == Section.DIVISION ? operands[3] :
-                            operands[(int)(Math.random()*3)]; //Mixed Mode
+                            operands[(int)(Math.random() * 4)]; //Mixed Mode
 
-        if(secondNumber.equals(BigDecimal.ZERO) && operator.equals('/')) {
-            secondNumber = BigDecimal.ONE;
-        }
-
-        return new Term(firstNumber, secondNumber, operator, this.getDecimalPlace());
+    if (secondNumber.equals(BigDecimal.ZERO) && operator.equals('/')) {
+      secondNumber = BigDecimal.ONE;
     }
 
-    @Override
-    public boolean solveTerm(String userInput, Term term) throws IllegalArgumentException {
-        if(userInput.contains(",")){
-            userInput = userInput.replace(',', '.');
-        }
-        try{
-            BigDecimal number = new BigDecimal(userInput);
-            BigDecimal correctSolution = term.getSolution();
+    Term term = new Term(firstNumber, secondNumber, operator, this.getDecimalPlace());
+    currentTerm = term;
+    return term;
+  }
 
-            if(number.equals(correctSolution)){
-                return true;
-            }
-            else {
-                return false;
-            }
-        } catch(IllegalArgumentException e){
-            throw new IllegalArgumentException("Bitte eine Ganzzahl als Ergebnis eingeben!");
-        }
+  @Override
+  public Term nextTerm() {
+    logger.debug("nextTerm() call");
+    inturn++;
+    return createTerm();
+  }
+
+  @Override
+  public boolean solveTerm(String userInput, Term term) throws IllegalArgumentException {
+    logger.debug("solveTerm() call ,without timer for fast solution");
+    if (userInput.contains(",")) {
+      userInput = userInput.replace(',', '.');
     }
-
-    @Override
-    public boolean solveTerm(String userInput, Term term, int solvedInSeconds){
-        if(userInput.contains(",")){
-            userInput = userInput.replace(',', '.');
-        }
-        try{
-            BigDecimal number = new BigDecimal(userInput);
-            BigDecimal correctSolution = term.getSolution();
-
-            if(number.equals(correctSolution)){
-                this.addToUserScore(solvedInSeconds);
-                return true;
-            }
-        } catch(IllegalArgumentException e){
-            //wenn ungueltige Zeichen oder Ergebnisse eingegeben werden, werden diese mit diesem Catch Block abgefangen
-            //und solveTerm gibt als Ergebnis false zurueck
-            return false;
-        } catch(IllegalParameterException p){
-            //moegliche Exceptions von der Methode addToUserScore(solvedInSeconds) abfangen
-            return false;
-        }
-        return false;
+    try {
+      BigDecimal number = new BigDecimal(userInput);
+      BigDecimal correctSolution = term.getSolution();
+      return number.equals(correctSolution);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Bitte eine Ganzzahl als Ergebnis eingeben!");
     }
-    @Override
-    public void addToHistory(){
-        String entry = ""+this.username+"|"+this.userscore+"|"+this.difficulty+"|"+this.section+"|countdown mode";
-        history.add(entry);
+  }
+
+  @Override
+  public boolean solveTerm(String userInput, Term term, int solvedInSeconds) {
+    logger.debug("solveTerm() call, with timer for fast solution");
+    if (userInput.contains(",")) {
+      userInput = userInput.replace(',', '.');
     }
-    @Override
-    public List<String> getHistory(){
-        return history;
+    try {
+      BigDecimal number = new BigDecimal(userInput);
+      BigDecimal correctSolution = term.getSolution();
+      if (number.equals(correctSolution)) {
+        this.addToUserScore(solvedInSeconds);
+        return true;
+      }
+    } catch (IllegalArgumentException | IllegalParameterException e) {
+      //wenn ungueltige Zeichen oder Ergebnisse eingegeben werden, mit Catch Block abfangen
+      //und solveTerm gibt als Ergebnis false zurueck
+      //moegliche Exceptions von der Methode addToUserScore(solvedInSeconds) abfangen
+      return false;
     }
+    return false;
+  }
 
-    @Override
-    public BigDecimal helpUser(Term term) throws IllegalParameterException {
-        if(term != null){
-            return term.getSolution();
-        } else throw new IllegalParameterException("Es wurde kein gueltiger Term oder ein null Objekt uebergeben.");
+  @Override
+  public void addToHistory() {
+    logger.debug("addToHistory() call, add momentary MathTrainer object data to the history list");
+    String entry = "" + this.username + " | " + this.userscore
+            + " | " + this.difficulty + " | " + this.section + " | Countdown mode";
+    history.add(entry);
+  }
+
+  @Override
+  public List<String> getHistory() {
+    logger.debug("getHistory() call, retrieve the history list from the MathTrainer");
+    return history;
+  }
+
+  @Override
+  public BigDecimal helpUser(Term term) throws IllegalParameterException {
+    logger.debug("helpUser() call, return solution of the Term object");
+    if (term != null) {
+      return term.getSolution();
+    } else {
+      throw new IllegalParameterException("Kein gueltiger Term oder ein null Objekt uebergeben.");
     }
-    @Override
-    public void startGame(boolean warmup) throws IllegalParameterException { //kein user input via scanner oder anderer art nehmen, nur fixe werte verwenden
-        if(warmup) {
-            for(int i=0; i<20; i++) {
-                inturn = i;
-                Term current = this.createTerm();
-                String userinput = "10000";
-                boolean solved = solveTerm(userinput, current);
-                if(solved) {
-                    this.addToUserScore(0);
-                }
-                else {
-                    //do not add points in case of wrong answer.
-                }
-                i = exitGame(i, wantstoexit);
-            }
-            if(wantstoexit == false){
-                int storeScore = this.getUserScore();
-                this.setUserScore(1);
-                int finalScore = storeScore + userscore;
-                this.setUserScore(finalScore);
-                addToHistory();
-            }
-        }
-        else{
-            for(int i=0; i<20; i++) {
-                inturn = i;
-                Term current = this.createTerm();
-                String userinput = "10000";
-                boolean solved = solveTerm(userinput, current);
+  }
 
-                if(timeisup == false) {
-                    if(solved) {
-                        this.addToUserScore(0);
-                    }
-                    else {
-                        //do not add points in case of wrong answer.
-                    }
-                }
-
-                i = exitGame(i, wantstoexit);
-
-            }
-            if(wantstoexit == false){
-                int storeScore = this.getUserScore();
-                this.setUserScore(1);
-                int finalScore = storeScore + userscore;
-                this.setUserScore(finalScore);
-                addToHistory();
-            }
-            inturn = 0;
-        }
-    }
-
-
-    @Override
-    public int exitGame(int loopCount , boolean exit) throws IllegalParameterException{
-        if(loopCount >=0){
-            if(exit) {
-                loopCount = 20;
-                return loopCount;
-            } else {
-                return loopCount;
-            }
-        } else throw new IllegalParameterException("Der uebergebene LoopCount darf nicht negativ sein.");
-    }
-
-    public void createDemoHistoryData(){
-        history.add("Matthew|15|EASY|MULTIPLICATION|countdown mode");
-        history.add("Hammond|21|HARD|ADDITION|countdown mode");
-        history.add("Erika|18|MEDIUM|MIXED|countdown mode");
-    }
+  /**
+   * populate history list with a few entries for display in gui.
+   */
+  public void createDemoHistoryData() {
+    logger.debug("createDemoHistoryData call to add test data.");
+    history.add("Matthew | 15 | EASY | MULTIPLICATION | countdown mode");
+    history.add("Hammond | 21 | HARD | ADDITION | countdown mode");
+    history.add("Erika | 18 | MEDIUM | MIXED | countdown mode");
+  }
 }

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPaneContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hhn.it.pp.javafx.controllers.MathTrainerController">
+   <children>
+      <BorderPane fx:id="borderPaneMainMenu" prefHeight="401.0" prefWidth="601.0">
+         <center>
+            <GridPane prefHeight="166.0" prefWidth="269.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Username:" />
+                  <Label text="Decimal:" GridPane.rowIndex="1" />
+                  <Label text="Difficulty:" GridPane.rowIndex="2" />
+                  <Label text="Mode:" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="radioButtonWarmup" mnemonicParsing="false" text="Warmup Mode" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <RadioButton fx:id="radioButtonCountdown" mnemonicParsing="false" text="Countdown Mode" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="textfieldUsername" promptText="Enter your name" text="MathTrainerDemo" GridPane.columnIndex="1" />
+                  <TextField fx:id="textfieldDecimal" promptText="Specify decimal count" text="2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="choiceboxDifficulty" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="choiceboxMode" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <VBox alignment="CENTER" prefHeight="120.0" prefWidth="601.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#startGame" text="Play" />
+                  <Button mnemonicParsing="false" onAction="#showHistoryFromMainMenu" text="Check History" />
+               </children>
+            </VBox>
+         </bottom>
+         <top>
+            <Pane prefHeight="85.0" prefWidth="601.0" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="212.0" prefWidth="155.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="206.0" prefWidth="177.0" BorderPane.alignment="CENTER" />
+         </right></BorderPane>
+      <BorderPane fx:id="borderPaneQuestionRun" layoutX="22.0" layoutY="19.0" prefHeight="354.0" prefWidth="556.0" visible="false">
+         <right>
+            <GridPane prefHeight="109.0" prefWidth="201.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.99999237060547" minWidth="10.0" prefWidth="107.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="93.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Question" />
+                  <Label text="Your Points" GridPane.rowIndex="2" />
+                  <Label fx:id="labelQuestionInTurn" text="5/20" GridPane.columnIndex="1" />
+                  <Label fx:id="labelYourPoints" text="10" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </right>
+         <left>
+            <GridPane prefHeight="116.0" prefWidth="190.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Term" />
+                  <Label text="Your Solution" GridPane.rowIndex="1" />
+                  <Label text="Actual Solution" GridPane.rowIndex="2" />
+                  <TextField fx:id="textfieldTerm" editable="false" GridPane.columnIndex="1" />
+                  <TextField fx:id="textfieldYourSolution" onKeyReleased="#keyReleasedAtYourSolution" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textfieldActualSolution" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#showSolution" text="Show Solution" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </left>
+         <bottom>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="104.0" prefWidth="556.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#stopPlaying" text="Stop playing" />
+                  <Pane prefHeight="104.0" prefWidth="343.0" />
+                  <Button mnemonicParsing="false" onAction="#nextQuestion" text="Next Question" />
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <Label prefHeight="134.0" prefWidth="543.0" text="Rules (countdown mode only): Solve questions within 5 seconds to get points for your correct solution" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <Pane prefHeight="116.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+      <BorderPane fx:id="borderPaneHistory" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <top>
+            <Label prefHeight="56.0" prefWidth="125.0" text="Previous Question runs:" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <HBox prefHeight="71.0" prefWidth="465.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#exitToMenu" text="Exit to menu" />
+                  <Button fx:id="buttonPlayAgain" mnemonicParsing="false" onAction="#playAgain" text="Play again" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </bottom>
+         <center>
+            <TextArea fx:id="textareaHistory" editable="false" prefHeight="146.0" prefWidth="510.0" text="Matthew | 15 | EASY | MULTIPLICATION | Countdown Mode&#10;Hammond | 21 | MEDIUM | ADDIFICATION | Countdown Mode&#10;Erika | 18 | HARD | MIXED | Countdown Mode" BorderPane.alignment="CENTER" />
+         </center>
+         <left>
+            <Pane prefHeight="239.0" prefWidth="21.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="239.0" prefWidth="23.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
