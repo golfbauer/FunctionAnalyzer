@@ -223,6 +223,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public boolean checkWord(String word, int index) {
 
+    logger.debug("Check "+word+"at index "+index);
+
     //to prevent NullPointerException
     if (word == null) {
       logger.warn("NullPointerException in checkword.");
@@ -243,6 +245,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public void audioOutput()
       throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    logger.debug("Plays wrongWord-sound");
+
     String path = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
 
     Media sound = new Media(new File(path).toURI().toString());
@@ -254,7 +258,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
 
   @Override
   public void quitSession() {
-
+    logger.debug("Return to StartScreen");
   }
 
   /**
@@ -264,6 +268,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException {
+    logger.debug("Show Feedback");
+
     textfield_typedText.setDisable(true);
     lbl_FeedbackTime.setText("Time: " + String.valueOf(timeShort(feedback.getTime())) + "s");
     lbl_FeedbackWPM.setText("WPM: " + String.valueOf(feedback.getWordsPerMinute()));
@@ -291,6 +297,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void saveScore(Feedback score) throws IOException {
+    logger.debug("Save Score");
+
     SaveLoad save = new SaveLoad();
     save.save(selectedText, String.valueOf(timeShort(score.getTime())),
         String.valueOf(score.getWordsPerMinute()));
@@ -303,7 +311,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void loadScore() {
-
+    logger.debug("Load Score");
   }
 
   /**
@@ -311,6 +319,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void userInput() throws IOException {
+    logger.debug("Look for user input");
 
     //das vom label 1 + 2
     String[] typedWordsTxtf = splitText(textfield_typedText.getText());
@@ -379,6 +388,8 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void countdown(int seconds) throws InterruptedException { // <- Rename its not a countdown anymore
+    logger.debug("Set start/endtime");
+
     if (seconds == 11) {
       descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
       logger.debug("Set start time");
@@ -397,7 +408,9 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
   @Override
   public void markWord(int index,
                        Color color)
-      throws IOException { // <- Unnötig mit Color => stattdessen mit String? //nichts dramatisches
+      throws IOException {
+
+    logger.debug("Mark word at index "+index+"in color "+color.toString());
 
     int addIndex = 0; //Zusätzlicher Index falls hboxBuffer 3 überschreitet
     if (hboxBuffer > 3) {
@@ -440,6 +453,7 @@ public class TypingScreenController implements Initializable, TypingTrainerServi
    */
   @Override
   public void selectionOfText() {
+    logger.debug("Select a text");
   }
   //endregion
 }
