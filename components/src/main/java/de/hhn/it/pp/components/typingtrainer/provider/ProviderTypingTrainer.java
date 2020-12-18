@@ -17,6 +17,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
 
   public TypingTrainerDescriptor descriptor;
   public String data;
+  public String path = "highscores.txt";
 
   /**
    * Checks if a word is written correctly and calls
@@ -59,9 +60,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void showFeedback(Feedback feedback) throws IOException, FeedbackNotFoundException {
 
-    if(feedback == null)
+    if (feedback == null) {
       throw new FeedbackNotFoundException("feedback == null");
-
+    }
 
     logger.debug("Time: " + feedback.getTime());
     logger.debug("WPM: " + feedback.getWordsPerMinute());
@@ -73,9 +74,9 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     feedback.calculateWordsPerMinute(descriptor.getTypedWords(),
         descriptor.getPracticeText().getText());
 
-    if(feedback.getTime() < 0)
+    if (feedback.getTime() < 0) {
       throw new FeedbackNotFoundException("time is < 0");
-
+    }
     logger.debug("calculated time: " + feedback.getTime());
     logger.debug("wpm: " + feedback.getWordsPerMinute());
   }
@@ -92,7 +93,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     //     String.valueOf(score.getWordsPerMinute()));
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();
-    String filePath = classLoader.getResource("highscores.txt").getFile();
+    String filePath = classLoader.getResource(path).getFile();
     save.save(filePath);
   }
 
@@ -104,7 +105,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
     SaveLoad load = new SaveLoad();
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();
-    String filePath = classLoader.getResource("highscores.txt").getFile();
+    String filePath = classLoader.getResource(path).getFile();
     data = load.load(filePath);
 
     String[] datas = data.split(" ");

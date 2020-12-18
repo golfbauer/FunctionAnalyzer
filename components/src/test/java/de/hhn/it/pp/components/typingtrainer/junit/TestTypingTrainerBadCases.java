@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import de.hhn.it.pp.components.typingtrainer.FeedbackNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.PracticeText;
+import de.hhn.it.pp.components.typingtrainer.SaveLoad;
 import de.hhn.it.pp.components.typingtrainer.TypingTrainerDescriptor;
 import de.hhn.it.pp.components.typingtrainer.WordNotFoundException;
 import de.hhn.it.pp.components.typingtrainer.provider.ProviderTypingTrainer;
@@ -12,7 +14,9 @@ import de.hhn.it.pp.components.typingtrainer.Feedback;
 import de.hhn.it.pp.components.typingtrainer.FileReader;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import javax.sound.sampled.LineUnavailableException;
@@ -70,34 +74,56 @@ public class TestTypingTrainerBadCases {
   }
 
 //  @Test
+//  @DisplayName("Checks if saveScores throws the given exception")
+//  void wrongSaveScores(){
+//    assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
+//  }
+
+//  @Test
 //  @DisplayName("Checks how countdown handles faulty input")
 //  void wrongCountdown() throws InterruptedException {
 //    assertFalse(Objects.equals(feedback.getEndTime(), feedback.getStartTime()));
 //  }
 
-//  @Test
-//  @DisplayName("Test SaveLoad if it saves and load correctly")
-//  void wrongSaveLoad() throws IOException {
-//    SaveLoad saveLoad = new SaveLoad();
-//    assertThrows(IOException.class, () -> saveLoad.foo());
-//  }
+  @Test
+  @DisplayName("Test SaveLoad if it saves and load correctly")
+  void wrongSaveLoad() {
+    SaveLoad saveLoad = new SaveLoad();
+    assertThrows(NullPointerException.class, () -> saveLoad.save(null));
+  }
+
+  @Test
+  @DisplayName("Test SaveLoad if it saves and load correctly")
+  void wrongLoadLoad() {
+    SaveLoad saveLoad = new SaveLoad();
+    assertThrows(NullPointerException.class, () -> saveLoad.load(null));
+  }
+
+  @Test
+  @DisplayName("Checks how Feedback handles wrong Input")
+  void falseFeedback(){
+    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(null));
+  }
 
 //  @Test
 //  @DisplayName("Checks how Feedback handles wrong Input")
-//  void falseFeedback(){
-//    assertThrows(FeedbackNotFound.class, () -> typingTrainerService.showFeedback());
+//  void falseFeedbackSecond(){
+//    feedback.setTime(-1);
+//    assertThrows(FeedbackNotFoundException.class, () -> typingTrainerService.showFeedback(feedback));
 //  }
 
-//  @Test
-//  @DisplayName("Checks how SaveScore handles exceptions")
-//  void falseSaveScore(){
-//    assertThrows(IOException.class, () -> typingTrainerService.foo());
-//  }
+  @Test
+  @DisplayName("Checks how SaveScore handles exceptions")
+  void falseSaveScore(){
+    typingTrainerService.path = "failtest.txt";
+    assertThrows(NullPointerException.class, () -> typingTrainerService.saveScore(feedback));
+  }
 
-//  @Test
-//  @DisplayName("Checks how SaveScore handles exceptions")
-//  void falseAudioOutput(){
-//    assertThrows(AudioNotFound.class, () -> typingTrainerService.audioOutput());
-//  }
+  @Test
+  @DisplayName("Checks how LoadScore handles exceptions")
+  void falseLoadScore(){
+    typingTrainerService.path = "failtest.txt";
+    assertThrows(NullPointerException.class, () -> typingTrainerService.loadScore());
+  }
 
 }
