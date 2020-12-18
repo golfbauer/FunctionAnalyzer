@@ -303,14 +303,6 @@ public class TestsTypingTrainerGoodCases {
     assertEquals(expectedFileContent, fileReader.fileContent);
   }
 
-  @Test
-  @DisplayName("FileReader test 3") //mach raus wenn du fertig bist
-  void testFileReader3() throws FileNotFoundException {
-    fileReader.pathfr2 = "";
-    fileReader = new FileReader("practiceText-3.txt");
-    String expectedFileContent = "Die 3 Legende von Momotaro, dem Pfirsichjungen, kennt in Japan jedes Kind.\n";
-    assertEquals(expectedFileContent, fileReader.fileContent);
-  }
 
   //region SaveLoad
 
