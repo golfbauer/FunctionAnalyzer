@@ -70,6 +70,12 @@ public class TestTypingTrainerBadCases {
     assertThrows(ArrayIndexOutOfBoundsException.class, () -> typingTrainerService.markWord(1000, Color.red));
   }
 
+  @Test
+  @DisplayName("Checks how markWord handles faulty checkWord")
+  void wrongGreenWord(){
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> typingTrainerService.markWord(1000, Color.green));
+  }
+
 //  @Test
 //  @DisplayName("Checks if saveScores throws the given exception")
 //  void wrongSaveScores(){
