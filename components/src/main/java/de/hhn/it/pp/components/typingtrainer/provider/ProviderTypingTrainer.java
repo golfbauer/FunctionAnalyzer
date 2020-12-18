@@ -37,6 +37,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public boolean checkWord(String word, int index) {
+    logger.debug("Check "+word+"at index "+index);
+
     String wordPt = descriptor.getPracticeText().getWordAtIndex(index).trim();
     return word.equals(wordPt) ? true : false;
   }
@@ -47,6 +49,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
   @Override
   public void audioOutput()
       throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    logger.debug("Plays wrongWord-sound");
+
     String path = "javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3";
 
     logger.debug("play media from path: " + path);
@@ -57,7 +61,7 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void quitSession() {
-    logger.debug("Changed to startscreen.");
+    logger.debug("Return to StartScreen");
   }
 
   /**
@@ -67,6 +71,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void showFeedback(Feedback feedback) throws IOException, FeedbackNotFoundException {
+
+    logger.debug("Show Feedback");
 
     if (feedback == null) {
       throw new FeedbackNotFoundException("feedback == null");
@@ -93,6 +99,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void saveScore(Feedback score) throws IOException {
+    logger.debug("Save Score");
+
     SaveLoad save = new SaveLoad();
     //    save.save("selected text", String.valueOf(score.getTime()),
     //     String.valueOf(score.getWordsPerMinute()));
@@ -107,6 +115,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void loadScore() throws IOException {
+    logger.debug("Load Score");
+
     SaveLoad load = new SaveLoad();
     ClassLoader classLoader;
     classLoader = getClass().getClassLoader();
@@ -126,6 +136,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void userInput() throws IOException {
+    logger.debug("Look for user input");
+
     int currentIndex = descriptor.getPracticeText().getCurrentWordIndex();
 
     descriptor.addTypedWords("typed word", currentIndex);
@@ -147,6 +159,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void countdown(int seconds) throws InterruptedException {
+    logger.debug("Set start/endtime");
+
     if (seconds == 11) {
       descriptor.getFeedback().setStartTime(LocalTime.now().toNanoOfDay());
     } else if (seconds == 66) {
@@ -162,6 +176,8 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void markWord(int index, Color color) throws IOException {
+    logger.debug("Mark word at index "+index+"in color "+color.toString());
+
     if (color.equals(Color.GREEN)) {
       logger.debug("Mark: " + descriptor.getTypedWordsAtIndex(index) + " green");
     } else {
@@ -182,6 +198,6 @@ public class ProviderTypingTrainer implements TypingTrainerService {
    */
   @Override
   public void selectionOfText() {
-
+    logger.debug("Select a text");
   }
 }
