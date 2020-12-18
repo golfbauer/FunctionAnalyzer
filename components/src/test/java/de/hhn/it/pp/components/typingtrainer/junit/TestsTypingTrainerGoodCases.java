@@ -114,6 +114,38 @@ public class TestsTypingTrainerGoodCases {
     assertTrue(typingTrainerService.descriptor.getFeedback().getTime() < .1);
   }
 
+  @Test
+  @DisplayName("Checks if setter for TypedWords")
+  void testSetTypedWords() {
+    String[] newTypedWords = {"asd", "dar"};
+    typingTrainerService.descriptor.setTypedWords(newTypedWords);
+    assertTrue(typingTrainerService.descriptor.getTypedWords().equals(newTypedWords));
+  }
+
+  @Test
+  @DisplayName("Checks get and set for AudioWrongWord in TypingTrainerDescriptor")
+  void testSetGetAudioWrongWord() {
+    File audioFile = new File("javafx/src/main/resources/typingTrainerFiles/8BIT RETRO Beep.mp3");
+    typingTrainerService.descriptor.setAudioWrongWord(audioFile);
+    assertEquals(audioFile, typingTrainerService.descriptor.getAudioWrongWord());
+  }
+
+  @Test
+  @DisplayName("Checks setter feedback in TypingTrainerDescriptor")
+  void testSetFeedbackDescriptor()
+  {
+    feedback = new Feedback(12,31);
+    typingTrainerService.descriptor.setFeedback(feedback);
+    assertEquals(feedback, typingTrainerService.descriptor.getFeedback());
+  }
+
+  @Test
+  @DisplayName("Checks setter practiceText in TypingTrainerDescriptor")
+  void testSetPracticeTextDescriptor(){
+    typingTrainerService.descriptor.setPracticeText(practiceText);
+    assertEquals(practiceText, typingTrainerService.descriptor.getPracticeText());
+  }
+
   //endregion
   //region Feedback
 
