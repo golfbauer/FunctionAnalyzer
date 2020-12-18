@@ -31,34 +31,24 @@ public class SaveLoad {
    * @throws IOException IOException
    */
   public void save(String sessionText, String time, String wpm)
-      throws IOException,
-      FileNotFoundException { //   "components/src/main/resources/highscores.txt"
+      throws IOException { //   "components/src/main/resources/highscores.txt"
 
     FileWriter fw = null;
     BufferedWriter bw = null;
     PrintWriter pw = null;
 
-    try {
-      fw = new FileWriter(path, true);
-      bw = new BufferedWriter(fw);
-      pw = new PrintWriter(bw);
+    fw = new FileWriter(path, true);
+    bw = new BufferedWriter(fw);
+    pw = new PrintWriter(bw);
 
-      pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
+    pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
 
-      System.out.println("Data Successfully appended into file");
+    System.out.println("Data Successfully appended into file");
 
-      pw.flush();
-    } catch (FileNotFoundException fe) {
-    } catch (IOException io) {
-    } finally {
-      try {
-        pw.close();
-        bw.close();
-        fw.close();
-      } catch (FileNotFoundException fe) {
-      } catch (IOException io) { // can't do anything
-      }
-    }
+    pw.flush();
+    pw.close();
+    bw.close();
+    fw.close();
 
   }
 
@@ -68,38 +58,24 @@ public class SaveLoad {
    * @param path path where highscore is
    * @throws IOException Exception
    */
-  public void save(String path) throws IOException, FileNotFoundException { //JUnit
-
+  public void save(String path) throws IOException { //JUnit
     FileWriter fw = null;
     BufferedWriter bw = null;
     PrintWriter pw = null;
 
-    try {
-      fw = new FileWriter(path, true);
-      bw = new BufferedWriter(fw);
-      pw = new PrintWriter(bw);
+    fw = new FileWriter(path, true);
+    bw = new BufferedWriter(fw);
+    pw = new PrintWriter(bw);
 
-      String sessionText = "selectedtext";
-      String time = "1.54";
-      String wpm = "2";
+    String sessionText = "selectedtext";
+    String time = "1.54";
+    String wpm = "2";
 
-      pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
+    pw.print(sessionText + " " + time + " " + wpm + " "); //Schreibt in highscores.txt
 
-      System.out.println("Data Successfully appended into file");
+    System.out.println("Data Successfully appended into file");
 
-      pw.flush();
-    } catch (FileNotFoundException fe) {
-
-    } catch (IOException io) {
-
-    } finally {
-      //      try {
-      //        pw.close();
-      //        bw.close();
-      //        fw.close();
-      //      } catch (IOException io) {// can't do anything }
-      //      }
-    }
+    pw.flush();
 
   }
 
@@ -108,16 +84,11 @@ public class SaveLoad {
    *
    * @return content of highscores.txt
    */
-  public String load() throws FileNotFoundException, IOException {
+  public String load() throws IOException {
     String filePath = loadPath;
     String content = "empty";
 
-    try {
-      content = new String(Files.readAllBytes(Paths.get(filePath)));
-    } catch (FileNotFoundException fe) {
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    content = new String(Files.readAllBytes(Paths.get(filePath)));
 
     return content;
   }
@@ -128,17 +99,11 @@ public class SaveLoad {
    * @param path path of highscores.txt
    * @return content of highscores
    */
-  public String load(String path) throws FileNotFoundException, IOException { //JUnit
+  public String load(String path) throws IOException { //JUnit
     String filePath = path;
     String content = "empty";
 
-    try {
-      content = new String(Files.readAllBytes(Paths.get(filePath)));
-    } catch (FileNotFoundException e) {
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    content = new String(Files.readAllBytes(Paths.get(filePath)));
 
     return content;
   }
