@@ -1,8 +1,8 @@
 package de.hhn.it.pp.components.typingtrainer;
 
+import de.hhn.it.pp.components.typingtrainer.junit.TestTypingTrainerBadCases;
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -16,12 +16,17 @@ import java.util.concurrent.TimeUnit;
 
 public class DemoTypingTrainerUsage {
 
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(DemoTypingTrainerUsage.class);
+
   private static TypingTrainerDescriptor descriptor;
 
-  public static void main(String[] args) throws IOException, InterruptedException {
+  public static void main(String[] args) throws IOException, InterruptedException,
+      FeedbackNotFoundException {
     TypingTrainerService service = new TypingTrainerService() {
       @Override
       public boolean checkWord(String word, int index) {
+        logger.debug("Check "+word+"at index "+index);
         String ptWord = descriptor.getPracticeText().getWordAtIndex(index); //Word from practiceText
         boolean isCorrect = word.equals(ptWord) ? true : false;
 
@@ -32,16 +37,19 @@ public class DemoTypingTrainerUsage {
 
       @Override
       public void audioOutput() {
+        logger.debug("Plays wrongWord-sound");
         System.out.println("NI: play sound");
       }
 
       @Override
       public void quitSession() {
-        System.out.println("NI: return to startscreen");
+        logger.debug("Return to StartScreen");
       }
 
       @Override
       public void showFeedback(Feedback feedback) {
+        logger.debug("Show Feedback");
+
         System.out.println("~~~ Score ~~~");
         System.out.println("Time: "+feedback.getTime());
         System.out.println("WPM:  "+feedback.getWordsPerMinute());
@@ -49,16 +57,18 @@ public class DemoTypingTrainerUsage {
 
       @Override
       public void saveScore(Feedback score) {
-        System.out.println("NI: score saved");
+        logger.debug("Save Score");
       }
 
       @Override
       public void loadScore() {
-        System.out.println("NI: score loaded");
+        logger.debug("Load Score");
       }
 
       @Override
       public void userInput() {
+        logger.debug("Look for user input");
+
         Scanner scan = new Scanner(System.in);
         descriptor.addTypedWords(scan.nextLine(), 0);
 
@@ -66,6 +76,8 @@ public class DemoTypingTrainerUsage {
 
       @Override
       public void countdown(int seconds) throws InterruptedException {
+        logger.debug("Start Countdown");
+
         for (int i = seconds; i > -1; i--) {
           if (i != 0) {
             System.out.println("__" + i + "__");
@@ -79,12 +91,12 @@ public class DemoTypingTrainerUsage {
 
       @Override
       public void markWord(int index, Color color) {
-        //Marks word at index with color in GUI displayed text.
+        logger.debug("Mark word at index "+index+"in color "+color.toString());
       }
 
       @Override
       public void selectionOfText() {
-
+        logger.debug("Select a text");
       }
     };
 
