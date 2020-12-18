@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer.Provider;
+package de.hhn.it.pp.components.spellingtrainer.provider;
 
 import java.util.ArrayList;
 

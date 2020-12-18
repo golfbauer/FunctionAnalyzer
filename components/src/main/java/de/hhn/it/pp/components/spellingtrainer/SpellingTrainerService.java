@@ -1,18 +1,14 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.provider.LearningSet;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaPresentationListener;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * The SpellingTrainerInterface shows the basic functionalities of the Spellingtrainer.

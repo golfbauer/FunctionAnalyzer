@@ -1,7 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
-import java.io.File;
+import de.hhn.it.pp.components.spellingtrainer.provider.SgdsSpellingTrainerService;
 
 public class DemoSpellingTrainerUsage {
   private static final org.slf4j.Logger logger =

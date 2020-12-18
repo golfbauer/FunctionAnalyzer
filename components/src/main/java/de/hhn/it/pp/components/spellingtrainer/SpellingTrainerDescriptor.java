@@ -1,6 +1,6 @@
 package de.hhn.it.pp.components.spellingtrainer;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
+import de.hhn.it.pp.components.spellingtrainer.provider.LearningSet;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import java.util.ArrayList;
 

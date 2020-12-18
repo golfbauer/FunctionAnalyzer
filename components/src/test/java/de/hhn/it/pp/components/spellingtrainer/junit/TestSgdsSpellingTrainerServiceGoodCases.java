@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
-import de.hhn.it.pp.components.spellingtrainer.Provider.LearningSet;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
-import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
+import de.hhn.it.pp.components.spellingtrainer.provider.LearningEntry;
+import de.hhn.it.pp.components.spellingtrainer.provider.LearningSet;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaPresentationListener;
+import de.hhn.it.pp.components.spellingtrainer.provider.MediaReference;
+import de.hhn.it.pp.components.spellingtrainer.provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;

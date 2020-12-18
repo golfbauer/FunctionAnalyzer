@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer.Provider;
+package de.hhn.it.pp.components.spellingtrainer.provider;
 
 /**
  * Class MediaPresentationListener contains methods to react to triggered events from the user.

@@ -1,6 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer.Provider;
-
-import java.io.File;
+package de.hhn.it.pp.components.spellingtrainer.provider;
 
 /**
  * Class MediaReference contains an constructor which references an media file.

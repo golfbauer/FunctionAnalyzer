@@ -1,4 +1,4 @@
-package de.hhn.it.pp.components.spellingtrainer.Provider;
+package de.hhn.it.pp.components.spellingtrainer.provider;
 
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerDescriptor;
 import de.hhn.it.pp.components.spellingtrainer.SpellingTrainerService;

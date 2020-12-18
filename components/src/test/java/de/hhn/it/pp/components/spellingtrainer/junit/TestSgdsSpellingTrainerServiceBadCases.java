@@ -3,15 +3,12 @@ package de.hhn.it.pp.components.spellingtrainer.junit;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
-import de.hhn.it.pp.components.spellingtrainer.Provider.SgdsSpellingTrainerService;
+import de.hhn.it.pp.components.spellingtrainer.provider.SgdsSpellingTrainerService;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetCouldNotBeFoundException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.LearningSetNameAlreadyAssignedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordAlreadyAddedException;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.WordNotFoundException;
-import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
