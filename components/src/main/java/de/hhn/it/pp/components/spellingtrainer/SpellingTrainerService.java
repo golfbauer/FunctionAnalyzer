@@ -50,7 +50,6 @@ public interface SpellingTrainerService {
    * Method to create a new learning set.
    *
    * @param learningSetName name of the learning set
-   * @return new learning set
    */
   void createLearningSet(String learningSetName)
       throws LearningSetNameAlreadyAssignedException, LearningSetCouldNotBeFoundException;

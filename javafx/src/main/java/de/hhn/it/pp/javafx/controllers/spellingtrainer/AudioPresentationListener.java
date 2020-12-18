@@ -11,9 +11,10 @@ public class AudioPresentationListener implements MediaPresentationListener {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(AudioPresentationListener.class);
 
-  public AudioPresentationListener(){
+  public AudioPresentationListener() {
     super();
   }
+
   /**
    * Method to present a media file.
    *

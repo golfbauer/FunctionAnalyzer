@@ -4,9 +4,7 @@ import static de.hhn.it.pp.javafx.controllers.spellingtrainer.SpellingTrainerSer
 
 import de.hhn.it.pp.components.spellingtrainer.Provider.LearningEntry;
 import de.hhn.it.pp.components.spellingtrainer.Provider.MediaPresentationListener;
-import de.hhn.it.pp.components.spellingtrainer.Provider.MediaReference;
 import de.hhn.it.pp.components.spellingtrainer.exceptions.NoWordException;
-import de.hhn.it.pp.javafx.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,8 +22,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.sound.sampled.LineUnavailableException;
@@ -51,17 +47,31 @@ public class LearningPageController implements Initializable {
   public StackPane scenePane;
   private int tries;
 
+  /**
+   * Method to handle the button click on play again.
+   *
+   * @throws UnsupportedAudioFileException is thrown, if the audio file type is not supported
+   * @throws IOException                   is thrown, when there is a problem with I/O
+   * @throws LineUnavailableException      is thrown, if the line is unavailable
+   */
   public void handlePlayAgainButtonClick()
       throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
+    MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
 
-    ArrayList<LearningEntry> entries= service.getDescriptor().getActiveLearningSet().getLearningEntries();
+    ArrayList<LearningEntry> entries =
+        service.getDescriptor().getActiveLearningSet().getLearningEntries();
     LearningEntry entry = entries.get(service.getDescriptor().getCurrentWordIndex());
     mpl.present(entry.getMediaReference());
   }
 
+  /**
+   * Method to handle the event triggered by pressing the ENTER key.
+   *
+   * @param event event that ocures when pressing a key (here the ENTER key)
+   * @throws NoWordException is thrown if there is no word
+   */
   public void handlePressingEnterInTextField(KeyEvent event) throws NoWordException {
-    if(event.getCode().equals(KeyCode.ENTER)){
+    if (event.getCode().equals(KeyCode.ENTER)) {
       handleCheckSpellingButtonClick();
     }
   }
@@ -99,7 +109,7 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
   }
 
   /**
-   * Method to handle the even triggered by clicking on the 'End learning' button
+   * Method to handle the even triggered by clicking on the 'End learning' button.
    *
    * @param event triggered by clicking on the 'End learning' button
    * @throws IOException is thrown, when the referenced .fxml file does not exist
@@ -111,7 +121,7 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
   }
 
   /**
-   * Method to handle the event triggered by clicking on the 'Show answer' button
+   * Method to handle the event triggered by clicking on the 'Show answer' button.
    *
    * @param event event triggered by clicking on the 'Show answer' button
    * @throws IOException     is thrown, when the referenced .fxml file does not exist
@@ -134,12 +144,13 @@ MediaPresentationListener mpl = service.getMediaPresentationListeners().get(0);
       remainingWordsLabel
           .setText("Remaining words: " + service.getDescriptor().getCounter("remaining"));
       service.getDescriptor().updateCounter("wrong", 1);
-      wrongWordsLabel.setText("Words spelled wrong: " + service.getDescriptor().getCounter("wrong"));
+      wrongWordsLabel
+          .setText("Words spelled wrong: " + service.getDescriptor().getCounter("wrong"));
     }
   }
 
   /**
-   * Method to handle the event triggered by clicking on the 'Continue' button
+   * Method to handle the event triggered by clicking on the 'Continue' button.
    *
    * @param event event triggered by clicking on the 'Continue' button
    * @throws IOException     is thrown, when the referenced .fxml file does not exist

@@ -32,7 +32,7 @@ public class SpellingTrainerServiceController {
    * @throws LearningSetCouldNotBeFoundException     is thrown, when the learning set could not be found
    * @throws WordAlreadyAddedException               is thrown, when the word is already added in the learning set
    */
-  public void handleStartButtonClick() throws IOException{
+  public void handleStartButtonClick() throws IOException {
     setScenePane("spellingtrainer/ChooseLearningSet");
   }
 

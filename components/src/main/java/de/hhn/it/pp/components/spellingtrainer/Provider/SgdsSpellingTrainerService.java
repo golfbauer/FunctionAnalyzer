@@ -126,7 +126,6 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
    * Method to create a new learning set.
    *
    * @param learningSetName name of the learning set
-   * @return new learning set
    */
   @Override
   public void createLearningSet(String learningSetName)
@@ -233,8 +232,8 @@ public class SgdsSpellingTrainerService implements SpellingTrainerService {
   public boolean hasNextWord() {
     logger.info(
         "The activelearningset has a next word and the currentwordindex has been incremented");
-    if (descriptor.getCurrentWordIndex() + 1 <
-        descriptor.getActiveLearningSet().getLearningEntries().size()) {
+    if (descriptor.getCurrentWordIndex() + 1
+        < descriptor.getActiveLearningSet().getLearningEntries().size()) {
       descriptor
           .setCurrentWordIndex(descriptor.getCurrentWordIndex() + 1);
 

@@ -62,7 +62,7 @@ public class ChooseLearningSetController implements Initializable {
   }
 
   /**
-   * Method to handle the event triggered by clicking on the 'Homescreen' button
+   * Method to handle the event triggered by clicking on the 'Homescreen' button.
    *
    * @param event triggered by clicking on the 'Homescreen' button
    * @throws IOException is thrown, when the referenced .fxml file does not exist
